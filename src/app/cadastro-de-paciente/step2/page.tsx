@@ -7,7 +7,8 @@
 
 
 
-// const PatientRegistration2: React.FC = () => {
+const PatientRegistration2: React.FC = () => {
+    return <></>};
 //   const [name, setName] = useState<string>('');
 //   const [birthDate, setBirthDate] = useState<string>('');
 //   const [errors, setErrors] = useState<{ name?: string; birthDate?: string }>({});
@@ -88,4 +89,4 @@
 //   );
 // };
 
-// export default PatientRegistration2;
+export default PatientRegistration2;
