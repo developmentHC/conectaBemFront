@@ -5,6 +5,6 @@ export const SessionProviderAuth = ({
 }: {
   children: React.ReactNode;
 }) => {
-  <>{children}</>;
+  return <>{children}</>;
   // return <SessionProvider>{children}</SessionProvider>;
 };
