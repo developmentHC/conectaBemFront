@@ -1,13 +1,14 @@
 "use client";
 
+// import { useEmailStore } from "@/stores/emailStore";
 import { Button } from "@mui/material";
-import { signIn, /*useSession*/} from "next-auth/react";
+import {  signIn } from "next-auth/react";
 import Image from "next/image";
+// import { useEffect } from "react";
 
 export const GoogleLogin = () => {
-  // const { data: session } = useSession();
-
-  // console.log(session?.sessionToken);
+  // const { setEmail, email } = useEmailStore();
+  // console.log(email);
 
   return (
     <Button
@@ -22,7 +23,9 @@ export const GoogleLogin = () => {
           height={20}
         />
       }
-      onClick={() => signIn("google")}
+      onClick={() => signIn("google", {
+        redirectTo: "http://localhost:3000/auth/confirm-code",
+      })}
     >
       Entrar com o Google
     </Button>

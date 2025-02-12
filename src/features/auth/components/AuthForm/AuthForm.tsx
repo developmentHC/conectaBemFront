@@ -5,12 +5,14 @@ import TextField from "@mui/material/TextField";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { useCredentialLogin } from "../hooks/useCredentialLogin";
+import { useCredentialLogin } from "../../hooks/useCredentialLogin";
+// import { signOut, useSession } from "next-auth/react";
+// import { useEffect } from "react";
 
 type Data = z.infer<typeof schema>;
 
 const schema = z.object({
-  email: z.string().email("Tem que ser um e-mail válido"),
+  email: z.string().email("Ops! Verifique as informações e tente novamente"),
 });
 
 export const AuthForm = () => {
