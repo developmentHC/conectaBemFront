@@ -1,4 +1,4 @@
-import { IJwt } from '@/types/auth';
+import { IUserAuth as IJwt } from '@/types/auth';
 import Cookies from 'js-cookie';
 import { jwtDecode } from 'jwt-decode';
 import { create } from 'zustand';

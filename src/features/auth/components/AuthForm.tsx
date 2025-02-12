@@ -24,7 +24,7 @@ export const AuthForm = () => {
     resolver: zodResolver(schema),
   });
 
-  const onSubmit = handleSubmit(async (data) => {
+  const onSubmit = handleSubmit(async (data:any) => {
     login({
       data: data,
     });

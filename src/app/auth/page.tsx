@@ -1,6 +1,6 @@
 import { WelcomeSectionHeader } from '@/components/WelcomeSectionHeader';
-import { AuthForm } from '@/features/auth/components/AuthForm/AuthForm';
-import { SocialNetwork } from '@/features/auth/components/SocialNetwork/SocialNetwork';
+import { AuthForm } from '@/features/auth/components/AuthForm';
+import { SocialNetwork } from '@/features/auth/components/SocialNetwork';
 import { Divider } from '@mui/material';
 
 export default function register() {

@@ -1,13 +1,13 @@
 "use client";
 
 import { Button } from "@mui/material";
-import { signIn, useSession } from "next-auth/react";
+import { signIn, /*useSession*/} from "next-auth/react";
 import Image from "next/image";
 
 export const GoogleLogin = () => {
-  const { data: session } = useSession();
+  // const { data: session } = useSession();
 
-  console.log(session?.sessionToken);
+  // console.log(session?.sessionToken);
 
   return (
     <Button
