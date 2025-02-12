@@ -6,6 +6,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [Facebook, Google],
   callbacks: {
     async jwt({ token, account }: { token: any; account: any }) {
+      
       if (account) {
         token.id_token = account.id_token;
       }

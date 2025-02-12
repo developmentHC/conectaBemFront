@@ -28,6 +28,8 @@ const PatientRegistration1: React.FC = () => {
     }
   };
 
+  console.log("name", name);
+
   return (
     <div className="flex justify-center min-h-screen bg-gray-50 py-10">
       
