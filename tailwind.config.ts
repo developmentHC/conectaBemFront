@@ -3,7 +3,7 @@
 module.exports = {
   content: [
     "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
+    "./src/**/*.{js,ts,jsx,tsx,html}",
     "./.storybook/**/*.{js,jsx,ts,tsx,mdx}",
   ],
   theme: {
@@ -14,6 +14,12 @@ module.exports = {
         "input-code-border": "#253E99",
         inputCodeText: "#9790A2",
       },
+      width: {
+        '452':'452px'
+      },
+      height: {
+        '692':'692px'
+      }
     },
   },
   plugins: [],
