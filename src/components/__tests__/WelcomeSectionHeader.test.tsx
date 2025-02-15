@@ -15,6 +15,7 @@ describe("WelcomeSectionHeader", () => {
     const title = await screen.findByTestId("title");
     const description = await screen.findByTestId("description");
     const progress = container.querySelector(".MuiLinearProgress-bar");
+    expect(title).toBeInTheDocument();
 
     expect(title.innerHTML).toBe("Teste com batata frita");
     expect(description.innerHTML).toBe("Descrição com teste");
