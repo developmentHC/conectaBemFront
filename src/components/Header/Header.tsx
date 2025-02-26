@@ -6,9 +6,10 @@ import Link from "next/link";
 import { useState } from "react";
 import { GrSearch } from "react-icons/gr";
 import { IoIosArrowDown, IoMdMenu } from "react-icons/io";
-import { menuData } from "../utils/menuData";
-import { DropdownMenu } from "@/components/DropdownMenu/DropdownMenu";
+import { menuData } from "../../utils/menuData";
+import { DropdownMenu } from "../DropdownMenu/DropdownMenu";
 import { useUserPatient } from "@/features/home/hooks/useUserPatient";
+import { useProfissionalRegisterStore } from "@/features/auth/components/ProfissionalRegister/useProfissionalRegisterStore";
 
 export const Header = () => {
   const [menuAnchor, setmenuAnchor] = useState<{
@@ -16,6 +17,8 @@ export const Header = () => {
     element: HTMLElement | null;
   }>({ id: null, element: null });
   const [profileAnchor, setProfileAnchor] = useState(false);
+
+  const { step } = useProfissionalRegisterStore();
 
   const { data: patient } = useUserPatient();
 
@@ -65,7 +68,7 @@ export const Header = () => {
         <div className="hidden lg:flex border border-blue-600 h-9 w-9 rounded-full items-center justify-center">
           <GrSearch className="text-black" />
         </div>
-        {patient && (
+        {patient && !step && (
           <>
             <Avatar
               id="profile"
@@ -88,7 +91,7 @@ export const Header = () => {
             </DropdownMenu>
           </>
         )}
-        {!patient && (
+        {!patient && !step && (
           <Link href="/auth">
             <Button variant="contained" className="text-white">
               Entrar

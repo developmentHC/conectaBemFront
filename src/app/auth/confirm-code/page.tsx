@@ -1,35 +1,13 @@
 "use client";
 
 import { WelcomeSectionHeader } from "@/components/WelcomeSectionHeader";
-import { CodeForm } from "@/features/auth/components/CodeForm";
-import { useCredentialLogin } from "@/features/auth/hooks/useCredentialLogin";
+import { CodeForm } from "@/features/auth/components/CodeForm/CodeForm";
 import { useEmailStore } from "@/stores/emailStore";
 import { Divider } from "@mui/material";
-import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
 import { FaRegQuestionCircle } from "react-icons/fa";
 
 export default function ConfirmCode() {
-  const { email, setEmail } = useEmailStore();
-  const { mutate: login } = useCredentialLogin();
-  const session = useSession();
-  const [hasSubmitted, setHasSubmitted] = useState(false);
-
-  useEffect(() => {
-    if (session.data?.user?.email && !hasSubmitted) {
-      login({
-        data: {
-          email: session.data.user.email,
-        },
-      });
-    }
-
-    if (session.data?.user?.email) {
-      setEmail(session.data.user.email);
-    }
-
-    setHasSubmitted(true);
-  }, [session, login, hasSubmitted]);
+  const { email } = useEmailStore();
 
   return (
     <main className="flex justify-center">

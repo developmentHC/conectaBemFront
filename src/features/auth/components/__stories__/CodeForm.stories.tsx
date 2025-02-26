@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from "@storybook/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { CodeInput } from "@/components/CodeInput";
+import { CodeInput } from "@/components/CodeInput/CodeInput";
 import { CodeForm } from "../CodeForm";
 
 const queryClient = new QueryClient();

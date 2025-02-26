@@ -2,15 +2,15 @@
 
 import { useState } from "react";
 import { Button, CircularProgress } from "@mui/material";
-import { useEmailStore } from "@/stores/emailStore";
-import { CodeInput } from "@/components/CodeInput";
-import { useCredentialLogin } from "../hooks/useCredentialLogin";
-import { useSendCodeEmail } from "../hooks/useSendCodeEmail";
+import { CodeInput } from "@/components/CodeInput/CodeInput";
+import { useCredentialLogin } from "../../hooks/useCredentialLogin";
+import { useAuthStore } from "../../stores/useAuthStore";
+import { useConfirmOTP } from "../../hooks/useConfirmOTP";
 
 export const CodeForm = () => {
   const { mutate: resendCode } = useCredentialLogin();
-  const { mutate: sendEmailCode, error, isPending } = useSendCodeEmail();
-  const { email } = useEmailStore();
+  const { mutate: sendEmailCode, error, isPending } = useConfirmOTP();
+  const { email } = useAuthStore();
   const [code, setCode] = useState<(string | null)[]>([null, null, null, null]);
 
   const onSubmit = (data: (string | null)[]) => {
@@ -19,10 +19,10 @@ export const CodeForm = () => {
     sendEmailCode({ code });
   };
 
-  const sendCode = (email: any) => {
-    resendCode({
-      data: { email },
-    });
+  const sendCode = () => {
+    console.log(email);
+
+    resendCode({ email });
   };
 
   return (
@@ -34,10 +34,7 @@ export const CodeForm = () => {
             onChange={setCode}
             onFirstComplete={onSubmit}
           />
-          <span
-            onClick={() => sendCode(email)}
-            className="text-blue-600 cursor-pointer"
-          >
+          <span onClick={sendCode} className="text-blue-600 cursor-pointer">
             Reenviar código
           </span>
         </div>
@@ -53,7 +50,8 @@ export const CodeForm = () => {
         <div className="flex flex-col gap-4">
           {error && (
             <span className="text-red-600">
-              Código incorreto! Preencha corretamente ou reenvie o código e tente novamente.
+              Código incorreto! Preencha corretamente ou reenvie o código e
+              tente novamente.
             </span>
           )}
           <Button

@@ -1,16 +1,16 @@
 import { api } from "@/libs/api";
-import { useEmailStore } from "@/stores/emailStore";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import { useAuthStore } from "../stores/useAuthStore";
 
 export const useCredentialLogin = () => {
   const router = useRouter();
-  const { setEmail } = useEmailStore();
+  const { setEmail } = useAuthStore();
 
   return useMutation({
-    mutationFn: async ({ data }: Args) => {
-      const response = await api.post("/auth/sendOTP", data);
+    mutationFn: async (email: any) => {
+      const response = await api.post("/auth/sendOTP", email);
 
       return response.data;
     },
@@ -19,7 +19,7 @@ export const useCredentialLogin = () => {
 
       toast.success("Código enviado com sucesso!");
 
-      router.push(`/auth/confirm-code`);
+      router.push(`/auth/confirmar-codigo`);
     },
     onError: (error) => {
       console.error("Erro ao enviar o OTP:", error);
@@ -27,18 +27,8 @@ export const useCredentialLogin = () => {
   });
 };
 
-type Data = {
-  email: string;
-};
-
 type ResponseData = {
   email: {
     adress: string;
   };
-};
-
-type Args = {
-  data: Data;
-  onSuccess?: () => void;
-  onError?: () => void;
 };
