@@ -45,11 +45,9 @@ const defaultsStates: States = {
   step: "personal_data",
 }
 
-const useProfissionalRegisterStore = create<ProfissionalRegisterProps>((set) => ({
+export const useProfissionalRegisterStore = create<ProfissionalRegisterProps>((set) => ({
   ...defaultsStates,
   changeStep: (step: Step) => set({ step }),
   updateFields: (fields) => set(fields),
   reset: () => set(defaultsStates),
 }));
-
-export default useProfissionalRegisterStore;
