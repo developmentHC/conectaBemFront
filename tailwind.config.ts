@@ -13,6 +13,8 @@ module.exports = {
         button: "#D7FF7B",
         "input-code-border": "#253E99",
         inputCodeText: "#9790A2",
+        "secondary": "#1D1B20",
+        "blue-secondary": "#3858F4",
       },
     },
   },
