@@ -26,7 +26,7 @@ export default function HomePage() {
               <Image
                 className="w-full max-w-[1300px] h-full max-h-[268px] rounded-xl"
                 alt="logo"
-                src="/images/header.png"
+                src="/headerHome.png"
                 width={500}
                 height={250}
               />

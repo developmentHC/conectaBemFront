@@ -31,22 +31,25 @@ export const Header = () => {
     <header className="flex text-blue-600 lg:bg-white w-full px-10 lg:py-6 pt-6 items-center justify-between gap-8">
       <IoMdMenu className="text-4xl cursor-pointer lg:hidden" />
 
-      <Image src="/images/logo.svg" alt="logo" width={80} height={80} />
+      <Link href="/">
+        <Image src="/images/logo.svg" alt="logo" width={80} height={80} />
+      </Link>
 
       <ul className="hidden lg:flex w-full justify-end gap-8 text-secondary">
         {menuData.map((item) => (
-          <li key={item.id} className="flex items-center gap-2 cursor-pointer">
-            <span
+          <li key={item.id}>
+            <div
               id={`menu-${item.id}`}
               onClick={(e) => handleOpen(e, item.id)}
+              className="flex items-center gap-2 cursor-pointer"
               aria-controls={
                 menuAnchor.id === item.id ? `menu-items-${item.id}` : undefined
               }
               aria-haspopup="true"
             >
-              {item.name}
-            </span>
-            <IoIosArrowDown />
+              <span>{item.name}</span>
+              <IoIosArrowDown />
+            </div>
             <DropdownMenu
               anchorEl={menuAnchor.id === item.id ? menuAnchor.element : null}
               id={item.id}
@@ -63,7 +66,7 @@ export const Header = () => {
 
       <div className="flex gap-4 items-center">
         <div className="hidden lg:flex border border-blue-600 h-9 w-9 rounded-full items-center justify-center">
-          <GrSearch className="text-black" />
+          <GrSearch className="text-black cursor-pointer" />
         </div>
         {patient && (
           <>

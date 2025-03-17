@@ -47,7 +47,11 @@ export const ProfessionalCard = ({
                 {professional.name}
               </p>
               <div className="flex gap-1 items-center">
-                <span className="font-semibold">{professional.rating}</span>
+                <span className="font-semibold">
+                  {Number.isInteger(professional.rating)
+                    ? `${professional.rating}.0`
+                    : professional.rating}
+                </span>
                 <MdStarRate className="text-yellow-400" />
 
                 <span className="text-sm text-gray-600">
@@ -59,15 +63,15 @@ export const ProfessionalCard = ({
               {professional.specialization}
             </span>
             <span className="text-gray-600 text-sm">
-              R$ {professional.price} | {professional.distance} Km
+              {professional.price} | {professional.distance} Km
             </span>
           </div>
           <div className="min-h-[70px] max-h-[70px]">
-            <div className="flex gap-3 flex-wrap justify-between">
+            <div className="flex gap-3 flex-wrap">
               {professional.preferablyServices.slice(0, 3).map((service) => (
                 <div
                   key={service.id}
-                  className="border border-blue-600 p-1 rounded-full text-sm"
+                  className="border border-blue-600 px-2 py-1 rounded-full text-xs"
                 >
                   {service.name}
                 </div>
