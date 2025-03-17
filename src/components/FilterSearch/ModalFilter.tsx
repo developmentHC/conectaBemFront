@@ -91,6 +91,7 @@ export const ModalFilter = ({ open, onClose }: ModalFilterProps) => {
           />
           <Button
             type="submit"
+            variant="contained"
             className="text-button bg-blue-700 font-semibold"
           >
             Filtrar
