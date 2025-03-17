@@ -19,6 +19,7 @@
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@hookform/resolvers": "^3.9.1",
+    "@mui/lab": "^6.0.0-beta.31",
     "@mui/material": "^6.2.0",
     "@mui/x-date-pickers": "^7.27.1",
     "@react-oauth/google": "^0.12.1",

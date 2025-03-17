@@ -116,6 +116,9 @@ export const SpecialtyStep = () => {
           multiline
           rows={3}
         />
+        <Button className="text-button" variant="contained">
+          Enviar sugestão
+        </Button>
       </div>
       <div className="flex flex-col gap-6">
         <div className="flex flex-col gap-2">

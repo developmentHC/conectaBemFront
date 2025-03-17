@@ -22,10 +22,10 @@ export const CEPField = forwardRef(({
 
   return (
     <TextField 
-      label="CEP"
       defaultValue={!defaultValue ? undefined : formatCEP(defaultValue as string)}
       inputRef={ref}
       onChange={handleChange}
+      placeholder="XXXXX-XXX"
       {...props}
     />
   )

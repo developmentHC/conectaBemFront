@@ -28,7 +28,6 @@ export const CpfCnpjField = forwardRef(
 
     return (
       <TextField
-        label="CNPJ ou CPF do profissional"
         placeholder="XX.XXX.XXX/0001-XX"
         defaultValue={
           !defaultValue ? undefined : formatCpfCnpj(defaultValue as string)

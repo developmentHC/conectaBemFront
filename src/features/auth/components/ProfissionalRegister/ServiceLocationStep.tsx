@@ -67,65 +67,94 @@ export const ServiceLocationStep = () => {
 
   return (
     <form onSubmit={onSubmit} className="flex flex-col gap-4">
-      <TextField
-        {...register("clinicName")}
-        label="Nome da Clínica"
-        placeholder="Nome Fantasia"
-        helperText={errors.clinicName?.message}
-        error={!!errors.clinicName}
-        required
-      />
-      <CpfCnpjField
-        {...register("cpfCNPJ")}
-        helperText={errors.cpfCNPJ?.message}
-        error={!!errors.cpfCNPJ}
-      />
-      <CEPField
-        {...register("cep")}
-        helperText={errors.cep?.message}
-        error={!!errors.cep}
-      />
-      <TextField
-        {...register("address")}
-        label="Logradouro da Clínica"
-        helperText={errors.address?.message}
-        error={!!errors.address}
-        slotProps={{
-          inputLabel: {
-            shrink: true,
-          },
-        }}
-        disabled
-      />
-      <div className="flex gap-4">
+      <div className="flex flex-col gap-2">
+        <label>
+          Nome da Clínica <span className="text-red-600">*</span>
+        </label>
         <TextField
-          className="w-full"
-          {...register("neighborhood")}
-          label="Bairro da Clínica"
-          helperText={errors.neighborhood?.message}
-          error={!!errors.neighborhood}
+          {...register("clinicName")}
+          placeholder="Nome Fantasia"
+          helperText={errors.clinicName?.message}
+          error={!!errors.clinicName}
+          required
+        />
+      </div>
+      <div className="flex flex-col gap-2">
+        <label>
+          CNPJ OU CPF do Profissional <span className="text-red-600">*</span>
+        </label>
+        <CpfCnpjField
+          {...register("cpfCNPJ")}
+          helperText={errors.cpfCNPJ?.message}
+          error={!!errors.cpfCNPJ}
+        />
+      </div>
+      <div className="flex flex-col gap-2">
+        <label>
+          CEP Local de Atendimento <span className="text-red-600">*</span>
+        </label>
+        <CEPField
+          {...register("cep")}
+          helperText={errors.cep?.message}
+          error={!!errors.cep}
+        />
+      </div>
+      <div className="flex flex-col gap-2">
+        <label>
+          Logradouro da Clínica <span className="text-red-600">*</span>
+        </label>
+        <TextField
+          {...register("address")}
+          placeholder="Rua, Avenida, Travessa"
+          helperText={errors.address?.message}
+          error={!!errors.address}
           slotProps={{
             inputLabel: {
               shrink: true,
             },
           }}
-          disabled
-        />
-        <TextField
-          {...register("number")}
-          type="number"
-          label="Número"
-          helperText={errors.number?.message}
-          error={!!errors.number}
-          required
         />
       </div>
+      <div className="flex gap-4">
+        <div className="flex flex-col gap-2">
+          <label>
+            Bairro da Clínica <span className="text-red-600">*</span>
+          </label>
+          <TextField
+            className="w-full"
+            placeholder="Bairro"
+            {...register("neighborhood")}
+            helperText={errors.neighborhood?.message}
+            error={!!errors.neighborhood}
+            slotProps={{
+              inputLabel: {
+                shrink: true,
+              },
+            }}
+          />
+        </div>
+        <div className="flex flex-col gap-2">
+          <label>
+            Número <span className="text-red-600">*</span>
+          </label>
+          <TextField
+            {...register("number")}
+            placeholder="1014"
+            type="number"
+            helperText={errors.number?.message}
+            error={!!errors.number}
+            required
+          />
+        </div>
+      </div>
 
-      <TextField
-        {...register("complement")}
-        label="Complemento"
-        placeholder="Sala 1101, bloco B"
-      />
+      <div className="flex flex-col gap-2">
+        <label>Complemento</label>
+        <TextField
+          {...register("complement")}
+          placeholder="Sala 1101, bloco B"
+        />
+      </div>
 
       <Button
         disabled={!isValid}
