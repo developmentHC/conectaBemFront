@@ -3,7 +3,7 @@ export type IProfessional = {
   name: string;
   specialization: string;
   image: string;
-  price: number;
+  price: string;
   rating: number;
   reviews: number;
   isFavorite: boolean;

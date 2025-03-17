@@ -54,7 +54,9 @@ export const Header = () => {
               onClose={handleClose}
             >
               {item.menuItem.map((item) => (
-                <MenuItem key={item.id}>{item.name}</MenuItem>
+                <Link href={item.href} key={item.id}>
+                  <MenuItem>{item.name}</MenuItem>
+                </Link>
               ))}
             </DropdownMenu>
           </li>

@@ -4,14 +4,27 @@
     "name": "Dra. Maria Lourdes",
     "specialization": "Cardiologia",
     "image": "https://randomuser.me/api/portraits/women/21.jpg",
-    "price": 100,
+    "price": "$",
     "rating": 4,
     "reviews": 5,
     "isFavorite": false,
     "preferablyServices": [
-      { "id": 1, "name": "Libras" },
-      { "id": 2, "name": "LGBTQIA+ Friendly" },
-      { "id": 3, "name": "Pet Friendly" }
+      {
+        "id": 1,
+        "name": "Piso Tatil"
+      },
+      {
+        "id": 2,
+        "name": "LGBTQIA+ Friendly"
+      },
+      {
+        "id": 3,
+        "name": "Pet Friendly"
+      },
+      {
+        "id": 4,
+        "name": "Atendimento Domiciliar"
+      }
     ],
     "distance": 10
   },
@@ -20,12 +33,15 @@
     "name": "Dr. João Ribeiro",
     "specialization": "Dermatologia",
     "image": "https://randomuser.me/api/portraits/men/45.jpg",
-    "price": 200,
+    "price": "$$$",
     "rating": 5,
     "reviews": 15,
     "isFavorite": true,
     "preferablyServices": [
-      { "id": 4, "name": "Atendimento Domiciliar" }
+      {
+        "id": 1,
+        "name": "Piso Tatil"
+      }
     ],
     "distance": 5
   },
@@ -34,12 +50,15 @@
     "name": "Dra. Fernanda Oliveira",
     "specialization": "Cardiologia",
     "image": "https://randomuser.me/api/portraits/women/34.jpg",
-    "price": 150,
+    "price": "$$",
     "rating": 4.2,
     "reviews": 12,
     "isFavorite": false,
     "preferablyServices": [
-      { "id": 5, "name": "Consultas Online" }
+      {
+        "id": 5,
+        "name": "Consultas Online"
+      }
     ],
     "distance": 8
   },
@@ -48,12 +67,15 @@
     "name": "Dr. Marcelo Souza",
     "specialization": "Dermatologia",
     "image": "https://randomuser.me/api/portraits/men/28.jpg",
-    "price": 220,
+    "price": "$$",
     "rating": 4.8,
     "reviews": 18,
     "isFavorite": true,
     "preferablyServices": [
-      { "id": 6, "name": "Ambiente Aromatizado" }
+      {
+        "id": 6,
+        "name": "Ambiente Aromatizado"
+      }
     ],
     "distance": 3
   },
@@ -62,13 +84,19 @@
     "name": "Dra. Juliana Mendes",
     "specialization": "Cardiologia",
     "image": "https://randomuser.me/api/portraits/women/46.jpg",
-    "price": 160,
+    "price": "$",
     "rating": 4.5,
     "reviews": 9,
     "isFavorite": false,
     "preferablyServices": [
-      { "id": 1, "name": "Libras" },
-      { "id": 7, "name": "Acompanhante Permitido" }
+      {
+        "id": 1,
+        "name": "Piso Tatil"
+      },
+      {
+        "id": 7,
+        "name": "Acompanhante Permitido"
+      }
     ],
     "distance": 12
   },
@@ -77,12 +105,15 @@
     "name": "Dr. Eduardo Santos",
     "specialization": "Dermatologia",
     "image": "https://randomuser.me/api/portraits/men/52.jpg",
-    "price": 250,
+    "price": "$$",
     "rating": 5,
     "reviews": 22,
     "isFavorite": true,
     "preferablyServices": [
-      { "id": 8, "name": "Pet Friendly" }
+      {
+        "id": 8,
+        "name": "Pet Friendly"
+      }
     ],
     "distance": 6
   },
@@ -91,12 +122,15 @@
     "name": "Dr. Lucas Rezende",
     "specialization": "Cardiologia",
     "image": "https://randomuser.me/api/portraits/men/12.jpg",
-    "price": 170,
+    "price": "$$",
     "rating": 4.3,
     "reviews": 14,
     "isFavorite": false,
     "preferablyServices": [
-      { "id": 9, "name": "Clínica Silenciosa" }
+      {
+        "id": 9,
+        "name": "Clínica Silenciosa"
+      }
     ],
     "distance": 9
   },
@@ -105,12 +139,15 @@
     "name": "Dra. Carolina Silva",
     "specialization": "Dermatologia",
     "image": "https://randomuser.me/api/portraits/women/18.jpg",
-    "price": 190,
+    "price": "$$",
     "rating": 4.6,
     "reviews": 16,
     "isFavorite": true,
     "preferablyServices": [
-      { "id": 10, "name": "Ambiente Seguro" }
+      {
+        "id": 10,
+        "name": "Ambiente Seguro"
+      }
     ],
     "distance": 4
   },
@@ -119,12 +156,15 @@
     "name": "Dr. Pedro Costa",
     "specialization": "Cardiologia",
     "image": "https://randomuser.me/api/portraits/men/34.jpg",
-    "price": 210,
+    "price": "$$",
     "rating": 4.9,
     "reviews": 20,
     "isFavorite": true,
     "preferablyServices": [
-      { "id": 1, "name": "Libras" }
+      {
+        "id": 1,
+        "name": "Libras"
+      }
     ],
     "distance": 7
   },
@@ -133,14 +173,23 @@
     "name": "Dra. Bianca Almeida",
     "specialization": "Dermatologia",
     "image": "https://randomuser.me/api/portraits/women/30.jpg",
-    "price": 180,
+    "price": "$$",
     "rating": 4.7,
     "reviews": 19,
     "isFavorite": true,
     "preferablyServices": [
-      { "id": 1, "name": "Libras" },
-      { "id": 2, "name": "LGBTQIA+ Friendly" },
-      { "id": 3, "name": "Pet Friendly" }
+      {
+        "id": 1,
+        "name": "Libras"
+      },
+      {
+        "id": 2,
+        "name": "LGBTQIA+ Friendly"
+      },
+      {
+        "id": 3,
+        "name": "Pet Friendly"
+      }
     ],
     "distance": 10
   },
@@ -149,12 +198,15 @@
     "name": "Dr. Rafael Moreira",
     "specialization": "Cardiologia",
     "image": "https://randomuser.me/api/portraits/men/54.jpg",
-    "price": 250,
+    "price": "$$",
     "rating": 4.8,
     "reviews": 25,
     "isFavorite": true,
     "preferablyServices": [
-      { "id": 15, "name": "Atendimento Personalizado" }
+      {
+        "id": 15,
+        "name": "Atendimento Personalizado"
+      }
     ],
     "distance": 5
   },
@@ -163,12 +215,15 @@
     "name": "Dra. Ana Carvalho",
     "specialization": "Ginecologia",
     "image": "https://randomuser.me/api/portraits/women/49.jpg",
-    "price": 140,
+    "price": "$$",
     "rating": 4.4,
     "reviews": 13,
     "isFavorite": false,
     "preferablyServices": [
-      { "id": 16, "name": "Consulta Sem Pressa" }
+      {
+        "id": 16,
+        "name": "Consulta Sem Pressa"
+      }
     ],
     "distance": 9
   },
@@ -177,12 +232,15 @@
     "name": "Dr. Marcos Vieira",
     "specialization": "Neurologia",
     "image": "https://randomuser.me/api/portraits/men/62.jpg",
-    "price": 300,
+    "price": "$$",
     "rating": 4.9,
     "reviews": 30,
     "isFavorite": true,
     "preferablyServices": [
-      { "id": 17, "name": "Terapia com Animais" }
+      {
+        "id": 17,
+        "name": "Terapia com Animais"
+      }
     ],
     "distance": 18
   },
@@ -191,12 +249,15 @@
     "name": "Dra. Clara Martins",
     "specialization": "Endocrinologia",
     "image": "https://randomuser.me/api/portraits/women/39.jpg",
-    "price": 170,
+    "price": "$$",
     "rating": 4.5,
     "reviews": 24,
     "isFavorite": false,
     "preferablyServices": [
-      { "id": 18, "name": "Ambiente Calmante" }
+      {
+        "id": 18,
+        "name": "Ambiente Calmante"
+      }
     ],
     "distance": 6
   },
@@ -205,12 +266,15 @@
     "name": "Dr. Carlos Nascimento",
     "specialization": "Cardiologia",
     "image": "https://randomuser.me/api/portraits/men/55.jpg",
-    "price": 280,
+    "price": "$$$",
     "rating": 4.7,
     "reviews": 32,
     "isFavorite": true,
     "preferablyServices": [
-      { "id": 19, "name": "Acessibilidade Total" }
+      {
+        "id": 19,
+        "name": "Acessibilidade Total"
+      }
     ],
     "distance": 5
   },
@@ -219,12 +283,15 @@
     "name": "Dra. Helena Vasconcelos",
     "specialization": "Dermatologia",
     "image": "https://randomuser.me/api/portraits/women/40.jpg",
-    "price": 260,
+    "price": "$$$",
     "rating": 4.9,
     "reviews": 28,
     "isFavorite": true,
     "preferablyServices": [
-      { "id": 20, "name": "Consulta Inclusiva" }
+      {
+        "id": 20,
+        "name": "Consulta Inclusiva"
+      }
     ],
     "distance": 8
   }
