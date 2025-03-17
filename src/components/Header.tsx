@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { IoIosArrowDown, IoMdMenu } from 'react-icons/io';
+import MenuLoader from './MenuLoader';
 
 const menu = [
   {
@@ -21,6 +22,7 @@ export const Header = () => {
     <header className="flex items-center text-blue-600 lg:bg-white w-full px-8 lg:py-2 pt-6">
       <div className="flex items-center justify-between w-full lg:pt-2">
         <IoMdMenu className="text-5xl absolute cursor-pointer lg:hidden" />
+        <MenuLoader  />
         <div className="w-full lg:justify-normal justify-center items-center flex">
           <Image src="/images/logo.svg" alt="logo" width={80} height={80} />
         </div>

@@ -12,7 +12,13 @@ export const metadata = {
   description: "ConectaBem",
 };
 
-const RootLayout = ({ children }: { children: ReactNode }) => {
+type RootLayoutProps = {
+  children: ReactNode
+};    
+export const revalidate = 1;
+//export const revalidate = 86400; // 24 horas para todo o layout
+
+export default async function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
       <body className="bg-default">
@@ -25,6 +31,7 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
                 <div className="flex flex-col gap-8">
                   <Toaster position="top-center" />
                   <Header />
+                  
                   <div className="px-8">{children}</div>
                 </div>
               </GoogleOAuthProvider>
@@ -35,5 +42,3 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
     </html>
   );
 };
-
-export default RootLayout;
