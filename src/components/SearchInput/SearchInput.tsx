@@ -7,7 +7,7 @@ export const SearchInput = () => {
         <input
           className="bg-transparent w-full placeholder:text-lg placeholder:text-gray-500 p-4 outline-none"
           type="text"
-          placeholder="Buscar profissionais"
+          placeholder="Buscar profissionais e áreas"
         />
         <div className="px-2">
           <div className="bg-blue-800 h-10 w-10 rounded-full flex items-center justify-center cursor-pointer">
