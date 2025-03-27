@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from "@storybook/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { AuthForm } from "../AuthForm";
+import { AuthForm } from "../AuthForm/AuthForm";
 
 const queryClient = new QueryClient();
 
