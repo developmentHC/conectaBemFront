@@ -6,6 +6,12 @@ import { ReactQueryClientProvider } from "@/providers/ReactQueryProvider";
 import { MuiThemeProvider } from "@/providers/MuiThemeProvider";
 import { Toaster } from "react-hot-toast";
 import { SessionProviderAuth } from "@/providers/SessionProvider";
+import { Lato } from 'next/font/google';
+
+const lato = Lato({
+  subsets: ['latin'],
+  weight: ['100', '300', '400', '700']
+});
 
 export const metadata = {
   title: "ConectaBem",
@@ -14,7 +20,7 @@ export const metadata = {
 
 const RootLayout = ({ children }: { children: ReactNode }) => {
   return (
-    <html lang="en">
+    <html lang="en" className={lato.className}>
       <body className="bg-default">
         <ReactQueryClientProvider>
           <SessionProviderAuth>
@@ -25,7 +31,7 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
                 <div className="flex flex-col gap-8">
                   <Toaster position="top-center" />
                   <Header />
-                  <div className="px-8">{children}</div>
+                  {children}
                 </div>
               </GoogleOAuthProvider>
             </MuiThemeProvider>

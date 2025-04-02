@@ -1,3 +1,5 @@
+"use client";
+
 export default function HomePage() {
   return (
     <h1 className="text-red-600 text-xl">
@@ -5,3 +7,4 @@ export default function HomePage() {
     </h1>
   );
 }
+  
