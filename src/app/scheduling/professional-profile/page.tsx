@@ -12,10 +12,11 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { EmblaOptionsType } from "embla-carousel";
 import EmblaCarousel from "@/components/Carousel/Carousel";
-import { Services } from "@/components/Services";
+import { Services } from "@/components/Services/Services";
 import { InformationIcon, CheckIcon, StarIcon, HeartIcon } from "@/../public/images";
 import { ArrowLeftIcon } from "../../../../public/images";
 import dynamic from "next/dynamic";
+import { Slide } from "./types";
 
 const DateCalendar = dynamic(
   () =>
@@ -24,11 +25,6 @@ const DateCalendar = dynamic(
     ),
   { ssr: false }
 );
-
-interface Slide {
-  img: string;
-  title: string;
-}
 
 export default function HomePage() {
   const OPTIONS: EmblaOptionsType = { align: 'start', dragFree: true, loop: true };

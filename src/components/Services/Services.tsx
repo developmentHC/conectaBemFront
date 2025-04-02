@@ -1,14 +1,7 @@
 import { Divider } from "@mui/material";
 import Image from "next/image";
 import { useState } from "react";
-
-interface Service {
-  title: string;
-  duration: string;
-  price: string;
-  description: string;
-  className: string;
-}
+import { Service } from "./types";
 
 export const Services = ({ title, duration, price, description, className }: Service) => {
   const [isExapanded, setIsExpanded] = useState(false);
