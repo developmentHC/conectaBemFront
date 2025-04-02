@@ -30,11 +30,11 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
         <section className="overflow-hidden" ref={emblaRef}>
           <div className="flex">
             {slides.map((slides, index) => (
-              <div className="basis-[32%] md:basis-[14%] lg:basis-[24%] flex-shrink-0 flex-grow-0 flex flex-col space-y-3 items-center" key={index}>
-                <div className="bg-[#F8FAFF] rounded-lg p-3 h-[80px] flex shadow-sm shadow-[#919EAB29]">
+              <div className="basis-[32%] md:basis-[14%] lg:basis-[20%] flex-shrink-0 flex-grow-0 flex flex-col space-y-3 items-center" key={index}>
+                <div className="bg-[#F8FAFF] rounded-lg h-[81px] w-[90px] flex shadow-lg shadow-[#919EAB29] justify-center">
                   <Image src={slides.img} alt={""} width={70} height={70} />
                 </div>
-                <p className="text-sm font-normal">{slides.title}</p>
+                <p className="text-sm font-normal text-center">{slides.title}</p>
               </div>
             ))}
           </div>

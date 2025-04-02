@@ -5,7 +5,7 @@ import React, {
   useState
 } from 'react'
 import { EmblaCarouselType } from 'embla-carousel'
-import ArrowLeftIcon from '../../../public/images/arrow-left'
+import ArrowLeftCircleIcon from '../../../public/images/arrow-left-circle'
 import { ArrowRightIcon } from '../../../public/images/arrow-right'
 
 type UsePrevNextButtonsType = {
@@ -58,7 +58,7 @@ export const PrevButton: React.FC<PropType> = (props) => {
       type="button"
       {...restProps}
     >
-      <ArrowLeftIcon height={40} width={40} />
+      <ArrowLeftCircleIcon height={40} width={40} />
     </button>
   )
 }
