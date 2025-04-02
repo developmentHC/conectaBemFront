@@ -2,7 +2,15 @@ import { Divider } from "@mui/material";
 import Image from "next/image";
 import { useState } from "react";
 
-export const Services = ({ title, duration, price, description, className }) => {
+interface Service {
+  title: string;
+  duration: string;
+  price: string;
+  description: string;
+  className: string;
+}
+
+export const Services = ({ title, duration, price, description, className }: Service) => {
   const [isExapanded, setIsExpanded] = useState(false);
 
   return (

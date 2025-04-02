@@ -25,10 +25,15 @@ const DateCalendar = dynamic(
   { ssr: false }
 );
 
+interface Slide {
+  img: string;
+  title: string;
+}
+
 export default function HomePage() {
   const OPTIONS: EmblaOptionsType = { align: 'start', dragFree: true, loop: true };
   const [showAllServices, setShowAllServices] = useState(false);
-  const SLIDES_PAYMENTS = [
+  const SLIDES_PAYMENTS: Slide[] = [
     { img: '../../images/pix.svg', title: 'Pix' },
     { img: '../../images/wellhub.svg', title: 'Wellhub' },
     { img: '../../images/master-card.svg', title: 'Master Card' },
@@ -42,7 +47,7 @@ export default function HomePage() {
     { img: '../../images/master-card.svg', title: 'Master Card' },
     { img: '../../images/visa.svg', title: 'Visa' },
   ]
-  const SLIDES_MEDICAL_INSURANCE = [
+  const SLIDES_MEDICAL_INSURANCE: Slide[] = [
     { img: '/images/bradesco-seguros.png', title: 'Bradesco Seguros' },
     { img: '../../images/amil.svg', title: 'Amil' },
     { img: '../../images/sul-america.svg', title: 'Sul America' },

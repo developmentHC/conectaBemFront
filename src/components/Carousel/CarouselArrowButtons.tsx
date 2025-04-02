@@ -16,8 +16,8 @@ type UsePrevNextButtonsType = {
 export const usePrevNextButtons = (
   emblaApi: EmblaCarouselType | undefined
 ): UsePrevNextButtonsType => {
-  const [prevBtnDisabled, setPrevBtnDisabled] = useState(true)
-  const [nextBtnDisabled, setNextBtnDisabled] = useState(true)
+  const [, setPrevBtnDisabled] = useState(true)
+  const [, setNextBtnDisabled] = useState(true)
 
   const onPrevButtonClick = useCallback(() => {
     if (!emblaApi) return

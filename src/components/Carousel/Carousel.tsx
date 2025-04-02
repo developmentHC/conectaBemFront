@@ -8,9 +8,14 @@ import {
 import useEmblaCarousel from 'embla-carousel-react'
 import Image from "next/image";
 
+interface Slide {
+  img: string;
+  title: string;
+}
+
 type PropType = {
-  slides: object[]
-  options?: EmblaOptionsType
+  slides: Slide[];
+  options?: EmblaOptionsType;
 }
 
 const EmblaCarousel: React.FC<PropType> = (props) => {

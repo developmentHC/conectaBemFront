@@ -1,3 +1,5 @@
+import { JSX } from "react";
+
 export const HeartIcon = (args: JSX.IntrinsicElements["svg"]) => (
   <svg viewBox="0 0 40 40" fill="none" {...args}>
     <g clipPath="url(#clip0_3088_15423)">
