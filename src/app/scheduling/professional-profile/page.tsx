@@ -355,7 +355,7 @@ export default function HomePage() {
               <div className="flex justify-between">
                 <div className="flex space-x-2 items-center py-2">
                   <Image
-                    className="rounded-full object-cover"
+                    className="rounded-full object-cover h-[50px]"
                     src={"/images/senhorjorge.jpg"}
                     alt={""}
                     width={50}
