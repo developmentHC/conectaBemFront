@@ -154,7 +154,7 @@ export default function HomePage() {
                 variant="outlined"
                 color="primary"
                 size="large"
-                className="border-[#253E99] text-[#253E99] text-sm font-semibold !hidden lg:flex gap-2"
+                className="border-[#253E99] text-[#253E99] text-sm font-semibold hidden lg:flex gap-2"
               >
                 <HeartIcon className="fill-[#253E99]" height={24} width={24} />
                 Adicionar Profissional aos Favoritos
