@@ -338,7 +338,7 @@ export default function HomePage() {
                 </div>
               </div>
             </div>
-            <div className="flex space-x-2 overflow-x-auto">
+            <div className="flex space-x-2 overflow-x-auto no-scrollbar">
               <div className="flex font-normal items-center justify-center text-sm px-4 py-1.5 border border-[#253E99] rounded-full">
                 <p>Relevantes</p>
               </div>
