@@ -1,11 +1,11 @@
 import { api } from "@/libs/api";
+import { useEmailStore } from "@/stores/emailStore";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { useAuthStore } from "../stores/useAuthStore";
 
 export const useConfirmOTP = () => {
   const router = useRouter();
-  const { email, isConfirmed } = useAuthStore();
+  const { email } = useEmailStore();
 
   return useMutation({
     mutationFn: async ({ code }: { code: string }) => {
@@ -17,11 +17,7 @@ export const useConfirmOTP = () => {
       return response.data;
     },
     onSuccess: () => {
-      if (!isConfirmed) {
-        router.push(`/auth/registro`);
-      }
-
-      router.push(`/home`);
+      router.push(`/auth/registro`);
     },
   });
 };

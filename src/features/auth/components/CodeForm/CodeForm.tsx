@@ -4,14 +4,16 @@ import { useState } from "react";
 import { Button, CircularProgress } from "@mui/material";
 import { CodeInput } from "@/components/CodeInput/CodeInput";
 import { useCredentialLogin } from "../../hooks/useCredentialLogin";
-import { useAuthStore } from "../../stores/useAuthStore";
 import { useConfirmOTP } from "../../hooks/useConfirmOTP";
+import { useCountdown } from "../../hooks/useCountdown";
+import { useEmailStore } from "@/stores/emailStore";
 
 export const CodeForm = () => {
   const { mutate: resendCode } = useCredentialLogin();
   const { mutate: sendEmailCode, error, isPending } = useConfirmOTP();
-  const { email } = useAuthStore();
+  const { email } = useEmailStore();
   const [code, setCode] = useState<(string | null)[]>([null, null, null, null]);
+  const { countdown, isActive, startCountdown } = useCountdown();
 
   const onSubmit = (data: (string | null)[]) => {
     const code = data.join("");
@@ -20,13 +22,19 @@ export const CodeForm = () => {
   };
 
   const sendCode = () => {
-    console.log(email);
+    startCountdown();
 
     resendCode({ email });
   };
 
   return (
     <>
+      {isActive && (
+        <p>
+          Seu código de verificação expira em{" "}
+          <span className="font-semibold">30 minutos.</span>
+        </p>
+      )}
       <div className="flex flex-col gap-3 text-sm">
         <div className="flex flex-col gap-2 ">
           <CodeInput
@@ -34,9 +42,16 @@ export const CodeForm = () => {
             onChange={setCode}
             onFirstComplete={onSubmit}
           />
-          <span onClick={sendCode} className="text-blue-600 cursor-pointer">
-            Reenviar código
-          </span>
+          {isActive && (
+            <p className="text-gray-400 text-sm">
+              Reenviar o código em {countdown} segundos.
+            </p>
+          )}
+          {!isActive && (
+              <span onClick={sendCode} className="text-blue-600 cursor-pointer">
+                Reenviar código
+              </span>
+            )}
         </div>
       </div>
 
