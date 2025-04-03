@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useCredentialLogin } from "../../hooks/useCredentialLogin";
+import { useEmailStore } from "@/stores/emailStore";
 // import { signOut, useSession } from "next-auth/react";
 // import { useEffect } from "react";
 
@@ -17,6 +18,7 @@ const schema = z.object({
 
 export const AuthForm = () => {
   const { mutate: login, isPending } = useCredentialLogin();
+  const { setEmail } = useEmailStore();
 
   const {
     register,
@@ -26,10 +28,10 @@ export const AuthForm = () => {
     resolver: zodResolver(schema),
   });
 
-  const onSubmit = handleSubmit(async (data:any) => {
-    login({
-      data: data,
-    });
+  const onSubmit = handleSubmit(async (data: Data) => {
+    setEmail(data.email);
+
+    login(data);
   });
 
   return (
