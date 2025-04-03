@@ -83,7 +83,7 @@ export const SpecialtyStep = () => {
   useEffect(() => {
     setValue("specialties", selectedSpecialties);
     setValue("servicePreferences", selectedServices);
-  }, [selectedSpecialties, selectedServices]);
+  }, [selectedSpecialties, selectedServices, setValue]);
 
   return (
     <form onSubmit={onSubmit} className="flex flex-col gap-8">

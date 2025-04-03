@@ -63,7 +63,7 @@ export const ServiceLocationStep = () => {
 
     setValue("address", data.logradouro);
     setValue("neighborhood", data.bairro);
-  }, [data]);
+  }, [data, setValue]);
 
   return (
     <form onSubmit={onSubmit} className="flex flex-col gap-4">

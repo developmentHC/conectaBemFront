@@ -3,6 +3,7 @@ import { useProfissionalRegisterStore } from "./useProfissionalRegisterStore";
 import { FaUser } from "react-icons/fa";
 import { Button, Checkbox } from "@mui/material";
 import { useState } from "react";
+import Image from "next/image";
 
 export const CompleteProfileStep = () => {
   const [image, setImage] = useState<File | null>(null);
@@ -36,9 +37,10 @@ export const CompleteProfileStep = () => {
           className="bg-blue-600 h-[120px] w-[120px] rounded-full items-center justify-center flex flex-col relative cursor-pointer"
         >
           {image && (
-            <img
+            <Image
               src={URL.createObjectURL(image)}
               className="w-full h-full rounded-full object-cover"
+              alt="profile"
             />
           )}
           {!image && <FaUser className="text-button text-6xl" />}

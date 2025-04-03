@@ -24,7 +24,7 @@ export const CodeInput = ({
 
       setHasFirstCompleted(true);
     }
-  }, [value]);
+  }, [value, hasFirstCompleted, onFirstComplete]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement>,
