@@ -10,7 +10,8 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "test": "jest",
-    "chromatic": "npx chromatic --project-token=chpt_e30b89be80b5e5f"
+    "vercel-link": "vercel link",
+    "vercel-vault": "vercel env pull .env.local"
   },
   "dependencies": {
     "@auth/core": "^0.37.4",
@@ -18,6 +19,10 @@
     "@emotion/styled": "^11.14.0",
     "@hookform/resolvers": "^3.9.1",
     "@mui/material": "^6.2.0",
+    "@prismicio/client": "^7.16.1",
+    "@prismicio/helpers": "^2.3.9",
+    "@prismicio/next": "^2.0.0",
+    "@prismicio/react": "^3.1.0",
     "@react-oauth/google": "^0.12.1",
     "@tanstack/react-query": "^5.62.7",
     "axios": "^1.7.9",
@@ -31,6 +36,7 @@
     "react-hook-form": "^7.54.2",
     "react-hot-toast": "^2.5.1",
     "react-icons": "^5.4.0",
+    "vercel": "^41.4.1",
     "zod": "^3.24.1",
     "zustand": "^5.0.2"
   },
@@ -39,6 +45,7 @@
     "@babel/preset-react": "^7.26.3",
     "@chromatic-com/storybook": "^3.2.3",
     "@eslint/eslintrc": "^3",
+    "@slicemachine/adapter-next": "^0.3.69",
     "@storybook/addon-essentials": "^8.4.7",
     "@storybook/addon-interactions": "^8.4.7",
     "@storybook/addon-onboarding": "^8.4.7",
@@ -66,6 +73,7 @@
     "msw-storybook-addon": "^2.0.4",
     "postcss": "^8",
     "react-test-renderer": "^19.0.0",
+    "slice-machine-ui": "^2.13.2",
     "storybook": "^8.4.7",
     "tailwindcss": "^3.4.1",
     "ts-node": "^10.9.2",
