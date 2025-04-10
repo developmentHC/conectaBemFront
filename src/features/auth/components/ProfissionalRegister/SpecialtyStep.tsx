@@ -92,7 +92,7 @@ export const SpecialtyStep = () => {
       </span>
 
       <ul className="flex flex-wrap gap-2">
-        {specialtiesMock.map((specialty) => (
+        {specialtiesMock.sort().map((specialty) => (
           <li
             key={specialty}
             onClick={handleClickSpecialty}
@@ -129,7 +129,7 @@ export const SpecialtyStep = () => {
         </div>
 
         <ul className="flex flex-wrap gap-2">
-          {services.map((service) => (
+          {services.sort().map((service) => (
             <li
               onClick={handleClickService}
               key={service}
