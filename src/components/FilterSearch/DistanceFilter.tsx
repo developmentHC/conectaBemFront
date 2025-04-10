@@ -14,14 +14,14 @@ export const DistanceFilter = ({ selected, onChange }: DistanceFilterProps) => {
       <Slider
         aria-label="Default"
         size="medium"
-        min={0}
+        min={1}
         max={12}
         value={selected}
         onChange={(_, value) => onChange(value as number)}
         valueLabelDisplay="auto"
       />
       <div className="flex justify-between text-gray-500">
-        <span>0km</span>
+        <span>1km</span>
         <span>12km</span>
       </div>
     </FilterBody>
