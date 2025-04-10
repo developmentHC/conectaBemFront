@@ -25,7 +25,7 @@ export const ProfessionalData = () => {
         )}
       </div>
       <div className="flex gap-1 items-center">
-        <span>{professional.rating}</span>
+        <span>{professional.rating.toFixed(1)}</span>
         <FaStar className="text-yellow-400" />
         <span className="text-gray-500">
           ({professional.reviews} avaliações)
