@@ -24,9 +24,11 @@ export const ProfessionalCard = ({ professional }: ProfessionalCardProps) => {
             <ProfessionalData />
             <div className="flex gap-3 flex-wrap w-fit h-fit">
               <Preferences />
-              <button className="text-sm text-blue-600 hover:text-blue-800 transition-all">
-                + ver mais
-              </button>
+              {professional.preferablyServices.length > 3 && (
+                <button className="text-sm text-blue-600 hover:text-blue-800 transition-all">
+                  + ver mais
+                </button>
+              )}
             </div>
           </div>
         </div>
