@@ -5,6 +5,7 @@ import { useProfessionalFiltered } from "../hooks/useProfessionalFiltered";
 import { useMemo } from "react";
 import { useFilterStore } from "@/stores/filterStore";
 import { filterProfessionals } from "@/utils/filterProfessionalsTeste";
+import { SimilarProfessional } from "./SimilarProfessional";
 
 export const ProfessionalSection = () => {
   const filters = useFilterStore();
@@ -30,10 +31,7 @@ export const ProfessionalSection = () => {
       ))}
 
       {filteredProfessionals.length === 0 && (
-        <p className="text-gray-500 text-xl">
-          Não há profissionais com o filtro selecionado. Tente modificar as
-          opções.
-        </p>
+        <SimilarProfessional />
       )}
     </div>
   );
