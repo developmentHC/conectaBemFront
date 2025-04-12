@@ -43,7 +43,7 @@ export default function Header({ menuData }: HeaderProps) {
           className="text-5xl absolute cursor-pointer lg:hidden"
           onClick={toogleMobileMenuVisibility}
         />
-        {isMobileMenuVisible && <MobileMenu menuData={menuData} />}
+        {isMobileMenuVisible && <MobileMenu />}
         <div className="w-full lg:justify-normal justify-center items-center flex">
           <Image src="/images/logo.svg" alt="logo" width={80} height={80} />
         </div>
