@@ -1,14 +1,30 @@
 'use client';
 
 import Image from 'next/image';
-import { IoIosArrowDown, IoMdMenu } from 'react-icons/io';
+import { IoMdMenu } from 'react-icons/io';
 import DesktopMenu from '../Menu/DesktopMenu';
 import MobileMenu from '../Menu/MobileMenu';
 import { useState } from 'react';
 import { MenuItem, SubmenuItem } from '../Menu/types';
 import Link from 'next/link';
 
-export default function Header({ menuData }) {
+interface SubMenuItemType {
+  text: string;
+  link: string;
+  // Add other properties that exist in your submenu objects
+}
+
+interface MenuItemType {
+  menuitemtext: string;
+  submenu: SubMenuItemType[];
+}
+
+// Update component props type
+interface HeaderProps {
+  menuData: MenuItemType[];
+}
+
+export default function Header({ menuData }: HeaderProps) {
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const [isMobileMenuVisible, setIsMobileMenuVisible] = useState(false);
 
@@ -27,7 +43,7 @@ export default function Header({ menuData }) {
           className="text-5xl absolute cursor-pointer lg:hidden"
           onClick={toogleMobileMenuVisibility}
         />
-        {isMobileMenuVisible && <MobileMenu menuData={menuData} />}
+        {isMobileMenuVisible && <MobileMenu />}
         <div className="w-full lg:justify-normal justify-center items-center flex">
           <Image src="/images/logo.svg" alt="logo" width={80} height={80} priority />
         </div>

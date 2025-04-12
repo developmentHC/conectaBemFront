@@ -3,6 +3,8 @@
 
  export const fetchInitialData = async () => {
    const menuData = await getMenuData();
+   console.log(menuData);
+   
    const homePlaceholderData = await getHomePlaceholderData();
 
    return {
