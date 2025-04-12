@@ -29,7 +29,7 @@ export default function Header({ menuData }) {
         />
         {isMobileMenuVisible && <MobileMenu menuData={menuData} />}
         <div className="w-full lg:justify-normal justify-center items-center flex">
-          <Image src="/images/logo.svg" alt="logo" width={80} height={80} />
+          <Image src="/images/logo.svg" alt="logo" width={80} height={80} priority />
         </div>
       </div>
       <ul className="hidden lg:block justify-end gap-8 text-gray-600">
@@ -38,17 +38,17 @@ export default function Header({ menuData }) {
       {menuData?.filter((item: MenuItem) => item.menuitemtext === 'Perfil')
         .map((item: MenuItem, index: number) => (
           <div className="relative" key={index}>
-            <div
-              className="h-[40px] w-[40px] cursor-pointer"
-              onClick={toggleMenuItemVisibility}
+            <button
+              className="relative h-10 w-10 cursor-pointer"
+              onClick={() => toggleMenuItemVisibility}
             >
               <Image
                 src="/images/jackie-chan.jpeg"
                 alt="Perfil"
-                layout="fill"
+                fill
                 className="rounded-full object-cover"
               />
-            </div>
+            </button>
             {isMenuVisible && (
               <ul className="absolute right-0 mt-2 bg-white shadow-lg rounded-lg w-fit">
                 {item.submenu.map((submenuItem: SubmenuItem, subIndex: number) => (
