@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
-import Header from "../Header/Index";
+import { Header } from "../Header";
 
 export default {
   title: "Global/Header",
