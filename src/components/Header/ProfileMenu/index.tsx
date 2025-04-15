@@ -79,8 +79,8 @@ export const ProfileMenu = () => {
               </Link>
             </li>
           ))}
-          <div className="border-t border-t-[#645D6F] mx-3 mt-2" />
-          <li>
+          <div className="border-t border-t-[#645D6F] mx-3 mt-2 hidden lg:block" />
+          <li className="hidden lg:block">
             <Link
               href="#"
               className="block px-4 py-2 text-sm text-[#3857F4] hover:bg-gray-100"
