@@ -1,6 +1,6 @@
 import "./globals.css";
 import { ReactNode } from "react";
-import { Header } from "@/components/Header";
+import { Header } from "@/components/Header/index";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { ReactQueryClientProvider } from "@/providers/ReactQueryProvider";
 import { MuiThemeProvider } from "@/providers/MuiThemeProvider";
