@@ -1,12 +1,12 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
 import { ReactNode } from "react";
+import { Header } from "@/components/Header/index";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { ReactQueryClientProvider } from "@/providers/ReactQueryProvider";
 import { MuiThemeProvider } from "@/providers/MuiThemeProvider";
 import { Toaster } from "react-hot-toast";
 import { SessionProviderAuth } from "@/providers/SessionProvider";
-import { Header } from "@/components/Header/Header";
 import { Footer } from "@/components/Footer/Footer";
 import { MuiLocalizationProvider } from "@/providers/LocalizationProvider";
 
@@ -24,10 +24,8 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
         <ReactQueryClientProvider>
           <SessionProviderAuth>
             <MuiThemeProvider>
-              <MuiLocalizationProvider >
-                <GoogleOAuthProvider
-                  clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string}
-                >
+              <MuiLocalizationProvider>
+                <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string}>
                   <div className="flex flex-col gap-8">
                     <Toaster position="top-center" />
                     <Header />
