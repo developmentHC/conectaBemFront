@@ -1,4 +1,4 @@
-import { ProfessionalCard } from "./ProfessionalCard"
+import { ProfessionalCard } from "./ProfessionalCard";
 
 export const HighlightWeek = () => {
   return (
@@ -8,5 +8,5 @@ export const HighlightWeek = () => {
       </div>
       <ProfessionalCard />
     </section>
-  )
-}
+  );
+};

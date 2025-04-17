@@ -1,7 +1,7 @@
 export const Footer = () => {
   return (
     <footer className="bg-blue-800 flex flex-col pb-2">
-      <div className="flex gap-10 p-4 w-full px-10">
+      <div className="flex lg:flex-row flex-col gap-10 p-4 w-full px-10">
         <div className="flex flex-col gap-2">
           <h4 className="text-button font-bold">Profissionais</h4>
           <ul className="flex flex-col gap-1 text-white/70">

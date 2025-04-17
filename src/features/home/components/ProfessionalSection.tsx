@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { Button } from "@mui/material";
 import { ProfessionalCard } from "./ProfessionalCard";
@@ -17,7 +17,7 @@ export const ProfessionalSection = () => {
               Ver Mais
             </Button>
           </div>
-          <ProfessionalCard specialization={specialitie.name}/>
+          <ProfessionalCard specialization={specialitie.name} />
         </div>
       ))}
     </section>

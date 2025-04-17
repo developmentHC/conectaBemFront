@@ -19,18 +19,18 @@ export const ProfessionalCard = ({
     return filterAndSortProfessionals(professional, specialization);
   }, [professional, specialization]);
 
-  const professionals = sortedProfessional.slice(0, 10);
+  const professionals = sortedProfessional.slice(0, 8);
 
   if (isLoading) return <div>Carregando...</div>;
 
   if (isError) return <div>Erro</div>;
 
   return (
-    <div className="flex gap-4 overflow-x-auto lg:flex-wrap justify-start">
+    <div className="flex gap-6 overflow-x-auto lg:flex-wrap justify-start">
       {professionals?.map((professional) => (
         <div
           key={professional.id}
-          className="flex flex-col gap-4 cursor-pointer h-full professional-card"
+          className="flex flex-col gap-4 cursor-pointer h-full max-h-[450px] professional-card"
         >
           <div className="flex justify-center">
             <Image
@@ -67,8 +67,8 @@ export const ProfessionalCard = ({
             </span>
           </div>
           <div className="min-h-[70px] max-h-[70px]">
-            <div className="flex gap-3 flex-wrap">
-              {professional.preferablyServices.slice(0, 3).map((service) => (
+            <div className="flex gap-2 flex-wrap">
+              {professional.preferablyServices.slice(0, 2).map((service) => (
                 <div
                   key={service.id}
                   className="border border-blue-600 px-2 py-1 rounded-full text-xs"
@@ -76,7 +76,7 @@ export const ProfessionalCard = ({
                   {service.name}
                 </div>
               ))}
-              {professional.preferablyServices.length > 2 && (
+              {professional.preferablyServices.length > 1 && (
                 <button className="text-sm text-blue-600 hover:text-blue-800 transition-all">
                   + ver mais
                 </button>
