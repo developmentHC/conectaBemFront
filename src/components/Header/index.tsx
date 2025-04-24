@@ -7,6 +7,8 @@ import { MenuIcon, CloseIcon, SearchIcon, ChevronDownIcon } from '../../../publi
 import { ProfileMenu } from './ProfileMenu';
 import { MobileMenu } from './MobileMenu';
 import Link from 'next/link';
+import { ModalChangeAccountType } from '../ModalChangeAccountType';
+import { Button } from '@mui/material';
 
 interface DesktopItems {
   menuitemtext: string;
@@ -20,7 +22,18 @@ export const Header = () => {
   const [menuData, setMenuData] = useState<DesktopItems[]>([]);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [hoveredItem, setHoveredItem] = useState<number | null>(null);
+  const [changeAccountTypeOpen, setChangeAccountTypeOpen] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
+  const [userExists, setUserExists] = useState<string | null>(null);
+
+  useEffect(() => {
+    const verifyUser = async () => {
+      const userExists = localStorage.getItem("userId");
+      setUserExists(userExists);
+    };
+
+    verifyUser();
+  }, [])
 
   useEffect(() => {
     setIsMounted(true);
@@ -62,7 +75,8 @@ export const Header = () => {
           </button>
 
           <div className="w-full lg:justify-normal justify-center items-center flex">
-            <Image src="/images/logo.svg" alt="logo" width={80} height={80} />
+            <Image className="hidden lg:block" src="/images/logo.svg" alt="logo" width={80} height={80} />
+            <Image className="block lg:hidden" src="/images/logo.svg" alt="logo" width={60} height={37} />
           </div>
         </div>
 
@@ -112,7 +126,21 @@ export const Header = () => {
               />
             ))} */}
 
-          <ProfileMenu />
+          {userExists
+            ? (
+              <ProfileMenu
+                setChangeAccountTypeOpen={setChangeAccountTypeOpen}
+                onClose={() => setChangeAccountTypeOpen(false)}
+              />
+            ) : (
+              <Button
+                variant="contained"
+                color="primary"
+                size="large">
+                Entrar
+              </Button>
+            )
+          }
         </div>
       </header>
 
@@ -122,6 +150,13 @@ export const Header = () => {
           onClose={() => setIsMobileMenuOpen(false)}
         />
       )}
+
+      {changeAccountTypeOpen && (
+        <ModalChangeAccountType
+          setChangeAccountTypeOpen={setChangeAccountTypeOpen}
+        />
+      )}
+
     </div>
   );
 };
