@@ -3,10 +3,15 @@
 import { useState, useRef, useEffect } from 'react'
 import Image from "next/image";
 import Link from 'next/link'
+import { ModalProps } from './types';
 
-export const ProfileMenu = () => {
+export const ProfileMenu: React.FC<ModalProps> = ({ setChangeAccountTypeOpen }) => {
   const [isOpen, setIsOpen] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
+
+  const handleChangeAccountType = () => {
+    setChangeAccountTypeOpen(true);
+  }
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -38,7 +43,7 @@ export const ProfileMenu = () => {
       },
       {
         "text": "Conta",
-        "link": "/terapias-corporais-e-fisicas"
+        "link": null
       }
     ]
   }
@@ -81,16 +86,15 @@ export const ProfileMenu = () => {
           ))}
           <div className="border-t border-t-[#645D6F] mx-3 mt-2 hidden lg:block" />
           <li className="hidden lg:block">
-            <Link
-              href="#"
-              className="block px-4 py-2 text-sm text-[#3857F4] hover:bg-gray-100"
-              onClick={() => setIsOpen(false)}
+            <button
+              className="block text-start px-4 py-2 text-sm text-[#3857F4] hover:bg-gray-100"
+              onClick={handleChangeAccountType}
             >
               Trocar para Perfil Profissional
-            </Link>
+            </button>
           </li>
         </ul>
       </div>
-    </div>
+    </div >
   )
 }

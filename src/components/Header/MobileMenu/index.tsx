@@ -100,7 +100,9 @@ export const MobileMenu = ({ menuData, onClose }: MobileMenuProps) => {
           <button
             role="switch"
             aria-checked={profileType === 'profissional'}
-            onClick={() => setProfileType(prev => prev === 'paciente' ? 'profissional' : 'paciente')}
+            onClick={
+              () => setProfileType(prev => prev === 'paciente' ? 'profissional' : 'paciente')
+            }
             className="relative inline-flex h-3.5 w-9 items-center rounded-full bg-[#B3BFFB] transition-colors"
           >
             <span className={`absolute left-0 inline-block h-5 w-5 transform rounded-full bg-[#0B29C1] shadow-lg transition-all duration-300 ${profileType === 'paciente' ? 'translate-x-0' : 'translate-x-4'
