@@ -8,17 +8,37 @@ import { DatePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 import { useProfissionalRegisterStore } from "./useProfissionalRegisterStore";
 import { CEPField } from "@/components/Fields/CEPField";
+import { useState } from "react";
 
 type Data = z.infer<typeof schema>;
 
 const schema = z.object({
-  name: z.string().min(10, "Nome inválido"),
-  birthdate: z.instanceof(Date),
-  cep: z.string().length(9, "CEP inválido"),
+  name: z
+    .string()
+    .min(10, "Nome inválido")
+    .regex(
+      /^[A-Za-zÀ-ú]+(?: [A-Za-zÀ-ú]+)*$/,
+      "O nome deve conter apenas letras e um espaço entre as palavras"
+    ),
+  birthdate: z.instanceof(Date).refine(
+    (date) => {
+      const now = new Date();
+      const min = dayjs().subtract(90, "years").toDate();
+      return date <= now && date >= min;
+    },
+    {
+      message: "Data de nascimento deve ser entre hoje e 90 anos atrás",
+    }
+  ),
+  cepResidencial: z
+    .string()
+    .length(9, "CEP inválido")
+    .refine((cep) => cep !== "00000-000"),
 });
 
 export const PersonalDataStep = () => {
   const { changeStep, updateFields } = useProfissionalRegisterStore();
+  const [nameInput, setNameInput] = useState("");
 
   const {
     register,
@@ -38,12 +58,28 @@ export const PersonalDataStep = () => {
     changeStep("service_location");
   });
 
+  const replaceName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const rawValue = e.target.value;
+
+    const onlyLettersAndSpace = rawValue
+      .replace(/[^A-Za-zÀ-ú\s]/g, "")
+      .replace(/\s+/g, " ")
+      .trimStart();
+
+    setValue("name", onlyLettersAndSpace);
+
+    setNameInput(onlyLettersAndSpace);
+  };
+
   return (
     <form onSubmit={onSubmit} className="flex flex-col gap-4">
       <div className="flex flex-col gap-2">
-        <label>Nome Completo <span className="text-red-600">*</span></label>
+        <label>
+          Nome Completo <span className="text-red-600">*</span>
+        </label>
         <TextField
-          {...register("name")}
+          onChange={replaceName}
+          value={nameInput}
           id="name"
           variant="outlined"
           placeholder="Nome e Sobrenome"
@@ -54,11 +90,18 @@ export const PersonalDataStep = () => {
       </div>
 
       <div className="flex flex-col gap-2">
-        <label>Data de Nascimento <span className="text-red-600">*</span></label>
+        <label>
+          Data de Nascimento <span className="text-red-600">*</span>
+        </label>
         <DatePicker
           maxDate={dayjs()}
+          minDate={dayjs().subtract(110, "year")}
+          disableFuture
           slotProps={{
             textField: {
+              inputProps: {
+                placeholder: "DD/MM/AAAA",
+              },
               helperText: errors.birthdate?.message,
               error: !!errors.birthdate,
               required: true,
@@ -73,11 +116,13 @@ export const PersonalDataStep = () => {
       </div>
 
       <div className="flex flex-col gap-2">
-        <label>CEP Residencial <span className="text-red-600">*</span></label>
+        <label>
+          CEP Residencial <span className="text-red-600">*</span>
+        </label>
         <CEPField
-          {...register("cep")}
+          {...register("cepResidencial")}
           onChange={(e) =>
-            setValue("cep", e.target.value, { shouldValidate: true })
+            setValue("cepResidencial", e.target.value, { shouldValidate: true })
           }
         />
       </div>

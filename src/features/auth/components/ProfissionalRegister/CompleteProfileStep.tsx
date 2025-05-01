@@ -1,13 +1,47 @@
 import { MdEdit } from "react-icons/md";
 import { useProfissionalRegisterStore } from "./useProfissionalRegisterStore";
 import { FaUser } from "react-icons/fa";
-import { Button, Checkbox } from "@mui/material";
+import { Button, Checkbox, FormControlLabel } from "@mui/material";
 import { useState } from "react";
 import Image from "next/image";
+import { useRegisterProfissional } from "../../hooks/useRegisterProfissional";
+import { useUserStore } from "@/stores/userSessionStore";
+
+const teste = {
+  userId: "67db04b277ee4a9395561aa7",
+  name: "Sôniad dasdas",
+  birthdayDate: "07/02/1980",
+  cepResidencial: "92145001",
+  nomeClinica: "Clinica Bem-Estar",
+  CNPJCPFProfissional: "04590994003",
+  cepClinica: "17854043",
+  enderecoClinica: "Rua do Céu 25",
+  complementoClinica: "Casa",
+  professionalSpecialties: ["Dançaterapia", "Teatro Terapêutico"],
+  otherProfessionalSpecialties: ["Hipnoterapia", "Corrente russa"],
+  professionalServicePreferences: ["LGBTQIA+ Friendly", "Pet Friendly"],
+  profilePhoto: "https://www.url/path",
+};
 
 export const CompleteProfileStep = () => {
   const [image, setImage] = useState<File | null>(null);
-  const { updateFields } = useProfissionalRegisterStore();
+  const [termsAccepted, setTermsAccepted] = useState(false);
+  const {
+    updateFields,
+    birthdate,
+    cepProfessional,
+    cepResidencial,
+    clinicName,
+    complement,
+    cpfCNPJ,
+    address,
+    name,
+    servicePreferences,
+    specialties,
+    photo,
+  } = useProfissionalRegisterStore();
+  const { idUser } = useUserStore();
+  const { mutate: createProfissional } = useRegisterProfissional();
 
   const onChangeImage = (e: any) => {
     if (!e.target.files[0]) return;
@@ -15,6 +49,24 @@ export const CompleteProfileStep = () => {
     setImage(e.target.files[0]);
 
     updateFields({ photo: e.target.files[0] });
+  };
+
+  const onSubmit = () => {
+    createProfissional({
+      userId: idUser,
+      name: name,
+      birthdayDate: birthdate?.getTime(),
+      cepResidencial: cepResidencial,
+      nomeClinica: clinicName,
+      CNPJCPFProfissional: cpfCNPJ,
+      cepClinica: cepProfessional,
+      enderecoClinica: address,
+      complementoClinica: complement,
+      professionalSpecialties: specialties,
+      otherProfessionalSpecialties: [],
+      professionalServicePreferences: servicePreferences,
+      profilePhoto: photo,
+    });
   };
 
   return (
@@ -40,6 +92,8 @@ export const CompleteProfileStep = () => {
             <Image
               src={URL.createObjectURL(image)}
               className="w-full h-full rounded-full object-cover"
+              width={120}
+              height={120}
               alt="profile"
             />
           )}
@@ -50,14 +104,24 @@ export const CompleteProfileStep = () => {
         </label>
       </div>
 
-      <div className="flex items-center">
-        <Checkbox defaultChecked />
-        <span>Aceitar Termos de Uso e Política de Privacidade</span>
-      </div>
+      <FormControlLabel
+        control={
+          <Checkbox
+            checked={termsAccepted}
+            onChange={(e) => setTermsAccepted(e.target.checked)}
+          />
+        }
+        label="Aceitar Termos de Uso e Política de Privacidade"
+      />
 
       <div className="flex flex-col gap-6">
-        <Button variant="outlined">Iniciar Tour</Button>
-        <Button variant="outlined">Entrar sem Tour</Button>
+        <Button
+          onClick={onSubmit}
+          disabled={!termsAccepted}
+          variant="contained"
+        >
+          Começar
+        </Button>
       </div>
     </form>
   );

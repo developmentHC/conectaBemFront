@@ -4,10 +4,11 @@ import { create } from "zustand";
 type States = {
   name?: string;
   birthdate?: Date;
-  cep?: string;
+  cepResidencial?: string;
+  cepProfessional?: string;
   clinicName?: string;
   cpfCNPJ?: string;
-  customerCode?: string;
+  address?: string;
   complement?: string;
   specialties?: string[];
   servicePreferences?: string[];
@@ -30,10 +31,11 @@ export type Step = "personal_data" | "service_location" | "specialties" | "compl
 const defaultsStates: States = {
   name: undefined,
   birthdate: undefined,
-  cep: undefined,
+  cepResidencial: undefined,
+  cepProfessional: undefined,
   clinicName: undefined,
   cpfCNPJ: undefined,
-  customerCode: undefined,
+  address: undefined,
   complement: undefined,
   specialties: undefined,
   servicePreferences: undefined,

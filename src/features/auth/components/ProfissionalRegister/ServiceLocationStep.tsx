@@ -5,7 +5,7 @@ import { z } from "zod";
 import { useProfissionalRegisterStore } from "./useProfissionalRegisterStore";
 import { useCEP } from "../../hooks/useCEP";
 import { CEPField } from "@/components/Fields/CEPField";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { CpfCnpjField } from "@/components/Fields/CpfCnpjField";
 
 type Data = z.infer<typeof schema>;
@@ -16,7 +16,7 @@ const schema = z.object({
     .string()
     .min(11, "CNPJ ou CPF inválido")
     .max(18, "CNPJ ou CPF inválido"),
-  cep: z.string().length(9, "CEP inválido"),
+  cepProfessional: z.string().length(9, "CEP inválido"),
   address: z.string().min(5, "Endereço inválido"),
   neighborhood: z.string().min(3, "Bairro inválido"),
   number: z.string().min(1, "Número inválido"),
@@ -37,12 +37,51 @@ export const ServiceLocationStep = () => {
 
   const { updateFields, changeStep } = useProfissionalRegisterStore();
 
+  const [nameInput, setNameInput] = useState("");
+  const [addressInput, setAddressInput] = useState("");
+  const [neighborhoodInput, setNeighborhoodInput] = useState("");
+
   const { data } = useCEP({
-    cep: getValues("cep"),
+    cep: getValues("cepProfessional"),
   });
 
+  const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const rawValue = e.target.value;
+
+    const onlyLettersAndSpace = rawValue
+      .replace(/\s+/g, " ")
+      .trimStart();
+
+    setValue("clinicName", onlyLettersAndSpace);
+    setNameInput(onlyLettersAndSpace);
+  };
+
+  const onChangeAddress = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const rawValue = e.target.value;
+
+    const onlyLettersAndSpace = rawValue
+      .replace(/[^A-Za-zÀ-ú\s]/g, "")
+      .replace(/\s+/g, " ")
+      .trimStart();
+
+    setValue("address", onlyLettersAndSpace);
+    setAddressInput(onlyLettersAndSpace);
+  };
+
+  const onChangeNeighborhood = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const rawValue = e.target.value;
+
+    const onlyLettersAndSpace = rawValue
+      .replace(/[^A-Za-zÀ-ú\s]/g, "")
+      .replace(/\s+/g, " ")
+      .trimStart();
+
+    setValue("neighborhood", onlyLettersAndSpace);
+    setNeighborhoodInput(onlyLettersAndSpace);
+  };
+
   const onSubmit = handleSubmit(async (data) => {
-    data.cep = data.cep.replace("-", "");
+    data.cepProfessional = data.cepProfessional.replace("-", "");
     data.cpfCNPJ = data.cpfCNPJ
       .replace(".", "")
       .replace(".", "")
@@ -57,13 +96,15 @@ export const ServiceLocationStep = () => {
   });
 
   useEffect(() => {
-    if (!data) {
-      return;
-    }
-
+    if (!data) return;
+  
     setValue("address", data.logradouro);
+    setAddressInput(data.logradouro || "");
+  
     setValue("neighborhood", data.bairro);
+    setNeighborhoodInput(data.bairro || "");
   }, [data, setValue]);
+  
 
   return (
     <form onSubmit={onSubmit} className="flex flex-col gap-4">
@@ -72,10 +113,11 @@ export const ServiceLocationStep = () => {
           Nome da Clínica <span className="text-red-600">*</span>
         </label>
         <TextField
-          {...register("clinicName")}
+          onChange={onChangeName}
           placeholder="Nome Fantasia"
           helperText={errors.clinicName?.message}
           error={!!errors.clinicName}
+          value={nameInput}
           required
         />
       </div>
@@ -94,9 +136,9 @@ export const ServiceLocationStep = () => {
           CEP Local de Atendimento <span className="text-red-600">*</span>
         </label>
         <CEPField
-          {...register("cep")}
-          helperText={errors.cep?.message}
-          error={!!errors.cep}
+          {...register("cepProfessional")}
+          helperText={errors.cepProfessional?.message}
+          error={!!errors.cepProfessional}
         />
       </div>
       <div className="flex flex-col gap-2">
@@ -104,10 +146,11 @@ export const ServiceLocationStep = () => {
           Logradouro da Clínica <span className="text-red-600">*</span>
         </label>
         <TextField
-          {...register("address")}
+          onChange={onChangeAddress}
           placeholder="Rua, Avenida, Travessa"
           helperText={errors.address?.message}
           error={!!errors.address}
+          value={addressInput}
           slotProps={{
             inputLabel: {
               shrink: true,
@@ -121,11 +164,12 @@ export const ServiceLocationStep = () => {
             Bairro da Clínica <span className="text-red-600">*</span>
           </label>
           <TextField
+            onChange={onChangeNeighborhood}
             className="w-full"
             placeholder="Bairro"
-            {...register("neighborhood")}
             helperText={errors.neighborhood?.message}
             error={!!errors.neighborhood}
+            value={neighborhoodInput}
             slotProps={{
               inputLabel: {
                 shrink: true,

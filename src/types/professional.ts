@@ -11,5 +11,21 @@ export type IProfessional = {
     id: number;
     name: string;
   }[];
-  distance: number;
+  distance?: number;
+};
+
+export type ICreateProfissional = {
+  userId: string | undefined;
+  name: string | undefined;
+  birthdayDate: number | undefined;
+  cepResidencial: string | undefined;
+  nomeClinica: string | undefined;
+  CNPJCPFProfissional: string | undefined;
+  cepClinica: string | undefined;
+  enderecoClinica: string | undefined;
+  complementoClinica: string | undefined;
+  professionalSpecialties: string[] | undefined;
+  otherProfessionalSpecialties: string[] | undefined;
+  professionalServicePreferences: string[] | undefined;
+  profilePhoto:  File | undefined;
 };

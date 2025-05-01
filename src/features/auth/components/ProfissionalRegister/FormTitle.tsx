@@ -14,7 +14,7 @@ export const FormTitle = () => {
       )}
       {step === "service_location" && (
         <>
-          <FormMultiStep.Title>Local de atendimento</FormMultiStep.Title>
+          <FormMultiStep.Title>Cadastro local de atendimento</FormMultiStep.Title>
 
           <span className="text-gray-500 text-sm">etapa 2/4</span>
         </>

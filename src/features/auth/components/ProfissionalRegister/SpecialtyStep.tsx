@@ -19,7 +19,6 @@ const specialtiesMock = [
   "Musicoterapia",
   "Osteopatia",
   "Pilates",
-  "Quiropaxia",
   "Reflexoterapia",
   "Reiki",
   "Yoga",
@@ -37,6 +36,7 @@ const schema = z.object({
   suggestions: z.string().nullable(),
 });
 
+
 export const SpecialtyStep = () => {
   const { register, setValue, handleSubmit } = useForm<Data>({
     mode: "all",
@@ -47,6 +47,14 @@ export const SpecialtyStep = () => {
   const [selectedSpecialties, setSelectedSpecialties] = useState<string[]>([]);
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
   const { changeStep, updateFields } = useProfissionalRegisterStore();
+  const [collapseSpecialty, setCollapseSpecialty] = useState<boolean>(false);
+  const [collapseService, setCollapseService] = useState<boolean>(false);
+
+  const visibleSpecialties = collapseSpecialty
+    ? specialtiesMock
+    : specialtiesMock?.slice(0, 8);
+
+  const visibleServices = collapseService ? services : services?.slice(0, 8);
 
   const handleClickSpecialty = (e: MouseEvent) => {
     const specialty = (e.target as HTMLLIElement).textContent;
@@ -92,7 +100,7 @@ export const SpecialtyStep = () => {
       </span>
 
       <ul className="flex flex-wrap gap-2">
-        {specialtiesMock.sort().map((specialty) => (
+        {visibleSpecialties.sort().map((specialty) => (
           <li
             key={specialty}
             onClick={handleClickSpecialty}
@@ -103,6 +111,15 @@ export const SpecialtyStep = () => {
             {specialty}
           </li>
         ))}
+
+        <div className="flex justify-end w-full">
+          <span
+            onClick={() => setCollapseSpecialty(!collapseSpecialty)}
+            className="cursor-pointer w-fit text-end text-gray-600 mt-4"
+          >
+            {collapseSpecialty ? "+ Ver menos" : "+ Ver mais"}
+          </span>
+        </div>
       </ul>
 
       <div className="flex flex-col gap-4">
@@ -129,7 +146,7 @@ export const SpecialtyStep = () => {
         </div>
 
         <ul className="flex flex-wrap gap-2">
-          {services.sort().map((service) => (
+          {visibleServices.sort().map((service) => (
             <li
               onClick={handleClickService}
               key={service}
@@ -140,8 +157,11 @@ export const SpecialtyStep = () => {
             </li>
           ))}
           <div className="flex justify-end w-full">
-            <span className="cursor-pointer w-fit text-end text-gray-600 mt-4">
-              + Ver mais
+            <span
+              onClick={() => setCollapseService(!collapseService)}
+              className="cursor-pointer w-fit text-end text-gray-600 mt-4"
+            >
+              {collapseService ? "+ Ver menos" : "+ Ver mais"}
             </span>
           </div>
         </ul>
