@@ -1,5 +1,5 @@
 export type IPatient = {
-  id: string;
+  id: string | undefined;
   name: string;
   email: string;
   profilePhoto: string;
@@ -15,4 +15,14 @@ export type IPatient = {
     id: number;
     name: string;
   }[];
+};
+
+export type ICreatePatient = {
+  userId: string | undefined;
+  name: string | undefined;
+  birthdayDate: number | undefined;
+  userSpecialties: string[] | undefined;
+  userServicePreferences: string[] | undefined;
+  userAcessibilityPreferences: string[] | undefined;
+  profilePhoto: File | undefined;
 };

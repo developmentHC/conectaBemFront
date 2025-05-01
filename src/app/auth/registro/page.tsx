@@ -17,9 +17,11 @@ export default function registro() {
           </FormMultiStep.Description>
         </FormMultiStep.Header>
         <div className="flex flex-col gap-6">
-          <Button className="text-black" variant="outlined">
-            Paciente
-          </Button>
+          <Link href={"/auth/registro-paciente"}>
+            <Button className="text-black w-full" variant="outlined">
+              Paciente
+            </Button>
+          </Link>
           <Link href={"/auth/registro-profissional"}>
             <Button className="text-black w-full" variant="outlined">
               Profissional
