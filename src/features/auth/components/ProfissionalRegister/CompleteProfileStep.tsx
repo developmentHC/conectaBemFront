@@ -7,22 +7,6 @@ import Image from "next/image";
 import { useRegisterProfissional } from "../../hooks/useRegisterProfissional";
 import { useUserStore } from "@/stores/userSessionStore";
 
-const teste = {
-  userId: "67db04b277ee4a9395561aa7",
-  name: "Sôniad dasdas",
-  birthdayDate: "07/02/1980",
-  cepResidencial: "92145001",
-  nomeClinica: "Clinica Bem-Estar",
-  CNPJCPFProfissional: "04590994003",
-  cepClinica: "17854043",
-  enderecoClinica: "Rua do Céu 25",
-  complementoClinica: "Casa",
-  professionalSpecialties: ["Dançaterapia", "Teatro Terapêutico"],
-  otherProfessionalSpecialties: ["Hipnoterapia", "Corrente russa"],
-  professionalServicePreferences: ["LGBTQIA+ Friendly", "Pet Friendly"],
-  profilePhoto: "https://www.url/path",
-};
-
 export const CompleteProfileStep = () => {
   const [image, setImage] = useState<File | null>(null);
   const [termsAccepted, setTermsAccepted] = useState(false);

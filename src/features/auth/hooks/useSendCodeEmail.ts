@@ -1,12 +1,12 @@
 // import { useSession } from '@/stores/useSession';
 import { api } from "@/libs/api";
-import { useEmailStore } from "@/stores/userSessionStore";
+import { useUserStore } from "@/stores/userSessionStore";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
 export const useSendCodeEmail = () => {
   const router = useRouter();
-  const { email, exists, setExists } = useEmailStore();
+  const { email, exists, setExists } = useUserStore();
 
   return useMutation({
     mutationFn: async ({ code }: Data) => {

@@ -1,7 +1,6 @@
 import { FormMultiStep } from "@/components/FormMultiStep";
 import Link from "next/link";
 import { usePatientRegisterStore } from "./usePatientRegisterStore";
-import Typography from '@mui/material/Typography'
 
 export const BackStepButton = () => {
   const { changeStep, step } = usePatientRegisterStore();
