@@ -6,12 +6,12 @@ import { CodeInput } from "@/components/CodeInput/CodeInput";
 import { useCredentialLogin } from "../../hooks/useCredentialLogin";
 import { useConfirmOTP } from "../../hooks/useConfirmOTP";
 import { useCountdown } from "../../hooks/useCountdown";
-import { useEmailStore } from "@/stores/emailStore";
+import { useUserStore } from "@/stores/userSessionStore";
 
 export const CodeForm = () => {
   const { mutate: resendCode } = useCredentialLogin();
   const { mutate: sendEmailCode, error, isPending } = useConfirmOTP();
-  const { email } = useEmailStore();
+  const { email } = useUserStore();
   const [code, setCode] = useState<(string | null)[]>([null, null, null, null]);
   const { countdown, isActive, startCountdown } = useCountdown();
 

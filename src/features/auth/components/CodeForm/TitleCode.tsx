@@ -1,10 +1,10 @@
 "use client";
 
 import { WelcomeSectionHeader } from "@/components/WelcomeSectionHeader";
-import { useEmailStore } from "@/stores/emailStore";
+import { useUserStore } from "@/stores/userSessionStore";
 
 export const TitleCode = () => {
-  const { email } = useEmailStore();
+  const { email } = useUserStore();
 
   return (
     <WelcomeSectionHeader
