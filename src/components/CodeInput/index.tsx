@@ -1,12 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-
-type CodeInputProps = {
-  value: (string | null)[];
-  onChange?: (value: (string | null)[]) => void;
-  onFirstComplete?: (value: (string | null)[]) => void;
-};
+import { CodeInputProps } from "./types";
 
 export const CodeInput = ({
   value,
