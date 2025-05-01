@@ -1,6 +1,6 @@
 // import { useSession } from '@/stores/useSession';
 import { api } from "@/libs/api";
-import { useEmailStore } from "@/stores/emailStore";
+import { useEmailStore } from "@/stores/userSessionStore";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
