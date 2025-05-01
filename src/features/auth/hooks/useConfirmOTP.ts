@@ -1,11 +1,11 @@
 import { api } from "@/libs/api";
-import { useEmailStore } from "@/stores/emailStore";
+import { useUserStore } from "@/stores/userSessionStore";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
 export const useConfirmOTP = () => {
   const router = useRouter();
-  const { email } = useEmailStore();
+  const { email } = useUserStore();
 
   return useMutation({
     mutationFn: async ({ code }: { code: string }) => {
