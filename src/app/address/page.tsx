@@ -9,7 +9,7 @@ import { Button, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 
 export default function Addresses() {
-  const { data: addresses, isLoading, isError } = useAddresses();
+  const { data: addresses } = useAddresses();
   const router = useRouter();
 
   return (
@@ -38,6 +38,7 @@ export default function Addresses() {
         <div className="space-y-8">
           {addresses.enderecos.lista.map((address: Endereco) => (
             <div
+              key={address.id}
               className={clsx(
                 address.principal && "border border-secondary-500",
                 "bg-background-paper rounded-e-lg rounded-ss-lg space-y-4 py-4 px-6 shadow-[0px_4px_16px_0px_rgba(145,158,171,0.16)]"
