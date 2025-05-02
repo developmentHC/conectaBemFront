@@ -11,7 +11,7 @@ export const SearchInput = () => {
         />
         <div className="px-2">
           <div className="bg-blue-800 h-10 w-10 rounded-full flex items-center justify-center cursor-pointer">
-            <GrSearch className="text-button text-2xl" />
+            <GrSearch className="text-lime-500 text-2xl" />
           </div>
         </div>
       </div>

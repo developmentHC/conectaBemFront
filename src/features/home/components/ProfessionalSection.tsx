@@ -13,7 +13,7 @@ export const ProfessionalSection = () => {
         <div key={specialitie.id} className="flex flex-col gap-6">
           <div className="flex items-center justify-between">
             <p className="text-2xl font-semibold">{specialitie.name}</p>
-            <Button className="text-button" variant="contained">
+            <Button className="text-lime-500" variant="contained">
               Ver Mais
             </Button>
           </div>

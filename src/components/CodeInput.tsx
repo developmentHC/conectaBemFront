@@ -8,11 +8,7 @@ type CodeInputProps = {
   onFirstComplete?: (value: (string | null)[]) => void;
 };
 
-export const CodeInput = ({
-  value,
-  onChange,
-  onFirstComplete,
-}: CodeInputProps) => {
+export const CodeInput = ({ value, onChange, onFirstComplete }: CodeInputProps) => {
   const [hasFirstCompleted, setHasFirstCompleted] = useState(false);
   const refs = useRef<(HTMLInputElement | null)[]>([]);
 
@@ -26,19 +22,12 @@ export const CodeInput = ({
     }
   }, [value]);
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    index: number
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
     let formatedValue = e.target.value;
 
     formatedValue = formatedValue.replace(/\D/g, "").slice(-1);
 
-    const newValue = [
-      ...value.slice(0, index),
-      formatedValue,
-      ...value.slice(index + 1),
-    ];
+    const newValue = [...value.slice(0, index), formatedValue, ...value.slice(index + 1)];
 
     onChange?.(newValue);
 
@@ -68,7 +57,7 @@ export const CodeInput = ({
           }}
           value={value[index] || ""}
           key={index}
-          className="px-2 py-6 rounded-lg w-full text-center border-2 border-input-code-border focus:outline-blue-600 text-inputCodeText font-bold transition-all"
+          className="px-2 py-6 rounded-lg w-full text-center border-2 border-input-border focus:outline-blue-600 text-input-text font-bold transition-all"
           type="number"
         />
       ))}
