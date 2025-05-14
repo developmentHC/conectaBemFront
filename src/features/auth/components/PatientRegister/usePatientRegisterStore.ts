@@ -6,6 +6,8 @@ type States = {
   cepResidencial?: string;
   enderecoResidencial?: string;
   bairroResidencial?: string;
+  cidadeResidencial?: string;
+  estadoResidencial?: string;
   specialties?: string[];
   servicePreferences?: string[];
   accessibility?: string[];
@@ -27,6 +29,8 @@ const defaultsStates: States = {
   cepResidencial: undefined,
   enderecoResidencial: undefined,
   bairroResidencial: undefined,
+  cidadeResidencial: undefined,
+  estadoResidencial: undefined,
   specialties: [],
   accessibility: [],
   profilePhoto: undefined,

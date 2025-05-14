@@ -8,11 +8,15 @@ type States = {
   enderecoResidencial?: string;
   bairroResidencial?: string;
   complementoResidencial?: string;
+  cidadeResidencial?: string;
+  estadoResidencial?: string;
   cepProfessional?: string;
   clinicName?: string;
   cpfCNPJ?: string;
   enderecoClinica?: string;
   bairroClinica?: string;
+  cidadeClinica?: string;
+  estadoClinica?: string;
   complementoClinica?: string;
   numeroClinica?: number;
   specialties?: string[];
@@ -39,11 +43,15 @@ const defaultsStates: States = {
   cepResidencial: undefined,
   enderecoResidencial: undefined,
   bairroResidencial: undefined,
+  cidadeResidencial: undefined,
+  estadoResidencial: undefined,
   complementoResidencial: undefined,
   cepProfessional: undefined,
   clinicName: undefined,
   cpfCNPJ: undefined,
   enderecoClinica: undefined,
+  cidadeClinica: undefined,
+  estadoClinica: undefined,
   bairroClinica: undefined,
   complementoClinica: undefined,
   numeroClinica: undefined,

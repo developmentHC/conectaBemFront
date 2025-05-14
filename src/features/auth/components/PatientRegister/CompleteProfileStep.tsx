@@ -16,17 +16,18 @@ export const CompleteProfileStep = () => {
     name,
     specialties,
     servicePreferences,
-    profilePhoto,
     birthdayDate,
     cepResidencial,
     enderecoResidencial,
     bairroResidencial,
+    cidadeResidencial,
+    estadoResidencial,
   } = usePatientRegisterStore();
   const { mutate: createPatient } = useRegisterPatient();
   const { idUser } = useUserStore();
 
   const onChangeImage = (e: any) => {
-    if (!e.target.files[0]) return;
+    if (!e.target.files[0]) return undefined;
 
     setImage(e.target.files[0]);
     updateFields({ profilePhoto: e.target.files[0] });
@@ -41,15 +42,18 @@ export const CompleteProfileStep = () => {
       userId: idUser,
       birthdayDate: birthdayDate?.getTime(),
       name: name,
-      residencial: {
-        cepResidencial,
-        enderecoResidencial,
-        bairroResidencial,
+      residentialAddress: {
+        cep: cepResidencial,
+        address: enderecoResidencial,
+        neighborhood: bairroResidencial,
+        city: cidadeResidencial,
+        state: estadoResidencial,
       },
       userAcessibilityPreferences: accessibility,
       userServicePreferences: servicePreferences,
       userSpecialties: specialties,
-      profilePhoto: profilePhoto,
+      profilePhoto:
+        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAU8AAABwCAYAAACelvI+AAAAAXNSR0IArs4c6QAAAARnQU1BAA===",
     });
   };
 

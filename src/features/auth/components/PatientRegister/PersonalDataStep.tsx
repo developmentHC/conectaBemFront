@@ -29,6 +29,8 @@ const schema = z.object({
   cepResidencial: z.string().length(9, "CEP inválido"),
   enderecoResidencial: z.string().min(3, "Endereço inválido"),
   bairroResidencial: z.string().min(3, "Bairro inválido"),
+  cidadeResidencial: z.string().min(3, "Cidade inválida"),
+  estadoResidencial: z.string().min(3, "Estado inválido"),
 });
 
 export const PersonalDataStep = () => {
@@ -52,7 +54,7 @@ export const PersonalDataStep = () => {
 
   const onSubmit = handleSubmit(async (data: Data) => {
     data.cepResidencial = data.cepResidencial.replace("-", "");
-    
+
     updateFields({
       birthdayDate: data.birthdate,
     });
@@ -77,9 +79,11 @@ export const PersonalDataStep = () => {
   useEffect(() => {
     if (!data) return;
     console.log(data);
-    setValue("enderecoResidencial", data.logradouro);
 
+    setValue("enderecoResidencial", data.logradouro);
     setValue("bairroResidencial", data.bairro);
+    setValue("cidadeResidencial", data.localidade);
+    setValue("estadoResidencial", data.estado);
   }, [data, setValue]);
 
   return (

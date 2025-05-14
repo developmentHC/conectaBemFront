@@ -22,18 +22,22 @@ export type ICreateProfissional = {
   professionalSpecialties: string[] | undefined;
   otherProfessionalSpecialties: string[] | undefined;
   professionalServicePreferences: string[] | undefined;
-  profilePhoto: File | undefined;
-  residencial: {
-    cepResidencial: string | undefined;
-    enderecoResidencial: string | undefined;
-    bairroResidencial: string | undefined;
+  profilePhoto: string | undefined;
+  residentialAddress: {
+    cep: string | undefined;
+    address: string | undefined;
+    neighborhood: string | undefined;
+    city: string | undefined;
+    state: string | undefined;
   };
-  clinica: {
-    nomeClinica: string | undefined;
-    cepClinica: string | undefined;
-    enderecoClinica: string | undefined;
-    bairroClinica: string | undefined;
-    numeroClinica: number | undefined;
-    complementoClinica: string | undefined;
+  clinic: {
+    name: string | undefined;
+    cep: string | undefined;
+    address: string | undefined;
+    neighborhood: string | undefined;
+    number: number | undefined;
+    city: string | undefined;
+    state: string | undefined;
+    addition: string | undefined;
   };
 };

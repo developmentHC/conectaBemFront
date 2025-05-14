@@ -23,14 +23,16 @@ export type IPatient = {
 export type ICreatePatient = {
   userId: string | undefined;
   name: string | undefined;
-  residencial: {
-    cepResidencial: string | undefined;
-    enderecoResidencial: string | undefined;
-    bairroResidencial: string | undefined;
+  residentialAddress: {
+    cep: string | undefined;
+    address: string | undefined;
+    neighborhood: string | undefined;
+    city: string | undefined;
+    state: string | undefined;
   };
   birthdayDate: number | undefined;
   userSpecialties: string[] | undefined;
   userServicePreferences: string[] | undefined;
   userAcessibilityPreferences: string[] | undefined;
-  profilePhoto: File | undefined;
+  profilePhoto: string | undefined;
 };

@@ -18,24 +18,24 @@ export const CompleteProfileStep = () => {
     enderecoResidencial,
     bairroResidencial,
     clinicName,
-    complementoClinica,
-    cpfCNPJ,
     enderecoClinica,
     bairroClinica,
+    cidadeClinica,
+    estadoClinica,
+    complementoClinica,
     numeroClinica,
+    cpfCNPJ,
     name,
     servicePreferences,
     specialties,
-    photo,
   } = useProfissionalRegisterStore();
   const { idUser } = useUserStore();
   const { mutate: createProfissional } = useRegisterProfissional();
 
   const onChangeImage = (e: any) => {
-    if (!e.target.files[0]) return;
+    if (!e.target.files[0]) return undefined;
 
     setImage(e.target.files[0]);
-
     updateFields({ photo: e.target.files[0] });
   };
 
@@ -45,23 +45,28 @@ export const CompleteProfileStep = () => {
       name: name,
       birthdayDate: birthdate?.getTime(),
       CNPJCPFProfissional: cpfCNPJ,
-      residencial: {
-        cepResidencial: cepResidencial,
-        enderecoResidencial: enderecoResidencial,
-        bairroResidencial: bairroResidencial,
+      residentialAddress: {
+        cep: cepResidencial,
+        address: enderecoResidencial,
+        neighborhood: bairroResidencial,
+        city: bairroResidencial,
+        state: bairroResidencial,
       },
-      clinica: {
-        nomeClinica: clinicName,
-        cepClinica: cepProfessional,
-        enderecoClinica: enderecoClinica,
-        bairroClinica: bairroClinica,
-        numeroClinica: numeroClinica,
-        complementoClinica: complementoClinica,
+      clinic: {
+        name: clinicName,
+        cep: cepProfessional,
+        address: enderecoClinica,
+        neighborhood: bairroClinica,
+        number: numeroClinica,
+        city: cidadeClinica,
+        state: estadoClinica,
+        addition: complementoClinica,
       },
       professionalSpecialties: specialties,
       otherProfessionalSpecialties: [],
       professionalServicePreferences: servicePreferences,
-      profilePhoto: photo,
+      profilePhoto:
+        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAU8AAABwCAYAAACelvI+AAAAAXNSR0IArs4c6QAAAARnQU1BAA===",
     });
   };
 

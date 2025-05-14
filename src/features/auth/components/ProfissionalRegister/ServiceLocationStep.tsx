@@ -18,6 +18,8 @@ const schema = z.object({
   bairroClinica: z.string().min(3, "Bairro inválido"),
   numeroClinica: z.number().min(1, "Número inválido"),
   complementoClinica: z.string(),
+  cidadeClinica: z.string().min(3, "Cidade inválida"),
+  estadoClinica: z.string().min(3, "Estado inválido"),
 });
 
 export const ServiceLocationStep = () => {
@@ -96,6 +98,9 @@ export const ServiceLocationStep = () => {
 
     setValue("bairroClinica", data.bairro);
     setNeighborhoodInput(data.bairro || "");
+
+    setValue("cidadeClinica", data.localidade);
+    setValue("estadoClinica", data.estado);
   }, [data, setValue]);
 
   return (
@@ -170,7 +175,10 @@ export const ServiceLocationStep = () => {
             Número <span className="text-red-600">*</span>
           </label>
           <TextField
-            {...register("numeroClinica")}
+            {...register("numeroClinica", {
+              valueAsNumber: true,
+              setValueAs: (value) => (value === "" ? undefined : Number(value)),
+            })}
             placeholder="1014"
             type="number"
             helperText={errors.numeroClinica?.message}
