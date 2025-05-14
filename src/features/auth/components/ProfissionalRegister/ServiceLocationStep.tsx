@@ -25,7 +25,6 @@ export const ServiceLocationStep = () => {
     register,
     handleSubmit,
     setValue,
-    getValues,
     watch,
     formState: { errors, isValid },
   } = useForm<Data>({
