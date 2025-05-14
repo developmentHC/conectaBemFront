@@ -14,7 +14,7 @@ type States = {
   enderecoClinica?: string;
   bairroClinica?: string;
   complementoClinica?: string;
-  numeroClinica?: string;
+  numeroClinica?: number;
   specialties?: string[];
   servicePreferences?: string[];
   photo?: File;

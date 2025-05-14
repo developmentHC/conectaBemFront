@@ -7,7 +7,7 @@ export const useRegisterPatient = () => {
   return useMutation({
     mutationFn: async (data: ICreatePatient) => {
       const response = await api.post("/auth/createPatient", data);
-      console.log(response);
+      
       return response.data;
     },
     onError: (error) => {

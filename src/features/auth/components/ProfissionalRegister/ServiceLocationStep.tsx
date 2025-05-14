@@ -16,7 +16,7 @@ const schema = z.object({
   cepProfessional: z.string().length(9, "CEP inválido"),
   enderecoClinica: z.string().min(5, "Endereço inválido"),
   bairroClinica: z.string().min(3, "Bairro inválido"),
-  numeroClinica: z.string().min(1, "Número inválido"),
+  numeroClinica: z.number().min(1, "Número inválido"),
   complementoClinica: z.string(),
 });
 
@@ -26,6 +26,7 @@ export const ServiceLocationStep = () => {
     handleSubmit,
     setValue,
     getValues,
+    watch,
     formState: { errors, isValid },
   } = useForm<Data>({
     mode: "all",
@@ -38,8 +39,10 @@ export const ServiceLocationStep = () => {
   const [addressInput, setAddressInput] = useState("");
   const [neighborhoodInput, setNeighborhoodInput] = useState("");
 
+  const cepValue = watch("cepProfessional");
+
   const { data } = useCEP({
-    cep: getValues("cepProfessional"),
+    cep: cepValue?.length === 9 ? cepValue : "",
   });
 
   const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {

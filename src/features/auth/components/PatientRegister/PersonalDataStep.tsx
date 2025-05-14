@@ -52,7 +52,7 @@ export const PersonalDataStep = () => {
 
   const onSubmit = handleSubmit(async (data: Data) => {
     data.cepResidencial = data.cepResidencial.replace("-", "");
-    console.log(data);
+    
     updateFields({
       birthdayDate: data.birthdate,
     });
