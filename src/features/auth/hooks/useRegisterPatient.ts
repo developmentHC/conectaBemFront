@@ -6,12 +6,12 @@ import toast from "react-hot-toast";
 export const useRegisterPatient = () => {
   return useMutation({
     mutationFn: async (data: ICreatePatient) => {
-      const response = await api.post("/auth/createProfessional", data)
-
-      return response.data
+      const response = await api.post("/auth/createPatient", data);
+      console.log(response);
+      return response.data;
     },
     onError: (error) => {
-      toast.error(error.message)
-    }
+      toast.error(error.message);
+    },
   });
 };
