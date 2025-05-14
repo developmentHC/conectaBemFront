@@ -8,7 +8,8 @@ import { DatePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 import { useProfissionalRegisterStore } from "./useProfissionalRegisterStore";
 import { CEPField } from "@/components/Fields/CEPField";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useCEP } from "../../hooks/useCEP";
 
 type Data = z.infer<typeof schema>;
 
@@ -16,10 +17,7 @@ const schema = z.object({
   name: z
     .string()
     .min(10, "Nome inválido")
-    .regex(
-      /^[A-Za-zÀ-ú]+(?: [A-Za-zÀ-ú]+)*$/,
-      "O nome deve conter apenas letras e um espaço entre as palavras"
-    ),
+    .regex(/^[A-Za-zÀ-ú]+(?: [A-Za-zÀ-ú]+)*$/, "O nome deve conter apenas letras e um espaço entre as palavras"),
   birthdate: z.instanceof(Date).refine(
     (date) => {
       const now = new Date();
@@ -34,6 +32,8 @@ const schema = z.object({
     .string()
     .length(9, "CEP inválido")
     .refine((cep) => cep !== "00000-000"),
+  enderecoResidencial: z.string().min(3, "Endereço inválido"),
+  bairroResidencial: z.string().min(3, "Bairro inválido"),
 });
 
 export const PersonalDataStep = () => {
@@ -44,13 +44,20 @@ export const PersonalDataStep = () => {
     register,
     handleSubmit,
     setValue,
+    getValues,
     formState: { errors, isValid },
   } = useForm<Data>({
     mode: "all",
     resolver: zodResolver(schema),
   });
 
+  const { data } = useCEP({
+    cep: getValues("cepResidencial"),
+  });
+
   const onSubmit = handleSubmit(async (data: Data) => {
+    data.cepResidencial = data.cepResidencial.replace("-", "");
+    console.log(data)
     updateFields(data);
 
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -70,6 +77,14 @@ export const PersonalDataStep = () => {
 
     setNameInput(onlyLettersAndSpace);
   };
+
+  useEffect(() => {
+    if (!data) return;
+    console.log(data);
+    setValue("enderecoResidencial", data.logradouro);
+
+    setValue("bairroResidencial", data.bairro);
+  }, [data, setValue]);
 
   return (
     <form onSubmit={onSubmit} className="flex flex-col gap-4">
@@ -121,18 +136,12 @@ export const PersonalDataStep = () => {
         </label>
         <CEPField
           {...register("cepResidencial")}
-          onChange={(e) =>
-            setValue("cepResidencial", e.target.value, { shouldValidate: true })
-          }
+          onChange={(e) => setValue("cepResidencial", e.target.value, { shouldValidate: true })}
+          error={!!errors.cepResidencial}
         />
       </div>
 
-      <Button
-        disabled={!isValid}
-        type="submit"
-        variant="contained"
-        size="large"
-      >
+      <Button disabled={!isValid} type="submit" variant="contained" size="large">
         Continuar
       </Button>
     </form>

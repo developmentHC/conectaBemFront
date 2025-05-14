@@ -18,6 +18,9 @@ export const CompleteProfileStep = () => {
     servicePreferences,
     profilePhoto,
     birthdayDate,
+    cepResidencial,
+    enderecoResidencial,
+    bairroResidencial,
   } = usePatientRegisterStore();
   const { mutate: createPatient } = useRegisterPatient();
   const { idUser } = useUserStore();
@@ -38,6 +41,9 @@ export const CompleteProfileStep = () => {
       userId: idUser,
       birthdayDate: birthdayDate?.getTime(),
       name: name,
+      cepResidencial,
+      enderecoResidencial,
+      bairroResidencial,
       userAcessibilityPreferences: accessibility,
       userServicePreferences: servicePreferences,
       userSpecialties: specialties,
@@ -48,13 +54,7 @@ export const CompleteProfileStep = () => {
   return (
     <form className="flex flex-col gap-8">
       <div className="flex justify-center items-center relative">
-        <input
-          onChange={onChangeImage}
-          type="file"
-          name="file"
-          id="file"
-          className="hidden"
-        />
+        <input onChange={onChangeImage} type="file" name="file" id="file" className="hidden" />
         <label
           htmlFor="file"
           className="bg-blue-600 h-[120px] w-[120px] rounded-full items-center justify-center flex flex-col relative cursor-pointer"
@@ -77,21 +77,12 @@ export const CompleteProfileStep = () => {
       </div>
 
       <FormControlLabel
-        control={
-          <Checkbox
-            checked={termsAccepted}
-            onChange={(e) => setTermsAccepted(e.target.checked)}
-          />
-        }
+        control={<Checkbox checked={termsAccepted} onChange={(e) => setTermsAccepted(e.target.checked)} />}
         label="Aceitar Termos de Uso e Política de Privacidade"
       />
 
       <div className="flex flex-col gap-6">
-        <Button
-          onClick={onSubmit}
-          variant="contained"
-          disabled={!termsAccepted}
-        >
+        <Button onClick={onSubmit} variant="contained" disabled={!termsAccepted}>
           Começar
         </Button>
       </div>

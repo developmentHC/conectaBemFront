@@ -3,6 +3,9 @@ export type IPatient = {
   name: string;
   email: string;
   profilePhoto: string;
+  cepResidencial: string;
+  enderecoResidencial: string;
+  complementoResidencial: string;
   userSpecialities: {
     id: number;
     name: string;
@@ -20,6 +23,9 @@ export type IPatient = {
 export type ICreatePatient = {
   userId: string | undefined;
   name: string | undefined;
+  cepResidencial: string | undefined;
+  enderecoResidencial: string | undefined;
+  bairroResidencial: string | undefined;
   birthdayDate: number | undefined;
   userSpecialties: string[] | undefined;
   userServicePreferences: string[] | undefined;

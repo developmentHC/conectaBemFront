@@ -5,11 +5,16 @@ type States = {
   name?: string;
   birthdate?: Date;
   cepResidencial?: string;
+  enderecoResidencial?: string;
+  bairroResidencial?: string;
+  complementoResidencial?: string;
   cepProfessional?: string;
   clinicName?: string;
   cpfCNPJ?: string;
-  address?: string;
-  complement?: string;
+  enderecoClinica?: string;
+  bairroClinica?: string;
+  complementoClinica?: string;
+  numeroClinica?: string;
   specialties?: string[];
   servicePreferences?: string[];
   photo?: File;
@@ -18,7 +23,7 @@ type States = {
   BackstepButton?: ReactNode;
   suggestions?: string;
   step: Step;
-}
+};
 
 type ProfissionalRegisterProps = {
   updateFields: (fields: Partial<States>) => void;
@@ -32,11 +37,16 @@ const defaultsStates: States = {
   name: undefined,
   birthdate: undefined,
   cepResidencial: undefined,
+  enderecoResidencial: undefined,
+  bairroResidencial: undefined,
+  complementoResidencial: undefined,
   cepProfessional: undefined,
   clinicName: undefined,
   cpfCNPJ: undefined,
-  address: undefined,
-  complement: undefined,
+  enderecoClinica: undefined,
+  bairroClinica: undefined,
+  complementoClinica: undefined,
+  numeroClinica: undefined,
   specialties: undefined,
   servicePreferences: undefined,
   photo: undefined,
@@ -45,7 +55,7 @@ const defaultsStates: States = {
   suggestions: undefined,
   BackstepButton: undefined,
   step: "personal_data",
-}
+};
 
 export const useProfissionalRegisterStore = create<ProfissionalRegisterProps>((set) => ({
   ...defaultsStates,

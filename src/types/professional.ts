@@ -19,6 +19,8 @@ export type ICreateProfissional = {
   name: string | undefined;
   birthdayDate: number | undefined;
   cepResidencial: string | undefined;
+  enderecoResidencial: string | undefined;
+  complementoResidencial: string | undefined;
   nomeClinica: string | undefined;
   CNPJCPFProfissional: string | undefined;
   cepClinica: string | undefined;
@@ -27,5 +29,5 @@ export type ICreateProfissional = {
   professionalSpecialties: string[] | undefined;
   otherProfessionalSpecialties: string[] | undefined;
   professionalServicePreferences: string[] | undefined;
-  profilePhoto:  File | undefined;
+  profilePhoto: File | undefined;
 };

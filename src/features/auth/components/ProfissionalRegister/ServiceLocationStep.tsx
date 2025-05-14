@@ -12,15 +12,12 @@ type Data = z.infer<typeof schema>;
 
 const schema = z.object({
   clinicName: z.string().min(3, "Nome inválido"),
-  cpfCNPJ: z
-    .string()
-    .min(11, "CNPJ ou CPF inválido")
-    .max(18, "CNPJ ou CPF inválido"),
+  cpfCNPJ: z.string().min(11, "CNPJ ou CPF inválido").max(18, "CNPJ ou CPF inválido"),
   cepProfessional: z.string().length(9, "CEP inválido"),
-  address: z.string().min(5, "Endereço inválido"),
-  neighborhood: z.string().min(3, "Bairro inválido"),
-  number: z.string().min(1, "Número inválido"),
-  complement: z.string(),
+  enderecoClinica: z.string().min(5, "Endereço inválido"),
+  bairroClinica: z.string().min(3, "Bairro inválido"),
+  numeroClinica: z.string().min(1, "Número inválido"),
+  complementoClinica: z.string(),
 });
 
 export const ServiceLocationStep = () => {
@@ -48,9 +45,7 @@ export const ServiceLocationStep = () => {
   const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
     const rawValue = e.target.value;
 
-    const onlyLettersAndSpace = rawValue
-      .replace(/\s+/g, " ")
-      .trimStart();
+    const onlyLettersAndSpace = rawValue.replace(/\s+/g, " ").trimStart();
 
     setValue("clinicName", onlyLettersAndSpace);
     setNameInput(onlyLettersAndSpace);
@@ -64,7 +59,7 @@ export const ServiceLocationStep = () => {
       .replace(/\s+/g, " ")
       .trimStart();
 
-    setValue("address", onlyLettersAndSpace);
+    setValue("enderecoClinica", onlyLettersAndSpace);
     setAddressInput(onlyLettersAndSpace);
   };
 
@@ -76,17 +71,13 @@ export const ServiceLocationStep = () => {
       .replace(/\s+/g, " ")
       .trimStart();
 
-    setValue("neighborhood", onlyLettersAndSpace);
+    setValue("bairroClinica", onlyLettersAndSpace);
     setNeighborhoodInput(onlyLettersAndSpace);
   };
 
   const onSubmit = handleSubmit(async (data) => {
     data.cepProfessional = data.cepProfessional.replace("-", "");
-    data.cpfCNPJ = data.cpfCNPJ
-      .replace(".", "")
-      .replace(".", "")
-      .replace("-", "")
-      .replace("/", "");
+    data.cpfCNPJ = data.cpfCNPJ.replace(".", "").replace(".", "").replace("-", "").replace("/", "");
 
     updateFields(data);
 
@@ -97,14 +88,13 @@ export const ServiceLocationStep = () => {
 
   useEffect(() => {
     if (!data) return;
-  
-    setValue("address", data.logradouro);
+
+    setValue("enderecoClinica", data.logradouro);
     setAddressInput(data.logradouro || "");
-  
-    setValue("neighborhood", data.bairro);
+
+    setValue("bairroClinica", data.bairro);
     setNeighborhoodInput(data.bairro || "");
   }, [data, setValue]);
-  
 
   return (
     <form onSubmit={onSubmit} className="flex flex-col gap-4">
@@ -125,11 +115,7 @@ export const ServiceLocationStep = () => {
         <label>
           CNPJ OU CPF do Profissional <span className="text-red-600">*</span>
         </label>
-        <CpfCnpjField
-          {...register("cpfCNPJ")}
-          helperText={errors.cpfCNPJ?.message}
-          error={!!errors.cpfCNPJ}
-        />
+        <CpfCnpjField {...register("cpfCNPJ")} helperText={errors.cpfCNPJ?.message} error={!!errors.cpfCNPJ} />
       </div>
       <div className="flex flex-col gap-2">
         <label>
@@ -148,8 +134,8 @@ export const ServiceLocationStep = () => {
         <TextField
           onChange={onChangeAddress}
           placeholder="Rua, Avenida, Travessa"
-          helperText={errors.address?.message}
-          error={!!errors.address}
+          helperText={errors.enderecoClinica?.message}
+          error={!!errors.enderecoClinica}
           value={addressInput}
           slotProps={{
             inputLabel: {
@@ -167,8 +153,8 @@ export const ServiceLocationStep = () => {
             onChange={onChangeNeighborhood}
             className="w-full"
             placeholder="Bairro"
-            helperText={errors.neighborhood?.message}
-            error={!!errors.neighborhood}
+            helperText={errors.bairroClinica?.message}
+            error={!!errors.bairroClinica}
             value={neighborhoodInput}
             slotProps={{
               inputLabel: {
@@ -182,11 +168,11 @@ export const ServiceLocationStep = () => {
             Número <span className="text-red-600">*</span>
           </label>
           <TextField
-            {...register("number")}
+            {...register("numeroClinica")}
             placeholder="1014"
             type="number"
-            helperText={errors.number?.message}
-            error={!!errors.number}
+            helperText={errors.numeroClinica?.message}
+            error={!!errors.numeroClinica}
             required
           />
         </div>
@@ -194,18 +180,10 @@ export const ServiceLocationStep = () => {
 
       <div className="flex flex-col gap-2">
         <label>Complemento</label>
-        <TextField
-          {...register("complement")}
-          placeholder="Sala 1101, bloco B"
-        />
+        <TextField {...register("complementoClinica")} placeholder="Sala 1101, bloco B" />
       </div>
 
-      <Button
-        disabled={!isValid}
-        type="submit"
-        className="w-full text-button"
-        variant="contained"
-      >
+      <Button disabled={!isValid} type="submit" className="w-full text-button" variant="contained">
         Continuar
       </Button>
     </form>

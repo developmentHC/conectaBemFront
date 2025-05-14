@@ -3,11 +3,13 @@ import { create } from "zustand";
 type States = {
   name?: string;
   birthdayDate?: Date;
-  cep?: string;
+  cepResidencial?: string;
+  enderecoResidencial?: string;
+  bairroResidencial?: string;
   specialties?: string[];
   servicePreferences?: string[];
   accessibility?: string[];
-  profilePhoto?: File ;
+  profilePhoto?: File;
   step: Step;
 };
 
@@ -22,7 +24,9 @@ export type Step = "personal_data" | "specialties" | "accessibility" | "complete
 const defaultsStates: States = {
   name: undefined,
   birthdayDate: undefined,
-  cep: undefined,
+  cepResidencial: undefined,
+  enderecoResidencial: undefined,
+  bairroResidencial: undefined,
   specialties: [],
   accessibility: [],
   profilePhoto: undefined,

@@ -15,10 +15,13 @@ export const CompleteProfileStep = () => {
     birthdate,
     cepProfessional,
     cepResidencial,
+    enderecoResidencial,
+    complementoResidencial,
     clinicName,
-    complement,
+    complementoClinica,
     cpfCNPJ,
-    address,
+    enderecoClinica,
+    bairroClinica,
     name,
     servicePreferences,
     specialties,
@@ -36,16 +39,36 @@ export const CompleteProfileStep = () => {
   };
 
   const onSubmit = () => {
+    console.log({
+      userId: idUser,
+      name: name,
+      birthdayDate: birthdate?.getTime(),
+      cepResidencial: cepResidencial,
+      enderecoResidencial,
+      complementoResidencial,
+      nomeClinica: clinicName,
+      CNPJCPFProfissional: cpfCNPJ,
+      cepClinica: cepProfessional,
+      enderecoClinica: enderecoResidencial,
+      bairroClinica: bairroClinica,
+      complementoClinica: complementoClinica,
+      professionalSpecialties: specialties,
+      otherProfessionalSpecialties: [],
+      professionalServicePreferences: servicePreferences,
+      profilePhoto: photo,
+    });
     createProfissional({
       userId: idUser,
       name: name,
       birthdayDate: birthdate?.getTime(),
       cepResidencial: cepResidencial,
+      enderecoResidencial,
+      complementoResidencial,
       nomeClinica: clinicName,
       CNPJCPFProfissional: cpfCNPJ,
       cepClinica: cepProfessional,
-      enderecoClinica: address,
-      complementoClinica: complement,
+      enderecoClinica: enderecoClinica,
+      complementoClinica: complementoClinica,
       professionalSpecialties: specialties,
       otherProfessionalSpecialties: [],
       professionalServicePreferences: servicePreferences,
@@ -56,18 +79,12 @@ export const CompleteProfileStep = () => {
   return (
     <form className="flex flex-col gap-8">
       <span>
-        Terminamos por aqui, aproveite o ConectaBem. Lembre de terminar seu
-        cadastro no futuro e iniciar seus atendimentos.
+        Terminamos por aqui, aproveite o ConectaBem. Lembre de terminar seu cadastro no futuro e iniciar seus
+        atendimentos.
       </span>
 
       <div className="flex justify-center items-center relative">
-        <input
-          onChange={onChangeImage}
-          type="file"
-          name="file"
-          id="file"
-          className="hidden"
-        />
+        <input onChange={onChangeImage} type="file" name="file" id="file" className="hidden" />
         <label
           htmlFor="file"
           className="bg-blue-600 h-[120px] w-[120px] rounded-full items-center justify-center flex flex-col relative cursor-pointer"
@@ -89,21 +106,12 @@ export const CompleteProfileStep = () => {
       </div>
 
       <FormControlLabel
-        control={
-          <Checkbox
-            checked={termsAccepted}
-            onChange={(e) => setTermsAccepted(e.target.checked)}
-          />
-        }
+        control={<Checkbox checked={termsAccepted} onChange={(e) => setTermsAccepted(e.target.checked)} />}
         label="Aceitar Termos de Uso e Política de Privacidade"
       />
 
       <div className="flex flex-col gap-6">
-        <Button
-          onClick={onSubmit}
-          disabled={!termsAccepted}
-          variant="contained"
-        >
+        <Button onClick={onSubmit} disabled={!termsAccepted} variant="contained">
           Começar
         </Button>
       </div>
