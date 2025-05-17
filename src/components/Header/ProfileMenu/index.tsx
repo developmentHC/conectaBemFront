@@ -1,47 +1,63 @@
-'use client'
+"use client";
 
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
-import Link from 'next/link'
+import Link from "next/link";
+import { FaUser } from "react-icons/fa";
 
 export const ProfileMenu = () => {
-  const [isOpen, setIsOpen] = useState(false)
-  const menuRef = useRef<HTMLDivElement>(null)
+  const [isOpen, setIsOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const [userImage, setUserImage] = useState<string | null>(null);
+
+  useEffect(() => {
+    const pickUserImage = async () => {
+      const userExists = localStorage.getItem("userPatient");
+
+      if (userExists) {
+        const data = JSON.parse(userExists);
+        setUserImage(data.profilePhoto);
+        console.log(data.profilePhoto);
+      }
+    };
+
+    pickUserImage();
+  }, []);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        setIsOpen(false)
+        setIsOpen(false);
       }
-    }
+    };
 
     const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        setIsOpen(false)
+      if (event.key === "Escape") {
+        setIsOpen(false);
       }
-    }
+    };
 
-    document.addEventListener('mousedown', handleClickOutside)
-    document.addEventListener('keydown', handleEscape)
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("keydown", handleEscape);
 
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
-      document.removeEventListener('keydown', handleEscape)
-    }
-  }, [])
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, []);
 
   const data = {
-    "submenu": [
+    submenu: [
       {
-        "text": "Editar informações",
-        "link": null
+        text: "Editar informações",
+        link: null,
       },
       {
-        "text": "Conta",
-        "link": "/terapias-corporais-e-fisicas"
-      }
-    ]
-  }
+        text: "Conta",
+        link: "null",
+      },
+    ],
+  };
 
   return (
     <div className="relative z-10" ref={menuRef}>
@@ -51,22 +67,32 @@ export const ProfileMenu = () => {
         aria-expanded={isOpen}
         aria-label="Menu do perfil"
       >
-        <Image
-          src='/images/profile.jpeg'
-          alt=''
-          sizes="(max-width: 768px) 100vw, 50vw"
-          className="object-cover object-center rounded-full"
-          fill
-        />
+        {userImage ? (
+          <Image
+            src={userImage}
+            alt=""
+            sizes="(max-width: 768px) 100vw, 50vw"
+            className="object-cover object-center rounded-full"
+            fill
+          />
+        ) : (
+          <FaUser
+            className="text-4xl"
+            style={{
+              backgroundColor: "#3858F4",
+              padding: "5px",
+              borderRadius: "50%",
+              color: "white",
+            }}
+          />
+        )}
       </button>
 
       <div
-        className={`absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 transition-all ${isOpen
-          ? 'opacity-100 visible translate-y-0'
-          : 'opacity-0 invisible -translate-y-2'
-          }`}
+        className={`absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 transition-all ${
+          isOpen ? "opacity-100 visible translate-y-0" : "opacity-0 invisible -translate-y-2"
+        }`}
       >
-
         <ul className="py-2">
           {data.submenu.map((item, index) => (
             <li key={index}>
@@ -92,5 +118,5 @@ export const ProfileMenu = () => {
         </ul>
       </div>
     </div>
-  )
-}
+  );
+};

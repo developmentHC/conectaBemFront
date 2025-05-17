@@ -18,7 +18,7 @@ export const useConfirmOTP = () => {
     },
     onSuccess: (response) => {
       if (response.status === 200) {
-        router.push("/home");
+        router.push("/");
       } else if (response.status === 201) {
         router.push("/auth/registro");
       }

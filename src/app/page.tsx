@@ -1,3 +1,4 @@
+"use client";
 
 import { MedicalSpecialization } from "@/components/MedicalSpecialization/MedicalSpecialization";
 import { SearchInput } from "@/components/SearchInput/SearchInput";
@@ -14,13 +15,8 @@ export default function HomePage() {
         <div className="flex flex-col gap-14">
           <div className="flex justify-between gap-6">
             <div className="flex flex-col gap-2 lg:w-full lg:max-w-[50%]">
-              <h1 className="text-5xl lg:text-6xl font-semibold">
-                Conecte-se bem com os melhores
-              </h1>
-              <span className="text-xl">
-                Encontre os melhores profissionais de terapias alternativas para
-                você!
-              </span>
+              <h1 className="text-5xl lg:text-6xl font-semibold">Conecte-se bem com os melhores</h1>
+              <span className="text-xl">Encontre os melhores profissionais de terapias alternativas para você!</span>
             </div>
             <div className="hidden lg:flex w-full justify-end">
               <Image

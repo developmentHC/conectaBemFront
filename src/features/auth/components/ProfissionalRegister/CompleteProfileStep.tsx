@@ -39,7 +39,7 @@ export const CompleteProfileStep = () => {
     if (!e.target.files[0]) return undefined;
 
     const file = e.target.files[0];
-    
+
     try {
       const base64 = await convertToBase64(file);
 

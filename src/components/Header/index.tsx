@@ -1,14 +1,13 @@
-'use client'
+"use client";
 
-import { getMenuData } from '@/libs/getMenuData';
-import Image from 'next/image';
-import { useEffect, useState } from 'react';
-import { MenuIcon, CloseIcon, SearchIcon, ChevronDownIcon } from '../../../public/images/icons/index';
-import { ProfileMenu } from './ProfileMenu';
-import { MobileMenu } from './MobileMenu';
-import Link from 'next/link';
-import { ModalChangeAccountType } from '../ModalChangeAccountType';
-import { Button } from '@mui/material';
+import { getMenuData } from "@/libs/getMenuData";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import { MenuIcon, CloseIcon, SearchIcon, ChevronDownIcon } from "../../../public/images/icons/index";
+import { ProfileMenu } from "./ProfileMenu";
+import { MobileMenu } from "./MobileMenu";
+import Link from "next/link";
+import { Button } from "@mui/material";
 
 interface DesktopItems {
   menuitemtext: string;
@@ -22,18 +21,17 @@ export const Header = () => {
   const [menuData, setMenuData] = useState<DesktopItems[]>([]);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [hoveredItem, setHoveredItem] = useState<number | null>(null);
-  const [changeAccountTypeOpen, setChangeAccountTypeOpen] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
   const [userExists, setUserExists] = useState<string | null>(null);
 
   useEffect(() => {
     const verifyUser = async () => {
-      const userExists = localStorage.getItem("userId");
+      const userExists = localStorage.getItem("userPatient");
       setUserExists(userExists);
     };
 
     verifyUser();
-  }, [])
+  }, []);
 
   useEffect(() => {
     setIsMounted(true);
@@ -46,15 +44,15 @@ export const Header = () => {
 
   useEffect(() => {
     if (isMobileMenuOpen) {
-      document.body.classList.add('overflow-hidden')
+      document.body.classList.add("overflow-hidden");
     } else {
-      document.body.classList.remove('overflow-hidden')
+      document.body.classList.remove("overflow-hidden");
     }
 
     return () => {
-      document.body.classList.remove('overflow-hidden')
-    }
-  }, [isMobileMenuOpen])
+      document.body.classList.remove("overflow-hidden");
+    };
+  }, [isMobileMenuOpen]);
 
   if (!isMounted) return null;
 
@@ -64,7 +62,7 @@ export const Header = () => {
         <div className="flex items-center justify-between w-full lg:pt-2">
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label={isMobileMenuOpen ? 'Fechar menu' : 'Abrir menu'}
+            aria-label={isMobileMenuOpen ? "Fechar menu" : "Abrir menu"}
             className="lg:hidden relative h-8 w-12 focus:outline-none"
           >
             {isMobileMenuOpen ? (
@@ -99,7 +97,7 @@ export const Header = () => {
                     {item.submenu.map((subItem, subIndex) => (
                       <li key={subIndex}>
                         <Link
-                          href={subItem.link || '#'}
+                          href={subItem.link || "#"}
                           className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-[#3858F4] transition-colors"
                         >
                           {subItem.text}
@@ -126,37 +124,17 @@ export const Header = () => {
               />
             ))} */}
 
-          {userExists
-            ? (
-              <ProfileMenu
-                setChangeAccountTypeOpen={setChangeAccountTypeOpen}
-                onClose={() => setChangeAccountTypeOpen(false)}
-              />
-            ) : (
-              <Button
-                variant="contained"
-                color="primary"
-                size="large">
-                Entrar
-              </Button>
-            )
-          }
+          {userExists ? (
+            <ProfileMenu />
+          ) : (
+            <Button variant="contained" color="primary" size="large">
+              Entrar
+            </Button>
+          )}
         </div>
       </header>
 
-      {isMobileMenuOpen && (
-        <MobileMenu
-          menuData={menuData}
-          onClose={() => setIsMobileMenuOpen(false)}
-        />
-      )}
-
-      {changeAccountTypeOpen && (
-        <ModalChangeAccountType
-          setChangeAccountTypeOpen={setChangeAccountTypeOpen}
-        />
-      )}
-
+      {isMobileMenuOpen && <MobileMenu menuData={menuData} onClose={() => setIsMobileMenuOpen(false)} />}
     </div>
   );
 };

@@ -1,3 +1,4 @@
+import { api } from "@/libs/api";
 import { IPatient } from "@/types/patient";
 import { useQuery } from "@tanstack/react-query";
 
@@ -11,10 +12,9 @@ export const useUserPatient = () => {
         return JSON.parse(storedPatient);
       }
 
-      const response = await fetch("mocks/userPatient.json");
-      const data = await response.json();
+      const data = await api.get("/user");
 
-      localStorage.setItem("userPatient", JSON.stringify(data));
+      localStorage.setItem("userPatient", JSON.stringify(data.data));
 
       return data;
     },

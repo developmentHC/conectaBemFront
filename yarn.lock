@@ -1864,6 +1864,48 @@
   resolved "https://registry.npmjs.org/@popperjs/core/-/core-2.11.8.tgz"
   integrity sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==
 
+"@prismicio/client@^7", "@prismicio/client@^7.16.1":
+  version "7.17.2"
+  resolved "https://registry.npmjs.org/@prismicio/client/-/client-7.17.2.tgz"
+  integrity sha512-4ijxHuuzwwH4hU+QVrpGwEEBPST1D3fjqW37aXbDVhTnZbedrx/jkblGQpRisLs3m7AANuzpm46UNLWcgUDZKw==
+  dependencies:
+    imgix-url-builder "^0.0.6"
+
+"@prismicio/helpers@^2.3.9":
+  version "2.3.9"
+  resolved "https://registry.npmjs.org/@prismicio/helpers/-/helpers-2.3.9.tgz"
+  integrity sha512-p7Y1sG83A2YPZvptfAzuZA8xH1bdM2wGRjqSKW9Qa0rAnBq2OfVKRvwl9OMCZML4eLUMxSEUAEWRVSoKpQnJvA==
+  dependencies:
+    "@prismicio/richtext" "^2.1.4"
+    "@prismicio/types" "^0.2.7"
+    imgix-url-builder "^0.0.3"
+
+"@prismicio/next@^2.0.0":
+  version "2.0.1"
+  resolved "https://registry.npmjs.org/@prismicio/next/-/next-2.0.1.tgz"
+  integrity sha512-wIC7pNd6nmdK3ZzlF1U+XGPRER7vL1zQdasvU3USdxWO1cxjdaK3LgFrpU28YZYH2RaGHmC5Wa303faILH86HQ==
+  dependencies:
+    imgix-url-builder "^0.0.5"
+
+"@prismicio/react@^3.1.0":
+  version "3.2.1"
+  resolved "https://registry.npmjs.org/@prismicio/react/-/react-3.2.1.tgz"
+  integrity sha512-osNwJ/M53l5ck7ScetYgkrye3NuPxCQOBR9kMSnUjg0C0YaIqeNLOrnMBm8IW319+XsdXO0uI72jg+9N4k7xhg==
+  dependencies:
+    esm-env "^1.2.2"
+
+"@prismicio/richtext@^2.1.4":
+  version "2.1.5"
+  resolved "https://registry.npmjs.org/@prismicio/richtext/-/richtext-2.1.5.tgz"
+  integrity sha512-Sf6iCsciPmfK3uQeFmeY9RTRSuhrCVzyU39OkiJ1VJn8O0531pKapGoWS+5WGxouJtE5+jGqV8L+L2mKP7NkXQ==
+  dependencies:
+    "@prismicio/types" "^0.2.7"
+
+"@prismicio/types@^0.2.7":
+  version "0.2.9"
+  resolved "https://registry.npmjs.org/@prismicio/types/-/types-0.2.9.tgz"
+  integrity sha512-1uhHnZTiGeCi+rmO507B8jtnUTCNetdgrC5sfZEw9zsCplfgBELt0+BN1RFsXWLbZbyvR9xzHcrJ87Ykqa8JZA==
+
 "@react-oauth/google@^0.12.1":
   version "0.12.1"
   resolved "https://registry.npmjs.org/@react-oauth/google/-/google-0.12.1.tgz"
@@ -4206,6 +4248,11 @@ dot-case@^3.0.4:
     no-case "^3.0.4"
     tslib "^2.0.3"
 
+dotenv@^16.5.0:
+  version "16.5.0"
+  resolved "https://registry.npmjs.org/dotenv/-/dotenv-16.5.0.tgz"
+  integrity sha512-m/C+AwOAr9/W1UOIZUo232ejMNnJAJtYQjUbHoNTBNTJSvqzzDh7vnrei3o3r3m9blf6ZoDkvcw0VmozNRFJxg==
+
 dunder-proto@^1.0.0, dunder-proto@^1.0.1:
   version "1.0.1"
   resolved "https://registry.npmjs.org/dunder-proto/-/dunder-proto-1.0.1.tgz"
@@ -4702,6 +4749,11 @@ eslint@*, "eslint@^2 || ^3 || ^4 || ^5 || ^6 || ^7.2.0 || ^8 || ^9", "eslint@^3 
     minimatch "^3.1.2"
     natural-compare "^1.4.0"
     optionator "^0.9.3"
+
+esm-env@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.npmjs.org/esm-env/-/esm-env-1.2.2.tgz"
+  integrity sha512-Epxrv+Nr/CaL4ZcFGPJIYLWFom+YeV1DqMLHJoEd9SYRxNbaFruBwfEX/kkHUJf55j2+TUbmDcmuilbP1TmXHA==
 
 espree@^10.0.1, espree@^10.3.0:
   version "10.3.0"
@@ -5402,6 +5454,21 @@ imask@^7.6.1:
   integrity sha512-sJlIFM7eathUEMChTh9Mrfw/IgiWgJqBKq2VNbyXvBZ7ev/IlO6/KQTKlV/Fm+viQMLrFLG/zCuudrLIwgK2dg==
   dependencies:
     "@babel/runtime-corejs3" "^7.24.4"
+
+imgix-url-builder@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.npmjs.org/imgix-url-builder/-/imgix-url-builder-0.0.3.tgz"
+  integrity sha512-8Oc2Cn4+jF06sEfJcVPlWYfD2F6RjrwIMbk1xEzux8unoB5LsvFc/GL1BQ47HPaeE12ReX2nMUcjUslGYWLxHA==
+
+imgix-url-builder@^0.0.5:
+  version "0.0.5"
+  resolved "https://registry.npmjs.org/imgix-url-builder/-/imgix-url-builder-0.0.5.tgz"
+  integrity sha512-dCx3UlXghtsjySoqVCcHQHRikqDummwQEfKlxBUK/wrMzd+1ox/XX+zhqVuXKMVuZvCc84pVLEJyntQB0OOi/w==
+
+imgix-url-builder@^0.0.6:
+  version "0.0.6"
+  resolved "https://registry.npmjs.org/imgix-url-builder/-/imgix-url-builder-0.0.6.tgz"
+  integrity sha512-lFVbvaE9vMck8qz9j+y6o7vsyc1vZhdqzWu+Wp/nlnOCi9zAErc31QMkZKYUGMNLLzxOO4YIBAUPndTPah8HFg==
 
 import-fresh@^3.2.1, import-fresh@^3.3.0:
   version "3.3.1"
@@ -6758,7 +6825,7 @@ next-auth@^5.0.0-beta.25:
   dependencies:
     "@auth/core" "0.37.2"
 
-"next@^13.5.0 || ^14.0.0 || ^15.0.0", "next@^14.0.0-0 || ^15.0.0-0", next@^15.1.4:
+"next@^13.4.5 || ^14 || ^15", "next@^13.5.0 || ^14.0.0 || ^15.0.0", "next@^14.0.0-0 || ^15.0.0-0", next@^15.1.4:
   version "15.1.7"
   resolved "https://registry.npmjs.org/next/-/next-15.1.7.tgz"
   integrity sha512-GNeINPGS9c6OZKCvKypbL8GTsT5GhWPp4DM0fzkXJuXMilOO2EeFxuAY6JZbtk6XIl6Ws10ag3xRINDjSO5+wg==
