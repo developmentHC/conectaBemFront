@@ -11,7 +11,7 @@ type States = {
   specialties?: string[];
   servicePreferences?: string[];
   accessibility?: string[];
-  profilePhoto?: File;
+  profilePhoto?: string;
   step: Step;
 };
 

@@ -21,7 +21,7 @@ type States = {
   numeroClinica?: number;
   specialties?: string[];
   servicePreferences?: string[];
-  photo?: File;
+  photo?: string;
   title?: ReactNode;
   description?: ReactNode;
   BackstepButton?: ReactNode;

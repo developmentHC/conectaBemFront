@@ -6,9 +6,11 @@ import { useState } from "react";
 import Image from "next/image";
 import { useRegisterProfissional } from "../../hooks/useRegisterProfissional";
 import { useUserStore } from "@/stores/userSessionStore";
+import { convertToBase64 } from "@/utils/transformImageToBase64";
+import toast from "react-hot-toast";
 
 export const CompleteProfileStep = () => {
-  const [image, setImage] = useState<File | null>(null);
+  const [image, setImage] = useState<string | null>(null);
   const [termsAccepted, setTermsAccepted] = useState(false);
   const {
     updateFields,
@@ -26,17 +28,27 @@ export const CompleteProfileStep = () => {
     numeroClinica,
     cpfCNPJ,
     name,
+    photo,
     servicePreferences,
     specialties,
   } = useProfissionalRegisterStore();
   const { idUser } = useUserStore();
   const { mutate: createProfissional, isPending } = useRegisterProfissional();
 
-  const onChangeImage = (e: any) => {
+  const onChangeImage = async (e: any) => {
     if (!e.target.files[0]) return undefined;
 
-    setImage(e.target.files[0]);
-    updateFields({ photo: e.target.files[0] });
+    const file = e.target.files[0];
+    
+    try {
+      const base64 = await convertToBase64(file);
+
+      setImage(base64);
+
+      updateFields({ photo: base64 });
+    } catch {
+      toast.error("Erro ao carregar imagem");
+    }
   };
 
   const onSubmit = () => {
@@ -65,8 +77,7 @@ export const CompleteProfileStep = () => {
       professionalSpecialties: specialties,
       otherProfessionalSpecialties: [],
       professionalServicePreferences: servicePreferences,
-      profilePhoto:
-        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAU8AAABwCAYAAACelvI+AAAAAXNSR0IArs4c6QAAAARnQU1BAA===",
+      profilePhoto: photo,
     });
   };
 
@@ -85,7 +96,7 @@ export const CompleteProfileStep = () => {
         >
           {image && (
             <Image
-              src={URL.createObjectURL(image)}
+              src={image}
               className="w-full h-full rounded-full object-cover"
               width={120}
               height={120}
