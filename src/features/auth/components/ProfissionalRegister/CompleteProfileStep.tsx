@@ -30,7 +30,7 @@ export const CompleteProfileStep = () => {
     specialties,
   } = useProfissionalRegisterStore();
   const { idUser } = useUserStore();
-  const { mutate: createProfissional } = useRegisterProfissional();
+  const { mutate: createProfissional, isPending } = useRegisterProfissional();
 
   const onChangeImage = (e: any) => {
     if (!e.target.files[0]) return undefined;
@@ -105,8 +105,8 @@ export const CompleteProfileStep = () => {
       />
 
       <div className="flex flex-col gap-6">
-        <Button onClick={onSubmit} disabled={!termsAccepted} variant="contained">
-          Começar
+        <Button onClick={onSubmit} disabled={!termsAccepted || isPending} variant="contained">
+          {isPending ? "Enviando..." : "Começar"}
         </Button>
       </div>
     </form>

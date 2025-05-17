@@ -59,7 +59,7 @@ export const PersonalDataStep = () => {
 
   const onSubmit = handleSubmit(async (data: Data) => {
     data.cepResidencial = data.cepResidencial.replace("-", "");
-    console.log(data);
+
     updateFields(data);
 
     window.scrollTo({ top: 0, behavior: "smooth" });

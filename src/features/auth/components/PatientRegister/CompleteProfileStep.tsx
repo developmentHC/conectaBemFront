@@ -23,7 +23,7 @@ export const CompleteProfileStep = () => {
     cidadeResidencial,
     estadoResidencial,
   } = usePatientRegisterStore();
-  const { mutate: createPatient } = useRegisterPatient();
+  const { mutate: createPatient, isPending } = useRegisterPatient();
   const { idUser } = useUserStore();
 
   const onChangeImage = (e: any) => {
@@ -88,8 +88,8 @@ export const CompleteProfileStep = () => {
       />
 
       <div className="flex flex-col gap-6">
-        <Button onClick={onSubmit} variant="contained" disabled={!termsAccepted}>
-          Começar
+        <Button onClick={onSubmit} variant="contained" disabled={!termsAccepted || isPending}>
+          {isPending ? "Enviando..." : "Começar"}
         </Button>
       </div>
     </form>
