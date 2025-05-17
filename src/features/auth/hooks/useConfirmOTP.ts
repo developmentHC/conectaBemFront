@@ -14,10 +14,14 @@ export const useConfirmOTP = () => {
         OTP: code,
       });
 
-      return response.data;
+      return { data: response.data, status: response.status };
     },
-    onSuccess: () => {
-      router.push(`/auth/registro`);
+    onSuccess: (response) => {
+      if (response.status === 200) {
+        router.push("/home");
+      } else if (response.status === 201) {
+        router.push("/auth/registro");
+      }
     },
   });
 };

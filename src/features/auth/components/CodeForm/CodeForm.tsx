@@ -31,27 +31,18 @@ export const CodeForm = () => {
     <>
       {isActive && (
         <p>
-          Seu código de verificação expira em{" "}
-          <span className="font-semibold">30 minutos.</span>
+          Seu código de verificação expira em <span className="font-semibold">30 minutos.</span>
         </p>
       )}
       <div className="flex flex-col gap-3 text-sm">
         <div className="flex flex-col gap-2 ">
-          <CodeInput
-            value={code}
-            onChange={setCode}
-            onFirstComplete={onSubmit}
-          />
-          {isActive && (
-            <p className="text-gray-400 text-sm">
-              Reenviar o código em {countdown} segundos.
-            </p>
-          )}
+          <CodeInput value={code} onChange={setCode} onFirstComplete={onSubmit} />
+          {isActive && <p className="text-gray-400 text-sm">Reenviar o código em {countdown} segundos.</p>}
           {!isActive && (
-              <span onClick={sendCode} className="text-blue-600 cursor-pointer">
-                Reenviar código
-              </span>
-            )}
+            <span onClick={sendCode} className="text-blue-600 cursor-pointer">
+              Reenviar código
+            </span>
+          )}
         </div>
       </div>
 
@@ -65,16 +56,10 @@ export const CodeForm = () => {
         <div className="flex flex-col gap-4">
           {error && (
             <span className="text-red-600">
-              Código incorreto! Preencha corretamente ou reenvie o código e
-              tente novamente.
+              Código incorreto! Preencha corretamente ou reenvie o código e tente novamente.
             </span>
           )}
-          <Button
-            disabled={!error}
-            className="rounded-lg w-full"
-            variant="outlined"
-            onClick={() => onSubmit(code)}
-          >
+          <Button disabled={!error} className="rounded-lg w-full" variant="outlined" onClick={() => onSubmit(code)}>
             Confirmar código
           </Button>
         </div>
