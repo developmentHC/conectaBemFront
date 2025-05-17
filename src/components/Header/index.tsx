@@ -127,9 +127,11 @@ export const Header = () => {
           {userExists ? (
             <ProfileMenu />
           ) : (
-            <Button variant="contained" color="primary" size="large">
-              Entrar
-            </Button>
+            <Link href="/auth">
+              <Button variant="contained" color="primary" size="medium">
+                Entrar
+              </Button>
+            </Link>
           )}
         </div>
       </header>
