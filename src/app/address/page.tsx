@@ -61,11 +61,11 @@ export default function Addresses() {
                   </Typography>
                   <div className="space-y">
                     <div className="flex space-x-2">
-                      <Typography className="font-bold">cep</Typography>
+                      <Typography className="!font-bold">cep</Typography>
                       <Typography>{address.cep}</Typography>
                     </div>
                     <div className="flex space-x-2">
-                      <Typography className="font-bold">complemento</Typography>
+                      <Typography className="!font-bold">complemento</Typography>
                       <Typography>{address.complemento}</Typography>
                     </div>
                   </div>
