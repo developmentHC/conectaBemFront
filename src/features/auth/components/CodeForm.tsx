@@ -6,12 +6,14 @@ import { useEmailStore } from "@/stores/emailStore";
 import { CodeInput } from "@/components/CodeInput";
 import { useCredentialLogin } from "../hooks/useCredentialLogin";
 import { useSendCodeEmail } from "../hooks/useSendCodeEmail";
+import { useCountdown } from "../hooks/useCountdown";
 
 export const CodeForm = () => {
-  const { mutate: resendCode } = useCredentialLogin();
+  const { mutate: resendCode, isError: isSendCodeError } = useCredentialLogin();
   const { mutate: sendEmailCode, error, isPending } = useSendCodeEmail();
   const { email } = useEmailStore();
   const [code, setCode] = useState<(string | null)[]>([null, null, null, null]);
+  const { timeLeft, startCountdown, isCountdownActive } = useCountdown();
 
   const onSubmit = (data: (string | null)[]) => {
     const code = data.join("");
@@ -23,10 +25,17 @@ export const CodeForm = () => {
     resendCode({
       data: { email },
     });
+    startCountdown(30);
   };
 
   return (
     <>
+      {!isSendCodeError && (
+        <span className="">
+          Seu código de verificação expira em{" "}
+          <span className="font-bold">30 minutos.</span>
+        </span>
+      )}
       <div className="flex flex-col gap-3 text-sm">
         <div className="flex flex-col gap-2 ">
           <CodeInput
@@ -34,12 +43,18 @@ export const CodeForm = () => {
             onChange={setCode}
             onFirstComplete={onSubmit}
           />
-          <span
-            onClick={() => sendCode(email)}
-            className="text-blue-600 cursor-pointer"
-          >
-            Reenviar código
-          </span>
+          {isCountdownActive() ? (
+            <span className="text-gray-400 test-sm">
+              Reenviar código em {timeLeft} segundos
+            </span>
+          ) : (
+            <span
+              onClick={() => sendCode(email)}
+              className="text-blue-600 cursor-pointer"
+            >
+              Reenviar código
+            </span>
+          )}
         </div>
       </div>
 
@@ -53,7 +68,8 @@ export const CodeForm = () => {
         <div className="flex flex-col gap-4">
           {error && (
             <span className="text-red-600">
-              Código incorreto! Preencha corretamente ou reenvie o código e tente novamente.
+              Código incorreto! Preencha corretamente ou reenvie o código e
+              tente novamente.
             </span>
           )}
           <Button
