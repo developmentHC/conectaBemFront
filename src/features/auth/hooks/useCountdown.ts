@@ -1,29 +1,23 @@
 import { useEffect, useState } from "react";
 
 export const useCountdown = () => {
-  const [countdown, setCountdown] = useState(30);
-  const [isActive, setIsActive] = useState(false);
+  const [timeLeft, setTimeLeft] = useState<number>(0);
 
   useEffect(() => {
-    if (!isActive || countdown <= 0) {
-      setIsActive(false);
-
-      setCountdown(30);
-
-      return
+    if (timeLeft > 0) {
+      const timer = setInterval(() => {
+        setTimeLeft(timeLeft - 1);
+      }, 1000);
+      return () => clearInterval(timer);
     }
+    return;
+  }, [timeLeft]);
 
-    const timer = setInterval(() => {
-      setCountdown((prev) => prev - 1);
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, [isActive, countdown]);
-
-  const startCountdown = () => {
-    setCountdown(countdown);
-    setIsActive(true);
-  };
-
-  return { countdown, isActive, startCountdown };
+  function startCountdown(seconds: number) {
+    setTimeLeft(seconds);
+  }
+  function isCountdownActive() {
+    return timeLeft > 0;
+  }
+  return { timeLeft, startCountdown, isCountdownActive };
 };
