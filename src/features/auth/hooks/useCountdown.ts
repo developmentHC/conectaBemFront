@@ -13,10 +13,10 @@ export const useCountdown = () => {
     return;
   }, [timeLeft]);
 
-  function startCountdown(seconds: number) {
+  function startCountdown(seconds: number): void {
     setTimeLeft(seconds);
   }
-  function isCountdownActive() {
+  function isCountdownActive(): boolean {
     return timeLeft > 0;
   }
   return { timeLeft, startCountdown, isCountdownActive };
