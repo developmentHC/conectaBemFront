@@ -2,10 +2,12 @@ import { api } from "@/libs/api";
 import { useUserStore } from "@/stores/userSessionStore";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+import { useGetUser } from "./useGetUser";
 
 export const useConfirmOTP = () => {
   const router = useRouter();
   const { email } = useUserStore();
+  const { refetch: fetchUser } = useGetUser({ enabled: false });
 
   return useMutation({
     mutationFn: async ({ code }: { code: string }) => {
@@ -16,8 +18,9 @@ export const useConfirmOTP = () => {
 
       return { data: response.data, status: response.status };
     },
-    onSuccess: (response) => {
+    onSuccess: async (response) => {
       if (response.status === 200) {
+        await fetchUser();
         router.push("/");
       } else if (response.status === 201) {
         router.push("/auth/registro");

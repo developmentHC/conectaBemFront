@@ -8,6 +8,7 @@ import { useUserStore } from "@/stores/userSessionStore";
 import Image from "next/image";
 import { convertToBase64 } from "@/utils/transformImageToBase64";
 import toast from "react-hot-toast";
+import { compressImage } from "@/utils/compressImage";
 
 export const CompleteProfileStep = () => {
   const [image, setImage] = useState<string | null>(null);
@@ -27,7 +28,7 @@ export const CompleteProfileStep = () => {
     estadoResidencial,
   } = usePatientRegisterStore();
   const { mutate: createPatient, isPending } = useRegisterPatient();
-  const { idUser } = useUserStore();
+  const { idUser, setProfilePhoto } = useUserStore();
 
   const onChangeImage = async (e: any) => {
     if (!e.target.files[0]) return undefined;
@@ -35,9 +36,10 @@ export const CompleteProfileStep = () => {
     const file = e.target.files[0];
 
     try {
-      const base64 = await convertToBase64(file);
-
+      const compressedFile = await compressImage(file);
+      const base64 = await convertToBase64(compressedFile);
       setImage(base64);
+      setProfilePhoto(base64);
 
       updateFields({ profilePhoto: base64 });
     } catch {
