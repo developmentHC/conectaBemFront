@@ -1,46 +1,33 @@
 "use client";
 
-import { getMenuData } from "@/libs/getMenuData";
+import { useMenuData } from "@/libs/getMenuData";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { MenuIcon, CloseIcon, SearchIcon, ChevronDownIcon } from "../../../public/images/icons/index";
+import { MenuIcon, CloseIcon, SearchIcon, ChevronDownIcon } from "@/assets/icons/";
 import { ProfileMenu } from "./ProfileMenu";
 import { MobileMenu } from "./MobileMenu";
 import Link from "next/link";
 import { Button } from "@mui/material";
-
-interface DesktopItems {
-  menuitemtext: string;
-  submenu: Array<{
-    text: string;
-    link: string | null;
-  }>;
-}
+import { useUserStore } from "@/stores/userSessionStore";
+import { MenuItem } from "./types";
+import { MdMailOutline } from "react-icons/md";
 
 export const Header = () => {
-  const [menuData, setMenuData] = useState<DesktopItems[]>([]);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
   const [hoveredItem, setHoveredItem] = useState<number | null>(null);
-  const [isMounted, setIsMounted] = useState(false);
-  const [userExists, setUserExists] = useState<string | null>(null);
-
-  useEffect(() => {
-    const verifyUser = async () => {
-      const userExists = localStorage.getItem("userPatient");
-      setUserExists(userExists);
-    };
-
-    verifyUser();
-  }, []);
+  const [isMounted, setIsMounted] = useState<boolean>(false);
+  const { isAuthenticated, userType } = useUserStore();
+  const [profileMenuItemsState, setProfileMenuItemsState] = useState<MenuItem>();
+  const { data: menuData = [] } = useMenuData();
 
   useEffect(() => {
     setIsMounted(true);
-    const fetchMenuData = async () => {
-      const data = await getMenuData();
-      setMenuData(data);
-    };
-    fetchMenuData();
   }, []);
+
+  useEffect(() => {
+    const profileMenuItems = menuData.find((item) => item.menuitemtext === "Perfil");
+    setProfileMenuItemsState(profileMenuItems);
+  }, [menuData]);
 
   useEffect(() => {
     if (isMobileMenuOpen) {
@@ -79,53 +66,71 @@ export const Header = () => {
         </div>
 
         <ul className="gap-8 relative whitespace-nowrap mr-8 hidden lg:flex">
-          {menuData.map((item, index) => (
-            <li
-              key={item.menuitemtext}
-              className="relative group"
-              onMouseEnter={() => setHoveredItem(index)}
-              onMouseLeave={() => setHoveredItem(null)}
-            >
-              <button className="text-[#1D1B20] flex items-center gap-2">
-                {item.menuitemtext}
-                <ChevronDownIcon className={`w-4 h-4 fill-[#1D1B20] transition-transform`} />
-              </button>
+          {menuData.map((item, index) => {
+            if (item.onlyonmobile) return null;
+            if (item.menuitemtext === "Perfil") return null;
 
-              {hoveredItem === index && (
-                <div className="absolute top-full left-0 w-48 bg-white rounded-lg shadow-lg py-2 z-50 whitespace-normal">
-                  <ul className="space-y-2">
-                    {item.submenu.map((subItem, subIndex) => (
-                      <li key={subIndex}>
-                        <Link
-                          href={subItem.link || "#"}
-                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-[#3858F4] transition-colors"
-                        >
-                          {subItem.text}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </li>
-          ))}
+            const shouldShowItem =
+              (userType === "patient" && item.showtopatientusers) ||
+              (userType === "professional" && item.showtoprofessionalusers) ||
+              (userType === null && item.showtounsignedusers);
+
+            if (!shouldShowItem) return null;
+            return (
+              <li
+                key={`menu-item-${item.menuitemtext}-${index}`}
+                className="relative group"
+                onMouseEnter={!item.menuitemlink.url ? () => setHoveredItem(index) : undefined}
+                onMouseLeave={!item.menuitemlink.url ? () => setHoveredItem(null) : undefined}
+              >
+                <button className="text-secondary font-semibold flex items-center gap-2">
+                  {item.menuitemlink.url ? (
+                    <Link href={item.menuitemlink.url || "#"}>{item.menuitemtext}</Link>
+                  ) : (
+                    <>
+                      {item.menuitemtext}
+                      <ChevronDownIcon className="w-4 h-4 fill-[#1D1B20] transition-transform" />
+                    </>
+                  )}
+                </button>
+
+                {hoveredItem === index && (
+                  <div className="absolute top-full left-0 w-48 bg-white ring-1 ring-black ring-opacity-5 rounded-lg shadow-lg py-2 z-50 whitespace-normal animate-fade-in">
+                    <ul className="space-y-2">
+                      {item.submenu.map((subItem, subIndex) => (
+                        <li key={`submenu-item-${subItem.text}-${subIndex}`}>
+                          <Link
+                            href={subItem.link || "#"}
+                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-[#3858F4] transition-colors"
+                          >
+                            {subItem.text}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </li>
+            );
+          })}
         </ul>
 
-        <div className="space-x-4 flex">
+        <div className="space-x-4 flex justify-center items-center">
           <button type="submit" className="border-[#253E99] border rounded-full hidden lg:block">
             <SearchIcon className="fill-[#000] h-10 w-10 p-2" />
           </button>
-          {/* {menuData
-            ?.filter(item => item.menuitemtext === "Perfil")
-            ?.map((perfilItem) => (
-              <ProfileMenu
-                key={perfilItem.menuitemtext}
-                data={perfilItem}
-              />
-            ))} */}
-
-          {userExists ? (
-            <ProfileMenu />
+          {isAuthenticated ? (
+            <>
+              <div className="cursor-pointer">
+                <MdMailOutline
+                  className="text-2xl"
+                  style={{
+                    color: "#3857F4",
+                  }}
+                />
+              </div>
+              <ProfileMenu items={profileMenuItemsState} />
+            </>
           ) : (
             <Link href="/auth">
               <Button variant="contained" color="primary" size="medium">

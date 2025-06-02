@@ -1,4 +1,3 @@
-import { api } from "@/libs/api";
 import { IPatient } from "@/types/patient";
 import { useQuery } from "@tanstack/react-query";
 
@@ -12,11 +11,11 @@ export const useUserPatient = () => {
         return JSON.parse(storedPatient);
       }
 
-      const data = await api.get("/user");
+      /* const data = await api.get("/user");
 
-      localStorage.setItem("userPatient", JSON.stringify(data.data));
+      localStorage.setItem("userPatient", JSON.stringify(data.data)); */
 
-      return data;
+      return null;
     },
   });
 };
