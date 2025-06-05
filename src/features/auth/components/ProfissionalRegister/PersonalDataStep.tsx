@@ -11,32 +11,40 @@ import { CEPField } from "@/components/Fields/CEPField";
 import { useEffect, useState } from "react";
 import { useCEP } from "../../hooks/useCEP";
 
-type Data = z.infer<typeof schema>;
-
 const schema = z.object({
   name: z
     .string()
     .min(10, "Nome inválido")
     .regex(/^[A-Za-zÀ-ú]+(?: [A-Za-zÀ-ú]+)*$/, "O nome deve conter apenas letras e um espaço entre as palavras"),
-  birthdate: z.instanceof(Date).refine(
-    (date) => {
-      const now = new Date();
-      const min = dayjs().subtract(90, "years").toDate();
-      return date <= now && date >= min;
-    },
-    {
-      message: "Data de nascimento deve ser entre hoje e 90 anos atrás",
-    }
-  ),
+  birthdate: z
+    .instanceof(Date)
+    .refine(
+      (date) => {
+        const min = dayjs().subtract(110, "years").toDate();
+        return date >= min;
+      },
+      {
+        message: "Digite uma data de nascimento válida",
+      }
+    )
+    .refine(
+      (date) => {
+        const max = dayjs().subtract(18, "years").toDate();
+        return date <= max;
+      },
+      { message: "Você deve ser maior de idade para se cadastrar na plataforma!" }
+    ),
   cepResidencial: z
     .string()
-    .length(9, "CEP inválido")
-    .refine((cep) => cep !== "00000-000"),
+    .length(9, "CEP inválido")
+    .regex(/^\d{5}-\d{3}$/, "Formato de CEP inválido"),
   enderecoResidencial: z.string().min(3, "Endereço inválido"),
   bairroResidencial: z.string().min(3, "Bairro inválido"),
   cidadeResidencial: z.string().min(3, "Cidade inválida"),
   estadoResidencial: z.string().min(3, "Estado inválido"),
 });
+
+type Data = z.infer<typeof schema>;
 
 export const PersonalDataStep = () => {
   const { changeStep, updateFields } = useProfissionalRegisterStore();
@@ -46,15 +54,19 @@ export const PersonalDataStep = () => {
     register,
     handleSubmit,
     setValue,
-    getValues,
+    setError,
+    watch,
     formState: { errors, isValid },
   } = useForm<Data>({
-    mode: "all",
+    mode: "onTouched",
     resolver: zodResolver(schema),
   });
 
+  const cepValue = watch("cepResidencial");
+  const shouldFetchCep = cepValue?.replace(/\D/g, "").length === 8;
+
   const { data } = useCEP({
-    cep: getValues("cepResidencial"),
+    cep: shouldFetchCep ? cepValue : "",
   });
 
   const onSubmit = handleSubmit(async (data: Data) => {
@@ -88,6 +100,15 @@ export const PersonalDataStep = () => {
     setValue("cidadeResidencial", data.localidade);
     setValue("estadoResidencial", data.estado);
   }, [data, setValue]);
+
+  useEffect(() => {
+    if (data?.erro) {
+      setError("cepResidencial", {
+        type: "manual",
+        message: "CEP não encontrado",
+      });
+    }
+  }, [data, setError]);
 
   return (
     <form onSubmit={onSubmit} className="flex flex-col gap-4">
@@ -141,6 +162,7 @@ export const PersonalDataStep = () => {
           {...register("cepResidencial")}
           onChange={(e) => setValue("cepResidencial", e.target.value, { shouldValidate: true })}
           error={!!errors.cepResidencial}
+          helperText={errors.cepResidencial?.message}
         />
       </div>
 

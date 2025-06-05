@@ -14,5 +14,6 @@ export const useCEP = ({ cep }: { cep: string }) => {
 
       return response.data;
     },
+    retry: false,
   });
 };

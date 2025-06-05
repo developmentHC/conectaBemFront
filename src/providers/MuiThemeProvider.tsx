@@ -1,32 +1,28 @@
-'use client';
+"use client";
 
-import { createTheme, ThemeProvider } from '@mui/material';
+import { createTheme, ThemeProvider } from "@mui/material";
 
-export const MuiThemeProvider = ({
-  children,
-}: {
-  children: React.ReactNode;
-}) => {
+export const MuiThemeProvider = ({ children }: { children: React.ReactNode }) => {
   const theme = createTheme({
     palette: {
       primary: {
-        main: '#3857F4',
+        main: "#3857F4",
       },
     },
     components: {
       MuiTextField: {
         styleOverrides: {
           root: {
-            '& .MuiOutlinedInput-root': {
-              '& fieldset': {
-                borderColor: '#253E99',
-                borderRadius: '8px',
+            "& .MuiOutlinedInput-root": {
+              "& fieldset": {
+                borderColor: "#253E99",
+                borderRadius: "8px",
               },
-              '&:hover fieldset': {
-                borderColor: '#253E99',
+              "&:hover fieldset": {
+                borderColor: "#253E99",
               },
-              '&.Mui-focused fieldset': {
-                borderColor: '#253E99',
+              "&.Mui-focused fieldset": {
+                borderColor: "#253E99",
               },
             },
           },
@@ -35,8 +31,11 @@ export const MuiThemeProvider = ({
       MuiButton: {
         styleOverrides: {
           root: {
-            textTransform: 'none',
-            borderRadius: '8px',
+            textTransform: "none",
+            borderRadius: "8px",
+          },
+          contained: {
+            color: "#D7FF7B",
           },
         },
       },

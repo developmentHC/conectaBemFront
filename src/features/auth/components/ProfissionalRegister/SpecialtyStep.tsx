@@ -1,15 +1,15 @@
-import { Button, TextField } from "@mui/material";
+import { Button } from "@mui/material";
 import { MouseEvent, useEffect, useState } from "react";
 import { useProfissionalRegisterStore } from "./useProfissionalRegisterStore";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { SuggestionForm } from "./SuggestionForm";
 
 const specialtiesMock = [
-  "Fisioterapia",
+  "Acunputura",
   "Aromaterapia",
   "Arteterapia",
-  "Quiropraxia",
   "Biodança",
   "Cromoterapia",
   "Fitoterapia",
@@ -19,9 +19,11 @@ const specialtiesMock = [
   "Musicoterapia",
   "Osteopatia",
   "Pilates",
+  "Quiropraxia",
   "Reflexoterapia",
   "Reiki",
   "Yoga",
+  "Outros",
 ];
 
 const services = ["LGBTQIAP+ Friendly", "Pet Friedly", "Aceita Wellhub"];
@@ -29,16 +31,12 @@ const services = ["LGBTQIAP+ Friendly", "Pet Friedly", "Aceita Wellhub"];
 type Data = z.infer<typeof schema>;
 
 const schema = z.object({
-  specialties: z
-    .array(z.string())
-    .min(1, "Selecione pelo menos uma especialidade"),
+  specialties: z.array(z.string()).min(1, "Selecione pelo menos uma especialidade"),
   servicePreferences: z.array(z.string()).nullable(),
-  suggestions: z.string().nullable(),
 });
 
-
 export const SpecialtyStep = () => {
-  const { register, setValue, handleSubmit } = useForm<Data>({
+  const { setValue, handleSubmit } = useForm<Data>({
     mode: "all",
     resolver: zodResolver(schema),
     defaultValues: { specialties: [], servicePreferences: [] },
@@ -49,10 +47,9 @@ export const SpecialtyStep = () => {
   const { changeStep, updateFields } = useProfissionalRegisterStore();
   const [collapseSpecialty, setCollapseSpecialty] = useState<boolean>(false);
   const [collapseService, setCollapseService] = useState<boolean>(false);
+  const [showSuggestions, setShowSuggestions] = useState<boolean>(false);
 
-  const visibleSpecialties = collapseSpecialty
-    ? specialtiesMock
-    : specialtiesMock?.slice(0, 8);
+  const visibleSpecialties = collapseSpecialty ? specialtiesMock : specialtiesMock?.slice(0, 8);
 
   const visibleServices = collapseService ? services : services?.slice(0, 8);
 
@@ -61,10 +58,10 @@ export const SpecialtyStep = () => {
 
     if (!specialty) return;
 
+    if (specialty === "Outros") setShowSuggestions(true);
+
     setSelectedSpecialties((prev) =>
-      prev.includes(specialty)
-        ? prev.filter((item) => item !== specialty)
-        : [...prev, specialty]
+      prev.includes(specialty) ? prev.filter((item) => item !== specialty) : [...prev, specialty]
     );
   };
 
@@ -74,9 +71,7 @@ export const SpecialtyStep = () => {
     if (!service) return;
 
     setSelectedServices((prev) =>
-      prev.includes(service)
-        ? prev.filter((item) => item !== service)
-        : [...prev, service]
+      prev.includes(service) ? prev.filter((item) => item !== service) : [...prev, service]
     );
   };
 
@@ -95,12 +90,10 @@ export const SpecialtyStep = () => {
 
   return (
     <form onSubmit={onSubmit} className="flex flex-col gap-8">
-      <span>
-        Escolha as especialidades que irá realizar fornecer atendimento *
-      </span>
+      <span>Escolha as especialidades que irá fornecer atendimento *</span>
 
       <ul className="flex flex-wrap gap-2">
-        {visibleSpecialties.sort().map((specialty) => (
+        {visibleSpecialties.map((specialty) => (
           <li
             key={specialty}
             onClick={handleClickSpecialty}
@@ -122,27 +115,12 @@ export const SpecialtyStep = () => {
         </div>
       </ul>
 
-      <div className="flex flex-col gap-4">
-        <span className="text-sm">
-          Sua especialidade não está na lista? Envie sua sugestão e iremos
-          analisar a viabilidade de incluí-la em nosso cadastro
-        </span>
-        <TextField
-          {...register("suggestions")}
-          placeholder="Nome e descrição da especialidade"
-          multiline
-          rows={3}
-        />
-        <Button className="text-button" variant="contained">
-          Enviar sugestão
-        </Button>
-      </div>
+      {showSuggestions && <SuggestionForm />}
+
       <div className="flex flex-col gap-6">
         <div className="flex flex-col gap-2">
           <h2 className="text-2xl">Atendimento</h2>
-          <span>
-            Escolha as opções que você e seu estabelecimento fornecem suporte
-          </span>
+          <span>Escolha as opções que você e seu estabelecimento fornecem suporte</span>
         </div>
 
         <ul className="flex flex-wrap gap-2">
@@ -167,12 +145,7 @@ export const SpecialtyStep = () => {
         </ul>
       </div>
 
-      <Button
-        disabled={!selectedSpecialties.length}
-        className="text-button"
-        variant="contained"
-        type="submit"
-      >
+      <Button disabled={!selectedSpecialties.length} className="text-button" variant="contained" type="submit">
         Continuar
       </Button>
     </form>
