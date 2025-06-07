@@ -104,7 +104,6 @@ export const PersonalDataStep = () => {
       .trimStart();
 
     setValue("name", onlyLettersAndSpace);
-
     setNameInput(onlyLettersAndSpace);
   };
 

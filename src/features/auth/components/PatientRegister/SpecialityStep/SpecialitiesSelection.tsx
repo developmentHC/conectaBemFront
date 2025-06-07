@@ -12,9 +12,7 @@ export const SpecialitiesSelection = ({
   const [collapseSpecialty, setCollapseSpecialty] = useState<boolean>(false);
   const { data: specialties } = useGetSpecialty();
 
-  const visibleCollapse = collapseSpecialty
-    ? specialties
-    : specialties?.slice(0, 8);
+  const visibleCollapse = collapseSpecialty ? specialties : specialties?.slice(0, 8);
 
   const handleClick = (speciality: string) => {
     let newSpecialties = selecteds;
@@ -48,7 +46,7 @@ export const SpecialitiesSelection = ({
             onClick={() => setCollapseSpecialty(!collapseSpecialty)}
             className="cursor-pointer w-fit text-end text-gray-600 mt-4"
           >
-            {collapseSpecialty ? "+ Ver menos" : "+ Ver mais"}
+            {collapseSpecialty ? "- Ver menos" : "+ Ver mais"}
           </span>
         </div>
       </ul>

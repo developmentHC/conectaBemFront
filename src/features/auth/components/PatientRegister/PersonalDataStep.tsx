@@ -8,30 +8,58 @@ import { usePatientRegisterStore } from "./usePatientRegisterStore";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { useCEP } from "../../hooks/useCEP";
-
-type Data = z.infer<typeof schema>;
+import axios from "axios";
 
 const schema = z.object({
   name: z
     .string()
     .min(3, "Nome inválido")
     .regex(/^[A-Za-zÀ-ú]+(?: [A-Za-zÀ-ú]+)*$/, "O nome deve conter apenas letras e um espaço entre as palavras"),
-  birthdate: z.instanceof(Date).refine(
-    (date) => {
-      const now = new Date();
-      const min = dayjs().subtract(90, "years").toDate();
-      return date <= now && date >= min;
-    },
-    {
-      message: "Data de nascimento deve ser entre hoje e 90 anos atrás",
-    }
-  ),
-  cepResidencial: z.string().length(9, "CEP inválido"),
+  birthdate: z
+    .instanceof(Date)
+    .refine(
+      (date) => {
+        const min = dayjs().subtract(110, "years").toDate();
+        return date >= min;
+      },
+      {
+        message: "Digite uma data de nascimento válida",
+      }
+    )
+    .refine(
+      (date) => {
+        const max = dayjs().subtract(18, "years").toDate();
+        return date <= max;
+      },
+      { message: "Você deve ser maior de idade para se cadastrar na plataforma!" }
+    ),
+  cepResidencial: z
+    .string()
+    .length(9, "CEP inválido")
+    .regex(/^\d{5}-\d{3}$/, "Formato de CEP inválido")
+    .refine(
+      async (cep) => {
+        if (!/^\d{5}-\d{3}$/.test(cep)) {
+          return true;
+        }
+        try {
+          const response = await axios.get(`https://viacep.com.br/ws/${cep.replace(/\D/g, "")}/json/`);
+          return !response.data.erro;
+        } catch (error) {
+          return true;
+        }
+      },
+      {
+        message: "CEP não encontrado",
+      }
+    ),
   enderecoResidencial: z.string().min(3, "Endereço inválido"),
   bairroResidencial: z.string().min(3, "Bairro inválido"),
   cidadeResidencial: z.string().min(3, "Cidade inválida"),
   estadoResidencial: z.string().min(3, "Estado inválido"),
 });
+
+type Data = z.infer<typeof schema>;
 
 export const PersonalDataStep = () => {
   const { updateFields, changeStep } = usePatientRegisterStore();
@@ -41,15 +69,18 @@ export const PersonalDataStep = () => {
     register,
     handleSubmit,
     setValue,
-    getValues,
+    watch,
     formState: { errors, isValid },
   } = useForm<Data>({
-    mode: "all",
+    mode: "onChange",
     resolver: zodResolver(schema),
   });
 
+  const cepValue = watch("cepResidencial");
+  const shouldFetchCep = cepValue?.replace(/\D/g, "").length === 8;
+
   const { data } = useCEP({
-    cep: getValues("cepResidencial"),
+    cep: shouldFetchCep ? cepValue : "",
   });
 
   const onSubmit = handleSubmit(async (data: Data) => {
@@ -126,6 +157,7 @@ export const PersonalDataStep = () => {
         </label>
         <CEPField
           {...register("cepResidencial")}
+          onChange={(e) => setValue("cepResidencial", e.target.value, { shouldValidate: true })}
           helperText={errors.cepResidencial?.message}
           error={!!errors.cepResidencial}
         />

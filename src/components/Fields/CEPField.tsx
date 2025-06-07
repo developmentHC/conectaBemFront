@@ -25,7 +25,7 @@ export const CEPField = forwardRef(({
       defaultValue={!defaultValue ? undefined : formatCEP(defaultValue as string)}
       inputRef={ref}
       onChange={handleChange}
-      placeholder="XXXXX-XXX"
+      placeholder="00000-000"
       {...props}
     />
   )

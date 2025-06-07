@@ -1,6 +1,6 @@
 import { MdEdit } from "react-icons/md";
 import { FaUser } from "react-icons/fa";
-import { Button, Checkbox, FormControlLabel } from "@mui/material";
+import { Button, Checkbox, FormControlLabel, Link } from "@mui/material";
 import { useState } from "react";
 import { usePatientRegisterStore } from "./usePatientRegisterStore";
 import { useRegisterPatient } from "../../hooks/useRegisterPatient";
@@ -97,7 +97,15 @@ export const CompleteProfileStep = () => {
 
       <FormControlLabel
         control={<Checkbox checked={termsAccepted} onChange={(e) => setTermsAccepted(e.target.checked)} />}
-        label="Aceitar Termos de Uso e Política de Privacidade"
+        label={
+          <p>
+            Aceitar{" "}
+            <Link underline="always" href="#">
+              {" "}
+              Termos de Uso e Política de Privacidade
+            </Link>
+          </p>
+        }
       />
 
       <div className="flex flex-col gap-6">

@@ -6,13 +6,7 @@ import { useForm } from "react-hook-form";
 import { Button } from "@mui/material";
 import { SelectableTag } from "@/components/SelectableTag";
 
-const accessibilityMock = [
-  "Piso tatil",
-  "Atendimento em libras",
-  "Audidescrição",
-  "Corrimão",
-  "Rampas",
-];
+const accessibilityMock = ["Piso tátil", "Atendimento em libras", "Audiodescrição", "Corrimão", "Rampas"];
 
 type Data = z.infer<typeof schema>;
 
@@ -32,17 +26,13 @@ export const AccessibilityStep = () => {
 
   const selectedAccessibilities = watch("accessibility");
 
-  const visibleCollapse = collapseSpecialty
-    ? accessibilityMock
-    : accessibilityMock?.slice(0, 8);
+  const visibleCollapse = collapseSpecialty ? accessibilityMock : accessibilityMock?.slice(0, 8);
 
   const handleClickAccessibility = (accessibility: string) => {
     let newAccessibility = getValues("accessibility");
 
     if (newAccessibility.includes(accessibility)) {
-      newAccessibility = newAccessibility.filter(
-        (item) => item !== accessibility
-      );
+      newAccessibility = newAccessibility.filter((item) => item !== accessibility);
     } else {
       newAccessibility = [...newAccessibility, accessibility];
     }
@@ -82,11 +72,7 @@ export const AccessibilityStep = () => {
       </ul>
 
       <div className="flex justify-between gap-8">
-        <Button
-          className="w-full"
-          variant="outlined"
-          onClick={() => changeStep("complete_profile")}
-        >
+        <Button className="w-full" variant="outlined" onClick={() => changeStep("complete_profile")}>
           Pular
         </Button>
         <Button className="w-full" variant="contained" type="submit">

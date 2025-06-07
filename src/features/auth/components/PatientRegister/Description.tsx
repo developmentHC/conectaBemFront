@@ -8,21 +8,18 @@ export const Description = () => {
     <>
       {step === "personal_data" && (
         <FormMultiStep.Description>
-          Aqui vocé irá inserir suas informações iniciais de atendimento. Para
-          cadastrar todos os seus dados acesse: perfil &gt; editar infos.
+          Aqui você irá inserir suas informações iniciais. Para cadastrar dados complementares acesse: Perfil {">"}{" "}
+          Editar informações.
         </FormMultiStep.Description>
       )}
 
       {step === "accessibility" && (
-        <FormMultiStep.Description>
-          Insira sua necessidade para um melhor atendimento
-        </FormMultiStep.Description>
+        <FormMultiStep.Description>Insira sua necessidade para um melhor atendimento</FormMultiStep.Description>
       )}
 
       {step === "complete_profile" && (
         <FormMultiStep.Description>
-          Estamos felizes em ter você aqui, {name}. Você está pronta para
-          iniciar sua jornada?
+          Estamos felizes em ter você aqui, {name}. Você está pronta para iniciar sua jornada?
         </FormMultiStep.Description>
       )}
     </>
