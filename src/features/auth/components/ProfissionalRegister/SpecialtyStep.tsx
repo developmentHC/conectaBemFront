@@ -58,7 +58,7 @@ export const SpecialtyStep = () => {
 
     if (!specialty) return;
 
-    if (specialty === "Outros") setShowSuggestions(true);
+    if (specialty === "Outros") setShowSuggestions((prev) => !prev);
 
     setSelectedSpecialties((prev) =>
       prev.includes(specialty) ? prev.filter((item) => item !== specialty) : [...prev, specialty]

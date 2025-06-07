@@ -1,5 +1,6 @@
 "use client";
 
+import axios from "axios";
 import { Button, TextField } from "@mui/material";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -37,7 +38,23 @@ const schema = z.object({
   cepResidencial: z
     .string()
     .length(9, "CEP inválido")
-    .regex(/^\d{5}-\d{3}$/, "Formato de CEP inválido"),
+    .regex(/^\d{5}-\d{3}$/, "Formato de CEP inválido")
+    .refine(
+      async (cep) => {
+        if (!/^\d{5}-\d{3}$/.test(cep)) {
+          return true;
+        }
+        try {
+          const response = await axios.get(`https://viacep.com.br/ws/${cep.replace(/\D/g, "")}/json/`);
+          return !response.data.erro;
+        } catch (error) {
+          return true;
+        }
+      },
+      {
+        message: "CEP não encontrado",
+      }
+    ),
   enderecoResidencial: z.string().min(3, "Endereço inválido"),
   bairroResidencial: z.string().min(3, "Bairro inválido"),
   cidadeResidencial: z.string().min(3, "Cidade inválida"),
@@ -54,11 +71,10 @@ export const PersonalDataStep = () => {
     register,
     handleSubmit,
     setValue,
-    setError,
     watch,
     formState: { errors, isValid },
   } = useForm<Data>({
-    mode: "onTouched",
+    mode: "onChange",
     resolver: zodResolver(schema),
   });
 
@@ -100,15 +116,6 @@ export const PersonalDataStep = () => {
     setValue("cidadeResidencial", data.localidade);
     setValue("estadoResidencial", data.estado);
   }, [data, setValue]);
-
-  useEffect(() => {
-    if (data?.erro) {
-      setError("cepResidencial", {
-        type: "manual",
-        message: "CEP não encontrado",
-      });
-    }
-  }, [data, setError]);
 
   return (
     <form onSubmit={onSubmit} className="flex flex-col gap-4">

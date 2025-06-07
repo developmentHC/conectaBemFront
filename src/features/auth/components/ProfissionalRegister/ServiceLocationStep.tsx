@@ -1,3 +1,4 @@
+import axios from "axios";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
@@ -28,7 +29,26 @@ const schema = z.object({
         message: "CNPJ ou CPF inválido",
       }
     ),
-  cepProfessional: z.string().length(9, "CEP inválido"),
+  cepProfessional: z
+    .string()
+    .length(9, "CEP inválido")
+    .regex(/^\d{5}-\d{3}$/, "Formato de CEP inválido")
+    .refine(
+      async (cep) => {
+        if (!/^\d{5}-\d{3}$/.test(cep)) {
+          return true;
+        }
+        try {
+          const response = await axios.get(`https://viacep.com.br/ws/${cep.replace(/\D/g, "")}/json/`);
+          return !response.data.erro;
+        } catch (error) {
+          return true;
+        }
+      },
+      {
+        message: "CEP não encontrado",
+      }
+    ),
   enderecoClinica: z.string().min(5, "Endereço inválido"),
   bairroClinica: z.string().min(3, "Bairro inválido"),
   numeroClinica: z.number().min(1, "Número inválido"),
@@ -45,7 +65,6 @@ export const ServiceLocationStep = () => {
     handleSubmit,
     setValue,
     watch,
-    setError,
     formState: { errors, isValid },
   } = useForm<Data>({
     mode: "onTouched",
@@ -64,15 +83,6 @@ export const ServiceLocationStep = () => {
   const { data } = useCEP({
     cep: shouldFetchCep ? cepValue : "",
   });
-
-  useEffect(() => {
-    if (data?.erro) {
-      setError("cepProfessional", {
-        type: "manual",
-        message: "CEP não encontrado",
-      });
-    }
-  }, [data, setError]);
 
   const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
     const rawValue = e.target.value;
