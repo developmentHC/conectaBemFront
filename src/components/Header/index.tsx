@@ -41,8 +41,6 @@ export const Header = () => {
     };
   }, [isMobileMenuOpen]);
 
-  if (!isMounted) return null;
-
   return (
     <div className="">
       <header className="flex items-center text-blue-600 lg:bg-white w-full px-8 lg:py-2 pt-6">
@@ -65,55 +63,57 @@ export const Header = () => {
           </div>
         </div>
 
-        <ul className="gap-8 relative whitespace-nowrap mr-8 hidden lg:flex">
-          {menuData.map((item, index) => {
-            if (item.onlyonmobile) return null;
-            if (item.menuitemtext === "Perfil") return null;
+        {isMounted && (
+          <ul className="gap-8 relative whitespace-nowrap mr-8 hidden lg:flex">
+            {menuData.map((item, index) => {
+              if (item.onlyonmobile) return null;
+              if (item.menuitemtext === "Perfil") return null;
 
-            const shouldShowItem =
-              (userType === "patient" && item.showtopatientusers) ||
-              (userType === "professional" && item.showtoprofessionalusers) ||
-              (userType === null && item.showtounsignedusers);
+              const shouldShowItem =
+                (userType === "patient" && item.showtopatientusers) ||
+                (userType === "professional" && item.showtoprofessionalusers) ||
+                (userType === null && item.showtounsignedusers);
 
-            if (!shouldShowItem) return null;
-            return (
-              <li
-                key={`menu-item-${item.menuitemtext}-${index}`}
-                className="relative group"
-                onMouseEnter={!item.menuitemlink.url ? () => setHoveredItem(index) : undefined}
-                onMouseLeave={!item.menuitemlink.url ? () => setHoveredItem(null) : undefined}
-              >
-                <button className="text-secondary font-semibold flex items-center gap-2">
-                  {item.menuitemlink.url ? (
-                    <Link href={item.menuitemlink.url || "#"}>{item.menuitemtext}</Link>
-                  ) : (
-                    <>
-                      {item.menuitemtext}
-                      <ChevronDownIcon className="w-4 h-4 fill-[#1D1B20] transition-transform" />
-                    </>
+              if (!shouldShowItem) return null;
+              return (
+                <li
+                  key={`menu-item-${item.menuitemtext}-${index}`}
+                  className="relative group"
+                  onMouseEnter={!item.menuitemlink.url ? () => setHoveredItem(index) : undefined}
+                  onMouseLeave={!item.menuitemlink.url ? () => setHoveredItem(null) : undefined}
+                >
+                  <button className="text-secondary font-semibold flex items-center gap-2">
+                    {item.menuitemlink.url ? (
+                      <Link href={item.menuitemlink.url || "#"}>{item.menuitemtext}</Link>
+                    ) : (
+                      <>
+                        {item.menuitemtext}
+                        <ChevronDownIcon className="w-4 h-4 fill-[#1D1B20] transition-transform" />
+                      </>
+                    )}
+                  </button>
+
+                  {hoveredItem === index && (
+                    <div className="absolute top-full left-0 w-48 bg-white ring-1 ring-black ring-opacity-5 rounded-lg shadow-lg py-2 z-50 whitespace-normal animate-fade-in">
+                      <ul className="space-y-2">
+                        {item.submenu.map((subItem, subIndex) => (
+                          <li key={`submenu-item-${subItem.text}-${subIndex}`}>
+                            <Link
+                              href={subItem.link || "#"}
+                              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-[#3858F4] transition-colors"
+                            >
+                              {subItem.text}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   )}
-                </button>
-
-                {hoveredItem === index && (
-                  <div className="absolute top-full left-0 w-48 bg-white ring-1 ring-black ring-opacity-5 rounded-lg shadow-lg py-2 z-50 whitespace-normal animate-fade-in">
-                    <ul className="space-y-2">
-                      {item.submenu.map((subItem, subIndex) => (
-                        <li key={`submenu-item-${subItem.text}-${subIndex}`}>
-                          <Link
-                            href={subItem.link || "#"}
-                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-[#3858F4] transition-colors"
-                          >
-                            {subItem.text}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </li>
-            );
-          })}
-        </ul>
+                </li>
+              );
+            })}
+          </ul>
+        )}
 
         <div className="space-x-4 flex justify-center items-center">
           <button type="submit" className="border-[#253E99] border rounded-full hidden lg:block">
@@ -132,7 +132,7 @@ export const Header = () => {
               <ProfileMenu items={profileMenuItemsState} />
             </>
           ) : (
-            <Link href="/auth">
+            <Link href="/auth" onClick={() => setIsMobileMenuOpen(false)}>
               <Button variant="contained" color="primary" size="medium">
                 Entrar
               </Button>
