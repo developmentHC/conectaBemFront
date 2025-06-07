@@ -41,7 +41,7 @@ const schema = z.object({
         try {
           const response = await axios.get(`https://viacep.com.br/ws/${cep.replace(/\D/g, "")}/json/`);
           return !response.data.erro;
-        } catch (error) {
+        } catch {
           return true;
         }
       },
