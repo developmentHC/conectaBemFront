@@ -1,7 +1,8 @@
-import { JSX } from "react"
-
-export const CloseIcon = (args: JSX.IntrinsicElements["svg"]) => (
+export const CloseIcon = (args: React.JSX.IntrinsicElements["svg"]) => (
   <svg viewBox="0 0 24 24" {...args}>
-    <path d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z" fill="#3858F4" />
+    <path
+      d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z"
+      fill="inherit"
+    />
   </svg>
-)
+);

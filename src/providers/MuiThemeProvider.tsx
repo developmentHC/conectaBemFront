@@ -28,14 +28,25 @@ export const MuiThemeProvider = ({ children }: { children: React.ReactNode }) =>
           },
         },
       },
+      MuiTypography: {
+        defaultProps: {
+          fontFamily: "Lato",
+        },
+      },
       MuiButton: {
         styleOverrides: {
           root: {
+            fontFamily: "Lato",
             textTransform: "none",
-            borderRadius: "8px",
+            borderRadius: "4px",
+            fontWeight: "600",
           },
           contained: {
             color: "#D7FF7B",
+          },
+          outlined: {
+            border: "#253E99 1px solid",
+            color: "#253E99",
           },
         },
       },

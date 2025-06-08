@@ -105,7 +105,7 @@ export const ProfileMenu = (props: ProfileMenuProps) => {
               <ChevronRightIcon className="fill-secondary" height={24} width={24} />
             </Link>
           </li>
-          <div className="border-t border-t-[#645D6F] mx-3 hidden lg:block" />
+          <div className="border-t border-t-black-600 mx-3 hidden lg:block" />
           <li>
             <Link
               href="#"
@@ -116,7 +116,7 @@ export const ProfileMenu = (props: ProfileMenuProps) => {
               <ChevronRightIcon className="text-secondary" height={24} width={24} />
             </Link>
           </li>
-          <div className="border-t border-t-[#645D6F] mx-3 hidden lg:block" />
+          <div className="border-t border-t-black-600 mx-3 hidden lg:block" />
           <li className="hidden lg:block">
             <Link
               href="#"

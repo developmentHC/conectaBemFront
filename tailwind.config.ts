@@ -8,6 +8,7 @@ module.exports = {
         default: "#F3F5FA",
         button: "#D7FF7B",
         "input-code-border": "#253E99",
+        "black-600": "#645D6F",
         inputCodeText: "#9790A2",
         secondary: "#1D1B20",
         "blue-secondary": "#3858F4",
