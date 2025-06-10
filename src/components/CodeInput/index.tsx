@@ -7,6 +7,7 @@ export const CodeInput = ({
   value,
   onChange,
   onFirstComplete,
+  error,
 }: CodeInputProps) => {
   const [hasFirstCompleted, setHasFirstCompleted] = useState(false);
   const refs = useRef<(HTMLInputElement | null)[]>([]);
@@ -63,7 +64,11 @@ export const CodeInput = ({
           }}
           value={value[index] || ""}
           key={index}
-          className="px-2 py-6 rounded-lg w-full text-center border-2 border-input-code-border focus:outline-blue-600 text-inputCodeText font-bold transition-all"
+          className={`px-2 py-6 rounded-lg w-full text-center border-2 ${
+            error
+              ? "border-red-600 focus:outline-red-400"
+              : "border-input-code-border focus:outline-blue-600"
+          }  text-inputCodeText font-bold transition-all`}
           type="number"
         />
       ))}
