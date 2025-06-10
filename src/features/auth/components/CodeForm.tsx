@@ -1,19 +1,36 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, CircularProgress } from "@mui/material";
 import { useEmailStore } from "@/stores/emailStore";
 import { CodeInput } from "@/components/CodeInput";
 import { useCredentialLogin } from "../hooks/useCredentialLogin";
 import { useSendCodeEmail } from "../hooks/useSendCodeEmail";
 import { useCountdown } from "../hooks/useCountdown";
+import { useRouter } from "next/navigation";
 
 export const CodeForm = () => {
-  const { mutate: resendCode, isError: isSendCodeError } = useCredentialLogin();
+  const router = useRouter();
+  const { mutate: resendCode } = useCredentialLogin();
   const { mutate: sendEmailCode, error, isPending } = useSendCodeEmail();
   const { email } = useEmailStore();
   const [code, setCode] = useState<(string | null)[]>([null, null, null, null]);
-  const { timeLeft, startCountdown, isCountdownActive } = useCountdown();
+  const {
+    timeLeft: timeLeftResendCode,
+    startCountdown: startCountdownResendCode,
+  } = useCountdown();
+  const {
+    timeLeft: timeLeftValidCode,
+    startCountdown: startCountdownValidCode,
+  } = useCountdown();
+
+  useEffect(() => {
+    if (email) {
+      startCountdownValidCode(30 * 60);
+    } else {
+      router.push(`/auth`);
+    }
+  }, []);
 
   const onSubmit = (data: (string | null)[]) => {
     const code = data.join("");
@@ -25,15 +42,23 @@ export const CodeForm = () => {
     resendCode({
       data: { email },
     });
-    startCountdown(30);
+    startCountdownResendCode(50);
+    startCountdownValidCode(30 * 60);
   };
 
   return (
     <>
-      {!isSendCodeError && (
+      {timeLeftValidCode > 0 ? (
         <span className="">
           Seu código de verificação expira em{" "}
-          <span className="font-bold">30 minutos.</span>
+          <span className="font-bold">
+            {Math.ceil(timeLeftValidCode / 60)}{" "}
+            {Math.ceil(timeLeftValidCode / 60) === 1 ? "minuto" : "minutos"}.
+          </span>
+        </span>
+      ) : (
+        <span className="">
+          Código expirado! Por favor, solicite um novo código.
         </span>
       )}
       <div className="flex flex-col gap-3 text-sm">
@@ -43,9 +68,9 @@ export const CodeForm = () => {
             onChange={setCode}
             onFirstComplete={onSubmit}
           />
-          {isCountdownActive() ? (
+          {timeLeftResendCode > 0 ? (
             <span className="text-gray-400 test-sm">
-              Reenviar código em {timeLeft} segundos
+              Reenviar código em {timeLeftResendCode} segundos
             </span>
           ) : (
             <span
