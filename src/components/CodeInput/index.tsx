@@ -66,7 +66,7 @@ export const CodeInput = ({
           key={index}
           className={`px-2 py-6 rounded-lg w-full text-center border-2 ${
             error
-              ? "border-red-600 focus:border-red-600"
+              ? "border-red-600 focus:outline-red-400"
               : "border-input-code-border focus:outline-blue-600"
           }  text-inputCodeText font-bold transition-all`}
           type="number"
