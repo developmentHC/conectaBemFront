@@ -67,6 +67,7 @@ export const CodeForm = () => {
             value={code}
             onChange={setCode}
             onFirstComplete={onSubmit}
+            error={error ? true : false}
           />
           {timeLeftResendCode > 0 ? (
             <span className="text-gray-400 test-sm">
