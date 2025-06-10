@@ -1,5 +1,6 @@
 "use client";
 
+import { error } from "console";
 import React, { useEffect, useRef, useImperativeHandle, forwardRef } from "react";
 
 type CodeInputProps = {
@@ -68,12 +69,20 @@ export const CodeInput = forwardRef<CodeInputHandle, CodeInputProps>(({ value, o
           }}
           value={value[index] || ""}
           key={index}
-          className="px-2 py-6 rounded-lg w-full text-center border-2 border-input-code-border focus:outline-blue-600 text-inputCodeText font-bold transition-all"
+          className={`px-2 py-6 rounded-lg w-full text-center border-2 ${
+            error
+              ? "border-red-600 focus:border-red-600"
+              : "border-input-code-border focus:outline-blue-600"
+          }  text-inputCodeText font-bold transition-all`}
           type="number"
         />
       ))}
     </div>
   );
+<<<<<<< HEAD
 });
 
 CodeInput.displayName = "CodeInput";
+=======
+};
+>>>>>>> c6dd09c (fix code input on error border color)
