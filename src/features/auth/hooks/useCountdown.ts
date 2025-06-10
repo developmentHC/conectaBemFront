@@ -16,8 +16,5 @@ export const useCountdown = () => {
   function startCountdown(seconds: number): void {
     setTimeLeft(seconds);
   }
-  function isCountdownActive(): boolean {
-    return timeLeft > 0;
-  }
-  return { timeLeft, startCountdown, isCountdownActive };
+  return { timeLeft, startCountdown };
 };
