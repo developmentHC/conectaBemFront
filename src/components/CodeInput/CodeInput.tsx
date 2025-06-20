@@ -1,44 +1,44 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useImperativeHandle, forwardRef } from "react";
 
 type CodeInputProps = {
   value: (string | null)[];
   onChange?: (value: (string | null)[]) => void;
-  onFirstComplete?: (value: (string | null)[]) => void;
+  onComplete?: (value: (string | null)[]) => void;
 };
 
-export const CodeInput = ({
-  value,
-  onChange,
-  onFirstComplete,
-}: CodeInputProps) => {
-  const [hasFirstCompleted, setHasFirstCompleted] = useState(false);
+export type CodeInputHandle = {
+  focusOnFirstInput: () => void;
+};
+
+export const CodeInput = forwardRef<CodeInputHandle, CodeInputProps>(({ value, onChange, onComplete }, ref) => {
   const refs = useRef<(HTMLInputElement | null)[]>([]);
+
+  useImperativeHandle(
+    ref,
+    () => ({
+      focusOnFirstInput: () => {
+        refs.current[0]?.focus();
+      },
+    }),
+    []
+  );
 
   useEffect(() => {
     const isCompleted = value.every((item) => item);
 
-    if (isCompleted && !hasFirstCompleted) {
-      onFirstComplete?.(value);
-
-      setHasFirstCompleted(true);
+    if (isCompleted) {
+      onComplete?.(value);
     }
-  }, [value, hasFirstCompleted, onFirstComplete]);
+  }, [value, onComplete]);
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    index: number
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
     let formatedValue = e.target.value;
 
     formatedValue = formatedValue.replace(/\D/g, "").slice(-1);
 
-    const newValue = [
-      ...value.slice(0, index),
-      formatedValue,
-      ...value.slice(index + 1),
-    ];
+    const newValue = [...value.slice(0, index), formatedValue, ...value.slice(index + 1)];
 
     onChange?.(newValue);
 
@@ -74,4 +74,4 @@ export const CodeInput = ({
       ))}
     </div>
   );
-};
+});
