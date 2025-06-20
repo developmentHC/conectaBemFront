@@ -36,14 +36,18 @@ export const AuthForm = () => {
 
   return (
     <form className="flex flex-col gap-7" onSubmit={onSubmit}>
-      <TextField
-        {...register("email")}
-        helperText={errors.email?.message}
-        error={!!errors.email}
-        id="email"
-        label="Entrar com o e-mail"
-        placeholder="seuemail@conectabem.com"
-      />
+      <div className="flex flex-col gap-2">
+        <label>
+          E-mail<span className="text-red-600">*</span>
+        </label>
+        <TextField
+          {...register("email")}
+          helperText={errors.email?.message}
+          error={!!errors.email}
+          id="email"
+          placeholder="seuemail@conectabem.com"
+        />
+      </div>
 
       {!isPending && (
         <Button
@@ -58,11 +62,7 @@ export const AuthForm = () => {
       )}
 
       {isPending && (
-        <Button
-          className="rounded-lg w-full text-button"
-          variant="contained"
-          size="large"
-        >
+        <Button className="rounded-lg w-full text-button" variant="contained" size="large">
           <CircularProgress color="inherit" size={26} className="self-center" />
         </Button>
       )}
