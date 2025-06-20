@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import ThreeDotLoading from "@/components/ThreeDotLoading";
+import Image from "next/image";
 
 type SuccessScreenProps = {
   title: string;
@@ -25,7 +26,7 @@ export const SuccessScreen = ({ title, message, redirectUrl, duration = 4000 }: 
   return (
     <div className="fullscreen-mode flex flex-col items-center justify-center text-center gap-8 bg-blue-600 text-white h-screen p-4">
       <h1 className="text-3xl font-bold">{title}</h1>
-      <img src="/images/logo2.svg" alt="Logo CB" width={150} height={150} />
+      <Image src="/images/logo2.svg" alt="Logo CB" width={150} height={150} />
       <ThreeDotLoading />
       <p className="text-lg">{message}</p>
     </div>

@@ -8,14 +8,12 @@ import { useConfirmOTP } from "../../hooks/useConfirmOTP";
 import { useCountdown } from "../../hooks/useCountdown";
 import { useUserStore } from "@/stores/userSessionStore";
 import { useGetUser } from "../../hooks/useGetUser";
-import { useRouter } from "next/navigation";
 
 type CodeFormProps = {
   onValidationSuccess: (responseStatus: number) => void;
 };
 
 export const CodeForm = ({ onValidationSuccess }: CodeFormProps) => {
-  const router = useRouter();
   const { mutate: resendCode } = useCredentialLogin();
   const { mutate: sendEmailCode, error, isPending } = useConfirmOTP();
   const { email } = useUserStore();

@@ -75,3 +75,5 @@ export const CodeInput = forwardRef<CodeInputHandle, CodeInputProps>(({ value, o
     </div>
   );
 });
+
+CodeInput.displayName = "CodeInput";
