@@ -29,7 +29,6 @@ export const isValidCPF = (cpf: string): boolean => {
 };
 
 export const isValidCNPJ = (cnpj: string): boolean => {
-  console.log(cnpj);
   const cleaned = cnpj.replace(/\D/g, "");
 
   if (cleaned.length !== 14) return false;

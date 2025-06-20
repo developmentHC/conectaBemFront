@@ -5,3 +5,4 @@ export * from "./chevron-down";
 export * from "./help";
 export * from "./chevrow-right";
 export * from "./info";
+export * from "./contact-support";

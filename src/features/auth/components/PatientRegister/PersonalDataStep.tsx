@@ -109,7 +109,6 @@ export const PersonalDataStep = () => {
 
   useEffect(() => {
     if (!data) return;
-    console.log(data);
 
     setValue("enderecoResidencial", data.logradouro);
     setValue("bairroResidencial", data.bairro);
