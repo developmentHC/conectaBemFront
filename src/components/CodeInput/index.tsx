@@ -1,9 +1,5 @@
 "use client";
 
-<<<<<<<< HEAD:src/components/CodeInput/index.tsx
-import React, { useEffect, useRef, useState } from "react";
-import { CodeInputProps } from "./types";
-========
 import React, { useEffect, useRef, useImperativeHandle, forwardRef } from "react";
 
 type CodeInputProps = {
@@ -11,7 +7,6 @@ type CodeInputProps = {
   onChange?: (value: (string | null)[]) => void;
   onComplete?: (value: (string | null)[]) => void;
 };
->>>>>>>> registro-paciente:src/components/CodeInput/CodeInput.tsx
 
 export type CodeInputHandle = {
   focusOnFirstInput: () => void;
