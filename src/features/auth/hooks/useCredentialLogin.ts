@@ -1,44 +1,28 @@
 import { api } from "@/libs/api";
-import { useEmailStore } from "@/stores/emailStore";
+import { useUserStore } from "@/stores/userSessionStore";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
 export const useCredentialLogin = () => {
   const router = useRouter();
-  const { setEmail } = useEmailStore();
+  const { setIdUser } = useUserStore();
 
   return useMutation({
-    mutationFn: async ({ data }: Args) => {
-      const response = await api.post("/auth/sendOTP", data);
+    mutationFn: async (email: any) => {
+      const response = await api.post("/auth/sendOTP", email);
+
+      setIdUser(response.data.id);
 
       return response.data;
     },
-    onSuccess: (responseData: ResponseData) => {
-      setEmail(responseData.email.adress);
-
+    onSuccess: () => {
       toast.success("Código enviado com sucesso!");
 
-      router.push(`/auth/confirm-code`);
+      router.push(`/auth/confirmar-codigo`);
     },
     onError: (error) => {
       console.error("Erro ao enviar o OTP:", error);
     },
   });
-};
-
-type Data = {
-  email: string;
-};
-
-type ResponseData = {
-  email: {
-    adress: string;
-  };
-};
-
-type Args = {
-  data: Data;
-  onSuccess?: () => void;
-  onError?: () => void;
 };

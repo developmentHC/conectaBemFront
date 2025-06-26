@@ -1,7 +1,11 @@
-import axios from 'axios';
+import axios from "axios";
 
 const api = axios.create({
-  baseURL: 'https://backend-ofx7.onrender.com/',
+  baseURL: "https://conecta-bem-back.vercel.app/",
+  withCredentials: true,
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
 
 export { api };

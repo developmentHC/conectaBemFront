@@ -1,0 +1,32 @@
+{
+  "id": 1,
+  "name": "Cabral",
+  "email": "thicabral2018@gmailcom",
+  "profilePhoto": "https://randomuser.me/api/portraits/men/1.jpg",
+  "userSpecialities": [
+    {
+      "id": 1,
+      "name": "Cardiologia"
+    },
+    {
+      "id": 2,
+      "name": "Dermatologia"
+    }
+  ],
+  "userServicePreferences": [
+    {
+      "id": 1,
+      "name": "Ambiente Calmante"
+    },
+    {
+      "id": 2,
+      "name": "Consulta Sem Pressa"
+    }
+  ],
+  "userAcessibilityPreferences": [
+    {
+      "id": 1,
+      "name": "Libras"
+    }
+  ]
+}

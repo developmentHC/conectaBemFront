@@ -1,0 +1,70 @@
+[
+  {
+    "id": 1,
+    "name": "Fisioterapia"
+  },
+  {
+    "id": 2,
+    "name": "Aromaterapia"
+  },
+  {
+    "id": 3,
+    "name": "Arteterapia"
+  },
+  {
+    "id": 4,
+    "name": "Quiropraxia"
+  },
+  {
+    "id": 5,
+    "name": "Biodança"
+  },
+  {
+    "id": 6,
+    "name": "Cromoterapia"
+  },
+  {
+    "id": 7,
+    "name": "Fitoterapia"
+  },
+  {
+    "id": 8,
+    "name": "Hipnoterapia"
+  },
+  {
+    "id": 9,
+    "name": "Homeoterapia"
+  },
+  {
+    "id": 10,
+    "name": "Meditação"
+  },
+  {
+    "id": 11,
+    "name": "Musicoterapia"
+  },
+  {
+    "id": 12,
+    "name": "Osteopatia"
+  },
+  {
+    "id": 13,
+    "name": "Pilates"
+  },
+  {
+    "id": 14,
+    "name": "Quiropaxia"
+  },
+  {
+    "id": 15,
+    "name": "Reflexoterapia"
+  },
+  {
+    "id": 16,
+    "name": "Reiki"
+  },
+  {
+    "id": 17,
+    "name": "Yoga"
+  }
+]

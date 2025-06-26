@@ -17,8 +17,7 @@ export async function getHomePlaceholderData() {
         throw new Error("Nenhum dado encontrado para 'home'.");
       }
 
-      const { h1_text, description, banner, especialidades_em_destaque } =
-        menuResponse[0].data;
+      const { h1_text, description, banner, especialidades_em_destaque } = menuResponse[0].data;
 
       // IDs das especialidades para buscar os nomes completos
       const especialidadesIds = especialidades_em_destaque.map(
@@ -29,8 +28,6 @@ export async function getHomePlaceholderData() {
       const especialidadesDocs = await client.getByIDs(especialidadesIds, {
         lang: "pt-br",
       });
-
-      console.log("especialidadesDocs", especialidadesDocs);
 
       // Mapeia os documentos para extrair nome e ID
       const especialidades = especialidadesDocs.results.map((doc) => ({
