@@ -21,7 +21,7 @@ export async function getHomePlaceholderData() {
             // Buscar os documentos das especialidades
             const especialidadesDocs = await client.getByIDs(especialidadesIds, { lang: "pt-br" });
 
-            console.log("especialidadesDocs", especialidadesDocs);
+            // console.log("especialidadesDocs", especialidadesDocs);
 
             // Mapeia os documentos para extrair nome e ID
             const especialidades = especialidadesDocs.results.map((doc) => ({
@@ -29,12 +29,12 @@ export async function getHomePlaceholderData() {
                 nome: doc.data?.name || doc.slugs[0] || "Nome não disponível",
             }));
 
-            console.log({
+            return {
             titulo: h1_text,
             descricao: description,
             bannerUrl: banner?.url || "",
             especialidades,
-            });
+            };
 
         } catch (error) {
             console.error("Erro ao buscar dados do Prismic:", error);

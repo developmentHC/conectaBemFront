@@ -1,0 +1,18 @@
+name: Deploy to Vercel
+
+on:
+  repository_dispatch:
+    types: [prismic-update]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v4
+
+      - name: Instalar o Vercel CLI
+        run: npm install -g vercel
+
+      - name: Deploy para a Vercel
+        run: vercel --prod --token ${{ secrets.VERCEL_TOKEN }}
