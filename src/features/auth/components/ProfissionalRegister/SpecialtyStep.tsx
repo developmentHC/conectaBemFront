@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import { Button } from "@mui/material";
 import { MouseEvent, useEffect, useState } from "react";
 import { useProfissionalRegisterStore } from "./useProfissionalRegisterStore";
@@ -97,9 +98,10 @@ export const SpecialtyStep = () => {
           <li
             key={specialty}
             onClick={handleClickSpecialty}
-            className={`p-2 border border-blue-800 rounded cursor-pointer hover:bg-blue-600/50 transition-all rounded-t-lg rounded-br-lg ${
-              selectedSpecialties.includes(specialty) ? "bg-blue-600/50" : ""
-            }`}
+            className={clsx(
+              "p-2 border border-blue-800 rounded cursor-pointer hover:bg-blue-600/50 transition-all rounded-t-lg rounded-br-lg",
+              selectedSpecialties.includes(specialty) && "bg-blue-600/50"
+            )}
           >
             {specialty}
           </li>
@@ -128,8 +130,10 @@ export const SpecialtyStep = () => {
             <li
               onClick={handleClickService}
               key={service}
-              className={`p-2 border border-blue-800 rounded cursor-pointer hover:bg-blue-600/50 transition-all rounded-t-lg rounded-br-lg 
-              ${selectedServices.includes(service) ? "bg-blue-600/50" : ""}`}
+              className={clsx(
+                "p-2 border border-blue-800 rounded cursor-pointer hover:bg-blue-600/50 transition-all rounded-t-lg rounded-br-lg",
+                selectedServices.includes(service) && "bg-blue-600/50"
+              )}
             >
               {service}
             </li>
