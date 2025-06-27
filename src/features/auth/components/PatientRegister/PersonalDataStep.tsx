@@ -19,7 +19,7 @@ const schema = z.object({
     .instanceof(Date)
     .refine(
       (date) => {
-        const min = dayjs().subtract(110, "years").toDate();
+        const min = dayjs().subtract(90, "years").toDate();
         return date >= min;
       },
       {
