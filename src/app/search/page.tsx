@@ -17,7 +17,7 @@ import { useSearchStore } from "@/stores/searchStore";
 import { useCategories } from "@/features/search/hooks/useCategories";
 import { useProfessionalsBySpecializations } from "@/features/search/hooks/useProfessionalsBySpecializations";
 
-function search() {
+export default function SearchPage() {
   const router = useRouter();
 
   const searchParams = useSearchParams();
@@ -55,7 +55,7 @@ function search() {
   }
 
   return (
-    <div className="flex flex-col gap-6 mb-4">
+    <div className="flex flex-col gap-6 mb-2 overflow-hidden w-full">
       <div className="w-fit">
         <button
           className="flex items-center gap-1 text-sm"
@@ -193,4 +193,3 @@ function search() {
     </div>
   );
 }
-export default search;
