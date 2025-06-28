@@ -20,12 +20,12 @@ import { useProfessionalsBySpecializations } from "@/features/search/hooks/usePr
 export default function SearchPage() {
   const router = useRouter();
 
-  const searchParams = useSearchParams();
-
-  const category = searchParams.get("category") || "";
+  // TODO Filtrar por categoria
+  /* const searchParams = useSearchParams();
+  const category = searchParams.get("category") || ""; */
 
   const { query: searchQuery } = useSearchStore();
-
+  const category = "";
   const { data: specializationsList = [] } = useCategories(category);
 
   const { professionalsBySpecializations, isLoading } =
