@@ -10,7 +10,7 @@ export const SpecializationTags = ({
   setSpecialization,
 }: SpecializationTagsProps) => {
   return (
-    <div className="flex gap-2 overflow-x-scroll no-scrollbar justify-start cursor-pointer">
+    <div className="flex gap-2 overflow-x-scroll hide-scrollbar justify-start cursor-pointer">
       {specializationsList.map((item, index) => (
         <div
           className={`border border-blue-600 p-2 rounded-t-lg rounded-br-lg cursor-pointer whitespace-nowrap ${
