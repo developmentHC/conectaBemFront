@@ -1,0 +1,198 @@
+[
+  {
+    "id": 7,
+    "professionalSpecialties": [
+      "Shiatsu",
+      "Reflexologia"
+    ],
+    "otherProfessionalSpecialties": [
+      "Auriculoterapia"
+    ],
+    "professionalServicePreferences": [
+      "LGBTQIAP+ Friendly",
+      "Atendimento em libras"
+    ],
+    "name": "Ana Clara Ramos",
+    "profilePhoto": "/images/avatar.png",
+    "price": "$$",
+    "rating": 4.8,
+    "reviews": 18,
+    "distance": 5
+  },
+  {
+    "id": 8,
+    "professionalSpecialties": [
+      "Massoterapia",
+      "Acupuntura"
+    ],
+    "otherProfessionalSpecialties": [
+      "Reiki"
+    ],
+    "professionalServicePreferences": [
+      "Pet Friendly"
+    ],
+    "name": "Bruno Costa",
+    "profilePhoto": "/images/avatar.png",
+    "price": "$",
+    "rating": 4.1,
+    "reviews": 12,
+    "distance": 8
+  },
+  {
+    "id": 9,
+    "professionalSpecialties": [
+      "Terapia Floral",
+      "Aromaterapia"
+    ],
+    "otherProfessionalSpecialties": [
+      "Meditação Guiada"
+    ],
+    "professionalServicePreferences": [
+      "Piso tátil",
+      "LGBTQIAP+ Friendly"
+    ],
+    "name": "Carla Mendes",
+    "profilePhoto": "/images/avatar.png",
+    "price": "$$",
+    "rating": 4.6,
+    "reviews": 25,
+    "distance": 3
+  },
+  {
+    "id": 10,
+    "professionalSpecialties": [
+      "Yoga",
+      "Tai Chi Chuan"
+    ],
+    "otherProfessionalSpecialties": [
+      "Pilates"
+    ],
+    "professionalServicePreferences": [
+      "Atendimento em libras"
+    ],
+    "name": "Daniela Figueiredo",
+    "profilePhoto": "/images/avatar.png",
+    "price": "$$$",
+    "rating": 4.0,
+    "reviews": 10,
+    "distance": 6
+  },
+  {
+    "id": 11,
+    "professionalSpecialties": [
+      "Fitoterapia",
+      "Cura Prânica"
+    ],
+    "otherProfessionalSpecialties": [
+      "Geoterapia"
+    ],
+    "professionalServicePreferences": [
+      "Pet Friendly",
+      "Piso tátil"
+    ],
+    "name": "Eduardo Lima",
+    "profilePhoto": "/images/avatar.png",
+    "price": "$$",
+    "rating": 3.9,
+    "reviews": 8,
+    "distance": 9
+  },
+  {
+    "id": 12,
+    "professionalSpecialties": [
+      "Arteterapia",
+      "Psicoterapia Integrativa"
+    ],
+    "otherProfessionalSpecialties": [
+      "Constelação Familiar"
+    ],
+    "professionalServicePreferences": [
+      "LGBTQIAP+ Friendly"
+    ],
+    "name": "Fernanda Alves",
+    "profilePhoto": "/images/avatar.png",
+    "price": "$$",
+    "rating": 4.7,
+    "reviews": 27,
+    "distance": 2
+  },
+  {
+    "id": 13,
+    "professionalSpecialties": [
+      "Quiropraxia",
+      "Liberação Miofascial"
+    ],
+    "otherProfessionalSpecialties": [
+      "Massoterapia"
+    ],
+    "professionalServicePreferences": [
+      "Pet Friendly",
+      "Atendimento em libras"
+    ],
+    "name": "Gustavo Torres",
+    "profilePhoto": "/images/avatar.png",
+    "price": "$$$",
+    "rating": 3.5,
+    "reviews": 15,
+    "distance": 4
+  },
+  {
+    "id": 14,
+    "professionalSpecialties": [
+      "Ayurveda",
+      "Reiki"
+    ],
+    "otherProfessionalSpecialties": [
+      "Terapia Floral"
+    ],
+    "professionalServicePreferences": [
+      "Piso tátil"
+    ],
+    "name": "Helena Martins",
+    "profilePhoto": "/images/avatar.png",
+    "price": "$$",
+    "rating": 4.3,
+    "reviews": 19,
+    "distance": 7
+  },
+  {
+    "id": 15,
+    "professionalSpecialties": [
+      "Terapia Comunitária Integrativa",
+      "Acupuntura"
+    ],
+    "otherProfessionalSpecialties": [
+      "Yoga na água"
+    ],
+    "professionalServicePreferences": [
+      "LGBTQIAP+ Friendly",
+      "Pet Friendly"
+    ],
+    "name": "Igor Souza",
+    "profilePhoto": "/images/avatar.png",
+    "price": "$",
+    "rating": 3.8,
+    "reviews": 11,
+    "distance": 12
+  },
+  {
+    "id": 16,
+    "professionalSpecialties": [
+      "Rolfing (Integração Estrutural)",
+      "Shiatsu"
+    ],
+    "otherProfessionalSpecialties": [
+      "Hipnoterapia"
+    ],
+    "professionalServicePreferences": [
+      "Atendimento em libras",
+      "Piso tátil"
+    ],
+    "name": "Juliana Rocha",
+    "profilePhoto": "/images/avatar.png",
+    "price": "$$$",
+    "rating": 4.9,
+    "reviews": 33,
+    "distance": 2
+  }
+]

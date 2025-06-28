@@ -1,0 +1,74 @@
+[
+  {
+    "name": "Terapias Energéticas",
+    "specializations": [
+      "Reiki",
+      "Johrei",
+      "Magnified Healing",
+      "Cura Prânica",
+      "Radiestesia/Radiônica",
+      "Toque Terapêutico"
+    ]
+  },
+  {
+    "name": "Terapias Corporais e Físicas",
+    "specializations": [
+      "Quiropraxia",
+      "Osteopatia",
+      "Massoterapia",
+      "Reflexologia (Pés e Mãos)",
+      "Shiatsu",
+      "Tui Na",
+      "Rolfing (Integração Estrutural)",
+      "Liberação Miofascial"
+    ]
+  },
+  {
+    "name": "Medicina Tradicional e Natural",
+    "specializations": [
+      "Medicina Tradicional Chinesa (Acupuntura, Moxabustão, Ventosaterapia)",
+      "Ayurveda",
+      "Fitoterapia",
+      "Homeopatia",
+      "Geoterapia",
+      "Apiterapia"
+    ]
+  },
+  {
+    "name": "Terapias Integrativas da Mente e Corpo",
+    "specializations": [
+      "Yoga",
+      "Tai Chi Chuan",
+      "Meditação e Mindfulness",
+      "Hipnoterapia",
+      "Psicoterapia Integrativa",
+      "Constelação Familiar"
+    ]
+  },
+  {
+    "name": "Terapias Criativas e Expressivas",
+    "specializations": [
+      "Arteterapia",
+      "Musicoterapia",
+      "Dançaterapia (Biodança, Dança Circular)",
+      "Teatro Terapêutico"
+    ]
+  },
+  {
+    "name": "Terapias Vibracionais e Sensoriais",
+    "specializations": [
+      "Aromaterapia",
+      "Cromoterapia",
+      "Terapia com Cristais",
+      "Terapia Floral"
+    ]
+  },
+  {
+    "name": "Saúde Comunitária e Bem-Estar Social",
+    "specializations": [
+      "Terapia Comunitária Integrativa",
+      "Conselhos de Cura Tradicional",
+      "Grupos de Apoio e Terapias em Grupo"
+    ]
+  }
+]

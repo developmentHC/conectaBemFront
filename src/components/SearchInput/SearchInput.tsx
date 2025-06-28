@@ -1,20 +1,36 @@
-import { GrSearch } from "react-icons/gr";
+"use client";
+import { SearchIcon } from "../../../public/images/icons";
+import { useSearchStore } from "@/stores/searchStore";
+import { useState } from "react";
 
 export const SearchInput = () => {
+  const { setQuery } = useSearchStore();
+  const [inputValue, setInputValue] = useState("");
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setQuery(inputValue);
+  };
+
   return (
     <div className="flex lg:items-center lg:justify-center">
-      <div className="flex items-center justify-between w-full h-full border border-blue-600 rounded-xl lg:max-w-[450px]">
+      <form
+        onSubmit={handleSubmit}
+        className="flex items-center justify-between w-full h-full border border-blue-600 rounded-xl lg:max-w-[450px]"
+      >
         <input
-          className="bg-transparent w-full placeholder:text-lg placeholder:text-gray-500 p-4 outline-none"
+          className="bg-transparent w-full placeholder:text-base placeholder:text-gray-500 p-4 outline-none"
           type="text"
-          placeholder="Buscar profissionais"
+          placeholder="Buscar profissionais e áreas"
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
         />
         <div className="px-2">
-          <div className="bg-blue-800 h-10 w-10 rounded-full flex items-center justify-center cursor-pointer">
-            <GrSearch className="text-button text-2xl" />
-          </div>
+          <button type="submit" className="bg-[rgb(56,88,244)] rounded-full">
+            <SearchIcon className="fill-[#D7FF7B] h-10 w-10 p-2" />
+          </button>
         </div>
-      </div>
+      </form>
     </div>
   );
 };

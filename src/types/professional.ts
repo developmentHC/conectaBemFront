@@ -41,3 +41,15 @@ export type ICreateProfissional = {
     addition: string | undefined;
   };
 };
+export type Professional = {
+  id: number;
+  professionalSpecialties: string[];
+  otherProfessionalSpecialties: string[];
+  professionalServicePreferences: string[];
+  name: string;
+  profilePhoto: string;
+  price: string;
+  rating: number;
+  reviews: number;
+  distance: number;
+};
