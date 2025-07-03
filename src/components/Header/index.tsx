@@ -8,15 +8,15 @@ import { ProfileMenu } from "./ProfileMenu";
 import { MobileMenu } from "./MobileMenu";
 import Link from "next/link";
 import { Button } from "@mui/material";
-import { useUserStore } from "@/stores/userSessionStore";
 import { MenuItem } from "./types";
 import { MdMailOutline } from "react-icons/md";
+import { useSession } from "next-auth/react";
 
 export const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
   const [hoveredItem, setHoveredItem] = useState<number | null>(null);
   const [isMounted, setIsMounted] = useState<boolean>(false);
-  const { isAuthenticated, userType } = useUserStore();
+  const { data: session, status } = useSession();
   const [profileMenuItemsState, setProfileMenuItemsState] = useState<MenuItem>();
   const { data: menuData = [] } = useMenuData();
 
@@ -70,9 +70,9 @@ export const Header = () => {
               if (item.menuitemtext === "Perfil") return null;
 
               const shouldShowItem =
-                (userType === "patient" && item.showtopatientusers) ||
-                (userType === "professional" && item.showtoprofessionalusers) ||
-                (userType === null && item.showtounsignedusers);
+                (session?.user?.userType === "patient" && item.showtopatientusers) ||
+                (session?.user?.userType === "professional" && item.showtoprofessionalusers) ||
+                (session?.user?.userType === undefined && item.showtounsignedusers);
 
               if (!shouldShowItem) return null;
               return (
@@ -119,7 +119,7 @@ export const Header = () => {
           <button type="submit" className="border-[#253E99] border rounded-full hidden lg:block">
             <SearchIcon className="fill-[#000] h-10 w-10 p-2" />
           </button>
-          {isAuthenticated ? (
+          {status === "authenticated" ? (
             <>
               <div className="cursor-pointer">
                 <MdMailOutline

@@ -2,9 +2,9 @@ import { useState } from "react";
 import { SearchIcon, HelpIcon, ChevronRightIcon } from "@/assets/icons";
 import { MenuItem } from "../types";
 import Link from "next/link";
-import { useUserStore } from "@/stores/userSessionStore";
 import { Divider } from "@mui/material";
 import clsx from "clsx";
+import { signOut, useSession } from "next-auth/react";
 
 interface MobileMenuProps {
   menuData: MenuItem[];
@@ -12,7 +12,7 @@ interface MobileMenuProps {
 }
 
 export const MobileMenu = ({ menuData, onClose }: MobileMenuProps) => {
-  const { userType, isAuthenticated, clearSession } = useUserStore();
+  const { data: session, status } = useSession();
   const [openItems, setOpenItems] = useState<Set<string>>(new Set());
 
   const handleSubmitSearchBar = (e: React.FormEvent) => {
@@ -30,9 +30,9 @@ export const MobileMenu = ({ menuData, onClose }: MobileMenuProps) => {
 
   const renderableMenuItems = menuData.filter((item) => {
     const shouldShowItem =
-      (userType === "patient" && item.showtopatientusers) ||
-      (userType === "professional" && item.showtoprofessionalusers) ||
-      (userType === null && item.showtounsignedusers);
+      (session?.user?.userType === "patient" && item.showtopatientusers) ||
+      (session?.user?.userType === "professional" && item.showtoprofessionalusers) ||
+      (session?.user?.userType === undefined && item.showtounsignedusers);
     return shouldShowItem;
   });
 
@@ -78,9 +78,10 @@ export const MobileMenu = ({ menuData, onClose }: MobileMenuProps) => {
                     <ul className="space-y-3 pl-5 mt-4">
                       {item.submenu.map((subItem) => {
                         const shouldShowItem =
-                          (userType === "patient" && subItem.showtowhichusertype === "patient") ||
+                          (session?.user?.userType === "patient" && subItem.showtowhichusertype === "patient") ||
                           subItem.showtowhichusertype === null ||
-                          (userType === "professional" && subItem.showtowhichusertype === "professional") ||
+                          (session?.user?.userType === "professional" &&
+                            subItem.showtowhichusertype === "professional") ||
                           subItem.showtowhichusertype === null;
 
                         if (!shouldShowItem) return null;
@@ -112,11 +113,14 @@ export const MobileMenu = ({ menuData, onClose }: MobileMenuProps) => {
               </div>
             );
           })}
-          {isAuthenticated && (
+          {status === "authenticated" && (
             <>
               <Divider sx={{ margin: "1rem 0" }} />
               <div>
-                <button className="py-4 w-full flex justify-between items-center" onClick={() => clearSession()}>
+                <button
+                  className="py-4 w-full flex justify-between items-center"
+                  onClick={() => signOut({ redirect: false })}
+                >
                   Sair
                   <ChevronRightIcon className="h-5 w-5 transition-transform duration-200" />
                 </button>
@@ -125,30 +129,32 @@ export const MobileMenu = ({ menuData, onClose }: MobileMenuProps) => {
           )}
         </div>
       </div>
-      {isAuthenticated && (
+      {status === "authenticated" && (
         <div className="fixed bottom-0 left-0 right-0 px-4 pt-4 pb-12 shadow-lg bg-default">
           <div className="flex space-x-2 mb-5 justify-end">
             <HelpIcon className="fill-[#77737B]" height={24} width={24} />
           </div>
           <div className="flex items-center justify-center gap-4">
-            <span className={`text-base ${userType === "patient" ? "text-[#1D1B20] font-regular" : "text-[#9790A2]"}`}>
+            <span
+              className={`text-base ${session?.user?.userType === "patient" ? "text-[#1D1B20] font-regular" : "text-[#9790A2]"}`}
+            >
               Paciente
             </span>
 
             <button
               role="switch"
-              aria-checked={userType === "professional"}
+              aria-checked={session?.user?.userType === "professional"}
               className="relative inline-flex h-3.5 w-9 items-center rounded-full bg-[#B3BFFB] transition-colors"
             >
               <span
                 className={`absolute left-0 inline-block h-5 w-5 transform rounded-full bg-[#0B29C1] shadow-lg transition-all duration-300 ${
-                  userType === "patient" ? "translate-x-0" : "translate-x-4"
+                  session?.user?.userType === "patient" ? "translate-x-0" : "translate-x-4"
                 }`}
               />
             </button>
 
             <span
-              className={`text-base ${userType === "professional" ? "text-[#1D1B20] font-regular" : "text-[#9790A2]"}`}
+              className={`text-base ${session?.user?.userType === "professional" ? "text-[#1D1B20] font-regular" : "text-[#9790A2]"}`}
             >
               Profissional
             </span>
