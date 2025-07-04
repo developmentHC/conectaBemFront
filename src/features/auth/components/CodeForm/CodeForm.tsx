@@ -1,25 +1,46 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { CircularProgress } from "@mui/material";
-import { CodeInput, type CodeInputHandle } from "@/components/CodeInput/CodeInput";
+import {
+  CodeInput,
+  type CodeInputHandle,
+} from "@/components/CodeInput/CodeInput";
 import { useCredentialLogin } from "../../hooks/useCredentialLogin";
 import { useConfirmOTP } from "../../hooks/useConfirmOTP";
 import { useCountdown } from "../../hooks/useCountdown";
 import { useUserStore } from "@/stores/userSessionStore";
 import { useGetUser } from "../../hooks/useGetUser";
+import { useRouter } from "next/navigation";
 
 type CodeFormProps = {
   onValidationSuccess: (responseStatus: number) => void;
 };
 
 export const CodeForm = ({ onValidationSuccess }: CodeFormProps) => {
+  const router = useRouter();
   const { mutate: resendCode } = useCredentialLogin();
   const { mutate: sendEmailCode, error, isPending } = useConfirmOTP();
   const { email } = useUserStore();
   const [code, setCode] = useState<(string | null)[]>([null, null, null, null]);
-  const { countdown, isActive, startCountdown } = useCountdown();
   const { refetch: fetchUser } = useGetUser({ enabled: false });
+
+  const {
+    timeLeft: timeLeftResendCode,
+    startCountdown: startCountdownResendCode,
+  } = useCountdown();
+  const {
+    timeLeft: timeLeftValidCode,
+    startCountdown: startCountdownValidCode,
+  } = useCountdown();
+
+  useEffect(() => {
+    if (email) {
+      startCountdownValidCode(30 * 60);
+    } else {
+      router.push(`/auth`);
+    }
+  }, []);
 
   const codeInputRef = useRef<CodeInputHandle>(null);
 
@@ -43,24 +64,49 @@ export const CodeForm = ({ onValidationSuccess }: CodeFormProps) => {
   };
 
   const sendCode = () => {
-    startCountdown();
+    startCountdownResendCode(50);
+    startCountdownValidCode(30 * 60);
 
     resendCode({ email });
   };
 
   return (
     <>
-      {isActive && (
-        <p>
-          Seu código de verificação expira em <span className="font-semibold">30 minutos.</span>
-        </p>
+      {timeLeftValidCode > 0 ? (
+        <span className="">
+          Seu código de verificação expira em{" "}
+          <span className="font-bold">
+            {timeLeftValidCode <= 60
+              ? `${timeLeftValidCode} segundo${timeLeftValidCode === 1 ? "" : "s"}`
+              : `${Math.ceil(timeLeftValidCode / 60)} ${
+                  Math.ceil(timeLeftValidCode / 60) === 1 ? "minuto" : "minutos"
+                }`}
+            .
+          </span>
+        </span>
+      ) : (
+        <span className="">
+          Código expirado! Por favor, solicite um novo código.
+        </span>
       )}
       <div className="flex flex-col gap-3 text-sm">
         <div className="flex flex-col gap-4 ">
-          <CodeInput ref={codeInputRef} value={code} onChange={setCode} onComplete={onSubmit} />
-          {isActive && <p className="text-gray-400 text-sm">Reenviar o código em {countdown} segundos.</p>}
-          {!isActive && (
-            <span onClick={sendCode} className="cursor-pointer">
+          <CodeInput
+            ref={codeInputRef}
+            value={code}
+            onChange={setCode}
+            onComplete={onSubmit}
+            error={!!error}
+          />
+          {timeLeftResendCode > 0 ? (
+            <span className="text-gray-400 test-sm">
+              Reenviar código em {timeLeftResendCode} segundos
+            </span>
+          ) : (
+            <span
+              onClick={() => sendCode()}
+              className="text-blue-600 cursor-pointer"
+            >
               Reenviar código
             </span>
           )}
@@ -77,7 +123,8 @@ export const CodeForm = ({ onValidationSuccess }: CodeFormProps) => {
         <div className="flex flex-col gap-4">
           {error && (
             <span className="text-red-600">
-              Código incorreto! Preencha corretamente ou reenvie o código e tente novamente.
+              Código incorreto! Preencha corretamente ou reenvie o código e
+              tente novamente.
             </span>
           )}
         </div>
