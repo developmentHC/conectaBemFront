@@ -1,35 +1,38 @@
 const specialization = [
   {
     id: 1,
-    name: "Cardiologia",
+    name: "Reiki",
   },
   {
     id: 2,
-    name: "Reki",
+    name: "Massoterapia",
   },
   {
     id: 3,
-    name: "Endocrinologia",
+    name: "Acupuntura",
   },
   {
     id: 4,
-    name: "Gastroenterologia",
+    name: "Homeopatia",
   },
   {
     id: 5,
-    name: "Nefrologia",
+    name: "Yoga",
   },
   {
     id: 6,
-    name: "Neurologia",
+    name: "Arteterapia",
   },
 ];
 
 export const MedicalSpecialization = () => {
   return (
-    <div className="flex gap-4 overflow-x-auto lg:justify-center">
+    <div className="flex gap-2 overflow-x-auto lg:justify-center">
       {specialization.map((item) => (
-        <div className="border border-blue-600 p-2 rounded-t-lg rounded-br-lg cursor-pointer " key={item.id}>
+        <div
+          className="border border-blue-600 text-sm p-2 rounded-t-lg rounded-br-lg cursor-pointer "
+          key={item.id}
+        >
           {item.name}
         </div>
       ))}
