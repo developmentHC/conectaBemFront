@@ -13,7 +13,7 @@ import { useFilterProfessional } from "@/features/search/hooks/useFilterProfessi
 import { SearchInput } from "@/components/SearchInput/SearchInput";
 import { CircularProgress } from "@mui/material";
 
-function search() {
+function SearchPage() {
   const router = useRouter();
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const { data: filteredProfessionals, isLoading } = useFilterProfessional();
@@ -75,4 +75,4 @@ function search() {
     </div>
   );
 }
-export default search;
+export default SearchPage;
