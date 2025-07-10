@@ -7,6 +7,7 @@ import { useCredentialLogin } from "../../hooks/useCredentialLogin";
 import { useCountdown } from "../../hooks/useCountdown";
 import { useUserStore } from "@/stores/userSessionStore";
 import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 type CodeFormProps = {
   onValidationSuccess: (responseStatus: number) => void;
@@ -19,6 +20,7 @@ export const CodeForm = ({ onValidationSuccess }: CodeFormProps) => {
   const [isPending, setPending] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
   const { countdown, isActive, startCountdown } = useCountdown();
+  const router = useRouter();
 
   const codeInputRef = useRef<CodeInputHandle>(null);
 
@@ -38,7 +40,9 @@ export const CodeForm = ({ onValidationSuccess }: CodeFormProps) => {
       onValidationSuccess(result.status);
     }
 
-    if (result?.error) {
+    if (result?.error === "ACCOUNT_PENDING") {
+      router.push('/auth/registro');
+    } else if (result?.error) {
       setError(true);
       codeInputRef.current?.focusOnFirstInput();
     }

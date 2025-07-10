@@ -2,9 +2,11 @@
 
 import { CloseIcon, InfoIcon } from "@/assets/icons";
 import { FormMultiStep } from "@/components/FormMultiStep";
+import { useUserStore } from "@/stores/userSessionStore";
 import { Box, Button, IconButton, Modal, Typography } from "@mui/material";
 import Link from "next/link";
-import { useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function Registro() {
   const style = {
@@ -26,6 +28,17 @@ export default function Registro() {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const { setIdUser } = useUserStore();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const userIdFromUrl = searchParams.get("userId");
+
+    if (userIdFromUrl) {
+      setIdUser(userIdFromUrl ?? "");
+    }
+  }, [searchParams, setIdUser]);
 
   return (
     <main className="flex justify-center w-full">

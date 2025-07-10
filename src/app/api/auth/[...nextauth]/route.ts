@@ -19,33 +19,64 @@ const nextAuthOptions: NextAuthOptions = {
       credentials: {
         email: { label: "email", type: "text" },
         code: { label: "number", type: "number" },
+        token: { label: "token", type: "password" },
       },
 
       async authorize(credentials) {
         try {
-          if (!credentials?.code) {
+          if (!credentials) {
             return null;
           }
-          const response = await api.post(`auth/checkOTP`, {
-            email: credentials?.email,
-            OTP: credentials?.code,
-          });
+          if (credentials.code && credentials.email) {
+            const response = await api.post(`auth/checkOTP`, {
+              email: credentials?.email,
+              OTP: credentials?.code,
+            });
 
-          const data = response.data;
+            const data = response.data;
 
-          if (data.user && data.user._id) {
-            return {
-              id: data.user._id,
-              email: data.user.email,
-              name: data.user.name,
-              token: data.token,
-              type: data.userType,
-              ...data.user,
-            };
+            if (data.user.status === "pending") {
+              const error = new Error("ACCOUNT_PENDING");
+              (error as any).userId = data.user._id;
+              throw error;
+            }
+
+            if (data.user && data.user._id) {
+              return {
+                id: data.user._id,
+                email: data.user.email,
+                name: data.user.name,
+                token: data.token,
+                type: data.userType,
+                ...data.user,
+              };
+            }
+          } else if (credentials.token) {
+            const response = await api.get("user", {
+              headers: {
+                Authorization: `Bearer ${credentials.token}`,
+              },
+            });
+
+            const data = response.data;
+            if (data._id) {
+              return {
+                id: data._id,
+                email: data.email,
+                name: data.name,
+                token: credentials.token,
+                type: data.userType,
+                ...data,
+              };
+            }
           }
           return null;
         } catch (error) {
           console.error("Authorization error:", error);
+          if (error instanceof Error && error.message === "ACCOUNT_PENDING") {
+            throw error;
+          }
+
           return null;
         }
       },
@@ -56,6 +87,27 @@ const nextAuthOptions: NextAuthOptions = {
     verifyRequest: "/auth/confirmar-codigo",
   },
   callbacks: {
+    async signIn({ user, account }) {
+      if (account?.provider === "google") {
+        try {
+          const response = await api.post("/auth/sendOTP", { email: user.email });
+          const data = response.data;
+
+          if (data.email.status === "completed") {
+            Object.assign(user, data.user);
+            return true;
+          } else if (data.email.status === "pending") {
+            const params = new URLSearchParams({
+              userId: data.id || "",
+            });
+            return `/auth/registro?${params.toString()}`;
+          }
+        } catch (error) {
+          throw new Error("erro ao fazer login");
+        }
+      }
+      return true;
+    },
     async jwt({ token, user }) {
       if (user) {
         token.user = user;
