@@ -30,9 +30,9 @@ export const MobileMenu = ({ menuData, onClose }: MobileMenuProps) => {
 
   const renderableMenuItems = menuData.filter((item) => {
     const shouldShowItem =
-      (session?.user?.userType === "patient" && item.showtopatientusers) ||
-      (session?.user?.userType === "professional" && item.showtoprofessionalusers) ||
-      (session?.user?.userType === undefined && item.showtounsignedusers);
+      (session?.user?.type === "patient" && item.showtopatientusers) ||
+      (session?.user?.type === "professional" && item.showtoprofessionalusers) ||
+      (session?.user?.type === undefined && item.showtounsignedusers);
     return shouldShowItem;
   });
 
@@ -68,9 +68,8 @@ export const MobileMenu = ({ menuData, onClose }: MobileMenuProps) => {
                       </Link>
                     )}
                     <ChevronRightIcon
-                      className={`h-5 w-5 transition-transform duration-200 ${
-                        openItems.has(item.menuitemtext) ? "-rotate-90" : ""
-                      }`}
+                      className={`h-5 w-5 transition-transform duration-200 ${openItems.has(item.menuitemtext) ? "-rotate-90" : ""
+                        }`}
                     />
                   </button>
 
@@ -78,9 +77,9 @@ export const MobileMenu = ({ menuData, onClose }: MobileMenuProps) => {
                     <ul className="space-y-3 pl-5 mt-4">
                       {item.submenu.map((subItem) => {
                         const shouldShowItem =
-                          (session?.user?.userType === "patient" && subItem.showtowhichusertype === "patient") ||
+                          (session?.user?.type === "patient" && subItem.showtowhichusertype === "patient") ||
                           subItem.showtowhichusertype === null ||
-                          (session?.user?.userType === "professional" &&
+                          (session?.user?.type === "professional" &&
                             subItem.showtowhichusertype === "professional") ||
                           subItem.showtowhichusertype === null;
 
@@ -136,25 +135,24 @@ export const MobileMenu = ({ menuData, onClose }: MobileMenuProps) => {
           </div>
           <div className="flex items-center justify-center gap-4">
             <span
-              className={`text-base ${session?.user?.userType === "patient" ? "text-[#1D1B20] font-regular" : "text-[#9790A2]"}`}
+              className={`text-base ${session?.user?.type === "patient" ? "text-[#1D1B20] font-regular" : "text-[#9790A2]"}`}
             >
               Paciente
             </span>
 
             <button
               role="switch"
-              aria-checked={session?.user?.userType === "professional"}
+              aria-checked={session?.user?.type === "professional"}
               className="relative inline-flex h-3.5 w-9 items-center rounded-full bg-[#B3BFFB] transition-colors"
             >
               <span
-                className={`absolute left-0 inline-block h-5 w-5 transform rounded-full bg-[#0B29C1] shadow-lg transition-all duration-300 ${
-                  session?.user?.userType === "patient" ? "translate-x-0" : "translate-x-4"
-                }`}
+                className={`absolute left-0 inline-block h-5 w-5 transform rounded-full bg-[#0B29C1] shadow-lg transition-all duration-300 ${session?.user?.type === "patient" ? "translate-x-0" : "translate-x-4"
+                  }`}
               />
             </button>
 
             <span
-              className={`text-base ${session?.user?.userType === "professional" ? "text-[#1D1B20] font-regular" : "text-[#9790A2]"}`}
+              className={`text-base ${session?.user?.type === "professional" ? "text-[#1D1B20] font-regular" : "text-[#9790A2]"}`}
             >
               Profissional
             </span>

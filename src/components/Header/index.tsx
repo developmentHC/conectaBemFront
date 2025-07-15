@@ -70,9 +70,9 @@ export const Header = () => {
               if (item.menuitemtext === "Perfil") return null;
 
               const shouldShowItem =
-                (session?.user?.userType === "patient" && item.showtopatientusers) ||
-                (session?.user?.userType === "professional" && item.showtoprofessionalusers) ||
-                (session?.user?.userType === undefined && item.showtounsignedusers);
+                (session?.user?.type === "patient" && item.showtopatientusers) ||
+                (session?.user?.type === "professional" && item.showtoprofessionalusers) ||
+                (session?.user?.type === undefined && item.showtounsignedusers);
 
               if (!shouldShowItem) return null;
               return (

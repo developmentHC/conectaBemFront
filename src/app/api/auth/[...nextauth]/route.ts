@@ -41,13 +41,19 @@ const nextAuthOptions: NextAuthOptions = {
               throw error;
             }
 
+            let userType = "patient";
+
+            if (data.userType && Array.isArray(data.userType) && data.userType.includes('professional')) {
+              userType = "professional";
+            }
+
             if (data.user && data.user._id) {
               return {
                 id: data.user._id,
                 email: data.user.email,
                 name: data.user.name,
                 token: data.token,
-                type: data.userType,
+                type: userType,
                 ...data.user,
               };
             }
@@ -59,13 +65,20 @@ const nextAuthOptions: NextAuthOptions = {
             });
 
             const data = response.data;
+
+            let userType = "patient";
+
+            if (data.userType && Array.isArray(data.userType) && data.userType.includes('professional')) {
+              userType = "professional";
+            }
+
             if (data._id) {
               return {
                 id: data._id,
                 email: data.email,
                 name: data.name,
                 token: credentials.token,
-                type: data.userType,
+                type: userType,
                 ...data,
               };
             }

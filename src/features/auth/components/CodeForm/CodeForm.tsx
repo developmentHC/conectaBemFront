@@ -10,7 +10,6 @@ import { useCredentialLogin } from "../../hooks/useCredentialLogin";
 import { useCountdown } from "../../hooks/useCountdown";
 import { useUserStore } from "@/stores/userSessionStore";
 import { signIn } from "next-auth/react";
-import { useGetUser } from "../../hooks/useGetUser";
 import { useRouter } from "next/navigation";
 
 type CodeFormProps = {
@@ -24,8 +23,6 @@ export const CodeForm = ({ onValidationSuccess }: CodeFormProps) => {
   const [code, setCode] = useState<(string | null)[]>([null, null, null, null]);
   const [isPending, setPending] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
-  const { countdown, isActive, startCountdown } = useCountdown();
-  const { refetch: fetchUser } = useGetUser({ enabled: false });
 
   const {
     timeLeft: timeLeftResendCode,

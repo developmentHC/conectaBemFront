@@ -16,7 +16,7 @@ declare module "next-auth" {
     email: string;
     name: string;
     token?: string;
-    userType?: string;
+    type?: string;
     address?: Address[];
     birthdayDate?: Date | string;
     profileImage?: string;

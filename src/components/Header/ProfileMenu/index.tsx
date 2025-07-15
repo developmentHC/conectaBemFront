@@ -77,8 +77,8 @@ export const ProfileMenu = (props: ProfileMenuProps) => {
         <ul>
           {props.items?.submenu.map((item, index) => {
             const shouldShowItem =
-              (session?.user?.userType === "patient" && item.showtowhichusertype === "patient") ||
-              (session?.user?.userType === "professional" && item.showtowhichusertype === "professional");
+              (session?.user?.type === "patient" && item.showtowhichusertype === "patient") ||
+              (session?.user?.type === "professional" && item.showtowhichusertype === "professional");
 
             if (!shouldShowItem) return null;
 
@@ -123,7 +123,7 @@ export const ProfileMenu = (props: ProfileMenuProps) => {
               className="block p-3 text-sm text-[#3857F4] hover:bg-gray-100 items-center"
               onClick={() => setIsOpen(false)}
             >
-              Trocar para Perfil {session?.user?.userType === "professional" ? "de Cliente" : "Profissional"}
+              Trocar para Perfil {session?.user?.type === "professional" ? "de Cliente" : "Profissional"}
             </Link>
           </li>
         </ul>
