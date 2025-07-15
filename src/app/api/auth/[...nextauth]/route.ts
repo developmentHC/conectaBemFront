@@ -115,8 +115,8 @@ const nextAuthOptions: NextAuthOptions = {
             });
             return `/auth/registro?${params.toString()}`;
           }
-        } catch (error) {
-          throw new Error("erro ao fazer login");
+        } catch {
+          throw new Error("Erro ao fazer login");
         }
       }
       return true;
