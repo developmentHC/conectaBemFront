@@ -7,10 +7,9 @@ import {
   type CodeInputHandle,
 } from "@/components/CodeInput/CodeInput";
 import { useCredentialLogin } from "../../hooks/useCredentialLogin";
-import { useConfirmOTP } from "../../hooks/useConfirmOTP";
 import { useCountdown } from "../../hooks/useCountdown";
 import { useUserStore } from "@/stores/userSessionStore";
-import { useGetUser } from "../../hooks/useGetUser";
+import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 type CodeFormProps = {
@@ -20,10 +19,10 @@ type CodeFormProps = {
 export const CodeForm = ({ onValidationSuccess }: CodeFormProps) => {
   const router = useRouter();
   const { mutate: resendCode } = useCredentialLogin();
-  const { mutate: sendEmailCode, error, isPending } = useConfirmOTP();
   const { email } = useUserStore();
   const [code, setCode] = useState<(string | null)[]>([null, null, null, null]);
-  const { refetch: fetchUser } = useGetUser({ enabled: false });
+  const [isPending, setPending] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(false);
 
   const {
     timeLeft: timeLeftResendCode,
@@ -44,23 +43,28 @@ export const CodeForm = ({ onValidationSuccess }: CodeFormProps) => {
 
   const codeInputRef = useRef<CodeInputHandle>(null);
 
-  const onSubmit = (data: (string | null)[]) => {
+  const onSubmit = async (data: (string | null)[]) => {
     const code = data.join("");
     setCode([null, null, null, null]);
-    sendEmailCode(
-      { code },
-      {
-        onSuccess: async (response) => {
-          if (response.status === 200) {
-            onValidationSuccess(response.status);
-            await fetchUser();
-          } else if (response.status === 201) {
-            onValidationSuccess(response.status);
-          }
-        },
-      }
-    );
-    codeInputRef.current?.focusOnFirstInput();
+    setError(false);
+    setPending(true);
+    const result = await signIn("credentials", {
+      email,
+      code,
+      redirect: false,
+    });
+    setPending(false);
+
+    if (result?.ok) {
+      onValidationSuccess(result.status);
+    }
+
+    if (result?.error === "ACCOUNT_PENDING") {
+      router.push('/auth/registro');
+    } else if (result?.error) {
+      setError(true);
+      codeInputRef.current?.focusOnFirstInput();
+    }
   };
 
   const sendCode = () => {
