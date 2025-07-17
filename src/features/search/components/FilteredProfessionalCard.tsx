@@ -16,7 +16,7 @@ export const FilteredProfessionalCard = ({
   return (
     <div className="bg-gray-50 rounded-lg shadow-md cursor-pointer max-h-[250px] w-full overflow-hidden ">
       <div className="flex flex-row h-full my-4 mx-6 gap-8">
-        <Image
+        <img
           className="rounded-lg max-w-[80px] lg:max-w-[160px] max-h-[80px] lg:max-h-[160px] object-cover"
           src={professional.image || ""}
           alt="profissional"
