@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { MdStarRate } from "react-icons/md";
 import { IProfessional } from "@/types/professional";
 
