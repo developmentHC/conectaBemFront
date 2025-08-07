@@ -28,7 +28,7 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
     <html lang="pt-br">
       <head>
         <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-ZKPRCMKQ42"
+          src={`https://www.googletagmanager.com/gtag/js?id=G-ZKPRCMKQ42`}
           strategy="afterInteractive"
         />
         <Script id="google-analytics" strategy="afterInteractive">
