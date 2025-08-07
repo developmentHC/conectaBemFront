@@ -9,6 +9,7 @@ import { Toaster } from "react-hot-toast";
 import { SessionProviderAuth } from "@/providers/SessionProvider";
 import { Footer } from "@/components/Footer/Footer";
 import { MuiLocalizationProvider } from "@/providers/LocalizationProvider";
+import Script from "next/script";
 
 export const metadata = {
   title: "ConectaBem",
@@ -25,12 +26,28 @@ const lato = Lato({
 const RootLayout = ({ children }: { children: ReactNode }) => {
   return (
     <html lang="pt-br">
+      <head>
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=G-ZKPRCMKQ42`}
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-ZKPRCMKQ42');
+        `}
+        </Script>
+      </head>
       <body className={`bg-default ${lato.className}`}>
         <ReactQueryClientProvider>
           <SessionProviderAuth>
             <MuiThemeProvider>
               <MuiLocalizationProvider>
-                <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string}>
+                <GoogleOAuthProvider
+                  clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string}
+                >
                   <div className="flex flex-col gap-8">
                     <Toaster position="top-center" />
                     <Header />
