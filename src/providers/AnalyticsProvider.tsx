@@ -1,3 +1,4 @@
+"use client";
 import { usePageTracking } from "@/features/gtm/hooks/usePageTracking";
 import { ReactNode } from "react";
 
