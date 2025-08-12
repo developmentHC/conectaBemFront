@@ -7,6 +7,7 @@ import { TitleCode } from "@/features/auth/components/CodeForm/TitleCode";
 import { Button, Divider } from "@mui/material";
 import { useEffect, useState } from "react";
 import { SuccessScreen } from "@/features/auth/components/SuccessScreen/SuccessScreen";
+import { useGTM } from "@/features/gtm/hooks/useGTM";
 
 export default function ConfirmCode() {
   const [isValidated, setIsValidated] = useState(false);
@@ -16,8 +17,11 @@ export default function ConfirmCode() {
     toast.error("Outros métodos de acesso não implementados!");
   };
 
+  const gtm = useGTM();
+
   const handleSuccessValidation = (responseStatus: number) => {
     setIsValidated(true);
+    gtm.login("email");
     if (responseStatus === 200) {
       setRedirectUrl("/");
     } else if (responseStatus === 201) {
@@ -44,7 +48,10 @@ export default function ConfirmCode() {
         <CodeForm onValidationSuccess={handleSuccessValidation} />
 
         <div className="flex flex-col gap-4 text-gray-600">
-          <span className="">Não se esqueça de verificar sua caixa de spam, caso não encontre nosso e-mail</span>
+          <span className="">
+            Não se esqueça de verificar sua caixa de spam, caso não encontre
+            nosso e-mail
+          </span>
           <div className="flex items-center gap-2">
             <ContactSupportIcon className="fill-gray-600" />
             <span className="">Precisa de ajuda?</span>

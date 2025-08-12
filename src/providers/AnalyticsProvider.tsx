@@ -1,6 +1,4 @@
-"use client";
-
-import { useGTM } from "@/hooks/useGTM";
+import { usePageTracking } from "@/features/gtm/hooks/usePageTracking";
 import { ReactNode } from "react";
 
 interface AnalyticsProviderProps {
@@ -8,6 +6,6 @@ interface AnalyticsProviderProps {
 }
 
 export const AnalyticsProvider = ({ children }: AnalyticsProviderProps) => {
-  useGTM();
+  usePageTracking();
   return <>{children}</>;
 };
