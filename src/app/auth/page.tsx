@@ -9,9 +9,10 @@ export default function register() {
     <main className="flex md:justify-center ">
       <div className="flex flex-col gap-8 md:max-w-[450px] w-full">
         <FormMultiStep.Header>
-          <Link href={"/"}>
+          {/* <Link href={"/"}>
             <FormMultiStep.BackStepButton />
-          </Link>
+          </Link> */} 
+          {/* removi o botão de voltar para a página inicial, pois ja possui um no header */}
           <FormMultiStep.Title>
             Prazer ter você no ConectaBem!
           </FormMultiStep.Title>

@@ -6,11 +6,13 @@ import { useEffect, useState } from "react";
 import { MenuIcon, CloseIcon, SearchIcon, ChevronDownIcon } from "@/assets/icons/";
 import { ProfileMenu } from "./ProfileMenu";
 import { MobileMenu } from "./MobileMenu";
+import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@mui/material";
 import { useUserStore } from "@/stores/userSessionStore";
 import { MenuItem } from "./types";
 import { MdMailOutline } from "react-icons/md";
+import { ArrowLeftIcon } from "../../../public/images/icons/ArrowLeftIcon";
 
 export const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
@@ -19,6 +21,8 @@ export const Header = () => {
   const { isAuthenticated, userType } = useUserStore();
   const [profileMenuItemsState, setProfileMenuItemsState] = useState<MenuItem>();
   const { data: menuData = [] } = useMenuData();
+  const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
     setIsMounted(true);
@@ -44,16 +48,25 @@ export const Header = () => {
   return (
     <div className="">
       <header className="flex items-center text-blue-600 lg:bg-white w-full px-8 lg:py-2 pt-6">
-        <div className="flex items-center justify-between w-full lg:pt-2">
+        <div className="flex items-center justify-between w-full lg:pt-2 gap-4">
+          {pathname !== "/" && (
+            <button
+              className="lg:hidden h-8 w-12"
+              onClick={() => router.back()}
+            >
+              <ArrowLeftIcon className="w-6 h-6 text-[#1D1B20]" />
+            </button>
+          )}
+          
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label={isMobileMenuOpen ? "Fechar menu" : "Abrir menu"}
             className="lg:hidden relative h-8 w-12 focus:outline-none"
           >
             {isMobileMenuOpen ? (
-              <CloseIcon className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 fill-[#3858F4] transition-transform duration-300" />
+              <CloseIcon className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-6 h-6 fill-[#1D1B20] transition-transform duration-300" />
             ) : (
-              <MenuIcon className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 fill-[#3858F4] transition-transform duration-300" />
+              <MenuIcon className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-6 h-6 fill-[#1D1B20] transition-transform duration-300" />
             )}
           </button>
 
@@ -116,8 +129,8 @@ export const Header = () => {
         )}
 
         <div className="space-x-4 flex justify-center items-center">
-          <button type="submit" className="border-[#253E99] border rounded-full hidden lg:block">
-            <SearchIcon className="fill-[#000] h-10 w-10 p-2" />
+          <button type="submit" className="hidden lg:block">
+            <SearchIcon className="fill-[#1D1B20] h-10 w-10 p-2" />
           </button>
           {isAuthenticated ? (
             <>
@@ -132,10 +145,22 @@ export const Header = () => {
               <ProfileMenu items={profileMenuItemsState} />
             </>
           ) : (
-            <Link href="/auth" onClick={() => setIsMobileMenuOpen(false)}>
-              <Button variant="contained" color="primary" size="medium">
-                Entrar
-              </Button>
+            /* adicionei essa um evento e uma classe para que o link n apareça e n possa ser clicado nas telas de cadastro */
+            <Link 
+              href="/auth" 
+              onClick={(e) => { 
+                if (pathname.startsWith("/auth")) e.preventDefault()
+                setIsMobileMenuOpen(false)}
+              } 
+              className={
+                pathname.startsWith("/auth")
+                 ? "opacity-0 lg:hidden" 
+                 : ""
+              }
+              >
+                <Button variant="contained" color="primary" size="medium"> 
+                  Entrar
+                </Button>
             </Link>
           )}
         </div>
