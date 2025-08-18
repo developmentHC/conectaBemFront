@@ -26,7 +26,7 @@ export const ProfissionalRegister = () => {
   return (
     <>
       <FormMultiStep.Header className="gap-4">
-        <BackStepButton />
+        {/* <BackStepButton /> */}
         <FormTitle />
         <FormMultiStep.Progress progress={progresses[step]} />
         <Description />
