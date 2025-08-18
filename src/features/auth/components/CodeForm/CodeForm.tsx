@@ -105,7 +105,7 @@ export const CodeForm = ({ onValidationSuccess }: CodeFormProps) => {
           ) : (
             <span
               onClick={() => sendCode()}
-              className="text-blue-600 cursor-pointer"
+              className="text-[#1D1B20] cursor-pointer text-end font-[lato] font-bold text-base underline"
             >
               Reenviar código
             </span>
