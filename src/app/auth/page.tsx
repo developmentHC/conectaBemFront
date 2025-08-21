@@ -2,7 +2,6 @@ import { FormMultiStep } from "@/components/FormMultiStep";
 import { AuthForm } from "@/features/auth/components/AuthForm/AuthForm";
 import { SocialNetwork } from "@/features/auth/components/SocialNetwork/SocialNetwork";
 import { Divider } from "@mui/material";
-import Link from "next/link";
 
 export default function register() {
   return (
