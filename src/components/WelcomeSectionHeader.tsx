@@ -11,7 +11,7 @@ type WelcomeSectionHeaderProps = {
 
 export const WelcomeSectionHeader = ({
   title,
-  href,
+  // href,
   progress,
   description,
 }: WelcomeSectionHeaderProps) => {
