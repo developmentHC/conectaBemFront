@@ -1,6 +1,6 @@
 import { LinearProgress } from "@mui/material";
-import Link from "next/link";
-import { IoMdArrowBack } from "react-icons/io";
+// import Link from "next/link";
+// import { IoMdArrowBack } from "react-icons/io";
 
 type WelcomeSectionHeaderProps = {
   title: string;
@@ -17,9 +17,9 @@ export const WelcomeSectionHeader = ({
 }: WelcomeSectionHeaderProps) => {
   return (
     <div className="flex flex-col gap-4">
-      <Link className="w-fit" href={href}>
+      {/* <Link className="w-fit" href={href}>
         <IoMdArrowBack className="text-xl cursor-pointer" />
-      </Link>
+      </Link> */}
       <h1 className="text-2xl font-semibold w-full" data-testid="title">
         {title}
       </h1>
