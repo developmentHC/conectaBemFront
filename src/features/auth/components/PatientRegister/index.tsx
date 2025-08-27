@@ -2,7 +2,7 @@
 
 import { FormMultiStep } from "@/components/FormMultiStep";
 import { Step, usePatientRegisterStore } from "./usePatientRegisterStore";
-import { BackStepButton } from "./BackStepButton";
+// import { BackStepButton } from "./BackStepButton";
 import { FormTitle } from "./FormTitle";
 import { Description } from "./Description";
 import { PersonalDataStep } from "./PersonalDataStep";
@@ -23,7 +23,7 @@ export const PatientRegister = () => {
   return (
     <>
       <FormMultiStep.Header className="gap-4">
-        <BackStepButton />
+        {/* <BackStepButton /> */}
         <FormTitle />
         <FormMultiStep.Progress progress={progresses[step]} />
         <Description />

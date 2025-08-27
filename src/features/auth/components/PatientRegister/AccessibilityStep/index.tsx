@@ -71,11 +71,11 @@ export const AccessibilityStep = () => {
         </div>
       </ul>
 
-      <div className="flex justify-between gap-8">
-        <Button className="w-full" variant="outlined" onClick={() => changeStep("complete_profile")}>
+      <div className="flex gap-2 flex-col-reverse">
+        <Button className="w-full" sx={{ padding: "12px 0", borderRadius: "8px" }} variant="outlined" onClick={() => changeStep("complete_profile")}>
           Pular
         </Button>
-        <Button className="w-full" variant="contained" type="submit">
+        <Button className="w-full" sx={{ padding: "12px 0", borderRadius: "8px" }} variant="contained" type="submit">
           Continuar
         </Button>
       </div>
