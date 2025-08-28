@@ -39,7 +39,9 @@ const schema = z.object({
           return true;
         }
         try {
-          const response = await axios.get(`https://viacep.com.br/ws/${cep.replace(/\D/g, "")}/json/`);
+          const response = await axios.get(
+            `https://viacep.com.br/ws/${cep.replace(/\D/g, "")}/json/`
+          );
           return !response.data.erro;
         } catch {
           return true;
@@ -51,7 +53,12 @@ const schema = z.object({
     ),
   enderecoClinica: z.string().min(5, "Endereço inválido"),
   bairroClinica: z.string().min(3, "Bairro inválido"),
-  numeroClinica: z.number().min(1, "Número inválido"),
+  numeroClinica: z
+    .number({
+      invalid_type_error: "Número inválido",
+      required_error: "Número é obrigatório",
+    })
+    .min(1, "O número deve ser maior que 0"),
   complementoClinica: z.string(),
   cidadeClinica: z.string().min(3, "Cidade inválida"),
   estadoClinica: z.string().min(3, "Estado inválido"),
@@ -127,7 +134,11 @@ export const ServiceLocationStep = () => {
 
   const onSubmit = handleSubmit(async (data) => {
     data.cepProfessional = data.cepProfessional.replace("-", "");
-    data.cpfCNPJ = data.cpfCNPJ.replace(".", "").replace(".", "").replace("-", "").replace("/", "");
+    data.cpfCNPJ = data.cpfCNPJ
+      .replace(".", "")
+      .replace(".", "")
+      .replace("-", "")
+      .replace("/", "");
 
     updateFields(data);
 
@@ -168,7 +179,11 @@ export const ServiceLocationStep = () => {
         <label>
           CNPJ OU CPF do Profissional <span className="text-red-600">*</span>
         </label>
-        <CpfCnpjField {...register("cpfCNPJ")} helperText={errors.cpfCNPJ?.message} error={!!errors.cpfCNPJ} />
+        <CpfCnpjField
+          {...register("cpfCNPJ")}
+          helperText={errors.cpfCNPJ?.message}
+          error={!!errors.cpfCNPJ}
+        />
       </div>
       <div className="flex flex-col gap-2">
         <label>
@@ -176,7 +191,11 @@ export const ServiceLocationStep = () => {
         </label>
         <CEPField
           {...register("cepProfessional")}
-          onChange={(e) => setValue("cepProfessional", e.target.value, { shouldValidate: true })}
+          onChange={(e) =>
+            setValue("cepProfessional", e.target.value, {
+              shouldValidate: true,
+            })
+          }
           helperText={errors.cepProfessional?.message}
           error={!!errors.cepProfessional}
           required
@@ -225,7 +244,7 @@ export const ServiceLocationStep = () => {
           <TextField
             {...register("numeroClinica", {
               valueAsNumber: true,
-              setValueAs: (value) => (value === "" ? undefined : Number(value)),
+              setValueAs: (value) => (value == "" ? undefined : Number(value)),
             })}
             placeholder="1014"
             type="number"
@@ -238,10 +257,14 @@ export const ServiceLocationStep = () => {
 
       <div className="flex flex-col gap-2">
         <label>Complemento</label>
-        <TextField {...register("complementoClinica")} placeholder="Sala 1101, bloco B" onChange={onChangeAddition} />
+        <TextField
+          {...register("complementoClinica")}
+          placeholder="Sala 1101, bloco B"
+          onChange={onChangeAddition}
+        />
       </div>
 
-      <Button disabled={!isValid} type="submit" className="w-full text-button" variant="contained">
+      <Button type="submit" className="w-full text-button" variant="contained">
         Continuar
       </Button>
     </form>

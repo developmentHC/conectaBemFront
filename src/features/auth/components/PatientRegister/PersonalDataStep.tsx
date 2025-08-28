@@ -14,7 +14,10 @@ const schema = z.object({
   name: z
     .string()
     .min(3, "Nome inválido")
-    .regex(/^[A-Za-zÀ-ú]+(?: [A-Za-zÀ-ú]+)*$/, "O nome deve conter apenas letras e um espaço entre as palavras"),
+    .regex(
+      /^[A-Za-zÀ-ú]+(?: [A-Za-zÀ-ú]+)*$/,
+      "O nome deve conter apenas letras e um espaço entre as palavras"
+    ),
   birthdate: z
     .instanceof(Date)
     .refine(
@@ -31,7 +34,10 @@ const schema = z.object({
         const max = dayjs().subtract(18, "years").toDate();
         return date <= max;
       },
-      { message: "Você deve ser maior de idade para se cadastrar na plataforma!" }
+      {
+        message:
+          "Você deve ser maior de idade para se cadastrar na plataforma!",
+      }
     ),
   cepResidencial: z
     .string()
@@ -43,10 +49,12 @@ const schema = z.object({
           return true;
         }
         try {
-          const response = await axios.get(`https://viacep.com.br/ws/${cep.replace(/\D/g, "")}/json/`);
+          const response = await axios.get(
+            `https://viacep.com.br/ws/${cep.replace(/\D/g, "")}/json/`
+          );
           return !response.data.erro;
         } catch {
-          return true;
+          return false;
         }
       },
       {
@@ -72,7 +80,7 @@ export const PersonalDataStep = () => {
     watch,
     formState: { errors, isValid },
   } = useForm<Data>({
-    mode: "onChange",
+    mode: "onSubmit",
     resolver: zodResolver(schema),
   });
 
@@ -123,7 +131,13 @@ export const PersonalDataStep = () => {
           Nome <span className="text-red-600">*</span>
         </label>
 
-        <TextField onChange={replaceName} placeholder="Nome e Sobrenome" id="name" value={nameInput} required />
+        <TextField
+          onChange={replaceName}
+          placeholder="Nome e Sobrenome"
+          id="name"
+          value={nameInput}
+          required
+        />
       </div>
       <div className="flex flex-col gap-2">
         <label>
@@ -156,13 +170,15 @@ export const PersonalDataStep = () => {
         </label>
         <CEPField
           {...register("cepResidencial")}
-          onChange={(e) => setValue("cepResidencial", e.target.value, { shouldValidate: true })}
+          onChange={(e) =>
+            setValue("cepResidencial", e.target.value, { shouldValidate: true })
+          }
           helperText={errors.cepResidencial?.message}
           error={!!errors.cepResidencial}
         />
       </div>
 
-      <Button disabled={!isValid} className="text-button" variant="contained" type="submit">
+      <Button className="text-button" variant="contained" type="submit">
         Continuar
       </Button>
     </form>

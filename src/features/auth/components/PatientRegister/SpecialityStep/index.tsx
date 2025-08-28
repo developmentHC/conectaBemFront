@@ -11,7 +11,9 @@ import { ServicesSelection } from "./ServicesSelection";
 type Data = z.infer<typeof schema>;
 
 const schema = z.object({
-  specialties: z.array(z.string()).min(1, "Selecione pelo menos uma especialidade"),
+  specialties: z
+    .array(z.string())
+    .min(1, "Selecione pelo menos uma especialidade"),
   servicePreferences: z.array(z.string()),
 });
 
@@ -52,10 +54,13 @@ export const SpecialtyStep = () => {
         <label className="text-xl font-semibold w-full">Atendimento</label>
         <p className="opacity-80">Escolha as preferências de atendimento</p>
 
-        <ServicesSelection onChange={(value) => setValue("servicePreferences", value)} selecteds={selectedServices} />
+        <ServicesSelection
+          onChange={(value) => setValue("servicePreferences", value)}
+          selecteds={selectedServices}
+        />
       </div>
 
-      <Button disabled={!selectedSpecialties.length} className="text-button" variant="contained" type="submit">
+      <Button className="text-button" variant="contained" type="submit">
         Continuar
       </Button>
     </form>
