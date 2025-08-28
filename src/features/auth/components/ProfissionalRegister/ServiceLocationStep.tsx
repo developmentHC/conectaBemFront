@@ -72,7 +72,7 @@ export const ServiceLocationStep = () => {
     handleSubmit,
     setValue,
     watch,
-    formState: { errors, isValid },
+    formState: { errors },
   } = useForm<Data>({
     mode: "onTouched",
     resolver: zodResolver(schema),

@@ -80,7 +80,7 @@ export const PersonalDataStep = () => {
     handleSubmit,
     setValue,
     watch,
-    formState: { errors, isValid },
+    formState: { errors },
   } = useForm<Data>({
     mode: "onSubmit",
     resolver: zodResolver(schema),
