@@ -45,7 +45,12 @@ export default function Registro() {
             Paciente
           </Button>
           <Link href={"/auth/registro-profissional"}>
-            <Button className="w-full" sx={{ borderRadius: "4px", color: "#3857F4", borderColor: "#3857F4", padding: "12px 0 12px" }} variant="outlined">
+            <Button
+              className="w-full" 
+              sx={{ borderRadius: "4px", color: "#3857F4", borderColor: "#3857F4", padding: "12px 0 12px" }} 
+              variant="outlined" 
+              onClick={() => handleOpen("profissional")}
+             >
               Profissional
             </Button>
           </Link>
