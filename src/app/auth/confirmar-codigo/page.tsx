@@ -7,7 +7,6 @@ import { TitleCode } from "@/features/auth/components/CodeForm/TitleCode";
 import { Button, Divider } from "@mui/material";
 import { useEffect, useState } from "react";
 import { SuccessScreen } from "@/features/auth/components/SuccessScreen/SuccessScreen";
-import { useGTM } from "@/features/gtm/hooks/useGTM";
 
 export default function ConfirmCode() {
   const [isValidated, setIsValidated] = useState(false);
@@ -17,11 +16,8 @@ export default function ConfirmCode() {
     toast.error("Outros métodos de acesso não implementados!");
   };
 
-  const gtm = useGTM();
-
   const handleSuccessValidation = (responseStatus: number) => {
     setIsValidated(true);
-    gtm.login("email");
     if (responseStatus === 200) {
       setRedirectUrl("/");
     } else if (responseStatus === 201) {

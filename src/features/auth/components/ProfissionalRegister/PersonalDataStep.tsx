@@ -16,7 +16,10 @@ const schema = z.object({
   name: z
     .string()
     .min(10, "Nome inválido")
-    .regex(/^[A-Za-zÀ-ú]+(?: [A-Za-zÀ-ú]+)*$/, "O nome deve conter apenas letras e um espaço entre as palavras"),
+    .regex(
+      /^[A-Za-zÀ-ú]+(?: [A-Za-zÀ-ú]+)*$/,
+      "O nome deve conter apenas letras e um espaço entre as palavras"
+    ),
   birthdate: z
     .instanceof(Date)
     .refine(
@@ -33,7 +36,10 @@ const schema = z.object({
         const max = dayjs().subtract(18, "years").toDate();
         return date <= max;
       },
-      { message: "Você deve ser maior de idade para se cadastrar na plataforma!" }
+      {
+        message:
+          "Você deve ser maior de idade para se cadastrar na plataforma!",
+      }
     ),
   cepResidencial: z
     .string()
@@ -45,7 +51,9 @@ const schema = z.object({
           return true;
         }
         try {
-          const response = await axios.get(`https://viacep.com.br/ws/${cep.replace(/\D/g, "")}/json/`);
+          const response = await axios.get(
+            `https://viacep.com.br/ws/${cep.replace(/\D/g, "")}/json/`
+          );
           return !response.data.erro;
         } catch {
           return true;
@@ -72,9 +80,9 @@ export const PersonalDataStep = () => {
     handleSubmit,
     setValue,
     watch,
-    formState: { errors, isValid },
+    formState: { errors },
   } = useForm<Data>({
-    mode: "onChange",
+    mode: "onSubmit",
     resolver: zodResolver(schema),
   });
 
@@ -166,13 +174,15 @@ export const PersonalDataStep = () => {
         </label>
         <CEPField
           {...register("cepResidencial")}
-          onChange={(e) => setValue("cepResidencial", e.target.value, { shouldValidate: true })}
+          onChange={(e) =>
+            setValue("cepResidencial", e.target.value, { shouldValidate: true })
+          }
           error={!!errors.cepResidencial}
           helperText={errors.cepResidencial?.message}
         />
       </div>
 
-      <Button disabled={!isValid} type="submit" variant="contained" size="large">
+      <Button type="submit" variant="contained" size="large">
         Continuar
       </Button>
     </form>

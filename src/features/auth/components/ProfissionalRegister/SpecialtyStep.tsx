@@ -31,7 +31,9 @@ const services = ["LGBTQIAP+ Friendly", "Pet Friedly", "Aceita Wellhub"];
 type Data = z.infer<typeof schema>;
 
 const schema = z.object({
-  specialties: z.array(z.string()).min(1, "Selecione pelo menos uma especialidade"),
+  specialties: z
+    .array(z.string())
+    .min(1, "Selecione pelo menos uma especialidade"),
   servicePreferences: z.array(z.string()).nullable(),
 });
 
@@ -49,7 +51,9 @@ export const SpecialtyStep = () => {
   const [collapseService, setCollapseService] = useState<boolean>(false);
   const [showSuggestions, setShowSuggestions] = useState<boolean>(false);
 
-  const visibleSpecialties = collapseSpecialty ? specialtiesMock : specialtiesMock?.slice(0, 8);
+  const visibleSpecialties = collapseSpecialty
+    ? specialtiesMock
+    : specialtiesMock?.slice(0, 8);
 
   const visibleServices = collapseService ? services : services?.slice(0, 8);
 
@@ -61,7 +65,9 @@ export const SpecialtyStep = () => {
     if (specialty === "Outros") setShowSuggestions((prev) => !prev);
 
     setSelectedSpecialties((prev) =>
-      prev.includes(specialty) ? prev.filter((item) => item !== specialty) : [...prev, specialty]
+      prev.includes(specialty)
+        ? prev.filter((item) => item !== specialty)
+        : [...prev, specialty]
     );
   };
 
@@ -71,7 +77,9 @@ export const SpecialtyStep = () => {
     if (!service) return;
 
     setSelectedServices((prev) =>
-      prev.includes(service) ? prev.filter((item) => item !== service) : [...prev, service]
+      prev.includes(service)
+        ? prev.filter((item) => item !== service)
+        : [...prev, service]
     );
   };
 
@@ -120,7 +128,9 @@ export const SpecialtyStep = () => {
       <div className="flex flex-col gap-6">
         <div className="flex flex-col gap-2">
           <h2 className="text-2xl">Atendimento</h2>
-          <span>Escolha as opções que você e seu estabelecimento fornecem suporte</span>
+          <span>
+            Escolha as opções que você e seu estabelecimento fornecem suporte
+          </span>
         </div>
 
         <ul className="flex flex-wrap gap-2">
@@ -145,7 +155,7 @@ export const SpecialtyStep = () => {
         </ul>
       </div>
 
-      <Button disabled={!selectedSpecialties.length} className="text-button" variant="contained" type="submit">
+      <Button className="text-button" variant="contained" type="submit">
         Continuar
       </Button>
     </form>

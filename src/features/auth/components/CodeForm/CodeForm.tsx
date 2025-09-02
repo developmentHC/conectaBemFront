@@ -12,6 +12,7 @@ import { useCountdown } from "../../hooks/useCountdown";
 import { useUserStore } from "@/stores/userSessionStore";
 import { useGetUser } from "../../hooks/useGetUser";
 import { useRouter } from "next/navigation";
+import { gtmEvents } from "@/utils/gtm";
 
 type CodeFormProps = {
   onValidationSuccess: (responseStatus: number) => void;
@@ -21,7 +22,7 @@ export const CodeForm = ({ onValidationSuccess }: CodeFormProps) => {
   const router = useRouter();
   const { mutate: resendCode } = useCredentialLogin();
   const { mutate: sendEmailCode, error, isPending } = useConfirmOTP();
-  const { email } = useUserStore();
+  const { email, idUser, exists, userType } = useUserStore();
   const [code, setCode] = useState<(string | null)[]>([null, null, null, null]);
   const { refetch: fetchUser } = useGetUser({ enabled: false });
 
@@ -54,8 +55,10 @@ export const CodeForm = ({ onValidationSuccess }: CodeFormProps) => {
           if (response.status === 200) {
             onValidationSuccess(response.status);
             await fetchUser();
+            gtmEvents.login("email", exists, idUser, userType);
           } else if (response.status === 201) {
             onValidationSuccess(response.status);
+            gtmEvents.login("email", exists, idUser, userType);
           }
         },
       }
