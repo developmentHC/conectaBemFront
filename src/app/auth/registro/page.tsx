@@ -24,7 +24,9 @@ export default function Registro() {
   };
 
   const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
+  const handleOpen = (type: "paciente" | "profissional") => {
+    setOpen(true);
+  };
   const handleClose = () => setOpen(false);
 
   return (
@@ -35,7 +37,7 @@ export default function Registro() {
           <FormMultiStep.Description>Você deseja se cadastrar como:</FormMultiStep.Description>
         </FormMultiStep.Header>
         <div className="flex flex-col gap-5">
-          <Button className="w-full" sx={{ borderRadius: "4px", color: "#3857F4", borderColor: "#3857F4", padding: "12px 0 12px" }} variant="outlined" onClick={handleOpen}>
+          <Button className="w-full" sx={{ borderRadius: "4px", color: "#3857F4", borderColor: "#3857F4", padding: "12px 0 12px" }} variant="outlined" onClick={() => handleOpen("paciente")}>
             Paciente
           </Button>
           <Link href={"/auth/registro-profissional"}>
