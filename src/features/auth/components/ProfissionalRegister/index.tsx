@@ -8,7 +8,6 @@ import {
 import { PersonalDataStep } from "./PersonalDataStep";
 import { ServiceLocationStep } from "./ServiceLocationStep";
 import { FormTitle } from "./FormTitle";
-// import { BackStepButton } from "./BackStepButton";
 import { Description } from "./Description";
 import { SpecialtyStep } from "./SpecialtyStep";
 import { CompleteProfileStep } from "./CompleteProfileStep";
@@ -26,7 +25,6 @@ export const ProfissionalRegister = () => {
   return (
     <>
       <FormMultiStep.Header className="gap-4">
-        {/* <BackStepButton /> */}
         <FormTitle />
         <FormMultiStep.Progress progress={progresses[step]} />
         <Description />

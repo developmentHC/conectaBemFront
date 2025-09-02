@@ -31,11 +31,7 @@ export default function Registro() {
     <main className="flex justify-center w-full">
       <div className="flex flex-col gap-8 w-full md:max-w-[450px] mt-8">
         <FormMultiStep.Header className="gap-4">
-          {/* <Link href={"/auth"} className="w-fit">
-            <FormMultiStep.BackStepButton />
-          </Link> */}
           <FormMultiStep.Title>Tudo pronto para começar</FormMultiStep.Title>
-          {/* <FormMultiStep.Progress progress={20} /> */}
           <FormMultiStep.Description>Você deseja se cadastrar como:</FormMultiStep.Description>
         </FormMultiStep.Header>
         <div className="flex flex-col gap-5">
