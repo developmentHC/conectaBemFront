@@ -24,7 +24,13 @@ export default function Registro() {
   };
 
   const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
+  const [userType, setUserType] = useState<"paciente" | "profissional" | null>(
+    null
+  );
+  const handleOpen = (type: "paciente" | "profissional") => {
+    setUserType(type);
+    setOpen(true);
+  };
   const handleClose = () => setOpen(false);
 
   return (
@@ -64,7 +70,12 @@ export default function Registro() {
       >
         <Box sx={style}>
           <Box className="flex items-center justify-between">
-            <Typography className="text-2xl" sx={{ fontWeight: "700" }} id="modal-modal-title" variant="h5">
+            <Typography
+              className="text-2xl"
+              sx={{ fontWeight: "700" }}
+              id="modal-modal-title"
+              variant="h5"
+            >
               Cadastrar como
             </Typography>
             <IconButton className="w-fit h-fit" onClick={handleClose}>
@@ -72,10 +83,18 @@ export default function Registro() {
             </IconButton>
           </Box>
           <Typography id="modal-description" variant="body1">
-            Tem certeza que deseja se cadastrar como <span className="font-semibold">paciente?</span>
+            Tem certeza que deseja se cadastrar como{" "}
+            <span className="font-semibold">{userType}?</span>
           </Typography>
-          <Typography variant="body2" className="flex font-normal text-gray-700 items-center gap-2">
-            <InfoIcon className="fill-input-code-border" height={20} width={21} />
+          <Typography
+            variant="body2"
+            className="flex font-normal text-gray-700 items-center gap-2"
+          >
+            <InfoIcon
+              className="fill-input-code-border"
+              height={20}
+              width={21}
+            />
             Atenção, esta ação não poderá ser desfeita.
           </Typography>
           <Box sx={{ display: "flex", flexDirection: "column", gap: "12px", width: "100%", mt: "8px" }}>

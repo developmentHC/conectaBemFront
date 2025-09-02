@@ -23,6 +23,7 @@
     "@mui/lab": "^6.0.0-beta.31",
     "@mui/material": "^6.2.0",
     "@mui/x-date-pickers": "^7.27.1",
+    "@next/third-parties": "^15.4.7",
     "@prismicio/client": "^7.16.1",
     "@prismicio/helpers": "^2.3.9",
     "@prismicio/next": "^2.0.0",

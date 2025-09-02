@@ -9,6 +9,7 @@ import { useUserStore } from "@/stores/userSessionStore";
 import { convertToBase64 } from "@/utils/transformImageToBase64";
 import toast from "react-hot-toast";
 import { compressImage } from "@/utils/compressImage";
+import { gtmEvents } from "@/utils/gtm";
 
 export const CompleteProfileStep = () => {
   const [image, setImage] = useState<string | null>(null);
@@ -81,17 +82,31 @@ export const CompleteProfileStep = () => {
       professionalServicePreferences: servicePreferences,
       profilePhoto: photo,
     });
+
+    gtmEvents.professionalRegistrationComplete(
+      idUser || "not_specified",
+      specialties?.[0] || "not_specified",
+      servicePreferences?.[0] || "not_specified",
+      cidadeClinica || "not_specified",
+      estadoClinica || "not_specified"
+    );
   };
 
   return (
     <form className="flex flex-col gap-8">
       <span>
-        Terminamos por aqui, aproveite o ConectaBem. Lembre de terminar seu cadastro no futuro e iniciar seus
-        atendimentos.
+        Terminamos por aqui, aproveite o ConectaBem. Lembre de terminar seu
+        cadastro no futuro e iniciar seus atendimentos.
       </span>
 
       <div className="flex justify-center items-center relative">
-        <input onChange={onChangeImage} type="file" name="file" id="file" className="hidden" />
+        <input
+          onChange={onChangeImage}
+          type="file"
+          name="file"
+          id="file"
+          className="hidden"
+        />
         <label
           htmlFor="file"
           className="bg-blue-600 h-[120px] w-[120px] rounded-full items-center justify-center flex flex-col relative cursor-pointer"
@@ -113,16 +128,28 @@ export const CompleteProfileStep = () => {
       </div>
 
       <FormControlLabel
-        control={<Checkbox checked={termsAccepted} onChange={(e) => setTermsAccepted(e.target.checked)} />}
+        control={
+          <Checkbox
+            checked={termsAccepted}
+            onChange={(e) => setTermsAccepted(e.target.checked)}
+          />
+        }
         label={
           <p>
-            Aceitar <Link underline="always" href="#">Termos de Uso e Política de Privacidade</Link>
+            Aceitar{" "}
+            <Link underline="always" href="#">
+              Termos de Uso e Política de Privacidade
+            </Link>
           </p>
         }
       />
 
       <div className="flex flex-col gap-6">
-        <Button onClick={onSubmit} disabled={!termsAccepted || isPending} variant="contained">
+        <Button
+          onClick={onSubmit}
+          disabled={!termsAccepted || isPending}
+          variant="contained"
+        >
           {isPending ? "Enviando..." : "Começar"}
         </Button>
       </div>
