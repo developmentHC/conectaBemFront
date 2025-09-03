@@ -5,16 +5,10 @@ export const Footer = () => {
         <div className="flex flex-col gap-2">
           <h4 className="text-button font-bold">Profissionais</h4>
           <ul className="flex flex-col gap-1 text-white/70">
-            <li className="cursor-pointer">Fisioterapeuta</li>
             <li className="cursor-pointer">Quiropraxia</li>
-            <li className="cursor-pointer">Cromoterapia</li>
+            <li className="cursor-pointer">Aromaterapia</li>
             <li className="cursor-pointer">Reiki</li>
-            <li className="cursor-pointer">Acunpultura</li>
-            <li className="cursor-pointer">Fisioterapeuta</li>
-            <li className="cursor-pointer">Quiropraxia</li>
-            <li className="cursor-pointer">Cromoterapia</li>
-            <li className="cursor-pointer">Reiki</li>
-            <li className="cursor-pointer">Acunpultura</li>
+            <li className="cursor-pointer">Acupuntura</li>
           </ul>
         </div>
         <div className="flex flex-col gap-2">
@@ -23,16 +17,11 @@ export const Footer = () => {
             <li className="cursor-pointer">FAQ</li>
             <li className="cursor-pointer">Contatos</li>
             <li className="cursor-pointer">Tutoriais</li>
-            <li className="cursor-pointer">FAQ</li>
-            <li className="cursor-pointer">Contatos</li>
-            <li className="cursor-pointer">Tutoriais</li>
           </ul>
         </div>
         <div className="flex flex-col gap-2">
           <h4 className="text-button font-bold">Sobre o Conecta Bem</h4>
           <ul className="flex flex-col gap-1 text-white/70">
-            <li className="cursor-pointer">Quem Somos</li>
-            <li className="cursor-pointer">Valores</li>
             <li className="cursor-pointer">Quem Somos</li>
             <li className="cursor-pointer">Valores</li>
           </ul>
