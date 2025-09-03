@@ -9,7 +9,7 @@ export const ProfessionalSection = () => {
 
   return (
     <section className="flex flex-col gap-6">
-      {patient?.userSpecialities?.map((specialitie, index) => (
+      {patient?.userSpecialities?.map((specialitie) => (
         <div key={`section-${specialitie.id}`} className="flex flex-col gap-6">
           <div className="flex items-center justify-between">
             <p className="text-2xl font-semibold">{specialitie.name}</p>
