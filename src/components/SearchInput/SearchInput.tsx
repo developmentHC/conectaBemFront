@@ -12,7 +12,7 @@ export const SearchInput = () => {
         <input
           className="bg-transparent w-full placeholder:text-lg placeholder:text-gray-500 p-4 outline-none"
           type="text"
-          placeholder="Buscar profissionais"
+          placeholder="Buscar profissionais e áreas"
         />
       </div>
     </div>
