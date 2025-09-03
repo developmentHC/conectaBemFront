@@ -102,13 +102,13 @@ export const CodeForm = ({ onValidationSuccess }: CodeFormProps) => {
             error={!!error}
           />
           {timeLeftResendCode > 0 ? (
-            <span className="text-gray-400 test-sm">
+            <span className="text-gray-400 test-sm flex justify-end">
               Reenviar código em {timeLeftResendCode} segundos
             </span>
           ) : (
             <span
               onClick={() => sendCode()}
-              className="text-blue-600 cursor-pointer"
+              className="text-[#1D1B20] cursor-pointer text-end font-[lato] font-bold text-base underline"
             >
               Reenviar código
             </span>

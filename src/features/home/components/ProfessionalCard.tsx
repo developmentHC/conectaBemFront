@@ -5,6 +5,7 @@ import { MdStarRate } from "react-icons/md";
 import { useProfessional } from "../hooks/useProfessional";
 import { useMemo } from "react";
 import { filterAndSortProfessionals } from "@/utils/filterProfessionals";
+import Link from "next/link";
 
 type ProfessionalSectionProps = {
   specialization?: string;
@@ -78,6 +79,14 @@ export const ProfessionalCard = ({
                 </button>
               )}
             </div>
+          </div>
+          <div className="flex justify-between items-center w-full">
+            <Link 
+              href={`/profissional/${professional.id}`} 
+              className="bg-[#3857F4] w-full h-12 text-[#D7FF7B] px-4 rounded-lg hover:bg-blue-700 font-[lato] font-bold text-base flex items-center justify-center"
+            >
+              Ver perfil
+            </Link>
           </div>
         </div>
       ))}
