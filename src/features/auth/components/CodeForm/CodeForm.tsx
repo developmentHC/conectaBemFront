@@ -41,7 +41,7 @@ export const CodeForm = ({ onValidationSuccess }: CodeFormProps) => {
     } else {
       router.push(`/auth`);
     }
-  }, []);
+  });
 
   const codeInputRef = useRef<CodeInputHandle>(null);
 

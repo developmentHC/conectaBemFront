@@ -1,0 +1,28 @@
+{
+  "enderecos": {
+    "lista": [
+      {
+        "id": 1,
+        "principal": true,
+        "tipo": "Casa",
+        "rua": "Rua das Palmeiras",
+        "bairro": "Botafogo",
+        "cidade": "Rio de Janeiro",
+        "estado": "RJ",
+        "cep": "22270070",
+        "complemento": "casa 525"
+      },
+      {
+        "id": 2,
+        "principal": false,
+        "tipo": "Outros",
+        "rua": "Rua das Palmeiras",
+        "bairro": "Botafogo",
+        "cidade": "Rio de Janeiro",
+        "estado": "RJ",
+        "cep": "22270070",
+        "complemento": "casa 525"
+      }
+    ]
+  }
+}

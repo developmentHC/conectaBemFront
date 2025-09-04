@@ -42,8 +42,8 @@ export const SuggestionForm = () => {
   return (
     <div className="flex flex-col gap-4">
       <span className="text-sm">
-        Sua especialidade não está na lista? Envie sua sugestão e iremos analisar a viabilidade de incluí-la em nosso
-        cadastro
+        Sua especialidade não está na lista? Envie sua sugestão e iremos
+        analisar a viabilidade de incluí-la em nosso cadastro
       </span>
       <TextField
         {...register("suggestions")}
@@ -58,7 +58,9 @@ export const SuggestionForm = () => {
       <Button
         onClick={handleSuggestionSubmit}
         disabled={suggestionsSent}
-        className={clsx(suggestionsSent && "!bg-blue-secondary !text-white")}
+        className={clsx(
+          suggestionsSent && "!bg-blue-secondary-900 !text-white"
+        )}
         variant="contained"
       >
         {!suggestionsSent ? (

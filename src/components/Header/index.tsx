@@ -3,7 +3,12 @@
 import { useMenuData } from "@/libs/getMenuData";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { MenuIcon, CloseIcon, SearchIcon, ChevronDownIcon } from "@/assets/icons/";
+import {
+  MenuIcon,
+  CloseIcon,
+  SearchIcon,
+  ChevronDownIcon,
+} from "@/assets/icons/";
 import { ProfileMenu } from "./ProfileMenu";
 import { MobileMenu } from "./MobileMenu";
 import { useRouter, usePathname } from "next/navigation";
@@ -19,7 +24,8 @@ export const Header = () => {
   const [hoveredItem, setHoveredItem] = useState<number | null>(null);
   const [isMounted, setIsMounted] = useState<boolean>(false);
   const { isAuthenticated, userType } = useUserStore();
-  const [profileMenuItemsState, setProfileMenuItemsState] = useState<MenuItem>();
+  const [profileMenuItemsState, setProfileMenuItemsState] =
+    useState<MenuItem>();
   const { data: menuData = [] } = useMenuData();
   const router = useRouter();
   const pathname = usePathname();
@@ -29,7 +35,9 @@ export const Header = () => {
   }, []);
 
   useEffect(() => {
-    const profileMenuItems = menuData.find((item) => item.menuitemtext === "Perfil");
+    const profileMenuItems = menuData.find(
+      (item) => item.menuitemtext === "Perfil"
+    );
     setProfileMenuItemsState(profileMenuItems);
   }, [menuData]);
 
@@ -47,7 +55,7 @@ export const Header = () => {
 
   return (
     <div className="">
-      <header className="flex items-center text-blue-600 lg:bg-white w-full px-8 lg:py-2 pt-6">
+      <header className="flex items-center text-blue-600 lg:bg-background lg:border-b border-gray-300 w-full px-12 lg:py-6 pt-6">
         <div className="flex items-center justify-between w-full lg:pt-2 gap-4">
           {pathname !== "/" && (
             <button
@@ -57,7 +65,7 @@ export const Header = () => {
               <ArrowLeftIcon className="w-6 h-6 text-[#1D1B20]" />
             </button>
           )}
-          
+
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label={isMobileMenuOpen ? "Fechar menu" : "Abrir menu"}
@@ -71,8 +79,22 @@ export const Header = () => {
           </button>
 
           <div className="w-full lg:justify-normal justify-center items-center flex">
-            <Image className="hidden lg:block" src="/images/logo.svg" alt="logo" width={80} height={80} />
-            <Image className="block lg:hidden" src="/images/logo.svg" alt="logo" width={60} height={37} />
+            <Image
+              className="hidden lg:block cursor-pointer"
+              src="/images/logo.svg"
+              alt="logo"
+              width={60}
+              height={60}
+              onClick={() => router.push("/")}
+            />
+            <Image
+              className="block lg:hidden cursor-pointer"
+              src="/images/logo.svg"
+              alt="logo"
+              width={60}
+              height={37}
+              onClick={() => router.push("/")}
+            />
           </div>
         </div>
 
@@ -92,12 +114,22 @@ export const Header = () => {
                 <li
                   key={`menu-item-${item.menuitemtext}-${index}`}
                   className="relative group"
-                  onMouseEnter={!item.menuitemlink.url ? () => setHoveredItem(index) : undefined}
-                  onMouseLeave={!item.menuitemlink.url ? () => setHoveredItem(null) : undefined}
+                  onMouseEnter={
+                    !item.menuitemlink.url
+                      ? () => setHoveredItem(index)
+                      : undefined
+                  }
+                  onMouseLeave={
+                    !item.menuitemlink.url
+                      ? () => setHoveredItem(null)
+                      : undefined
+                  }
                 >
-                  <button className="text-secondary font-semibold flex items-center gap-2">
+                  <button className="text-secondary-900 font-semibold flex items-center gap-2">
                     {item.menuitemlink.url ? (
-                      <Link href={item.menuitemlink.url || "#"}>{item.menuitemtext}</Link>
+                      <Link href={item.menuitemlink.url || "#"}>
+                        {item.menuitemtext}
+                      </Link>
                     ) : (
                       <>
                         {item.menuitemtext}
@@ -146,27 +178,30 @@ export const Header = () => {
             </>
           ) : (
             /* adicionei essa um evento e uma classe para que o link n apareça e n possa ser clicado nas telas de cadastro */
-            <Link 
-              href="/auth" 
-              onClick={(e) => { 
-                if (pathname.startsWith("/auth")) e.preventDefault()
-                setIsMobileMenuOpen(false)}
-              } 
+            <Link
+              href="/auth"
+              onClick={(e) => {
+                if (pathname.startsWith("/auth")) e.preventDefault();
+                setIsMobileMenuOpen(false);
+              }}
               className={
-                pathname.startsWith("/auth")
-                 ? "opacity-0 lg:hidden" 
-                 : ""
+                pathname.startsWith("/auth") ? "opacity-0 lg:hidden" : ""
               }
-              >
-                <Button variant="contained" color="primary" size="medium"> 
-                  Entrar
-                </Button>
+            >
+              <Button variant="contained" color="primary" size="medium">
+                Entrar
+              </Button>
             </Link>
           )}
         </div>
       </header>
 
-      {isMobileMenuOpen && <MobileMenu menuData={menuData} onClose={() => setIsMobileMenuOpen(false)} />}
+      {isMobileMenuOpen && (
+        <MobileMenu
+          menuData={menuData}
+          onClose={() => setIsMobileMenuOpen(false)}
+        />
+      )}
     </div>
   );
 };

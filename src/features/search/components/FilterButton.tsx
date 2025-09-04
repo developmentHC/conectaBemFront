@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 type FilterButtonProps = {
   onClick: () => void;
 };
@@ -9,7 +11,7 @@ export const FilterButton = ({ onClick }: FilterButtonProps) => {
       onClick={onClick}
     >
       <p className="text-button text-sm">Filtros</p>
-      <img src="/images/filter.svg" />
+      <Image src="/images/filter.svg" alt="Filtro" />
     </div>
   );
 };

@@ -53,7 +53,7 @@ export const AuthForm = () => {
         <Button
           disabled={!isValid}
           type="submit"
-          className="rounded-lg w-full text-button"
+          className="rounded-lg w-full text-lime-500"
           variant="contained"
           size="large"
         >
@@ -62,7 +62,11 @@ export const AuthForm = () => {
       )}
 
       {isPending && (
-        <Button className="rounded-lg w-full text-button" variant="contained" size="large">
+        <Button
+          className="rounded-lg w-full text-lime-500"
+          variant="contained"
+          size="large"
+        >
           <CircularProgress color="inherit" size={26} className="self-center" />
         </Button>
       )}
