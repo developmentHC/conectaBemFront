@@ -37,8 +37,8 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
                 <GoogleOAuthProvider
                   clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string}
                 >
-                  <div className="flex flex-col gap-8">
-                    <Toaster position="top-center" />
+                  <Toaster position="top-center" />
+                  <div className="flex flex-col justify-between space-y-8">
                     <Header />
                     <div className="lg:flex w-full max-w-[86rem] mx-auto px-10 min-h-[70vh] lg:justify-center lg:items-center">
                       {children}

@@ -77,8 +77,10 @@ export const ProfileMenu = (props: ProfileMenuProps) => {
         <ul>
           {props.items?.submenu.map((item, index) => {
             const shouldShowItem =
-              (userType === "patient" && item.showtowhichusertype === "patient") ||
-              (userType === "professional" && item.showtowhichusertype === "professional");
+              (userType === "patient" &&
+                item.showtowhichusertype === "patient") ||
+              (userType === "professional" &&
+                item.showtowhichusertype === "professional");
 
             if (!shouldShowItem) return null;
 
@@ -86,11 +88,15 @@ export const ProfileMenu = (props: ProfileMenuProps) => {
               <li key={index}>
                 <Link
                   href={item.link || `#`}
-                  className="flex justify-between p-3 text-sm text-secondary hover:bg-gray-100 items-center"
+                  className="flex justify-between p-3 text-sm text-secondary-900 hover:bg-gray-100 items-center"
                   onClick={() => setIsOpen(false)}
                 >
                   <p className="pr-4">{item.text}</p>
-                  <ChevronRightIcon className="fill-secondary" height={24} width={24} />
+                  <ChevronRightIcon
+                    className="fill-secondary"
+                    height={24}
+                    width={24}
+                  />
                 </Link>
               </li>
             );
@@ -98,11 +104,15 @@ export const ProfileMenu = (props: ProfileMenuProps) => {
           <li>
             <Link
               href="#"
-              className="flex justify-between p-3 text-sm text-secondary hover:bg-gray-100 items-center"
+              className="flex justify-between p-3 text-sm text-secondary-900 hover:bg-gray-100 items-center"
               onClick={() => clearSession()}
             >
               Sair
-              <ChevronRightIcon className="fill-secondary" height={24} width={24} />
+              <ChevronRightIcon
+                className="fill-secondary"
+                height={24}
+                width={24}
+              />
             </Link>
           </li>
           <div className="border-t border-t-black-600 mx-3 hidden lg:block" />
@@ -113,7 +123,11 @@ export const ProfileMenu = (props: ProfileMenuProps) => {
               onClick={() => setIsOpen(false)}
             >
               Excluir conta
-              <ChevronRightIcon className="text-secondary" height={24} width={24} />
+              <ChevronRightIcon
+                className="text-secondary"
+                height={24}
+                width={24}
+              />
             </Link>
           </li>
           <div className="border-t border-t-black-600 mx-3 hidden lg:block" />
@@ -123,7 +137,8 @@ export const ProfileMenu = (props: ProfileMenuProps) => {
               className="block p-3 text-sm text-[#3857F4] hover:bg-gray-100 items-center"
               onClick={() => setIsOpen(false)}
             >
-              Trocar para Perfil {userType === "professional" ? "de Cliente" : "Profissional"}
+              Trocar para Perfil{" "}
+              {userType === "professional" ? "de Cliente" : "Profissional"}
             </Link>
           </li>
         </ul>
