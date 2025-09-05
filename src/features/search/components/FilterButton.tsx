@@ -11,7 +11,7 @@ export const FilterButton = ({ onClick }: FilterButtonProps) => {
       onClick={onClick}
     >
       <p className="text-button text-sm">Filtros</p>
-      <Image src="/images/filter.svg" alt="Filtro" />
+      <Image src="/images/filter.svg" alt="Filtro" width={15} height={15} />
     </div>
   );
 };

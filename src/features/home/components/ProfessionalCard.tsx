@@ -61,29 +61,14 @@ export const ProfessionalCard = ({
               </div>
             </div>
             <span className="text-gray-600 text-sm">
-              {professional.specialization}
-            </span>
-            <span className="text-gray-600 text-sm">
               {professional.price} | {professional.distance} Km
             </span>
           </div>
           <div className="min-h-[50px] max-h-[50px]">
             <div className="flex gap-2 flex-wrap">
-              {professional?.preferablyServices
-                ?.slice(0, 2)
-                .map((service, index) => (
-                  <div
-                    key={service.id ?? index}
-                    className="border border-blue-600 px-2 py-1 rounded-full text-xs"
-                  >
-                    {service.name}
-                  </div>
-                ))}
-              {professional?.preferablyServices?.length > 1 && (
-                <button className="text-sm text-blue-600 hover:text-blue-800 transition-all">
-                  + ver mais
-                </button>
-              )}
+              <div className="border border-blue-600 px-2 py-1 rounded-full text-xs">
+                {professional.specialization}
+              </div>
             </div>
           </div>
           <div className="flex justify-between items-center w-full ">

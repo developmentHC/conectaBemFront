@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "name": "Dra. Maria Lourdes",
+    "name": "Maria Lourdes",
     "specialization": "Reiki",
     "image": "https://randomuser.me/api/portraits/women/21.jpg",
     "price": "$",
@@ -26,7 +26,7 @@
   },
   {
     "id": 2,
-    "name": "Dr. João Ribeiro",
+    "name": "João Ribeiro",
     "specialization": "Massoterapia",
     "image": "https://randomuser.me/api/portraits/men/45.jpg",
     "price": "$$$",
@@ -43,7 +43,7 @@
   },
   {
     "id": 3,
-    "name": "Dra. Fernanda Oliveira",
+    "name": "Fernanda Oliveira",
     "specialization": "Acupuntura",
     "image": "https://randomuser.me/api/portraits/women/34.jpg",
     "price": "$$",
@@ -60,7 +60,7 @@
   },
   {
     "id": 4,
-    "name": "Dr. Marcelo Souza",
+    "name": "Marcelo Souza",
     "specialization": "Homeopatia",
     "image": "https://randomuser.me/api/portraits/men/28.jpg",
     "price": "$$",
@@ -77,7 +77,7 @@
   },
   {
     "id": 5,
-    "name": "Dra. Juliana Mendes",
+    "name": "Juliana Mendes",
     "specialization": "Yoga",
     "image": "https://randomuser.me/api/portraits/women/46.jpg",
     "price": "$",
@@ -98,7 +98,7 @@
   },
   {
     "id": 6,
-    "name": "Dr. Eduardo Santos",
+    "name": "Eduardo Santos",
     "specialization": "Arteterapia",
     "image": "https://randomuser.me/api/portraits/men/52.jpg",
     "price": "$$",
@@ -115,7 +115,7 @@
   },
   {
     "id": 7,
-    "name": "Dr. Lucas Rezende",
+    "name": "Lucas Rezende",
     "specialization": "Reiki",
     "image": "https://randomuser.me/api/portraits/men/12.jpg",
     "price": "$$",
@@ -132,7 +132,7 @@
   },
   {
     "id": 8,
-    "name": "Dra. Carolina Silva",
+    "name": "Carolina Silva",
     "specialization": "Massoterapia",
     "image": "https://randomuser.me/api/portraits/women/18.jpg",
     "price": "$$",
@@ -149,7 +149,7 @@
   },
   {
     "id": 9,
-    "name": "Dr. Pedro Costa",
+    "name": "Pedro Costa",
     "specialization": "Acupuntura",
     "image": "https://randomuser.me/api/portraits/men/34.jpg",
     "price": "$$",
@@ -166,7 +166,7 @@
   },
   {
     "id": 10,
-    "name": "Dra. Bianca Almeida",
+    "name": "Bianca Almeida",
     "specialization": "Homeopatia",
     "image": "https://randomuser.me/api/portraits/women/30.jpg",
     "price": "$$",
@@ -191,7 +191,7 @@
   },
   {
     "id": 11,
-    "name": "Dr. Rafael Moreira",
+    "name": "Rafael Moreira",
     "specialization": "Yoga",
     "image": "https://randomuser.me/api/portraits/men/54.jpg",
     "price": "$$",
@@ -208,7 +208,7 @@
   },
   {
     "id": 12,
-    "name": "Dra. Ana Carvalho",
+    "name": "Ana Carvalho",
     "specialization": "Arteterapia",
     "image": "https://randomuser.me/api/portraits/women/49.jpg",
     "price": "$$",
@@ -225,7 +225,7 @@
   },
   {
     "id": 13,
-    "name": "Dr. Marcos Vieira",
+    "name": "Marcos Vieira",
     "specialization": "Reiki",
     "image": "https://randomuser.me/api/portraits/men/62.jpg",
     "price": "$$",
@@ -242,7 +242,7 @@
   },
   {
     "id": 14,
-    "name": "Dra. Clara Martins",
+    "name": "Clara Martins",
     "specialization": "Massoterapia",
     "image": "https://randomuser.me/api/portraits/women/39.jpg",
     "price": "$$",
@@ -259,7 +259,7 @@
   },
   {
     "id": 15,
-    "name": "Dr. Carlos Nascimento",
+    "name": "Carlos Nascimento",
     "specialization": "Acupuntura",
     "image": "https://randomuser.me/api/portraits/men/55.jpg",
     "price": "$$$",
@@ -276,7 +276,7 @@
   },
   {
     "id": 16,
-    "name": "Dra. Helena Vasconcelos",
+    "name": "Helena Vasconcelos",
     "specialization": "Homeopatia",
     "image": "https://randomuser.me/api/portraits/women/40.jpg",
     "price": "$$$",

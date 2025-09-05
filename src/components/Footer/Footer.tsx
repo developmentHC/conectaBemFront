@@ -6,7 +6,7 @@ export const Footer = () => {
           <h4 className="text-lime-500 font-bold">Profissionais</h4>
           <ul className="flex flex-col gap-1 text-white/70">
             <li className="cursor-pointer">Quiropraxia</li>
-            <li className="cursor-pointer">Aromaterapia</li>
+            <li className="cursor-pointer">Cromoterapia</li>
             <li className="cursor-pointer">Reiki</li>
             <li className="cursor-pointer">Acupuntura</li>
           </ul>

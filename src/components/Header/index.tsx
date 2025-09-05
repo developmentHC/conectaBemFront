@@ -162,7 +162,12 @@ export const Header = () => {
 
         <div className="space-x-4 flex justify-center items-center">
           <button type="submit" className="hidden lg:block">
-            <SearchIcon className="fill-[#1D1B20] h-10 w-10 p-2" />
+            <SearchIcon
+              className="fill-[#1D1B20] h-10 w-10 p-2"
+              onClick={() => {
+                router.push("/search");
+              }}
+            />
           </button>
           {isAuthenticated ? (
             <>

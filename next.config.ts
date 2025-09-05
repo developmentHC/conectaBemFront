@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  images: {
+  /* images: {
     remotePatterns: [
       {
         protocol: "https",
@@ -10,7 +10,11 @@ const nextConfig: NextConfig = {
         pathname: "/**",
       }
     ]
-  }
+  } */
+
+  images: {
+    domains: ["randomuser.me"],
+  },
 };
 
 export default nextConfig;

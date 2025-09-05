@@ -14,13 +14,13 @@ export default function HomePage() {
         <PersonalAddress />
         <div className="flex flex-col gap-14">
           <div className="flex justify-between gap-6">
-            <div className="flex flex-col gap-2 lg:w-full lg:max-w-[50%]">
-              <h1 className="text-5xl font-semibold">
-                Conecte-se bem com os melhores
+            <div className="flex flex-col gap-4 lg:w-full lg:max-w-[50%]">
+              <h1 className="lg:text-5xl text-2xl font-semibold">
+                Conecta Bem: <br /> O cuidado que acolhe.
               </h1>
-              <span className="text-xl">
-                Encontre os melhores profissionais de terapias alternativas para
-                você!
+              <span className="lg:text-xl">
+                Um lugar para encontrar terapias alternativas alinhadas ao que
+                você acredita e precisa.
               </span>
             </div>
             <div className="hidden lg:flex w-full justify-end">
