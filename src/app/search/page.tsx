@@ -1,8 +1,6 @@
 "use client";
 
 import { IProfessional } from "@/types/professional";
-import { useRouter } from "next/navigation";
-import { IoMdArrowBack } from "react-icons/io";
 import { useState } from "react";
 import { FilterDialogDesktop } from "@/features/search/components/FilterDialogDesktop";
 import { FilterPanelMobile } from "@/features/search/components/FilterPanelMobile";
@@ -14,7 +12,6 @@ import { SearchInput } from "@/components/SearchInput/SearchInput";
 import { CircularProgress } from "@mui/material";
 
 function SearchPage() {
-  const router = useRouter();
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const { data: filteredProfessionals, isLoading } = useFilterProfessional();
 

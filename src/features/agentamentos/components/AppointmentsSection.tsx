@@ -1,4 +1,3 @@
-import { IAppointment } from "@/types/appointment";
 import { useAppointments } from "../hooks/useAppointments";
 import { useFilterAppointments } from "../hooks/useFilterAppointments";
 import { AppointmentCard } from "./AppointmentCard";

@@ -1,4 +1,5 @@
 import { IAppointment } from "@/types/appointment";
+import Image from "next/image";
 import { LuCalendarDays } from "react-icons/lu";
 import { LuAlarmClock } from "react-icons/lu";
 
@@ -62,10 +63,12 @@ export const AppointmentCard = ({
                 : ""}
             </span>
           </div>
-          <img
+          <Image
             src={appointment.professional.image}
             alt="Imagem do Profissional"
             className="rounded-lg w-28 h-28 object-cover"
+            width={200}
+            height={200}
           />
         </div>
         <p className="text-gray-400">ID Serviço: {appointment.serviceId}</p>
