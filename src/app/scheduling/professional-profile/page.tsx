@@ -100,6 +100,8 @@ export default function HomePage() {
                   src="/images/professional/man (1).jpeg"
                   alt=""
                   className="rounded-lg h-24 w-48 object-center object-cover"
+                  width={192}
+                  height={96}
                 />
               </div>
               <div>

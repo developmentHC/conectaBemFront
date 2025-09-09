@@ -40,16 +40,6 @@ function SearchPage() {
 
   return (
     <div className="flex flex-col gap-6 w-full">
-      <div className="w-fit">
-        <button
-          className="flex items-center gap-1 text-sm"
-          onClick={() => router.push("/")}
-        >
-          <IoMdArrowBack size={20} />
-          voltar
-        </button>
-      </div>
-
       <SearchInput />
 
       {isFilterOpen && (

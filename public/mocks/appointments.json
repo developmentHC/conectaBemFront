@@ -3,9 +3,9 @@
     "id": 1,
     "status": "Aguardando",
     "professional": {
-      "name": "Jéssica Lima",
+      "name": "Maria Lourdes",
       "specialization": "Reiki",
-      "image": "https://randomuser.me/api/portraits/women/44.jpg"
+      "image": "/images/professional/woman (1).jpeg"
     },
     "serviceName": "Sessão de Reiki",
     "date": "2025-08-15",
@@ -29,9 +29,9 @@
     "id": 2,
     "status": "Confirmado",
     "professional": {
-      "name": "Mariana Costa",
+      "name": "João Ribeiro",
       "specialization": "Massoterapia",
-      "image": "https://randomuser.me/api/portraits/women/52.jpg"
+      "image": "/images/professional/man (1).jpeg"
     },
     "serviceName": "Sessão de Massoterapia",
     "date": "2025-07-29",
@@ -55,9 +55,9 @@
     "id": 3,
     "status": "Confirmado",
     "professional": {
-      "name": "Dr. Ricardo Alves",
+      "name": "Fernanda Oliveira",
       "specialization": "Acupuntura",
-      "image": "https://randomuser.me/api/portraits/men/32.jpg"
+      "image": "/images/professional/woman (2).jpeg"
     },
     "serviceName": "Sessão de Acupuntura",
     "date": "2025-08-05",
@@ -81,9 +81,9 @@
     "id": 4,
     "status": "Realizado",
     "professional": {
-      "name": "Dr. Fernando Barros",
-      "specialization": "Aromaterapia",
-      "image": "https://randomuser.me/api/portraits/men/41.jpg"
+      "name": "Eduardo Santos",
+      "specialization": "Arteterapia",
+      "image": "/images/professional/man (3).jpeg"
     },
     "serviceName": "Sessão de Aromaterapia",
     "date": "2025-07-10",
@@ -107,9 +107,9 @@
     "id": 5,
     "status": "Realizado",
     "professional": {
-      "name": "Jéssica Lima",
+      "name": "Maria Lourdes",
       "specialization": "Reflexologia (Pés e Mãos)",
-      "image": "https://randomuser.me/api/portraits/women/44.jpg"
+      "image": "/images/professional/woman (1).jpeg"
     },
     "serviceName": "Sessão de Reflexologia (Pés e Mãos)",
     "date": "2025-06-22",
@@ -133,9 +133,9 @@
     "id": 6,
     "status": "Cancelado",
     "professional": {
-      "name": "Dra. Amanda Souza",
+      "name": "Ana Carvalho",
       "specialization": "Constelação Familiar",
-      "image": "https://randomuser.me/api/portraits/women/60.jpg"
+      "image": "/images/professional/woman (6).jpeg"
     },
     "serviceName": "Sessão de Constelação Familiar",
     "date": "2025-07-01",
