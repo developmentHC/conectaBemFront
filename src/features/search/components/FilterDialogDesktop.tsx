@@ -1,7 +1,11 @@
 import { IoMdClose } from "react-icons/io";
 import { FilterDialogProps } from "./types";
+import { Dialog, DialogContent, IconButton } from "@mui/material";
 
-export const FilterDialogDesktop = ({ onFilterChange }: FilterDialogProps) => {
+export const FilterDialogDesktop = ({
+  open,
+  onFilterChange,
+}: FilterDialogProps) => {
   const valueOptions = ["$", "$$", "$$$"];
   const accessibilityOptions = [
     "Piso tátil",
@@ -21,20 +25,23 @@ export const FilterDialogDesktop = ({ onFilterChange }: FilterDialogProps) => {
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-40">
-      <div className=" flex flex-col items-center gap-10 max-w-[800px] p-6 bg-[#F7F8FA] rounded-lg">
-        <div className="flex flex-col gap-3 w-full">
-          <div className="flex justify-end">
-            <IoMdClose
-              className="text-2xl  cursor-pointer w-fit"
-              onClick={onFilterChange}
-              size={20}
-            />
+    <Dialog
+      open={open ?? true}
+      onClose={onFilterChange}
+      maxWidth="md"
+      fullWidth
+    >
+      <DialogContent>
+        <div className="flex flex-col items-center gap-10">
+          <div className="flex flex-col gap-3 w-full">
+            <div className="flex justify-end">
+              <IconButton onClick={onFilterChange}>
+                <IoMdClose className="text-2xl" size={20} />
+              </IconButton>
+            </div>
+            <h1 className="text-2xl font-semibold">Filtros</h1>
           </div>
 
-          <h1 className="text-2xl font-semibold">Filtros</h1>
-        </div>
-        <div className="flex flex-col gap-4">
           <div className="w-full flex flex-col gap-4">
             <h2 className="text-2xl font-semibold">Valor</h2>
             <div className="flex gap-2">
@@ -93,14 +100,14 @@ export const FilterDialogDesktop = ({ onFilterChange }: FilterDialogProps) => {
               </div>
             </div>
           </div>
+          <button
+            className="flex justify-center w-full bg-blue-600 py-2 rounded-lg text-center tracking-widest"
+            onClick={handleOnFilter}
+          >
+            <p className="text-button font-semibold text-sm">FILTRAR</p>
+          </button>
         </div>
-        <button
-          className="flex justify-center w-full bg-blue-600 py-2 rounded-lg text-center tracking-widest"
-          onClick={handleOnFilter}
-        >
-          <p className="text-button font-semibold text-sm">FILTRAR</p>
-        </button>
-      </div>
-    </div>
+      </DialogContent>
+    </Dialog>
   );
 };

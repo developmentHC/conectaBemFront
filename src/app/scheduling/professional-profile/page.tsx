@@ -13,50 +13,57 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { EmblaOptionsType } from "embla-carousel";
 import EmblaCarousel from "@/components/Carousel/Carousel";
 import { Services } from "@/components/Services/Services";
-import { InformationIcon, CheckIcon, StarIcon, HeartIcon } from "@/../public/images";
+import {
+  InformationIcon,
+  CheckIcon,
+  StarIcon,
+  HeartIcon,
+} from "@/../public/images";
 import { ArrowLeftIcon } from "../../../../public/images";
 import dynamic from "next/dynamic";
 import { Slide } from "./types";
 
 const DateCalendar = dynamic(
   () =>
-    import('@mui/x-date-pickers/DateCalendar').then(
-      (mod) => mod.DateCalendar
-    ),
+    import("@mui/x-date-pickers/DateCalendar").then((mod) => mod.DateCalendar),
   { ssr: false }
 );
 
 export default function HomePage() {
-  const OPTIONS: EmblaOptionsType = { align: 'start', dragFree: true, loop: true };
+  const OPTIONS: EmblaOptionsType = {
+    align: "start",
+    dragFree: true,
+    loop: true,
+  };
   const [showAllServices, setShowAllServices] = useState(false);
   const SLIDES_PAYMENTS: Slide[] = [
-    { img: '../../images/pix.svg', title: 'Pix' },
-    { img: '../../images/wellhub.svg', title: 'Wellhub' },
-    { img: '../../images/master-card.svg', title: 'Master Card' },
-    { img: '../../images/visa.svg', title: 'Visa' },
-    { img: '../../images/pix.svg', title: 'Pix' },
-    { img: '../../images/wellhub.svg', title: 'Wellhub' },
-    { img: '../../images/master-card.svg', title: 'Master Card' },
-    { img: '../../images/visa.svg', title: 'Visa' },
-    { img: '../../images/pix.svg', title: 'Pix' },
-    { img: '../../images/wellhub.svg', title: 'Wellhub' },
-    { img: '../../images/master-card.svg', title: 'Master Card' },
-    { img: '../../images/visa.svg', title: 'Visa' },
-  ]
+    { img: "../../images/pix.svg", title: "Pix" },
+    { img: "../../images/wellhub.svg", title: "Wellhub" },
+    { img: "../../images/master-card.svg", title: "Master Card" },
+    { img: "../../images/visa.svg", title: "Visa" },
+    { img: "../../images/pix.svg", title: "Pix" },
+    { img: "../../images/wellhub.svg", title: "Wellhub" },
+    { img: "../../images/master-card.svg", title: "Master Card" },
+    { img: "../../images/visa.svg", title: "Visa" },
+    { img: "../../images/pix.svg", title: "Pix" },
+    { img: "../../images/wellhub.svg", title: "Wellhub" },
+    { img: "../../images/master-card.svg", title: "Master Card" },
+    { img: "../../images/visa.svg", title: "Visa" },
+  ];
   const SLIDES_MEDICAL_INSURANCE: Slide[] = [
-    { img: '/images/bradesco-seguros.png', title: 'Bradesco Seguros' },
-    { img: '../../images/amil.svg', title: 'Amil' },
-    { img: '../../images/sul-america.svg', title: 'Sul America' },
-    { img: '../../images/assim-seguros.svg', title: 'Assim' },
-    { img: '/images/bradesco-seguros.png', title: 'Bradesco Seguros' },
-    { img: '../../images/amil.svg', title: 'Amil' },
-    { img: '../../images/sul-america.svg', title: 'Sul America' },
-    { img: '../../images/assim-seguros.svg', title: 'Assim' },
-    { img: '/images/bradesco-seguros.png', title: 'Bradesco Seguros' },
-    { img: '../../images/amil.svg', title: 'Amil' },
-    { img: '../../images/sul-america.svg', title: 'Sul America' },
-    { img: '../../images/assim-seguros.svg', title: 'Assim' },
-  ]
+    { img: "/images/bradesco-seguros.png", title: "Bradesco Seguros" },
+    { img: "../../images/amil.svg", title: "Amil" },
+    { img: "../../images/sul-america.svg", title: "Sul America" },
+    { img: "../../images/assim-seguros.svg", title: "Assim" },
+    { img: "/images/bradesco-seguros.png", title: "Bradesco Seguros" },
+    { img: "../../images/amil.svg", title: "Amil" },
+    { img: "../../images/sul-america.svg", title: "Sul America" },
+    { img: "../../images/assim-seguros.svg", title: "Assim" },
+    { img: "/images/bradesco-seguros.png", title: "Bradesco Seguros" },
+    { img: "../../images/amil.svg", title: "Amil" },
+    { img: "../../images/sul-america.svg", title: "Sul America" },
+    { img: "../../images/assim-seguros.svg", title: "Assim" },
+  ];
   const [date, setDate] = useState<Dayjs>(dayjs());
   const BorderLinearProgress = styled(LinearProgress)({
     height: 5,
@@ -67,7 +74,9 @@ export default function HomePage() {
       backgroundColor: "#253E99",
     },
   });
-  const servicesToShow = showAllServices ? mock.services : mock.services.slice(0, 3);
+  const servicesToShow = showAllServices
+    ? mock.services
+    : mock.services.slice(0, 3);
 
   return (
     <div className="">
@@ -78,21 +87,17 @@ export default function HomePage() {
             className="bg-[#E7EBFE] p-6 space-y-4 rounded-b-2xl lg:rounded-2xl relative"
           >
             <div className="flex justify-between">
-              <button
-                className="lg:hidden"
-              >
+              <button className="lg:hidden">
                 <ArrowLeftIcon height={33} width={33} />
               </button>
-              <button
-                className="lg:hidden"
-              >
+              <button className="lg:hidden">
                 <HeartIcon className="fill-[#3857F4]" height={33} width={33} />
               </button>
             </div>
             <div className="flex space-x-4">
               <div className="">
-                <img
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyhlLTwoadT8WVh1TpUf9KBablyaDUi19GGQ&s"
+                <Image
+                  src="/images/professional/man (1).jpeg"
                   alt=""
                   className="rounded-lg h-24 w-48 object-center object-cover"
                 />
@@ -102,25 +107,38 @@ export default function HomePage() {
                   {mock.professional.name}
                 </h1>
                 <div className="space-x-1 flex items-center">
-                  <span className="text-base font-bold">{mock.professional.rating}</span>
+                  <span className="text-base font-bold">
+                    {mock.professional.rating}
+                  </span>
                   <StarIcon className="fill-[#F6CE18]" width={19} height={19} />
-                  <span className="text-[#B1ACB9]">({mock.professional.reviews_count})</span>
+                  <span className="text-[#B1ACB9]">
+                    ({mock.professional.reviews_count})
+                  </span>
                 </div>
                 <div>
                   {mock.professional.specialization.map((specialization) => (
-                    <span key={specialization} className="text-[#B1ACB9]">{specialization}</span>
+                    <span key={specialization} className="text-[#B1ACB9]">
+                      {specialization}
+                    </span>
                   ))}
                 </div>
                 <div className="space-x-2">
-                  <span className="text-[#B1ACB9]">{mock.professional.price_range}</span>
+                  <span className="text-[#B1ACB9]">
+                    {mock.professional.price_range}
+                  </span>
                   <span className="text-[#B1ACB9]">|</span>
-                  <span className="text-[#B1ACB9]">{mock.professional.distance}</span>
+                  <span className="text-[#B1ACB9]">
+                    {mock.professional.distance}
+                  </span>
                 </div>
               </div>
             </div>
             <div className="flex flex-wrap w-full gap-2">
               {mock.professional.qualifications.map((qualification) => (
-                <span key={qualification} className="p-2 border rounded-e-lg rounded-t-lg border-[#253E99] text-sm">
+                <span
+                  key={qualification}
+                  className="p-2 border rounded-e-lg rounded-t-lg border-[#253E99] text-sm"
+                >
                   {qualification}
                 </span>
               ))}
@@ -129,9 +147,7 @@ export default function HomePage() {
               <button className="text-[#3857F4]">+ ver mais</button>
             </div> */}
             <div>
-              <p className="text-[#3857F4]">
-                {mock.professional.description}
-              </p>
+              <p className="text-[#3857F4]">{mock.professional.description}</p>
             </div>
             <div className="flex flex-col space-y-3">
               <Button
@@ -161,7 +177,10 @@ export default function HomePage() {
               </Button>
             </div>
           </div>
-          <div id="about" className="lg:bg-[#F8FAFF] py-8 px-6 rounded-2xl space-y-8">
+          <div
+            id="about"
+            className="lg:bg-[#F8FAFF] py-8 px-6 rounded-2xl space-y-8"
+          >
             <div className="space-y-6">
               <h1 className="font-bold text-2xl">Sobre o profissional</h1>
               <p className="text-base font-normal">
@@ -177,7 +196,10 @@ export default function HomePage() {
               </div>
               <div className="space-y-4">
                 {mock.professional.address.map((address) => (
-                  <span key={address} className="block max-w-[404px] px-4 py-2.5 bg-white rounded-lg shadow-[#919EAB29] shadow-md">
+                  <span
+                    key={address}
+                    className="block max-w-[404px] px-4 py-2.5 bg-white rounded-lg shadow-[#919EAB29] shadow-md"
+                  >
                     {address}
                   </span>
                 ))}
@@ -199,7 +221,10 @@ export default function HomePage() {
             <div className="space-y-6">
               <h1 className="font-bold text-2xl">Convênios aceitos</h1>
               <div className="space-y-2">
-                <EmblaCarousel slides={SLIDES_MEDICAL_INSURANCE} options={OPTIONS} />
+                <EmblaCarousel
+                  slides={SLIDES_MEDICAL_INSURANCE}
+                  options={OPTIONS}
+                />
                 <div className="flex lg:items-center space-x-2">
                   <InformationIcon height={20} width={20} />
                   <p className="text-[#645D6F] text-sm font-normal">
@@ -246,7 +271,7 @@ export default function HomePage() {
                   onClick={() => setShowAllServices((prev) => !prev)}
                   className="text-[#3857F4] text-sm"
                 >
-                  {showAllServices ? '- ver menos' : '+ ver mais'}
+                  {showAllServices ? "- ver menos" : "+ ver mais"}
                 </button>
               )}
             </div>
@@ -374,7 +399,10 @@ export default function HomePage() {
               </div>
               <div className="space-t-4 space-x-5">
                 {review.tags.map((tag) => (
-                  <span className="p-2 border rounded-e-lg rounded-t-lg border-[#253E99] text-sm" key={tag}>
+                  <span
+                    className="p-2 border rounded-e-lg rounded-t-lg border-[#253E99] text-sm"
+                    key={tag}
+                  >
                     {tag}
                   </span>
                 ))}

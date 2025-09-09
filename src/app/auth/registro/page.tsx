@@ -1,10 +1,10 @@
 "use client";
 
+import { useState } from "react";
 import { CloseIcon, InfoIcon } from "@/assets/icons";
 import { FormMultiStep } from "@/components/FormMultiStep";
-import { Box, Button, IconButton, Modal, Typography } from "@mui/material";
+import { Button, Modal, Box, Typography, IconButton } from "@mui/material";
 import Link from "next/link";
-import { useState } from "react";
 
 export default function Registro() {
   const style = {

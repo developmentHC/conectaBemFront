@@ -6,13 +6,13 @@ import Link from "next/link";
 import { FaUser } from "react-icons/fa";
 import clsx from "clsx";
 import { ChevronRightIcon } from "@/assets/icons";
-import { useUserStore } from "@/stores/userSessionStore";
 import { ProfileMenuProps } from "./types";
+import { signOut, useSession } from "next-auth/react";
 
 export const ProfileMenu = (props: ProfileMenuProps) => {
   const menuRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState(false);
-  const { userType, profilePhoto, clearSession } = useUserStore();
+  const { data: session } = useSession();
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -44,9 +44,9 @@ export const ProfileMenu = (props: ProfileMenuProps) => {
         aria-expanded={isOpen}
         aria-label="Menu do perfil"
       >
-        {profilePhoto ? (
+        {session?.user?.image ? (
           <Image
-            src={profilePhoto}
+            src={session?.user?.image}
             alt=""
             sizes="(max-width: 768px) 100vw, 50vw"
             className="object-cover object-center rounded-full"
@@ -77,9 +77,9 @@ export const ProfileMenu = (props: ProfileMenuProps) => {
         <ul>
           {props.items?.submenu.map((item, index) => {
             const shouldShowItem =
-              (userType === "patient" &&
+              (session?.user?.type === "patient" &&
                 item.showtowhichusertype === "patient") ||
-              (userType === "professional" &&
+              (session?.user?.type === "professional" &&
                 item.showtowhichusertype === "professional");
 
             if (!shouldShowItem) return null;
@@ -104,8 +104,8 @@ export const ProfileMenu = (props: ProfileMenuProps) => {
           <li>
             <Link
               href="#"
-              className="flex justify-between p-3 text-sm text-secondary-900 hover:bg-gray-100 items-center"
-              onClick={() => clearSession()}
+              className="flex justify-between p-3 text-sm text-secondary hover:bg-gray-100 items-center"
+              onClick={() => signOut({ redirect: false })}
             >
               Sair
               <ChevronRightIcon
@@ -138,7 +138,9 @@ export const ProfileMenu = (props: ProfileMenuProps) => {
               onClick={() => setIsOpen(false)}
             >
               Trocar para Perfil{" "}
-              {userType === "professional" ? "de Cliente" : "Profissional"}
+              {session?.user?.type === "professional"
+                ? "de Cliente"
+                : "Profissional"}
             </Link>
           </li>
         </ul>

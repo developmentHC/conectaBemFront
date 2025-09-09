@@ -14,18 +14,18 @@ import { MobileMenu } from "./MobileMenu";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@mui/material";
-import { useUserStore } from "@/stores/userSessionStore";
 import { MenuItem } from "./types";
 import { MdMailOutline } from "react-icons/md";
 import { ArrowLeftIcon } from "../../../public/images/icons/ArrowLeftIcon";
+import { useSession } from "next-auth/react";
 
 export const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
   const [hoveredItem, setHoveredItem] = useState<number | null>(null);
   const [isMounted, setIsMounted] = useState<boolean>(false);
-  const { isAuthenticated, userType } = useUserStore();
   const [profileMenuItemsState, setProfileMenuItemsState] =
     useState<MenuItem>();
+  const { data: session, status } = useSession();
   const { data: menuData = [] } = useMenuData();
   const router = useRouter();
   const pathname = usePathname();
@@ -105,9 +105,11 @@ export const Header = () => {
               if (item.menuitemtext === "Perfil") return null;
 
               const shouldShowItem =
-                (userType === "patient" && item.showtopatientusers) ||
-                (userType === "professional" && item.showtoprofessionalusers) ||
-                (userType === null && item.showtounsignedusers);
+                (session?.user?.type === "patient" &&
+                  item.showtopatientusers) ||
+                (session?.user?.type === "professional" &&
+                  item.showtoprofessionalusers) ||
+                (session?.user?.type === undefined && item.showtounsignedusers);
 
               if (!shouldShowItem) return null;
               return (
@@ -169,7 +171,7 @@ export const Header = () => {
               }}
             />
           </button>
-          {isAuthenticated ? (
+          {status === "authenticated" ? (
             <>
               <div className="cursor-pointer">
                 <MdMailOutline

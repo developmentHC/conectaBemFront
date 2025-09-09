@@ -52,7 +52,12 @@ function SearchPage() {
 
       <SearchInput />
 
-      {isFilterOpen && <FilterDialogDesktop onFilterChange={onFilterChange} />}
+      {isFilterOpen && (
+        <FilterDialogDesktop
+          open={isFilterOpen}
+          onFilterChange={onFilterChange}
+        />
+      )}
 
       <div className="flex flex-col gap-4">
         <h1 className="text-2xl font-semibold">Resultados</h1>

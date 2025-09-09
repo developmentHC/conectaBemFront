@@ -1,16 +1,14 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* images: {
+  images: {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "randomuser.me",
-        port: "",
-        pathname: "/**",
-      }
-    ]
-  } */
+        hostname: "lh3.googleusercontent.com",
+      },
+    ],
+  },
 };
 
 export default nextConfig;
