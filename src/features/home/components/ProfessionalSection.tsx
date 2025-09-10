@@ -1,25 +1,34 @@
 "use client";
 
-/* import { Button } from "@mui/material";
 import { ProfessionalCard } from "./ProfessionalCard";
-import { useUserPatient } from "../hooks/useUserPatient"; */
+import { useUserPatient } from "../hooks/useUserPatient";
 
 export const ProfessionalSection = () => {
-  /* const { data: patient } = useUserPatient(); */
+  const { data: patient } = useUserPatient();
+
+  const fallbackSpecialities = [
+    { id: 1, name: "Acupuntura" },
+    { id: 2, name: "Reiki" },
+  ];
+
+  const specialitiesToMap =
+    patient?.userSpecialities && patient.userSpecialities.length > 0
+      ? patient.userSpecialities
+      : fallbackSpecialities;
 
   return (
     <section className="flex flex-col gap-6">
-      {/* {patient?.userSpecialities?.map((specialitie, index) => (
+      {specialitiesToMap?.map((specialitie) => (
         <div key={`section-${specialitie.id}`} className="flex flex-col gap-6">
           <div className="flex items-center justify-between">
             <p className="text-2xl font-semibold">{specialitie.name}</p>
-            <Button className="text-button" variant="contained">
-              Ver Mais
-            </Button>
+            <div className="font-semibold decoration-2 underline underline-offset-4 cursor-pointer">
+              + Ver Mais
+            </div>
           </div>
-          <ProfessionalCard key={`professional-${specialitie.id}-${index}`} specialization={specialitie.name} />
+          <ProfessionalCard specialization={specialitie.name} />
         </div>
-      ))} */}
+      ))}
     </section>
   );
 };

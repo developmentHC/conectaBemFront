@@ -1,8 +1,6 @@
 "use client";
 
 import { IProfessional } from "@/types/professional";
-import { useRouter } from "next/navigation";
-import { IoMdArrowBack } from "react-icons/io";
 import { useState } from "react";
 import { FilterDialogDesktop } from "@/features/search/components/FilterDialogDesktop";
 import { FilterPanelMobile } from "@/features/search/components/FilterPanelMobile";
@@ -14,7 +12,6 @@ import { SearchInput } from "@/components/SearchInput/SearchInput";
 import { CircularProgress } from "@mui/material";
 
 function SearchPage() {
-  const router = useRouter();
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const { data: filteredProfessionals, isLoading } = useFilterProfessional();
 
@@ -40,19 +37,14 @@ function SearchPage() {
 
   return (
     <div className="flex flex-col gap-6 w-full">
-      <div className="w-fit">
-        <button
-          className="flex items-center gap-1 text-sm"
-          onClick={() => router.push("/")}
-        >
-          <IoMdArrowBack size={20} />
-          voltar
-        </button>
-      </div>
-
       <SearchInput />
 
-      {isFilterOpen && <FilterDialogDesktop onFilterChange={onFilterChange} />}
+      {isFilterOpen && (
+        <FilterDialogDesktop
+          open={isFilterOpen}
+          onFilterChange={onFilterChange}
+        />
+      )}
 
       <div className="flex flex-col gap-4">
         <h1 className="text-2xl font-semibold">Resultados</h1>

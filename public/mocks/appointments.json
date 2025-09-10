@@ -1,0 +1,158 @@
+[
+  {
+    "id": 1,
+    "status": "Aguardando",
+    "professional": {
+      "name": "Maria Lourdes",
+      "specialization": "Reiki",
+      "image": "/images/professional/woman (1).jpeg"
+    },
+    "serviceName": "Sessão de Reiki",
+    "date": "2025-08-15",
+    "time": "10:30",
+    "duration": 60,
+    "price": 180.00,
+    "serviceId": "REIKI-9876",
+    "address": [
+      {
+        "_id": "507f1f77bcf86cd799439011",
+        "cep": "59065300",
+        "address": "Av. Senador Salgado Filho, 2234",
+        "neighborhood": "Candelária",
+        "city": "Natal",
+        "state": "RN",
+        "active": true
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "status": "Confirmado",
+    "professional": {
+      "name": "João Ribeiro",
+      "specialization": "Massoterapia",
+      "image": "/images/professional/man (1).jpeg"
+    },
+    "serviceName": "Sessão de Massoterapia",
+    "date": "2025-07-29",
+    "time": "16:00",
+    "duration": 50,
+    "price": 250.00,
+    "serviceId": "MASSO-1234",
+    "address": [
+      {
+        "_id": "507f1f77bcf86cd799439012",
+        "cep": "59020100",
+        "address": "Rua Apodi, 567",
+        "neighborhood": "Tirol",
+        "city": "Natal",
+        "state": "RN",
+        "active": true
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "status": "Confirmado",
+    "professional": {
+      "name": "Fernanda Oliveira",
+      "specialization": "Acupuntura",
+      "image": "/images/professional/woman (2).jpeg"
+    },
+    "serviceName": "Sessão de Acupuntura",
+    "date": "2025-08-05",
+    "time": "09:00",
+    "duration": 45,
+    "price": 300.00,
+    "serviceId": "MTC-5543",
+    "address": [
+      {
+        "_id": "507f1f77bcf86cd799439013",
+        "cep": "59020000",
+        "address": "Av. Hermes da Fonseca, 1200",
+        "neighborhood": "Petrópolis",
+        "city": "Natal",
+        "state": "RN",
+        "active": true
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "status": "Realizado",
+    "professional": {
+      "name": "Eduardo Santos",
+      "specialization": "Arteterapia",
+      "image": "/images/professional/man (3).jpeg"
+    },
+    "serviceName": "Sessão de Aromaterapia",
+    "date": "2025-07-10",
+    "time": "11:00",
+    "duration": 75,
+    "price": 450.00,
+    "serviceId": "AROMA-8890",
+    "address": [
+      {
+        "_id": "507f1f77bcf86cd799439014",
+        "cep": "59020070",
+        "address": "Rua Mipibu, 750",
+        "neighborhood": "Petrópolis",
+        "city": "Natal",
+        "state": "RN",
+        "active": true
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "status": "Realizado",
+    "professional": {
+      "name": "Maria Lourdes",
+      "specialization": "Reflexologia (Pés e Mãos)",
+      "image": "/images/professional/woman (1).jpeg"
+    },
+    "serviceName": "Sessão de Reflexologia (Pés e Mãos)",
+    "date": "2025-06-22",
+    "time": "14:30",
+    "duration": 60,
+    "price": 200.00,
+    "serviceId": "REFLEXO-9870",
+    "address": [
+      {
+        "_id": "507f1f77bcf86cd799439015",
+        "cep": "59065300",
+        "address": "Av. Senador Salgado Filho, 2234",
+        "neighborhood": "Candelária",
+        "city": "Natal",
+        "state": "RN",
+        "active": true
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "status": "Cancelado",
+    "professional": {
+      "name": "Ana Carvalho",
+      "specialization": "Constelação Familiar",
+      "image": "/images/professional/woman (6).jpeg"
+    },
+    "serviceName": "Sessão de Constelação Familiar",
+    "date": "2025-07-01",
+    "time": "13:00",
+    "duration": 40,
+    "price": 220.00,
+    "serviceId": "CONST-2123",
+    "address": [
+      {
+        "_id": "507f1f77bcf86cd799439016",
+        "cep": "59020110",
+        "address": "Av. Rodrigues Alves, 930",
+        "neighborhood": "Tirol",
+        "city": "Natal",
+        "state": "RN",
+        "active": true
+      }
+    ]
+  }
+]
