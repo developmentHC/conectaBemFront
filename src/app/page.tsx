@@ -13,12 +13,12 @@ export default function HomePage() {
       <section className="flex flex-col gap-6">
         <PersonalAddress />
         <div className="flex flex-col gap-14">
-          <div className="flex justify-between gap-6">
+          <div className="flex justify-between items-center gap-6">
             <div className="flex flex-col gap-4 lg:w-full lg:max-w-[50%]">
               <h1 className="lg:text-5xl text-2xl font-semibold">
                 Conecta Bem: <br /> O cuidado que acolhe.
               </h1>
-              <span className="lg:text-xl">
+              <span className="lg:text-3xl">
                 Um lugar para encontrar terapias alternativas alinhadas ao que
                 você acredita e precisa.
               </span>

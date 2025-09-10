@@ -13,7 +13,7 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .professional-card {
-  @apply max-w-[284px] min-w-[284px] 2xl:max-w-[284px] 2xl:min-w-[284px] xl:max-w-[284px] xl:min-w-[284px] lg:max-w-[268px] bg-white rounded-lg px-6 py-4 overflow-hidden;
+  @apply max-w-[284px] min-w-[284px] 2xl:max-w-[284px] 2xl:min-w-[284px] xl:max-w-[284px] xl:min-w-[284px] lg:max-w-[268px] bg-white rounded-lg px-6 py-4 overflow-hidden shadow-lg;
 }
 
 .hide-scrollbar {
