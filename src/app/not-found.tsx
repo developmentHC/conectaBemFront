@@ -6,11 +6,8 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { SearchIcon } from "../../public/images/icons/search";
 
-
-
 export default function NotFoundPage() {
-  const illustrationSrc = "/images/Error 404.svg";
-
+	const illustrationSrc = "/images/Error 404.svg";
 
 	const router = useRouter();
 	const [q, setQ] = useState("");
@@ -24,29 +21,8 @@ export default function NotFoundPage() {
 	}
 
 	return (
-		<div className="flex min-h-screen flex-col bg-white">
+		<div className="flex min-h-screen flex-col">
 			<main className="mx-auto w-full max-w-7xl flex-1 px-4 pt-8 md:pt-12 pb-4">
-				<button
-					type="button"
-					onClick={() => router.back()}
-					className="mb-6 inline-flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900"
-					aria-label="Voltar para a página anterior"
-				>
-					<svg
-						className="h-5 w-5"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						strokeWidth={2}
-						strokeLinecap="round"
-						strokeLinejoin="round"
-						aria-hidden="true"
-					>
-						<path d="M15 18l-6-6 6-6" />
-					</svg>
-					Voltar
-				</button>
-
 				<div className="grid items-center gap-10 md:grid-cols-2">
 					<section className="order-1 md:order-2">
 						<div className="relative mx-auto max-w-md">
