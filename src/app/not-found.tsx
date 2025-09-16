@@ -5,6 +5,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { SearchIcon } from "../../public/images/icons/search";
+import { Button } from "@mui/material";
+import { SearchInput } from "@/components/SearchInput/SearchInput";
 
 export default function NotFoundPage() {
 	const illustrationSrc = "/images/Error 404.svg";
@@ -21,8 +23,8 @@ export default function NotFoundPage() {
 	}
 
 	return (
-		<div className="flex min-h-screen flex-col">
-			<main className="mx-auto w-full max-w-7xl flex-1 px-4 pt-8 md:pt-12 pb-4">
+		<div className="flex flex-col">
+			<main className="mx-auto w-full max-w-7xl flex-1 px-4 pt-8 md:pt-12 pb-0">
 				<div className="grid items-center gap-10 md:grid-cols-2">
 					<section className="order-1 md:order-2">
 						<div className="relative mx-auto max-w-md">
@@ -51,32 +53,26 @@ export default function NotFoundPage() {
 							<label htmlFor={inputId} className="sr-only">
 								O que você está procurando?
 							</label>
-							<div className="flex overflow-hidden rounded-xl border border-gray-200">
-								<input
-									id={inputId}
-									type="search"
-									value={q}
-									onChange={(e) => setQ(e.target.value)}
-									placeholder="O que você está procurando?"
-									className="w-full px-4 py-3 outline-none"
-								/>
-								<button
-									type="submit"
-									className="px-4 py-3 text-white bg-blue-600 hover:bg-blue-700 transition"
-								>
-									<SearchIcon className="h-5 w-5" fill="currentColor" />
-								</button>
-							</div>
+							<SearchInput
+								id={inputId}
+								value={q}
+								onChange={(e) => setQ(e.target.value)}
+								placeholder="O que você está buscando?"
+							/>
+
 						</form>
 
-						<div className="mt-6 max-w-md">
+						<div className="mt-4 flex justify-start">
 							<Link
-								href="/auth"
-								className="block w-full rounded-xl bg-blue-600 px-4 py-3 text-center font-medium text-white shadow hover:bg-blue-700 transition"
+								href="/"
+								        className="w-full md:w-auto rounded-xl bg-blue-600 px-6 py-3 text-center font-medium text-yellow-300 shadow hover:bg-blue-700 transition"
+
 							>
-								Fazer login
+								Voltar ao início
 							</Link>
 						</div>
+
+
 					</section>
 				</div>
 			</main>
