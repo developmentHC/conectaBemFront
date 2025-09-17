@@ -1,26 +1,14 @@
 "use client";
 
-import { FormEvent, useState, useId } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { SearchInput } from "@/components/SearchInput/SearchInput";
 import { Button } from "@mui/material"
 
 export default function NotFoundPage() {
 	const illustrationSrc = "/images/Error 404.svg";
 
-	const router = useRouter();
-	const [q, setQ] = useState("");
-	const inputId = useId();
-
-	function onSearch(e: FormEvent) {
-		e.preventDefault();
-		const query = q.trim();
-		if (!query) return;
-		router.push(`/search?q=${encodeURIComponent(query)}`);
-	}
-
+		
 	return (
 		<div className="flex flex-col">
 			<main className="mx-auto w-full max-w-7xl flex-1 px-4 pt-8 md:pt-12 pb-0">
@@ -48,10 +36,8 @@ export default function NotFoundPage() {
 							Respire fundo, vamos te guiar de volta.
 						</p>
 
-						<form onSubmit={onSearch} className="mt-6">
-							<label htmlFor={inputId} className="sr-only">
-								O que você está procurando?
-							</label>
+						<form  className="mt-6">
+							
 							<SearchInput />
 
 						</form>
