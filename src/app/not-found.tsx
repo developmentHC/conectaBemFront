@@ -4,9 +4,8 @@ import { FormEvent, useState, useId } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { SearchIcon } from "../../public/images/icons/search";
-import { Button } from "@mui/material";
 import { SearchInput } from "@/components/SearchInput/SearchInput";
+import { Button } from "@mui/material"
 
 export default function NotFoundPage() {
 	const illustrationSrc = "/images/Error 404.svg";
@@ -63,13 +62,25 @@ export default function NotFoundPage() {
 						</form>
 
 						<div className="mt-4 flex justify-start">
-							<Link
-								href="/"
-								        className="w-full md:w-auto rounded-xl bg-blue-600 px-6 py-3 text-center font-medium text-yellow-300 shadow hover:bg-blue-700 transition"
-
+							<Button
+								
+								variant="contained"
+								sx={{
+									borderRadius: "0.75rem", // ~rounded-xl
+									backgroundColor: "#2563eb", // bg-blue-600
+									color: "#fde047", // text-yellow-300
+									fontWeight: 500,
+									padding: "0.75rem 1.5rem", // py-3 px-6
+									textTransform: "none", // remove uppercase default do MUI
+									boxShadow: "0 1px 3px rgba(0,0,0,0.2)", // shadow
+									"&:hover": {
+										backgroundColor: "#1d4ed8", // bg-blue-700
+									},
+								}}
 							>
 								Voltar ao início
-							</Link>
+							</Button>
+
 						</div>
 
 
