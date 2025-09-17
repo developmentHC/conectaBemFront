@@ -52,33 +52,20 @@ export default function NotFoundPage() {
 							<label htmlFor={inputId} className="sr-only">
 								O que você está procurando?
 							</label>
-							<SearchInput
-								id={inputId}
-								value={q}
-								onChange={(e) => setQ(e.target.value)}
-								placeholder="O que você está buscando?"
-							/>
+							<SearchInput />
 
 						</form>
 
 						<div className="mt-4 flex justify-start">
 							<Button
-								
 								variant="contained"
-								sx={{
-									borderRadius: "0.75rem", // ~rounded-xl
-									backgroundColor: "#2563eb", // bg-blue-600
-									color: "#fde047", // text-yellow-300
-									fontWeight: 500,
-									padding: "0.75rem 1.5rem", // py-3 px-6
-									textTransform: "none", // remove uppercase default do MUI
-									boxShadow: "0 1px 3px rgba(0,0,0,0.2)", // shadow
-									"&:hover": {
-										backgroundColor: "#1d4ed8", // bg-blue-700
-									},
-								}}
+								color="primary"
+								size="large"
+								component={Link}
+								href="/"
+								className="rounded-lg text-lime-500"
 							>
-								Voltar ao início
+								Voltar ao Início
 							</Button>
 
 						</div>
