@@ -10,6 +10,7 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "test": "jest",
+    "coverage": "jest --coverage",
     "vercel-link": "vercel link",
     "vercel-vault": "vercel env pull .env.local"
   },
