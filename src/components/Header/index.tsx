@@ -61,6 +61,7 @@ export const Header = () => {
             <button
               className="lg:hidden h-8 w-12"
               onClick={() => router.back()}
+              aria-label="Voltar"
             >
               <ArrowLeftIcon className="w-6 h-6 text-[#1D1B20]" />
             </button>
@@ -163,12 +164,9 @@ export const Header = () => {
         )}
 
         <div className="space-x-4 flex justify-center items-center">
-          <button type="submit" className="hidden lg:block">
+          <button type="submit" className="hidden lg:block" aria-label="Buscar" onClick={() => router.push("/search")}>
             <SearchIcon
               className="fill-[#1D1B20] h-10 w-10 p-2"
-              onClick={() => {
-                router.push("/search");
-              }}
             />
           </button>
           {status === "authenticated" ? (
@@ -187,6 +185,7 @@ export const Header = () => {
             /* adicionei essa um evento e uma classe para que o link n apareça e n possa ser clicado nas telas de cadastro */
             <Link
               href="/auth"
+              aria-label="Entrar"
               onClick={(e) => {
                 if (pathname.startsWith("/auth")) e.preventDefault();
                 setIsMobileMenuOpen(false);
