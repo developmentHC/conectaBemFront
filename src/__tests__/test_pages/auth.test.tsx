@@ -55,9 +55,8 @@ describe("Auth Page", () => {
   });
 
   it("calls console.error on API error", async () => {
-    const { api } = require("@/libs/api");
     const fakeError = new Error("API failure");
-    api.post.mockRejectedValueOnce(fakeError);
+    (api.post as jest.Mock).mockRejectedValueOnce(fakeError);
 
     const { result } = renderHook(() => useCredentialLogin(), { wrapper });
 
