@@ -2,6 +2,7 @@ import { render, screen, fireEvent, waitFor, act, renderHook } from "@testing-li
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useCredentialLogin } from "@/features/auth/hooks/useCredentialLogin";
 import Register from "../../app/auth/page";
+import { api } from "@/libs/api";
 
 jest.mock("@/libs/api", () => ({
   api: { post: jest.fn() },
@@ -36,8 +37,7 @@ describe("Auth Page", () => {
   });
 
   it("calls useCredentialLogin mutation and updates store", async () => {
-    const { api } = require("@/libs/api");
-    api.post.mockResolvedValue({ data: { id: "123" } });
+    (api.post as jest.Mock).mockResolvedValue({ data: { id: "123" } });
 
     const TestComponent = () => {
       const mutation = useCredentialLogin();
@@ -64,7 +64,7 @@ describe("Auth Page", () => {
     await act(async () => {
       try {
         await result.current.mutateAsync({ email: "test@example.com" });
-      } catch (e) {
+      } catch {
         // não quebra o teste
       }
     });

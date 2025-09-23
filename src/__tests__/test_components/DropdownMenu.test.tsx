@@ -1,5 +1,5 @@
 import {DropdownMenu} from '@/components/DropdownMenu/DropdownMenu'
-import {render, screen} from '@testing-library/react'
+import {render} from '@testing-library/react'
 
 describe('SearchInput', () => {
   it('renders the search input with placeholder and icon', () => {

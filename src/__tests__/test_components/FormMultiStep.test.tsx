@@ -1,9 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { FormMultiStep } from '../../components/FormMultiStep';
-import { BackStepButton } from '../../components/FormMultiStep/BackStepButton';
-import { Description } from '../../components/FormMultiStep/Description';
-import { NeedHelpButton } from '../../components/FormMultiStep/NeedHelpButton';
-import { Progress } from '../../components/FormMultiStep/Progress';
 
 describe('FormMultiStep', () => {
   it('renders the component with steps and navigates through them', () => {
