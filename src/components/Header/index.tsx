@@ -188,11 +188,11 @@ export const Header = () => {
             <Link
               href="/auth"
               onClick={(e) => {
-                if ((pathname ?? "").startsWith("/auth")) e.preventDefault();
+                if (pathname.startsWith("/auth")) e.preventDefault();
                 setIsMobileMenuOpen(false);
               }}
               className={
-                (pathname ?? "").startsWith("/auth") ? "opacity-0 lg:hidden" : ""
+                pathname.startsWith("/auth") ? "opacity-0 lg:hidden" : ""
               }
             >
               <Button variant="contained" color="primary" size="medium">
