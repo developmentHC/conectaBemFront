@@ -38,7 +38,7 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
                 <div className="flex flex-col gap-8">
                   <Toaster position="top-center" />
                   <Header />
-                  <div className="lg:flex w-full max-w-[86rem] mx-auto px-10 min-h-[70vh] lg:justify-center lg:items-center">
+                  <div className="lg:flex w-full max-w-[86rem] mx-auto px-10 min-h-[40vh] lg:justify-center lg:items-center">
                     {children}
                   </div>
                   <Footer />

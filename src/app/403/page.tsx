@@ -1,20 +1,15 @@
 import Link from "next/link";
 import { ErrorTemplate } from "@/components/ErrorTemplate";
-import { SearchInput } from "@/components/SearchInput/SearchInput";
 import Button from "@mui/material/Button";
 
-export default function NotFound() {
+export default function Forbidden() {
   return (
     <ErrorTemplate
-      title="OOPs,"
-      subtitle={
-        "Não encontramos essa página, mas estamos aqui para te ajudar.\nRespire fundo. Vamos te guiar de volta."
-      }
-      illustrationSrc="/images/Error-404.svg"
+      title="Você não tem permissão para entrar aqui."
+      subtitle="Este espaço é reservado para usuários com acesso especial. Se precisar, fale com nosso suporte!"
+      illustrationSrc="/images/Error-403.svg"
     >
-      <div className="w-full max-w-[480px] ">
-        <SearchInput  />
-</div>
+      {/* Botão azul cheio */}
       <Button
         variant="contained"
         size="large"
@@ -25,13 +20,13 @@ export default function NotFound() {
     bgcolor: "#2563eb",
     textTransform: "none",
     borderRadius: "10px",
-     height: "56px",
+    height: "56px",
     "&:hover": {
       bgcolor: "#1e40af",
     },
   }}
       >
-        Voltar ao Início
+        Voltar ao início
       </Button>
     </ErrorTemplate>
   );
