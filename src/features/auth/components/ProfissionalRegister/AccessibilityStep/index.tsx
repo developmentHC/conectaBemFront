@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { usePatientRegisterStore } from "../usePatientRegisterStore";
+import { useProfissionalRegisterStore} from "../useProfissionalRegisterStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
@@ -22,7 +22,7 @@ export const AccessibilityStep = () => {
   });
 
   const [collapseSpecialty, setCollapseSpecialty] = useState<boolean>(false);
-  const { changeStep, updateFields } = usePatientRegisterStore();
+  const { changeStep, updateFields } = useProfissionalRegisterStore();
 
   const selectedAccessibilities = watch("accessibility");
 
@@ -49,12 +49,11 @@ export const AccessibilityStep = () => {
   });
 
   const handleSkip = () => {
-    updateFields({ skippedAccessibility: true, accessibility: undefined });
-
-    window.scrollTo({ top: 0, behavior: "smooth" });
-
-    changeStep("complete_profile");
-  };
+  // marca que pulou e limpa o campo
+  updateFields({ skippedAccessibility: true, accessibility: undefined });
+  window.scrollTo({ top: 0, behavior: "smooth" });
+  changeStep("complete_profile");
+};
 
   return (
     <form onSubmit={onSubmit} className="flex flex-col gap-8">

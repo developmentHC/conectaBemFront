@@ -11,6 +11,7 @@ type States = {
   specialties?: string[];
   servicePreferences?: string[];
   accessibility?: string[];
+  skippedAccessibility?: boolean;
   profilePhoto?: string;
   step: Step;
 };
@@ -33,6 +34,7 @@ const defaultsStates: States = {
   estadoResidencial: undefined,
   specialties: [],
   accessibility: [],
+  skippedAccessibility: false,
   profilePhoto: undefined,
   servicePreferences: [],
   step: "personal_data",
