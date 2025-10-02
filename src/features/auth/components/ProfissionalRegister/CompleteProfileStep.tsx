@@ -3,7 +3,7 @@ import { useProfissionalRegisterStore } from "./useProfissionalRegisterStore";
 import { FaUser } from "react-icons/fa";
 import { Button, Checkbox, FormControlLabel, Link } from "@mui/material";
 import { useState } from "react";
-import Link from "next/link";
+import NextLink from "next/link";
 import Image from "next/image";
 import { useRegisterProfissional } from "../../hooks/useRegisterProfissional";
 import { useUserStore } from "@/stores/userSessionStore";
@@ -144,7 +144,7 @@ export const CompleteProfileStep = () => {
         label={
           <p>
             Aceitar{" "}
-            <Link underline="always" href="#">
+            <Link component={NextLink} underline="always" href="#">
               Termos de Uso e Política de Privacidade
             </Link>
           </p>
