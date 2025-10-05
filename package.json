@@ -99,18 +99,5 @@
     "workerDirectory": [
       "public"
     ]
-  },
-  "description": "<h1 align=\"center\">\r   <img alt=\"SouJunior Logo\" src=\"https://github.com/SouJunior-Labs/project-list/assets/22007659/45c36203-667e-4301-aa4e-2890223d71dc\" />\r </h1>",
-  "main": ".eslintrc.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/developmentHC/conectaBemFront.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/developmentHC/conectaBemFront/issues"
-  },
-  "homepage": "https://github.com/developmentHC/conectaBemFront#readme"
+  }
 }
