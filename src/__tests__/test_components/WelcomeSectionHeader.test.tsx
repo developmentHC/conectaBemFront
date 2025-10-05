@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { WelcomeSectionHeader } from "../WelcomeSectionHeader";
+import { WelcomeSectionHeader } from "../../components/WelcomeSectionHeader";
 
 describe("WelcomeSectionHeader", () => {
   it("should render with the correct props", async () => {
