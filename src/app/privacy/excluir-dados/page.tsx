@@ -37,8 +37,8 @@ export default function ExcluirDados() {
 
             <ul className="list-disc pl-6 space-y-2 mb-6">
               <li className="text-gray-700">
-                <strong>Assunto:</strong> "Solicitação de Exclusão de Dados -
-                ConectaBem"
+                <strong>Assunto:</strong> &quot;Solicitação de Exclusão de Dados
+                - ConectaBem&quot;
               </li>
               <li className="text-gray-700">
                 <strong>E-mail cadastrado:</strong> O endereço de e-mail
