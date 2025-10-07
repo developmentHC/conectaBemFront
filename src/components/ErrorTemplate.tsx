@@ -1,3 +1,4 @@
+// ErrorTemplate.tsx
 import Image from "next/image";
 import { ReactNode } from "react";
 
@@ -17,15 +18,15 @@ export function ErrorTemplate({
   children,
 }: ErrorTemplateProps) {
   return (
-    <main className="mx-auto w-full max-w-6xl flex-1 px-4 pt-6 sm:px-6 sm:pt-8 sm:pb-6 lg:pb-10 flex flex-col items-center">
-      {/* ilustração + badge de status */}
-      <div className="relative mx-auto max-w-sm">
+    <main className="min-h-screen w-full flex flex-col items-center justify-center px-4 py-8">
+      {/* Ilustração + badge */}
+      <div className="relative w-full max-w-[452px]">
         <Image
           src={illustrationSrc}
           alt={`Erro ${status ?? ""}`}
-          width={360}
-          height={220}
-          className="h-auto w-full"
+          width={452}
+          height={159}
+          className="w-full h-auto"
           priority
         />
         {status && (
@@ -35,20 +36,26 @@ export function ErrorTemplate({
         )}
       </div>
 
-      {/* título + texto */}
-      <div className="mt-4 sm:mt-6 w-full max-w-xl self-center text-left">
-        <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl">{title}</h1>
+      {/* Conteúdo */}
+      <div className="mt-6 w-full max-w-[452px] flex flex-col items-start gap-6">
+        <div className="w-full flex flex-col items-start gap-2">
+          <h1 className="text-[24px] leading-[31px] font-bold text-gray-900">
+            {title}
+          </h1>
 
-        {typeof subtitle === "string" ? (
-          <p className="mt-2 text-gray-600 whitespace-pre-line">{subtitle}</p>
-        ) : (
-          <p className="mt-2 text-gray-600">{subtitle}</p>
-        )}
-      </div>
+          {typeof subtitle === "string" ? (
+            <p className="text-[16px] leading-[24px] text-gray-600 whitespace-pre-line">
+              {subtitle}
+            </p>
+          ) : (
+            <div className="text-[16px] leading-[24px] text-gray-600">{subtitle}</div>
+          )}
+        </div>
 
-      {/* ações (search + botões) */}
-      <div className="mt-4 sm:mt-6 w-full max-w-xl flex flex-col items-stretch gap-3 sm:gap-4">
-        {children}
+        {/* Ações */}
+        <div className="w-full flex flex-col items-stretch gap-6">
+          {children}
+        </div>
       </div>
     </main>
   );
