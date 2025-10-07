@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+
 import { ErrorTemplate } from "@/components/ErrorTemplate";
 import { Button } from "@mui/material";
 
@@ -13,7 +13,7 @@ export default function GlobalError({
   error: Error;
   reset: () => void;
 }) {
-  const router = useRouter();
+  
 
   useEffect(() => {
     // útil p/ logs durante QA; em prod vai para o server log
