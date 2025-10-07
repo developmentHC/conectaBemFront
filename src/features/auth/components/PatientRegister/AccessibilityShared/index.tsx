@@ -1,20 +1,20 @@
 "use client";
 
 import { useState } from "react";
-import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { usePatientRegisterStore } from "../usePatientRegisterStore";
-import { AccessibilityForm } from "../../AcessibilityShared/AcessibilityForm";
-
-const accessibilityMock = ["Piso tátil","Atendimento em libras","Audiodescrição","Corrimão","Rampas"];
-const schema = z.object({ accessibility: z.array(z.string()) });
-type Data = z.infer<typeof schema>;
+import { AccessibilityForm } from "../../AccessibilityShared/AccessibilityForm";
+import {
+  ACCESSIBILITY_OPTIONS,
+  accessibilitySchema,
+  AccessibilityData as Data,
+} from "../../AccessibilityShared/constants";
 
 export const AccessibilityStep = () => {
   const { setValue, handleSubmit, watch, getValues } = useForm<Data>({
     mode: "all",
-    resolver: zodResolver(schema),
+    resolver: zodResolver(accessibilitySchema), // ✅ usa o schema exportado
     defaultValues: { accessibility: [] },
   });
 
@@ -29,8 +29,10 @@ export const AccessibilityStep = () => {
   };
 
   const onContinue = handleSubmit((data) => {
-    updateFields({ ...(data as any), skippedAccessibility: false });
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    updateFields({
+      accessibility: data.accessibility,
+      skippedAccessibility: false,
+    });
     changeStep("complete_profile");
   });
 
@@ -43,7 +45,7 @@ export const AccessibilityStep = () => {
   return (
     <form onSubmit={(e) => e.preventDefault()} className="flex flex-col gap-8">
       <AccessibilityForm
-        options={accessibilityMock}
+        options={ACCESSIBILITY_OPTIONS}           
         selected={selected}
         onToggleOption={toggleOption}
         expanded={expanded}

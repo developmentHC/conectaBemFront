@@ -3,16 +3,16 @@ import { useId } from "react";
 import { SelectableTag } from "@/components/SelectableTag";
 import { Button } from "@mui/material";
 
-export type AccessibilityFormProps = {
-  options: string[];
-  selected: string[];
+export type AccessibilityFormProps = Readonly<{
+  options: readonly string[];
+  selected: readonly string[];
   onToggleOption: (value: string) => void;
   expanded: boolean;
   onToggleExpand: () => void;
   onSkip: () => void;
   onContinue: () => void;
   continueDisabled?: boolean;
-};
+}>;
 
 export function AccessibilityForm({
   options,
