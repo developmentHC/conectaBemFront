@@ -6,7 +6,7 @@ import { FormTitle } from "./FormTitle";
 import { Description } from "./Description";
 import { PersonalDataStep } from "./PersonalDataStep";
 import { SpecialtyStep } from "./SpecialityStep";
-import { AccessibilityStep } from "./AccessibilityStep";
+import { AccessibilityStep } from "./AccessibilityShared";
 import { CompleteProfileStep } from "./CompleteProfileStep";
 
 const progresses: Record<Step, number> = {
