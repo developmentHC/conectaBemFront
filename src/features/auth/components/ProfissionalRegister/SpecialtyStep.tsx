@@ -88,7 +88,7 @@ export const SpecialtyStep = () => {
 
     window.scrollTo({ top: 0, behavior: "smooth" });
 
-    changeStep("complete_profile");
+    changeStep("accessibility");
   });
 
   useEffect(() => {
