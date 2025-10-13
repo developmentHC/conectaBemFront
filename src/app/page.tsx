@@ -33,8 +33,14 @@ export default function HomePage() {
               />
             </div>
           </div>
-          <div className="flex flex-col gap-6">
-            <SearchInput />
+          <div className="w-full flex flex-col items-center gap-6">
+            <div className="w-full md:w-[560px] lg:w-[791px]">
+              <SearchInput
+                placeholder="Buscar profissionais"
+                size="md"
+                className="w-full  "
+              />
+            </div>
             <MedicalSpecialization />
           </div>
         </div>
