@@ -1,20 +1,9 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
-# This workflow file requires a free account on Semgrep.dev to
-# manage rules, file ignores, notifications, and more.
-#
-# See https://semgrep.dev/docs
-
 name: Semgrep
 
 on:
   push:
     branches: [ "main" ]
   pull_request:
-    # The branches below must be a subset of the branches above
     branches: [ "main" , "qa" , "feature/*"]
   schedule:
     - cron: '23 1 * * 3'
@@ -25,23 +14,22 @@ permissions:
 jobs:
   semgrep:
     permissions:
-      contents: read # for actions/checkout to fetch code
-      security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
-      actions: read # only required for a private repository by github/codeql-action/upload-sarif to get the Action run status
+      contents: read
+      security-events: write
+      actions: read
     name: Scan
     runs-on: ubuntu-latest
     steps:
-      # Checkout project source
+      # 1️⃣ Checkout do código
       - uses: actions/checkout@v4
 
-      # Scan code using project's configuration on https://semgrep.dev/manage
+      # 2️⃣ Scan com Semgrep
       - uses: returntocorp/semgrep-action@fcd5ab7459e8d91cb1777481980d1b18b4fc6735
         with:
           publishToken: ${{ secrets.SEMGREP_APP_TOKEN }}
-          publishDeployment: ${{ secrets.SEMGREP_DEPLOYMENT_ID }}
           generateSarif: "1"
 
-      # Upload SARIF file generated in previous step
+      # 3️⃣ Upload do SARIF para GitHub
       - name: Upload SARIF file
         uses: github/codeql-action/upload-sarif@v3
         with:
