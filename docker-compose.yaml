@@ -1,9 +1,39 @@
 services:
-  app:
-    build: .
+  backend:
+    build:
+      context: https://github.com/developmentHC/conectaBemBack.git
+      dockerfile: Dockerfile
+    container_name: backend
     ports:
       - "3000:3000"
+    env_file:
+      - ./.env
+    depends_on:
+      - db
+
+  frontend:
+    build:
+      context: https://github.com/developmentHC/conectaBemFront.git
+      dockerfile: Dockerfile
+    container_name: frontend
+    ports:
+      - "5173:3000"
+    env_file:
+      - ./.env
+    depends_on:
+      - backend
+
+  db:
+    image: postgres:16
+    container_name: postgres
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: mydb
+    ports:
+      - "5432:5432"
     volumes:
-      - .:/app
-      - /app/node_modules
-    command: npm run dev
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
