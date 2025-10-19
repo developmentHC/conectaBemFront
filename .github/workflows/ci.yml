@@ -1,0 +1,67 @@
+name: CI/CD - Testes e Deploy Automático
+
+on:
+  pull_request:
+    branches:
+      - main
+      - qa
+      - 'feature/*'
+  push:
+    branches:
+      - main
+      - qa
+
+jobs:
+  test:
+    name: Rodar Jest e Cypress
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Instalar dependências
+        run: npm ci
+        
+      - name: Rodar testes com Jest
+        run: npm run test -- --ci --coverage
+        
+      - name: Rodar testes E2E com Cypress
+        uses: cypress-io/github-action@v6
+        with:
+          build: npm run build
+          start: npm start
+          wait-on: 'http://localhost:3000'
+          wait-on-timeout: 120
+          browser: chrome
+          record: false
+        env:
+          NODE_ENV: test
+          CI: true
+
+  merge:
+    name: Merge automático para main
+    runs-on: ubuntu-latest
+    needs: test
+    if: github.event_name == 'pull_request' && github.event.pull_request.merged == true
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Merge automático após aprovação
+        uses: pascalgn/automerge-action@v0.15.6
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MERGE_METHOD: squash
+          MERGE_DELETE_BRANCH: true
+          MERGE_FILTER_AUTHOR: dependabot[bot], github-actions[bot]
