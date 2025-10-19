@@ -18,7 +18,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18.x]
+        node-version: [20.x]
 
     steps:
       - name: Checkout do código
@@ -32,10 +32,15 @@ jobs:
 
       - name: Instalar dependências
         run: npm ci
-        
+
+      - name: Instalar SWC binários para Linux
+        run: |
+          npx --yes @next/swc-linux-x64-gnu@latest || true
+          npx --yes @next/swc-linux-x64-musl@latest || true
+
       - name: Rodar testes com Jest
         run: npm run test -- --ci --coverage
-        
+
       - name: Rodar testes E2E com Cypress
         uses: cypress-io/github-action@v6
         with:
@@ -64,4 +69,3 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           MERGE_METHOD: squash
           MERGE_DELETE_BRANCH: true
-          MERGE_FILTER_AUTHOR: dependabot[bot], github-actions[bot]
