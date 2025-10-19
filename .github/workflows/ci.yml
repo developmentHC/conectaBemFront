@@ -1,71 +1,43 @@
-name: CI/CD - Testes e Deploy Automático
+name: MonsterGateway - E2E Tests
 
 on:
-  pull_request:
-    branches:
-      - main
-      - qa
-      - 'feature/*'
   push:
     branches:
       - main
-      - qa
+  schedule:
+    - cron: "0 13 * * *"
+  workflow_dispatch:
 
 jobs:
-  test:
-    name: Rodar Jest e Cypress
+  monstergateway-e2e:
+    name: MonsterGateway - Cypress E2E
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [20.x]
-
     steps:
-      - name: Checkout do código
+      - name: 📦 Checkout do repositório
         uses: actions/checkout@v4
 
-      - name: Configurar Node.js ${{ matrix.node-version }}
+      - name: 🧰 Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
+          node-version: 20
 
-      - name: Instalar dependências
-        run: npm ci
+      - name: 📥 Instalar Cypress
+        run: npm install cypress
 
-      - name: Instalar SWC binários para Linux
-        run: |
-          npx --yes @next/swc-linux-x64-gnu@latest || true
-          npx --yes @next/swc-linux-x64-musl@latest || true
-
-      - name: Rodar testes com Jest
-        run: npm run test -- --ci --coverage
-
-      - name: Rodar testes E2E com Cypress
+      - name: 🧪 Executar testes Cypress no Chrome
         uses: cypress-io/github-action@v6
         with:
-          build: npm run build
-          start: npm start
-          wait-on: 'http://localhost:3000'
-          wait-on-timeout: 120
           browser: chrome
           record: false
         env:
-          NODE_ENV: test
-          CI: true
+          CYPRESS_BASE_URL: https://manager.staging.wl-fornpay.com/login
+          TZ: America/Sao_Paulo
 
-  merge:
-    name: Merge automático para main
-    runs-on: ubuntu-latest
-    needs: test
-    if: github.event_name == 'pull_request' && github.event.pull_request.merged == true
-    permissions:
-      contents: write
-      pull-requests: write
-    steps:
-      - name: Merge automático após aprovação
-        uses: pascalgn/automerge-action@v0.15.6
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          MERGE_METHOD: squash
-          MERGE_DELETE_BRANCH: true
+      - name: ✅ Status final
+        if: success()
+        run: echo "Todos os testes MonsterGateway foram executados com sucesso!"
+
+      - name: ❌ Falha nos testes
+        if: failure()
+        run: echo "Um ou mais testes falharam. Verifique os artefatos de logs e vídeos."
