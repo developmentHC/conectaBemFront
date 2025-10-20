@@ -1,4 +1,4 @@
-import RegistroProficional from '@/app/auth/registro-profissional/page';
+import RegistroProficional from '@/app/(auth)/auth/registro-profissional/page';
 import {render, screen, fireEvent} from '@testing-library/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { LocalizationProvider } from '@mui/x-date-pickers';
