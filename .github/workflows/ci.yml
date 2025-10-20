@@ -1,0 +1,43 @@
+name: MonsterGateway - E2E Tests
+
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: "0 13 * * *"
+  workflow_dispatch:
+
+jobs:
+  monstergateway-e2e:
+    name: MonsterGateway - Cypress E2E
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📦 Checkout do repositório
+        uses: actions/checkout@v4
+
+      - name: 🧰 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: 📥 Instalar Cypress
+        run: npm install cypress
+
+      - name: 🧪 Executar testes Cypress no Chrome
+        uses: cypress-io/github-action@v6
+        with:
+          browser: chrome
+          record: false
+        env:
+          CYPRESS_BASE_URL: https://manager.staging.wl-fornpay.com/login
+          TZ: America/Sao_Paulo
+
+      - name: ✅ Status final
+        if: success()
+        run: echo "Todos os testes MonsterGateway foram executados com sucesso!"
+
+      - name: ❌ Falha nos testes
+        if: failure()
+        run: echo "Um ou mais testes falharam. Verifique os artefatos de logs e vídeos."
