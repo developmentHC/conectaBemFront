@@ -1,9 +1,7 @@
 import "./globals.css";
 import { Lato } from "next/font/google";
 import { ReactNode } from "react";
-import { Header } from "@/components/Header/index";
 import { Toaster } from "react-hot-toast";
-import { Footer } from "@/components/Footer/Footer";
 import { GoogleTagManager } from "@next/third-parties/google";
 import {
   AuthProvider,
