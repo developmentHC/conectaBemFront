@@ -3,6 +3,7 @@ import { useProfissionalRegisterStore } from "./useProfissionalRegisterStore";
 import { FaUser } from "react-icons/fa";
 import { Button, Checkbox, FormControlLabel, Link } from "@mui/material";
 import { useState } from "react";
+import NextLink from "next/link";
 import Image from "next/image";
 import { useRegisterProfissional } from "../../hooks/useRegisterProfissional";
 import { useUserStore } from "@/stores/userSessionStore";
@@ -21,6 +22,8 @@ export const CompleteProfileStep = () => {
     cepResidencial,
     enderecoResidencial,
     bairroResidencial,
+    cidadeResidencial,   
+    estadoResidencial,  
     clinicName,
     enderecoClinica,
     bairroClinica,
@@ -33,6 +36,7 @@ export const CompleteProfileStep = () => {
     photo,
     servicePreferences,
     specialties,
+    
   } = useProfissionalRegisterStore();
   const { idUser, setProfilePhoto } = useUserStore();
   const { mutate: createProfissional, isPending } = useRegisterProfissional();
@@ -64,8 +68,8 @@ export const CompleteProfileStep = () => {
         cep: cepResidencial,
         address: enderecoResidencial,
         neighborhood: bairroResidencial,
-        city: bairroResidencial,
-        state: bairroResidencial,
+        city: cidadeResidencial,  
+        state: estadoResidencial,
       },
       clinic: {
         name: clinicName,
@@ -82,6 +86,8 @@ export const CompleteProfileStep = () => {
       professionalServicePreferences: servicePreferences,
       profilePhoto: photo,
     });
+
+    
 
     gtmEvents.professionalRegistrationComplete(
       idUser || "not_specified",
@@ -137,7 +143,7 @@ export const CompleteProfileStep = () => {
         label={
           <p>
             Aceitar{" "}
-            <Link underline="always" href="#">
+            <Link component={NextLink} underline="always" href="#">
               Termos de Uso e Política de Privacidade
             </Link>
           </p>
