@@ -1,7 +1,7 @@
 import { render, screen, fireEvent, waitFor, act, renderHook } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useCredentialLogin } from "@/features/auth/hooks/useCredentialLogin";
-import Register from "../../app/auth/page";
+import Register from "../../app/(auth)/auth/page";
 import { api } from "@/libs/api";
 
 jest.mock("@/libs/api", () => ({

@@ -1,4 +1,4 @@
-import Registro from "@/app/auth/registro/page";
+import Registro from "@/app/(auth)/auth/registro/page";
 import {fireEvent, render, screen} from "@testing-library/react";
 
 describe("Registro Page", () => {

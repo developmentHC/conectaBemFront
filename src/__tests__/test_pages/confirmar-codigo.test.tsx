@@ -1,4 +1,4 @@
-import ConfirmCode from '@/app/auth/confirmar-codigo/page'
+import ConfirmCode from '@/app/(auth)/auth/confirmar-codigo/page'
 import {render, screen, fireEvent} from '@testing-library/react'
 import toast from 'react-hot-toast';
 
