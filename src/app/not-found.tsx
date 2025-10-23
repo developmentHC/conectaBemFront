@@ -13,8 +13,13 @@ export default function NotFound() {
       illustrationSrc="/images/Error-404.svg"
     >
       <div className="w-full max-w-[480px] ">
-        <SearchInput  />
-</div>
+        <SearchInput
+          placeholder="O que você está buscando?"
+          size="md"
+          className="w-full max-w-[560px] mx-auto"
+        />
+
+      </div>
       <Button
         variant="contained"
         size="large"
@@ -22,14 +27,14 @@ export default function NotFound() {
         href="/"
         className="w-full rounded-xl font-medium shadow transition"
         sx={{
-    bgcolor: "#2563eb",
-    textTransform: "none",
-    borderRadius: "10px",
-     height: "56px",
-    "&:hover": {
-      bgcolor: "#1e40af",
-    },
-  }}
+          bgcolor: "#2563eb",
+          textTransform: "none",
+          borderRadius: "10px",
+          height: "56px",
+          "&:hover": {
+            bgcolor: "#1e40af",
+          },
+        }}
       >
         Voltar ao Início
       </Button>
