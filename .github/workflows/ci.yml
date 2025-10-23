@@ -23,8 +23,13 @@ jobs:
         with:
           node-version: 20
 
-      - name: 📥 Instalar dependências
-        run: npm ci
+      - name: 📥 Instalar dependências (tentativa com fallback)
+        run: |
+          echo "🔧 Instalando dependências com npm ci..."
+          npm ci || (
+            echo "⚠️ Falha no npm ci. Tentando npm install para corrigir lock file..."
+            npm install
+          )
 
       - name: 🧪 Executar testes Cypress no Chrome
         uses: cypress-io/github-action@v6
