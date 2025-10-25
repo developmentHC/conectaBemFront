@@ -1,25 +1,31 @@
-import { HTMLAttributes } from "react";
+import React from "react";
 import { twMerge } from "tailwind-merge";
 
-type SelecteableTagProps = {
-  active: boolean;
+type SelectableTagProps = {
+  active?: boolean;
   children: React.ReactNode;
-} & HTMLAttributes<HTMLLIElement>;
+} & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 export const SelectableTag = ({
-  active,
+  active = false,
   children,
-  ...props
-}: SelecteableTagProps) => {
+  className = "",
+  ...buttonProps
+}: SelectableTagProps) => {
   return (
-    <li
-      className={twMerge(
-        `p-2 border border-blue-800 rounded cursor-pointer hover:bg-blue-600/50 transition-all rounded-t-lg rounded-br-lg`,
-        active && "bg-blue-600/50"
-      )}
-      {...props}
-    >
-      {children}
+    <li className="list-none">
+      <button
+        type="button"
+        aria-pressed={!!active}
+        className={twMerge(
+          "p-2 border border-blue-800 rounded cursor-pointer hover:bg-blue-600/50 transition-all rounded-t-lg rounded-br-lg",
+          active && "bg-blue-600/50",
+          className
+        )}
+        {...buttonProps}
+      >
+        {children}
+      </button>
     </li>
   );
 };

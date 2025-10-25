@@ -22,6 +22,10 @@ type States = {
   specialties?: string[];
   servicePreferences?: string[];
   photo?: string;
+
+  accessibility?: string[];
+  skippedAccessibility?: boolean;
+
   title?: ReactNode;
   description?: ReactNode;
   BackstepButton?: ReactNode;
@@ -35,7 +39,7 @@ type ProfissionalRegisterProps = {
   reset: () => void;
 } & States;
 
-export type Step = "personal_data" | "service_location" | "specialties" | "complete_profile";
+export type Step = "personal_data" | "service_location" | "specialties" | "accessibility" |"complete_profile";
 
 const defaultsStates: States = {
   name: undefined,
@@ -58,6 +62,8 @@ const defaultsStates: States = {
   specialties: undefined,
   servicePreferences: undefined,
   photo: undefined,
+  accessibility: undefined,
+  skippedAccessibility: false,
   title: undefined,
   description: undefined,
   suggestions: undefined,
