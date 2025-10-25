@@ -19,7 +19,7 @@ import {
   StarIcon,
   HeartIcon,
 } from "@/../public/images";
-import { ArrowLeftIcon } from "../../../../public/images";
+import { ArrowLeftIcon } from "@/../public/images/arrow-left";
 import dynamic from "next/dynamic";
 import { Slide } from "./types";
 
