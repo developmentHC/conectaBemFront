@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import Addresses from '@/app/address/page';
+import Addresses from '@/app/(public)/address/page';
 import { useAddresses } from '@/features/addresses/hooks/useAddresses';
 
 // Cria uma nova instância de QueryClient para o teste

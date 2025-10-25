@@ -1,9 +1,7 @@
 import "./globals.css";
 import { Lato } from "next/font/google";
 import { ReactNode } from "react";
-import { Header } from "@/components/Header/index";
 import { Toaster } from "react-hot-toast";
-import { Footer } from "@/components/Footer/Footer";
 import { GoogleTagManager } from "@next/third-parties/google";
 import {
   AuthProvider,
@@ -35,13 +33,9 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
           <ReactQueryClientProvider>
             <MuiThemeProvider>
               <MuiLocalizationProvider>
-                <div className="flex flex-col gap-8">
-                  <Toaster position="top-center" />
-                  <Header />
-                  <div className="lg:flex w-full max-w-[86rem] mx-auto px-10 min-h-[40vh] lg:justify-center lg:items-center">
+                <div>
+                    <Toaster position="top-center" />
                     {children}
-                  </div>
-                  <Footer />
                 </div>
               </MuiLocalizationProvider>
             </MuiThemeProvider>
