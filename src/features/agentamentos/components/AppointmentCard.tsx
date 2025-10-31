@@ -1,13 +1,13 @@
 import { IAppointment } from "@/types/appointment";
 import Image from "next/image";
-import { LuCalendarDays } from "react-icons/lu";
-import { LuAlarmClock } from "react-icons/lu";
+import { LuWallet } from "react-icons/lu";
 
 export const AppointmentCard = ({
   appointment,
 }: {
   appointment: IAppointment;
 }) => {
+  // Mantém tuas cores por status para o badge, se você quiser reusar depois:
   const statusBgColor =
     {
       Aguardando: "bg-[#EAEEFA]",
@@ -21,67 +21,73 @@ export const AppointmentCard = ({
       Realizado: "text-white",
       Cancelado: "text-white",
     }[appointment.status] || "";
-  const bgColor =
-    {
-      Aguardando: "bg-[#F8FAFF]",
-      Confirmado: "bg-[#F8FAFF]",
-      Realizado: "bg-[#E5EDFF]",
-      Cancelado: "bg-[#E5EDFF]",
-    }[appointment.status] || "";
+
+  // Tenta exibir uma lista com bullets:
+  // - se existir appointment.items (array), usa ela
+  // - senão, se specialization existir (string), mostra como 1 item
+  const bulletItems: string[] =
+    (Array.isArray((appointment as any).items) && (appointment as any).items.length
+      ? (appointment as any).items
+      : appointment.professional?.specialization
+      ? [appointment.professional.specialization]
+      : []) as string[];
+
+  // Preço (se existir)
+  const price = (appointment as any).price as string | number | undefined;
+
   return (
-    <div
-      className={`max-w-[350px] flex flex-col gap-6 p-6 ${bgColor} rounded-lg shadow-md`}
-    >
-      <div className="flex flex-col gap-4">
-        <div className="flex justify-between items-start">
-          <div className="flex flex-col gap-2">
-            <span
-              className={`w-fit text-sm py-1 px-4 ${statusBgColor} ${statusTextColor} rounded-full`}
-            >
-              {appointment.status}
-            </span>
-            <h1 className="text-2xl font-semibold w-28 truncate">
-              {appointment.professional.name}
-            </h1>
-            <p className="text-gray-400 w-28 truncate">
-              {appointment.professional.specialization}
-            </p>
-            <span className="flex items-center gap-2 text-sm font-semibold">
-              <LuCalendarDays className="text-gray-500" size={20} />
-              {new Date(appointment.date).toLocaleDateString("pt-BR")}
-            </span>
-            <span className="flex items-center gap-2 text-sm font-semibold">
-              <LuAlarmClock className="text-gray-500" size={20} />
-              {appointment.time
-                ? new Date(`1970-01-01T${appointment.time}`).toLocaleTimeString(
-                    "pt-BR",
-                    {
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    }
-                  )
-                : ""}
-            </span>
-          </div>
-          <Image
-            src={appointment.professional.image}
-            alt="Imagem do Profissional"
-            className="rounded-lg w-28 h-28 object-cover"
-            width={200}
-            height={200}
-          />
+    <div className="w-full max-w-[660px] rounded-lg border border-[#E5E3E8] bg-white p-6 shadow-sm">
+      {/* Topo: foto + infos */}
+      <div className="flex items-start gap-4">
+        <Image
+          src={appointment.professional.image}
+          alt={`Foto de ${appointment.professional.name}`}
+          className="rounded-md w-[96px] h-[96px] object-cover"
+          width={96}
+          height={96}
+        />
+
+        <div className="flex-1 min-w-0">
+          <h2 className="text-[18px] font-semibold text-[#3857F4] leading-[130%]">
+            {appointment.professional.name}
+          </h2>
+
+          {/* Lista com bullets (quando houver itens) */}
+          {bulletItems.length > 0 && (
+            <ul className="mt-2 list-disc pl-5 text-[#19171C] space-y-1">
+              {bulletItems.map((it) => (
+                <li key={it} className="text-[16px] leading-[150%]">
+                  {it}
+                </li>
+              ))}
+            </ul>
+          )}
+
+          {/* Linha de preço (opcional) */}
+          {typeof price !== "undefined" && (
+            <div className="mt-2 flex items-center gap-2">
+              <LuWallet size={20} className="text-[#9790A2]" />
+              <span className="text-[16px] leading-[150%]">
+                <span className="font-semibold">Preço:</span>{" "}
+                {typeof price === "number"
+                  ? price.toLocaleString("pt-BR", {
+                      style: "currency",
+                      currency: "BRL",
+                    })
+                  : price}
+              </span>
+            </div>
+          )}
         </div>
-        <p className="text-gray-400">ID Serviço: {appointment.serviceId}</p>
       </div>
-      <div className="flex flex-col gap-4">
-        <button className="rounded-md bg-blue-600 text-button p-2">
-          Agendar Novamente
-        </button>
-        <button className="border rounded-md border-blue-600 p-2">
-          Informaões do Agendamento
-        </button>
-        <button className="border rounded-md border-blue-600 p-2">
-          Cancelar Agendamento
+
+      {/* Botão único */}
+      <div className="mt-4">
+        <button
+          type="button"
+          className="w-full h-12 rounded-lg bg-[#3857F4] text-[#D7FF7B] font-bold text-[16px] leading-[150%]"
+        >
+          Informações do Agendamento
         </button>
       </div>
     </div>
