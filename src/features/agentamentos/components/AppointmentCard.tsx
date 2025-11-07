@@ -8,19 +8,7 @@ export const AppointmentCard = ({
   appointment: IAppointment;
 }) => {
   // Mantém tuas cores por status para o badge, se você quiser reusar depois:
-  const statusBgColor =
-    {
-      Aguardando: "bg-[#EAEEFA]",
-      Confirmado: "bg-[#344A99]",
-      Realizado: "bg-[#8498E1]",
-      Cancelado: "bg-[#0A1129]",
-    }[appointment.status] || "";
-  const statusTextColor =
-    {
-      Confirmado: "text-white",
-      Realizado: "text-white",
-      Cancelado: "text-white",
-    }[appointment.status] || "";
+  
 
   // Tenta exibir uma lista com bullets:
   // - se existir appointment.items (array), usa ela

@@ -1,429 +1,512 @@
 "use client";
 
 import Image from "next/image";
-import LinearProgress, {
-  linearProgressClasses,
-} from "@mui/material/LinearProgress";
-import dayjs, { Dayjs } from "dayjs";
 import { useState } from "react";
 import { mock } from "./mock";
-import { Button, Rating, styled } from "@mui/material";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { EmblaOptionsType } from "embla-carousel";
-import EmblaCarousel from "@/components/Carousel/Carousel";
-import { Services } from "@/components/Services/Services";
-import {
-  InformationIcon,
-  CheckIcon,
-  StarIcon,
-  HeartIcon,
-} from "@/../public/images";
-import { ArrowLeftIcon } from "@/../public/images/arrow-left";
-import dynamic from "next/dynamic";
-import { Slide } from "./types";
+import { InformationIcon, StarIcon } from "@/../public/images";
+import { BsArrowReturnRight } from "react-icons/bs";
+import { RxAccessibility } from "react-icons/rx";
 
-const DateCalendar = dynamic(
-  () =>
-    import("@mui/x-date-pickers/DateCalendar").then((mod) => mod.DateCalendar),
-  { ssr: false }
-);
+export default function PerfilProfissional() {
+  const [showFullAbout, setShowFullAbout] = useState(false);
+  const [selectedServices, setSelectedServices] = useState<Set<string>>(new Set());
 
-export default function HomePage() {
-  const OPTIONS: EmblaOptionsType = {
-    align: "start",
-    dragFree: true,
-    loop: true,
+  const toggleService = (id: string) => {
+    setSelectedServices(prev => {
+      const next = new Set(prev);
+      if (next.has(id)) {
+        next.delete(id);
+      } else {
+        next.add(id);
+      }
+      return next;
+    });
   };
-  const [showAllServices, setShowAllServices] = useState(false);
-  const SLIDES_PAYMENTS: Slide[] = [
-    { img: "../../images/pix.svg", title: "Pix" },
-    { img: "../../images/wellhub.svg", title: "Wellhub" },
-    { img: "../../images/master-card.svg", title: "Master Card" },
-    { img: "../../images/visa.svg", title: "Visa" },
-    { img: "../../images/pix.svg", title: "Pix" },
-    { img: "../../images/wellhub.svg", title: "Wellhub" },
-    { img: "../../images/master-card.svg", title: "Master Card" },
-    { img: "../../images/visa.svg", title: "Visa" },
-    { img: "../../images/pix.svg", title: "Pix" },
-    { img: "../../images/wellhub.svg", title: "Wellhub" },
-    { img: "../../images/master-card.svg", title: "Master Card" },
-    { img: "../../images/visa.svg", title: "Visa" },
+
+  // ===== FUNÇÕES PARA OS BOTÕES (COMENTADAS PARA IMPLEMENTAÇÃO FUTURA) =====
+
+  // const handleOpenMap = () => {
+  //   // Abrir Google Maps com endereço do profissional
+  //   const address = mock.professional.address[0];
+  //   const url = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
+  //   window.open(url, '_blank');
+  // };
+
+  // const handleScheduleAppointment = () => {
+  //   // Navegar para página de agendamento
+  //   // router.push('/scheduling/appointment');
+  //   // Ou abrir modal de agendamento
+  //   console.log('Serviços selecionados:', Array.from(selectedServices));
+  // };
+
+  // const handleViewAllQuestions = () => {
+  //   // Navegar para página com todas as perguntas
+  //   // router.push(`/professional/${professionalId}/questions`);
+  //   console.log('Ver todas as perguntas');
+  // };
+
+  // const handleAskQuestion = () => {
+  //   // Abrir modal ou navegar para formulário de pergunta
+  //   // setShowAskQuestionModal(true);
+  //   console.log('Fazer pergunta ao profissional');
+  // };
+
+  // const handleViewMoreReviews = () => {
+  //   // Navegar para página com todas as avaliações
+  //   // router.push(`/professional/${professionalId}/reviews`);
+  //   console.log('Ver mais avaliações');
+  // };
+
+
+
+  const reviewDetails = mock.reviews?.review_details ?? [];
+  const reviewCount = reviewDetails.length;
+
+  const averageRating = reviewDetails.length
+    ? Number(
+      (
+        reviewDetails.reduce((sum: number, r: any) => sum + Number(r.rating ?? 0), 0) /
+        reviewDetails.length
+      ).toFixed(1)
+    )
+    : 0;
+
+
+
+  // helper simples p/ renderizar logos em grid
+  const LogoGrid = ({ items }: { items: { img: string; title: string }[] }) => (
+    <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+      {items.map((i) => (
+        <div
+          key={i.title}
+          className="flex items-center justify-center rounded-lg border border-slate-200 bg-white p-3 h-16"
+          title={i.title}
+        >
+          <Image
+            src={i.img}
+            alt={i.title}
+            width={35}
+            height={35}
+            className="h-8 w-6 sm:h-10 sm:w-10 object-contain"
+          />
+        </div>
+      ))}
+    </div>
+  );
+
+  const PAYMENTS = [
+    { img: "/images/pix.svg", title: "Pix" },
+    { img: "/images/wellhub.svg", title: "Wellhub" },
+    { img: "/images/master-card.svg", title: "Master Card" },
+    { img: "/images/visa.svg", title: "Visa" },
   ];
-  const SLIDES_MEDICAL_INSURANCE: Slide[] = [
+  const INSURANCES = [
     { img: "/images/bradesco-seguros.png", title: "Bradesco Seguros" },
-    { img: "../../images/amil.svg", title: "Amil" },
-    { img: "../../images/sul-america.svg", title: "Sul America" },
-    { img: "../../images/assim-seguros.svg", title: "Assim" },
-    { img: "/images/bradesco-seguros.png", title: "Bradesco Seguros" },
-    { img: "../../images/amil.svg", title: "Amil" },
-    { img: "../../images/sul-america.svg", title: "Sul America" },
-    { img: "../../images/assim-seguros.svg", title: "Assim" },
-    { img: "/images/bradesco-seguros.png", title: "Bradesco Seguros" },
-    { img: "../../images/amil.svg", title: "Amil" },
-    { img: "../../images/sul-america.svg", title: "Sul America" },
-    { img: "../../images/assim-seguros.svg", title: "Assim" },
+    { img: "/images/amil.svg", title: "Amil" },
+    { img: "/images/sul-america.svg", title: "Sul América" },
+    { img: "/images/assim-seguros.svg", title: "Assim" },
   ];
-  const [date, setDate] = useState<Dayjs>(dayjs());
-  const BorderLinearProgress = styled(LinearProgress)({
-    height: 5,
-    [`&.${linearProgressClasses.colorPrimary}`]: {
-      backgroundColor: "#bec6dc",
-    },
-    [`& .${linearProgressClasses.bar}`]: {
-      backgroundColor: "#253E99",
-    },
-  });
-  const servicesToShow = showAllServices
-    ? mock.services
-    : mock.services.slice(0, 3);
 
   return (
-    <div className="">
-      <div className="lg:flex lg:justify-between lg:px-8 xl:justify-center xl:gap-28">
-        <div className="lg:max-w-xl xl:max-w-2xl lg:space-y-14">
-          <div
-            id="profile"
-            className="bg-[#E7EBFE] p-6 space-y-4 rounded-b-2xl lg:rounded-2xl relative"
-          >
-            <div className="flex justify-between">
-              <button className="lg:hidden">
-                <ArrowLeftIcon height={33} width={33} />
-              </button>
-              <button className="lg:hidden">
-                <HeartIcon className="fill-[#3857F4]" height={33} width={33} />
+    <div className="min-h-screen">
+      <div className="w-full max-w-[360px] sm:max-w-none mx-auto px-4 sm:px-8 lg:px-10 py-6 space-y-6">
+
+        {/* CARD DO PERFIL  */}
+        <section className="w-full rounded-xl p-4 sm:p-6">
+          <div className="mt-2 rounded-lg p-4 border border-slate-200 bg-white w-full">
+            <div className="flex flex-col gap-4">
+
+              {/* FOTO E INFORMAÇÕES - LADO A LADO NO MOBILE */}
+              <div className="flex gap-4 items-start">
+                <div className="flex-shrink-0">
+                  <Image
+                    src="/images/professional/man (1).jpeg"
+                    alt={mock.professional.name}
+                    width={140}
+                    height={140}
+                    className="w-26 h-30 sm:w-32 sm:h-32 rounded-lg object-cover"
+                  />
+                </div>
+
+                {/* BLOCO DE INFORMAÇÕES */}
+                <div className="flex flex-col justify-between min-w-0 flex-1">
+                  <div>
+                    <h1 className="text-lg sm:text-2xl font-bold text-slate-900">
+                      {mock.professional.name}
+                    </h1>
+
+                    <div className="mt-1">
+                      <div className="flex items-center gap-2">
+                        <span className="font-semibold">{mock.professional.rating}</span>
+                        <StarIcon className="fill-[#F6CE18]" width={18} height={18} />
+                      </div>
+                      <span className="text-slate-500 text-sm">
+                        ({mock.professional.reviews_count} avaliações)
+                      </span>
+                    </div>
+
+                    <div className="mt-1 flex flex-wrap items-center gap-2 text-slate-500">
+                      {mock.professional.specialization.map((s) => (
+                        <span key={s} className="text-sm">{s}</span>
+                      ))}
+                    </div>
+
+                    <div className="mt-1 flex items-center gap-2 text-slate-500 text-sm">
+                      <span>{mock.professional.price_range}</span>
+                      <span>•</span>
+                      <span>{mock.professional.distance}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* QUALIFICAÇÕES - EMBAIXO NO MOBILE */}
+              <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
+                {mock.professional.qualifications.map((q) => (
+                  <span
+                    key={q}
+                    className="rounded-full border border-indigo-700 px-3 py-1 text-sm text-slate-900"
+                  >
+                    {q}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        {/* SOBRE O PROFISSIONAL */}
+        <section className="w-full rounded-xl p-4 sm:p-6">
+          <h2 className="text-xl font-bold text-slate-900">Sobre o Profissional</h2>
+
+          <p className="mt-6 text-slate-700">
+            {showFullAbout
+              ? mock.professional.about_the_professional
+              : mock.professional.about_the_professional.slice(0, 310) +
+              (mock.professional.about_the_professional.length > 310 ? "..." : "")
+            }
+          </p>
+
+          {mock.professional.about_the_professional.length > 310 && (
+            <div className="mt-2 flex justify-end">
+              {/* onClick já implementado - expandir/recolher descrição */}
+              <button
+                type="button"
+                className="text-sm font-medium text-[#253E99] underline flex items-center gap-1"
+                onClick={() => setShowFullAbout((v) => !v)}
+              >
+                {!showFullAbout && <span className="font-bold">+</span>}
+                {showFullAbout ? "Ver menos" : "Ver mais"}
               </button>
             </div>
-            <div className="flex space-x-4">
-              <div className="">
-                <Image
-                  src="/images/professional/man (1).jpeg"
-                  alt=""
-                  className="rounded-lg h-24 w-48 object-center object-cover"
-                  width={192}
-                  height={96}
+          )}
+        </section>
+
+
+        {/* MÉTODOS DE PAGAMENTO */}
+        <section className="w-full rounded-xl p-4 sm:p-6">
+          <h2 className="text-xl font-bold text-slate-900">Métodos de Pagamento</h2>
+          <h3 className="mt-6 p-2">Métodos de pagamento e Convênios aceitos por esse profissional:</h3>
+          <LogoGrid items={PAYMENTS} />
+          <LogoGrid items={INSURANCES} />
+          <div className="mt-5 border-t border-slate-200 pt-4">
+            <div role="alert" className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-red-800">
+              <div className="flex items-start gap-2">
+                <InformationIcon width={18} height={18} />
+                <p className="text-sm">
+                  O Valor da consulta deve ser pago diretamente ao profissional no dia do agendamento
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ENDEREÇO */}
+        <section className="w-full rounded-xl p-4 sm:p-6">
+          <h2 className="text-xl font-bold text-slate-900">Endereço</h2>
+          <p className="mt-6 p-2 text-slate-600">O profissional atende nos seguintes endereços:</p>
+          <div className="mt-4 space-y-3">
+            {mock.professional.address.map((addr) => (
+              <div
+                key={addr}
+                className="rounded-lg border border-slate-200 bg-white px-4 py-2 shadow-sm"
+              >
+                {addr}
+              </div>
+            ))}
+          </div>
+
+        </section>
+
+        {/* MAPA (placeholder) */}
+        <section className="w-full rounded-xl p-4 sm:p-6">
+          <div className="relative flex flex-col ">
+            {/* MAPA DO GOOGLE */}
+            <div className="mt-2 border border-[#EAEEFA] bg-[#EAEEFA] flex flex-col items-center py-4">
+              <div className="h-64 w-full overflow-hidden rounded-lg bg-slate-100">
+                <iframe
+                  title="Localização"
+                  className="h-full w-full"
+                  src={`https://www.google.com/maps?q=${encodeURIComponent(
+                    mock.professional.address[0]
+                  )}&output=embed`}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
                 />
               </div>
-              <div>
-                <h1 className="text-[#3857F4] text-3xl font-bold">
-                  {mock.professional.name}
-                </h1>
-                <div className="space-x-1 flex items-center">
-                  <span className="text-base font-bold">
-                    {mock.professional.rating}
-                  </span>
-                  <StarIcon className="fill-[#F6CE18]" width={19} height={19} />
-                  <span className="text-[#B1ACB9]">
-                    ({mock.professional.reviews_count})
-                  </span>
-                </div>
-                <div>
-                  {mock.professional.specialization.map((specialization) => (
-                    <span key={specialization} className="text-[#B1ACB9]">
-                      {specialization}
-                    </span>
-                  ))}
-                </div>
-                <div className="space-x-2">
-                  <span className="text-[#B1ACB9]">
-                    {mock.professional.price_range}
-                  </span>
-                  <span className="text-[#B1ACB9]">|</span>
-                  <span className="text-[#B1ACB9]">
-                    {mock.professional.distance}
-                  </span>
-                </div>
-              </div>
+
+
+              {/* onClick={handleOpenMap} - Descomente quando implementar */}
+              <a
+                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                  mock.professional.address[0]
+                )}`}
+                target="_blank"
+                rel="noreferrer"
+                className="mt-6 inline-flex w-full max-w-[312px] h-10 sm:max-w-[550px] sm:h-12 mx-auto items-center justify-center rounded-xl bg-[#3857F4] px-6 text-lg font-semibold text-[#D7FF7B] shadow-md hover:bg-[#2d46d9] transition"
+              >
+                Abrir no Mapa
+              </a>
             </div>
-            <div className="flex flex-wrap w-full gap-2">
-              {mock.professional.qualifications.map((qualification) => (
+          </div>
+
+        </section>
+
+        {/* ACESSIBILIDADE */}
+        <section className="w-full rounded-xl p-4 sm:p-6">
+          <div className="mt-2 border border-[#EAEEFA] bg-[#EAEEFA] p-4 rounded-lg">
+            <div className="flex items-center gap-2">
+              <RxAccessibility className="text-white bg-[#3857F4] w-8 h-8 p-1 rounded-full" />
+              <h2 className="text-xl font-bold text-slate-900">Acessibilidade:</h2>
+            </div>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {mock.professional.accessibility?.map((feat: string) => (
                 <span
-                  key={qualification}
-                  className="p-2 border rounded-e-lg rounded-t-lg border-[#253E99] text-sm"
+                  key={feat}
+                  className="rounded-full border border-[#253E99] bg-white px-3 py-1 text-sm"
                 >
-                  {qualification}
+                  {feat}
                 </span>
               ))}
             </div>
-            {/* <div className="flex justify-end">
-              <button className="text-[#3857F4]">+ ver mais</button>
-            </div> */}
-            <div>
-              <p className="text-[#3857F4]">{mock.professional.description}</p>
-            </div>
-            <div className="flex flex-col space-y-3">
-              <Button
-                variant="contained"
-                color="primary"
-                size="large"
-                className="text-[#D7FF7B] text-sm font-semibold"
-              >
-                Agendar atendimento
-              </Button>
-              <Button
-                variant="outlined"
-                color="primary"
-                size="large"
-                className="border-[#253E99] text-[#253E99] text-sm font-semibold"
-              >
-                Falar Com Profissional
-              </Button>
-              <Button
-                variant="outlined"
-                color="primary"
-                size="large"
-                className="border-[#253E99] text-[#253E99] text-sm font-semibold hidden lg:flex gap-2"
-              >
-                <HeartIcon className="fill-[#253E99]" height={24} width={24} />
-                Adicionar Profissional aos Favoritos
-              </Button>
-            </div>
           </div>
-          <div
-            id="about"
-            className="lg:bg-[#F8FAFF] py-8 px-6 rounded-2xl space-y-8"
-          >
-            <div className="space-y-6">
-              <h1 className="font-bold text-2xl">Sobre o profissional</h1>
-              <p className="text-base font-normal">
-                {mock.professional.about_the_professional}
-              </p>
-            </div>
-            <div className="space-y-6">
-              <div className="space-y-3">
-                <h1 className="font-bold text-2xl">Endereço</h1>
-                <p className="text-base font-normal">
-                  O profissional atende nos seguintes endereços:
-                </p>
-              </div>
-              <div className="space-y-4">
-                {mock.professional.address.map((address) => (
-                  <span
-                    key={address}
-                    className="block max-w-[404px] px-4 py-2.5 bg-white rounded-lg shadow-[#919EAB29] shadow-md"
-                  >
-                    {address}
-                  </span>
-                ))}
-              </div>
-            </div>
-            <div id="payment-methods" className="space-y-6">
-              <h1 className="font-bold text-2xl">Métodos de Pagamento</h1>
-              <div className="space-y-2">
-                <EmblaCarousel slides={SLIDES_PAYMENTS} options={OPTIONS} />
-                <div className="flex lg:items-center space-x-2">
-                  <InformationIcon height={20} width={20} />
-                  <p className="text-[#645D6F] text-sm font-normal">
-                    A plataforma não se responsabiliza por transações
-                    financeiras.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="space-y-6">
-              <h1 className="font-bold text-2xl">Convênios aceitos</h1>
-              <div className="space-y-2">
-                <EmblaCarousel
-                  slides={SLIDES_MEDICAL_INSURANCE}
-                  options={OPTIONS}
-                />
-                <div className="flex lg:items-center space-x-2">
-                  <InformationIcon height={20} width={20} />
-                  <p className="text-[#645D6F] text-sm font-normal">
-                    A plataforma não se responsabiliza por transações
-                    financeiras ou administrativas com planos de saúde.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="space-y-6 flex flex-col items-center lg:items-start">
-              <h1 className="font-bold text-2xl">Pacotes Promocionais</h1>
-              <div className="space-y-4">
-                {mock.promotional_packages.map((promotional_package) => (
-                  <Services
-                    key={promotional_package.name}
-                    title={promotional_package.name}
-                    duration={promotional_package.duration}
-                    price={promotional_package.price}
-                    description={promotional_package.description}
-                    className="w-[290px] sm:w-[400px] lg:w-[500px] xl:w-[600px]"
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="mx-6 lg:mx-0 pt-10 lg:pt-0 space-y-20 flex flex-col items-center">
-          <div className="flex flex-col lg:max-w-[320px] w-fit lg:w-full space-y-6 items-center lg:items-start">
-            <h1 className="font-bold text-2xl">Serviços</h1>
-            <div className="space-y-4">
-              {servicesToShow.map((service) => (
-                <Services
-                  key={service.name}
-                  title={service.name}
-                  duration={service.duration}
-                  price={service.price}
-                  description={service.description}
-                  className="w-[290px] sm:w-[400px] lg:w-[300px]"
-                />
-              ))}
+        </section>
 
-              {mock.services.length > 3 && (
-                <button
-                  onClick={() => setShowAllServices((prev) => !prev)}
-                  className="text-[#3857F4] text-sm"
+        {/* AGENDAR SERVIÇOS */}
+        <section className="w-full rounded-xl p-4 sm:p-6">
+          <h2 className="text-xl font-bold text-slate-900">Agendar Serviços</h2>
+          <p className="mt-6 p-2 text-slate-600">
+            Selecione um ou mais serviços que deseja agendar com este profissional.
+          </p>
+
+          <div className="mt-4 space-y-4">
+            {mock.services?.map((s: any) => {
+              const id = s.id ?? s.name;
+              const active = selectedServices.has(id);
+              return (
+                <div
+                  key={id}
+
+                  className="flex items-center justify-between rounded-xl border border-slate-200 bg-white p-4 shadow-sm"
                 >
-                  {showAllServices ? "- ver menos" : "+ ver mais"}
-                </button>
-              )}
-            </div>
+                  <div className="pr-4">
+                    <h3 className="font-semibold text-slate-900">{s.name}</h3>
+                    <ul className="mt-2 text-sm text-slate-700 space-y-1">
+                      <li><span className="font-bold ">Duração:</span> {s.duration}</li>
+                      <li><span className="font-bold">Preço:</span> {s.price}</li>
+                    </ul>
+                    {s.description && (
+                      <p className="mt-2 text-sm text-slate-600"><span className="font-bold">Descrição:</span> {s.description}</p>
+                    )}
+                  </div>
+
+                  <div className="mx-4 h-16 w-px bg-slate-200 sm:block" />
+                  <div className="flex items-center justify-center">
+                    <button
+                      type="button"
+                      role="checkbox"
+                      aria-checked={active}
+                      onKeyDown={(e) => (e.key === " " || e.key === "Enter") && toggleService(id)}
+                      onClick={() => toggleService(id)}
+
+                      className={`h-10 w-10 rounded-md border-2 flex items-center justify-center transition-all duration-150 ease-in-out ${active
+                        ? "border-[#3857F4] bg-[#3857F4]"
+                        : "border-[#3857F4] bg-white"
+                        }`}
+                    >
+                      {active && (
+                        // biome-ignore lint/a11y/noSvgWithoutTitle: <explanation>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-5 w-5 text-white"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          strokeWidth={3}
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                      )}
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
           </div>
-          <div className="flex flex-col items-center lg:items-start lg:max-w-[320px] w-full space-y-6 sticky top-8">
-            <div className="space-y-2">
-              <h1 className="font-bold text-2xl">Horários Disponíveis</h1>
-              <p>Selecione a melhor data para você:</p>
-            </div>
-            <div className="lg:bg-[#EAEEFA] rounded-lg">
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DateCalendar
-                  value={date}
-                  onChange={(newValue) => setDate(newValue)}
-                />
-              </LocalizationProvider>
-            </div>
-            <div className="hidden lg:block bg-[#EAEEFA] py-11 px-6 rounded-lg space-y-8">
-              <h3 className="font-normal text-xl text-[#1D1B20]">
-                Gostaria de agendar um horário?
-              </h3>
-              <Button
-                variant="contained"
-                color="primary"
-                size="large"
-                className="text-[#D7FF7B] text-base font-semibold w-full"
+
+          <div className="mt-6 flex justify-center">
+            {/* onClick={handleScheduleAppointment} - Descomente quando implementar */}
+            <button
+              type="button"
+              className="inline-flex w-full max-w-[312px] h-10 sm:max-w-[550px] sm:h-12 items-center justify-center rounded-xl bg-[#3857F4] px-6 text-lg font-semibold text-[#D7FF7B] shadow-md hover:bg-[#2d46d9] transition"
+            >
+              Solicitar agendamento
+            </button>
+          </div>
+
+
+
+        </section>
+
+        {/* PERGUNTAS E RESPOSTAS */}
+        <section className="w-full rounded-xl p-4 sm:p-6">
+          <h2 className="text-xl font-bold text-slate-900">Perguntas e Respostas</h2>
+          <p className="mt-6 p-2 text-slate-700">Veja perguntas e respostas feitas a este profissional</p>
+
+          <div className="mt-4 space-y-3">
+            {[
+              {
+                question: "Quais são os horários de atendimento disponíveis?",
+                answer: "Atendimento de segunda a sexta, das 9h às 18h.",
+              },
+              {
+                question: "Atende somente presencial ou também online?",
+                answer: "Atendimento apenas presencial.",
+              },
+              {
+                question: "O profissional atende crianças e idosos?",
+                answer: "Sim, atende todas as faixas etárias.",
+              },
+            ].map((qa, idx) => (
+              <details
+                key={idx}
+                className="group rounded-xl border border-slate-200 bg-white px-4 py-3"
               >
-                Agendar
-              </Button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="px-6 lg:px-0 bg-[#F8FAFF] rounded-lg py-10 mt-9">
-        <div className="space-y-8 max-w-2xl mx-auto">
-          <h1 className="text-2xl font-bold">Avaliações</h1>
-          <div className="space-y-8">
-            <div className="flex space-x-4">
-              <div className="flex flex-col justify-center items-center">
-                <h6 className="text-5xl font-bold">4.8</h6>
-                <Rating
-                  name="half-rating-read"
-                  defaultValue={4.5}
-                  precision={0.5}
-                  readOnly
-                  size="small"
-                />
-              </div>
-              <div className="flex flex-col items-end space-y-1">
-                <div className="flex justify-center items-center space-x-2 text-sm">
-                  <span>atendimento</span>
-                  <BorderLinearProgress
-                    className="w-[61px]"
-                    variant="determinate"
-                    value={mock.reviews.categories.atendimento * 10 * 2}
-                  />
-                  <span>{mock.reviews.categories.atendimento}</span>
-                </div>
-                <div className="flex justify-center items-center space-x-2 text-sm">
-                  <span>acessibilidade</span>
-                  <BorderLinearProgress
-                    className="w-[61px]"
-                    variant="determinate"
-                    value={mock.reviews.categories.acessibilidade * 10 * 2}
-                  />
-                  <span>{mock.reviews.categories.acessibilidade}</span>
-                </div>
-                <div className="flex justify-center items-center space-x-2 text-sm">
-                  <span>instalações</span>
-                  <BorderLinearProgress
-                    className="w-[61px]"
-                    variant="determinate"
-                    value={mock.reviews.categories.instalacoes * 10 * 2}
-                  />
-                  <span>{mock.reviews.categories.instalacoes}</span>
-                </div>
-                <div className="flex justify-center items-center space-x-2 text-sm">
-                  <span>outros</span>
-                  <BorderLinearProgress
-                    className="w-[61px]"
-                    variant="determinate"
-                    value={mock.reviews.categories.outros * 10 * 2}
-                  />
-                  <span>{mock.reviews.categories.outros}</span>
-                </div>
-              </div>
-            </div>
-            <div className="flex space-x-2 overflow-x-auto no-scrollbar">
-              <div className="flex font-normal items-center justify-center text-sm px-4 py-1.5 border border-[#253E99] rounded-full">
-                <p>Relevantes</p>
-              </div>
-              <div className="flex justify-center items-center font-normal text-sm px-2 py-1.5 border border-[#253E99] rounded-full bg-[#A5B4E9] space-x-1">
-                <CheckIcon width={12} height={9} fill="#000" />
-                <p>Recentes</p>
-              </div>
-              <div className="flex font-normal text-sm px-4 py-1.5 border border-[#253E99] rounded-full whitespace-nowrap">
-                <p>Melhores Avaliações</p>
-              </div>
-              <div className="flex font-normal text-sm px-4 py-1.5 border border-[#253E99] rounded-full whitespace-nowrap">
-                <p>Piores avaliações</p>
-              </div>
-            </div>
-          </div>
-          {mock.reviews.review_details.map((review) => (
-            <div className="space-y-4" key={review.author}>
-              <div className="flex justify-between">
-                <div className="flex space-x-2 items-center py-2">
-                  <Image
-                    className="rounded-full object-cover h-[50px]"
-                    src={"/images/senhorjorge.jpg"}
-                    alt={""}
-                    width={50}
-                    height={50}
-                  />
-                  <h6>{review.author}</h6>
-                </div>
-                <div>
-                  <Rating
-                    name="half-rating-read"
-                    defaultValue={review.rating}
-                    precision={0.5}
-                    readOnly
-                  />
-                </div>
-              </div>
-              <div className="space-t-4 space-x-5">
-                {review.tags.map((tag) => (
-                  <span
-                    className="p-2 border rounded-e-lg rounded-t-lg border-[#253E99] text-sm"
-                    key={tag}
+                <summary className="flex cursor-pointer list-none select-none items-center justify-between">
+                  <span className="font-medium text-slate-900">{qa.question}</span>
+
+                  <svg
+                    className="h-5 w-5 text-slate-500 transition-transform duration-200 group-open:rotate-180"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    aria-hidden="true"
                   >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-              <div className="space-y-2 text-sm">
-                <p className="text-[#645D6F]">{review.date}</p>
-                <p>{review.review}</p>
-              </div>
+                    <path
+                      fillRule="evenodd"
+                      d="M5.23 7.21a.75.75 0 011.06.02L10 11.06l3.71-3.83a.75.75 0 111.08 1.04l-4.25 4.38a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </summary>
+
+                <div className="mt-2 flex items-start gap-2 text-slate-600">
+                  <BsArrowReturnRight className="mt-1 text-slate-500" />
+                  <p>{qa.answer}</p>
+                </div>
+              </details>
+            ))}
+          </div>
+
+          <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-10">
+            {/* onClick={handleViewAllQuestions} - Descomente quando implementar */}
+            <button
+              type="button"
+              className="w-full sm:w-auto sm:flex-1 max-w-[312px] h-10 sm:max-w-[550px] sm:h-12 rounded-xl bg-[#3857F4] px-6 text-lg font-semibold text-[#D7FF7B] shadow-md hover:bg-[#2d46d9] transition"
+            >
+              Ver todas as perguntas
+            </button>
+
+            {/* onClick={handleAskQuestion} - Descomente quando implementar */}
+            <button
+              type="button"
+              className="w-full sm:w-auto sm:flex-1 max-w-[312px] h-10 sm:max-w-[550px] sm:h-12 rounded-xl border border-[#3857F4] px-6 text-lg font-semibold text-[#3857F4] shadow-md hover:bg-[#E7EBFE] transition"
+            >
+              Perguntar ao Profissional
+            </button>
+          </div>
+
+        </section>
+
+
+
+        {/* AVALIAÇÕES */}
+        <section className="w-full rounded-xl p-4 sm:p-6 shadow-sm">
+          <h2 className="text-xl font-bold text-slate-900">
+            Avaliações ({reviewCount})
+          </h2>
+
+          {/* nota grande + estrelas */}
+          <div className="mt-4 flex flex-col items-left">
+            <div className="text-5xl font-bold">
+              {averageRating.toFixed(1)}
             </div>
-          ))}
-          <Button
-            variant="outlined"
-            color="primary"
-            size="large"
-            className="border-[#253E99] text-[#253E99] text-sm font-semibold w-full"
-          >
-            Ver Mais Avaliações +
-          </Button>
-        </div>
+
+            <div className="flex items-center gap-1 text-amber-400 mt-1">
+              {Array.from({ length: 5 }).map((_, i) => {
+                const fullStar = i + 1 <= Math.floor(averageRating);
+                const halfStar = i + 0.5 === averageRating;
+
+                return (
+                  <span key={i}>
+                    {fullStar ? "★" : halfStar ? "⯨" : "☆"}
+                  </span>
+                );
+              })}
+            </div>
+          </div>
+
+
+          {/* cards */}
+          <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {mock.reviews?.review_details?.map((r: any) => (
+              <article
+                key={r.author}
+                className="rounded-xl  bg-white p-4 shadow-sm"
+              >
+                <header className="flex items-center gap-3">
+                  <Image
+                    src={"/images/senhorjorge.jpg"}
+                    alt=""
+                    width={40}
+                    height={40}
+                    className="h-10 w-10 rounded-full object-cover"
+                  />
+                  <div className="min-w-0">
+                    <h4 className="font-semibold text-slate-900">{r.author}</h4>
+                    <div className="text-amber-400 text-sm leading-none">
+                      {"★★★★★".slice(0, Math.round(Number(r.rating)))}
+                    </div>
+                  </div>
+                </header>
+
+                <p className="mt-2 text-xs text-slate-500">{r.date}</p>
+                <p className="mt-2 text-slate-700">{r.review}</p>
+              </article>
+            ))}
+          </div>
+
+          <div className="mt-6 flex justify-center">
+            {/* onClick={handleViewMoreReviews} - Descomente quando implementar */}
+            <button
+              type="button"
+              className="inline-flex w-full max-w-[312px] h-10 sm:max-w-[550px] sm:h-12 items-center justify-center rounded-xl border border-[#3857F4] px-6 text-lg font-semibold text-[#3857F4] shadow-md hover:bg-[#E7EBFE] transition"
+            >
+              Ver mais avaliações
+            </button>
+          </div>
+        </section>
+
       </div>
     </div>
   );

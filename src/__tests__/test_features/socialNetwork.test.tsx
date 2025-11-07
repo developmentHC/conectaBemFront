@@ -10,7 +10,7 @@ jest.mock("next-auth/react", () => ({
 // Mock do next/image para não quebrar nos testes
 jest.mock("next/image", () => ({
   __esModule: true,
-  default: (props: any) => <img {...props} />,
+  default: (props: any) => <img {...props} alt={props.alt || ""} />,
 }));
 
 describe("SocialNetwork component", () => {

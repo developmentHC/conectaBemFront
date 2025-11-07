@@ -19,7 +19,6 @@ export function InlineCalendar({
   );
 
   const startOfMonth = currentMonth.startOf("month");
-  const endOfMonth = currentMonth.endOf("month");
   const startWeekday = startOfMonth.day(); // 0 dom, 1 seg...
   const daysInMonth = currentMonth.daysInMonth();
 

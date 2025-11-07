@@ -11,7 +11,7 @@ import {
 dayjs.locale("pt-br");
 
 export const AppointmentDateTags = ({
-  tabValue,
+  
   selectedDate,
   setSelectedDate,
   showCalendar,
