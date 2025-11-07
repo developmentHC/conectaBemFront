@@ -10,6 +10,7 @@ import { RxAccessibility } from "react-icons/rx";
 export default function PerfilProfissional() {
   const [showFullAbout, setShowFullAbout] = useState(false);
   const [selectedServices, setSelectedServices] = useState<Set<string>>(new Set());
+  const [selectedAddressIndex, setSelectedAddressIndex] = useState(0);
 
   const toggleService = (id: string) => {
     setSelectedServices(prev => {
@@ -24,13 +25,6 @@ export default function PerfilProfissional() {
   };
 
   // ===== FUNÇÕES PARA OS BOTÕES (COMENTADAS PARA IMPLEMENTAÇÃO FUTURA) =====
-
-  // const handleOpenMap = () => {
-  //   // Abrir Google Maps com endereço do profissional
-  //   const address = mock.professional.address[0];
-  //   const url = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
-  //   window.open(url, '_blank');
-  // };
 
   // const handleScheduleAppointment = () => {
   //   // Navegar para página de agendamento
@@ -75,20 +69,24 @@ export default function PerfilProfissional() {
 
   // helper simples p/ renderizar logos em grid
   const LogoGrid = ({ items }: { items: { img: string; title: string }[] }) => (
-    <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+    <div className="mt-4 grid grid-cols-4 w-fit mx-auto sm:mx-0">
       {items.map((i) => (
         <div
           key={i.title}
-          className="flex items-center justify-center rounded-lg border border-slate-200 bg-white p-3 h-16"
-          title={i.title}
+          className="flex flex-col items-center"
         >
-          <Image
-            src={i.img}
-            alt={i.title}
-            width={35}
-            height={35}
-            className="h-8 w-6 sm:h-10 sm:w-10 object-contain"
-          />
+          <div className="flex items-center justify-center rounded-lg border border-slate-200 bg-white p-1 w-14 h-14">
+            <Image
+              src={i.img}
+              alt={i.title}
+              width={24}
+              height={24}
+              className="h-5 w-5 sm:h-6 sm:w-6 object-contain"
+            />
+          </div>
+          <span className="mt-1 text-xs text-center text-slate-600 font-medium w-16 leading-tight break-words">
+            {i.title}
+          </span>
         </div>
       ))}
     </div>
@@ -109,7 +107,7 @@ export default function PerfilProfissional() {
 
   return (
     <div className="min-h-screen">
-      <div className="w-full max-w-[360px] sm:max-w-none mx-auto px-4 sm:px-8 lg:px-10 py-6 space-y-6">
+      <div className="w-full max-w-[360px] sm:max-w-none mx-auto px-4 sm:px-8 lg:px-10 py-6 ">
 
         {/* CARD DO PERFIL  */}
         <section className="w-full rounded-xl p-4 sm:p-6">
@@ -180,7 +178,7 @@ export default function PerfilProfissional() {
         <section className="w-full rounded-xl p-4 sm:p-6">
           <h2 className="text-xl font-bold text-slate-900">Sobre o Profissional</h2>
 
-          <p className="mt-6 text-slate-700">
+          <p className="mt-4 text-slate-700">
             {showFullAbout
               ? mock.professional.about_the_professional
               : mock.professional.about_the_professional.slice(0, 310) +
@@ -207,7 +205,7 @@ export default function PerfilProfissional() {
         {/* MÉTODOS DE PAGAMENTO */}
         <section className="w-full rounded-xl p-4 sm:p-6">
           <h2 className="text-xl font-bold text-slate-900">Métodos de Pagamento</h2>
-          <h3 className="mt-6 p-2">Métodos de pagamento e Convênios aceitos por esse profissional:</h3>
+          <h3 className="mt-2 p-2">Métodos de pagamento e Convênios aceitos por esse profissional:</h3>
           <LogoGrid items={PAYMENTS} />
           <LogoGrid items={INSURANCES} />
           <div className="mt-5 border-t border-slate-200 pt-4">
@@ -225,22 +223,27 @@ export default function PerfilProfissional() {
         {/* ENDEREÇO */}
         <section className="w-full rounded-xl p-4 sm:p-6">
           <h2 className="text-xl font-bold text-slate-900">Endereço</h2>
-          <p className="mt-6 p-2 text-slate-600">O profissional atende nos seguintes endereços:</p>
-          <div className="mt-4 space-y-3">
-            {mock.professional.address.map((addr) => (
+          <p className="mt-2 p-2 text-slate-600">O profissional atende nos seguintes endereços:</p>
+          <div className="mt-2 space-y-3">
+            {mock.professional.address.map((addr, index) => (
               <div
                 key={addr}
-                className="rounded-lg border border-slate-200 bg-white px-4 py-2 shadow-sm"
+                className={`rounded-lg border px-4 py-2 shadow-sm cursor-pointer transition-all duration-200 ${selectedAddressIndex === index
+                  ? 'border-[#3857F4] bg-[#E7EBFE] ring-2 ring-[#3857F4] ring-opacity-20'
+                  : 'border-slate-200 bg-white hover:border-[#3857F4] hover:bg-[#F8FAFF]'
+                  }`}
+                onClick={() => setSelectedAddressIndex(index)}
               >
-                {addr}
+                <span className={selectedAddressIndex === index ? 'text-[#3857F4] font-medium' : 'text-slate-700'}>
+                  {addr}
+                </span>
               </div>
             ))}
           </div>
-
         </section>
 
         {/* MAPA (placeholder) */}
-        <section className="w-full rounded-xl p-4 sm:p-6">
+        <section className="w-full rounded-xl p-4 sm:p-6 !mt-2">
           <div className="relative flex flex-col ">
             {/* MAPA DO GOOGLE */}
             <div className="mt-2 border border-[#EAEEFA] bg-[#EAEEFA] flex flex-col items-center py-4">
@@ -249,18 +252,23 @@ export default function PerfilProfissional() {
                   title="Localização"
                   className="h-full w-full"
                   src={`https://www.google.com/maps?q=${encodeURIComponent(
-                    mock.professional.address[0]
+                    mock.professional.address[selectedAddressIndex]
                   )}&output=embed`}
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
                 />
               </div>
 
+              <div className="mt-3 text-center">
+                <p className="text-sm text-slate-600 font-medium">
+                  📍 {mock.professional.address[selectedAddressIndex]}
+                </p>
+              </div>
 
               {/* onClick={handleOpenMap} - Descomente quando implementar */}
               <a
                 href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-                  mock.professional.address[0]
+                  mock.professional.address[selectedAddressIndex]
                 )}`}
                 target="_blank"
                 rel="noreferrer"
@@ -270,7 +278,6 @@ export default function PerfilProfissional() {
               </a>
             </div>
           </div>
-
         </section>
 
         {/* ACESSIBILIDADE */}
@@ -296,7 +303,7 @@ export default function PerfilProfissional() {
         {/* AGENDAR SERVIÇOS */}
         <section className="w-full rounded-xl p-4 sm:p-6">
           <h2 className="text-xl font-bold text-slate-900">Agendar Serviços</h2>
-          <p className="mt-6 p-2 text-slate-600">
+          <p className="mt-2 p-2 text-slate-600">
             Selecione um ou mais serviços que deseja agendar com este profissional.
           </p>
 
@@ -372,7 +379,7 @@ export default function PerfilProfissional() {
         {/* PERGUNTAS E RESPOSTAS */}
         <section className="w-full rounded-xl p-4 sm:p-6">
           <h2 className="text-xl font-bold text-slate-900">Perguntas e Respostas</h2>
-          <p className="mt-6 p-2 text-slate-700">Veja perguntas e respostas feitas a este profissional</p>
+          <p className="mt-2 p-2 text-slate-700">Veja perguntas e respostas feitas a este profissional</p>
 
           <div className="mt-4 space-y-3">
             {[
