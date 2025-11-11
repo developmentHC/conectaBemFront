@@ -10,28 +10,47 @@ export default function AppointmentStatusTabs({
   const handleTabChange = (value: string) => {
     setTabValue(value);
   };
+
   return (
-    <div className="flex w-full md:w-[30%] justify-evenly border-b-2 border-gray-300">
-      <span
-        className={`w-[50%] text-center text-xl  font-semibold p-2 border-b-2 cursor-pointer ${
-          tabValue === "a_realizar"
-            ? "text-blue-600 border-blue-600"
-            : "text-gray-400"
+    <div className="w-full flex flex-row items-start border-b border-[#B1ACB9]">
+      {/* Confirmados */}
+      <button
+        type="button"
+        className={`flex justify-center items-center w-1/3 h-[42px] px-2 gap-[10px] border-b-2 text-[20px] font-bold leading-[130%] ${
+          tabValue === "confirmados"
+            ? "text-[#3857F4] border-[#3857F4]"
+            : "text-[#B1ACB9] border-transparent"
         }`}
-        onClick={() => handleTabChange("a_realizar")}
+        onClick={() => handleTabChange("confirmados")}
       >
-        A realizar
-      </span>
-      <span
-        className={`w-[50%] text-center text-xl font-semibold p-2 border-b-2 cursor-pointer ${
-          tabValue === "a_realizar"
-            ? "text-gray-400"
-            : "text-blue-600 border-blue-600"
+        Confirmados
+      </button>
+
+      {/* Pendentes */}
+      <button
+        type="button"
+        className={`flex justify-center items-center w-1/3 h-[42px] px-2 gap-[10px] border-b-2 text-[20px] font-bold leading-[130%] ${
+          tabValue === "pendentes"
+            ? "text-[#3857F4] border-[#3857F4]"
+            : "text-[#B1ACB9] border-transparent"
         }`}
-        onClick={() => handleTabChange("realizados")}
+        onClick={() => handleTabChange("pendentes")}
       >
-        Realizados
-      </span>
+        Pendentes
+      </button>
+
+      {/* Cancelados */}
+      <button
+        type="button"
+        className={`flex justify-center items-center w-1/3 h-[42px] px-2 gap-[10px] border-b-2 text-[20px] font-bold leading-[130%] ${
+          tabValue === "cancelados"
+            ? "text-[#3857F4] border-[#3857F4]"
+            : "text-[#B1ACB9] border-transparent"
+        }`}
+        onClick={() => handleTabChange("cancelados")}
+      >
+        Cancelados
+      </button>
     </div>
   );
 }

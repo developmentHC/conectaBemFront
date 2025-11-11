@@ -8,19 +8,25 @@ export const mock = {
     distance: "0.25km",
     photo_url: "url_da_imagem_do_profissional.jpg",
     qualifications: [
-      "Quiropraxia",
-      "Libras",
-      "Certificado XYZ",
       "Sala individual",
-      "Inglês",
+      "Quiropraxia",            
+      "Certificado XYZ",
+      "Libras",
+      
+      
+    ],
+    accessibility: [
+      "Acessível para cadeirantes",
+      "Banheiro adaptado",
+      "Estacionamento para deficientes",
     ],
     description:
       "Especializado em técnicas de ajuste vertebral e tratamentos para alívio de dores crônicas, tensão muscular e problemas de postura.",
     about_the_professional:
       "Sou [Nome], quiroprata com [X anos] de experiência, especializado em técnicas de ajuste vertebral e tratamentos para alívio de dores crônicas, tensão muscular e problemas de postura. Meu objetivo é proporcionar uma melhora significativa na sua qualidade de vida, através de cuidados personalizados que restauram o equilíbrio do corpo. Acredito na importância da saúde integral e estou comprometido em oferecer um atendimento humanizado e eficaz para promover seu bem-estar.",
     address: [
-      "Rua Fulaninho, 000. Cidade, Estado",
-      "Rua Fulaninho 2, 000. Cidade, Estado",
+      "Avenida Afonso Pena, 102. Uberlândia, Minas Gerais",
+      "Avenida Floriano Peixoto, 320. Ubelândia, Minas Gerais",
     ],
     payment_methods: ["Pix", "Wellhub", "Master Card", "Visa"],
     accepted_convenios: [
