@@ -57,7 +57,7 @@ export function InlineCalendar({
   const monthLabel = currentMonth.format("MMMM YYYY");
 
   return (
-    <div className="bg-white rounded-lg py-6 px-4 shadow-sm border border-[#E7EBFE]">
+    <div className=" rounded-lg py-6 px-4 shadow-sm ">
       {/* header */}
       <div className="flex items-center justify-between mb-4">
         <button
