@@ -2,30 +2,21 @@ name: Semgrep Scan
 
 on:
   push:
-    branches: ["main"]
+    branches:
+      - main
+      - master
   pull_request:
 
 jobs:
   semgrep:
-    name: Run Semgrep Security Scan
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-      - name: Run Semgrep with Cloud Integration
+      - name: Run Semgrep
         uses: returntocorp/semgrep-action@v1
         with:
-          config: "p/ci"                    
-          publishToken: ${{ secrets.SEMGREP_APP_TOKEN }}
-          generateSarif: true               
-          auditOn: "push"                  
-          sendMetrics: true
-          publishDeployment: true
-          publishResults: true
-
-      - name: Upload SARIF to GitHub Security Tab
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: semgrep.sarif
+          config: "p/ci" 
+          publishToken: ${{ secrets.SEMGREP_TOKEN }} 
