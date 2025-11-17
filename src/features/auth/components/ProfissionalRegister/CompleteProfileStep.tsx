@@ -22,8 +22,8 @@ export const CompleteProfileStep = () => {
     cepResidencial,
     enderecoResidencial,
     bairroResidencial,
-    cidadeResidencial,   
-    estadoResidencial,  
+    cidadeResidencial,
+    estadoResidencial,
     clinicName,
     enderecoClinica,
     bairroClinica,
@@ -36,7 +36,7 @@ export const CompleteProfileStep = () => {
     photo,
     servicePreferences,
     specialties,
-    
+
   } = useProfissionalRegisterStore();
   const { idUser, setProfilePhoto } = useUserStore();
   const { mutate: createProfissional, isPending } = useRegisterProfissional();
@@ -68,7 +68,7 @@ export const CompleteProfileStep = () => {
         cep: cepResidencial,
         address: enderecoResidencial,
         neighborhood: bairroResidencial,
-        city: cidadeResidencial,  
+        city: cidadeResidencial,
         state: estadoResidencial,
       },
       clinic: {
@@ -84,10 +84,11 @@ export const CompleteProfileStep = () => {
       professionalSpecialties: specialties,
       otherProfessionalSpecialties: [],
       professionalServicePreferences: servicePreferences,
+      acessibility: [], 
       profilePhoto: photo,
     });
 
-    
+
 
     gtmEvents.professionalRegistrationComplete(
       idUser || "not_specified",

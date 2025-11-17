@@ -97,6 +97,10 @@ export const PersonalDataStep = () => {
     resolver: zodResolver(schema),
   });
 
+  useEffect(() => {
+    register("name");
+  }, [register]);
+
   const cepValue = watch("cepResidencial");
   const shouldFetchCep = cepValue?.replace(/\D/g, "").length === 8;
 
@@ -187,8 +191,12 @@ export const PersonalDataStep = () => {
           placeholder="Nome e Sobrenome"
           id="name"
           value={nameInput}
-          error={!!errors.name}
+
+          required
           helperText={errors.name?.message}
+          error={!!errors.name}
+          
+
         />
       </div>
 
