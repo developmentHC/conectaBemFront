@@ -31,8 +31,6 @@ export const PatientRegister = () => {
       {step === "specialties" && <SpecialtyStep />}
       {step === "accessibility" && <AccessibilityStep />}
       {step === "complete_profile" && <CompleteProfileStep />}
-
-      <FormMultiStep.NeedHelpButton className="text-gray-500 justify-start gap-2 w-fit" />
     </>
   );
 };
