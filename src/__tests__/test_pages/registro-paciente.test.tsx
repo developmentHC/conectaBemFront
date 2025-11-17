@@ -1,5 +1,6 @@
 
-import RegistroPaciente from '@/app/auth/registro-paciente/page';
+import RegistroPaciente  from '@/app/(auth)/auth/registro-paciente/page';
+
 import { PatientRegister } from "@/features/auth/components/PatientRegister";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { fireEvent, render, screen } from '@testing-library/react';

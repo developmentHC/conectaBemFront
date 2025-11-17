@@ -1,28 +1,41 @@
 import { useAppointments } from "../hooks/useAppointments";
 import { useFilterAppointments } from "../hooks/useFilterAppointments";
-import { AppointmentCard } from "./AppointmentCard";
+import { AppointmentTimeline } from "./AppointmentTimeline";
 
-export const AppointmentsSection = ({ tabValue }: { tabValue: string }) => {
+export const AppointmentsSection = ({
+  tabValue,
+  selectedDate,
+}: {
+  tabValue: string;
+  selectedDate?: string;
+}) => {
   const { data: appointments, isLoading, error } = useAppointments();
 
   const filteredAppointments = useFilterAppointments(
     appointments || [],
-    tabValue
+    tabValue,
+    selectedDate 
   );
 
   if (isLoading) {
-    return <div>Carregando agendamentos...</div>;
+    return (
+      <div className="text-center text-[#3857F4] text-lg font-medium">
+        Carregando agendamentos...
+      </div>
+    );
   }
 
   if (error) {
-    return <div>Erro ao carregar agendamentos.</div>;
+    return (
+      <div className="text-center text-red-500 text-lg font-medium">
+        Erro ao carregar agendamentos.
+      </div>
+    );
   }
 
   return (
-    <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-      {filteredAppointments.map((appointment) => (
-        <AppointmentCard key={appointment.id} appointment={appointment} />
-      ))}
+    <section className="w-full">
+      <AppointmentTimeline appointments={filteredAppointments} />
     </section>
   );
-};
+}
