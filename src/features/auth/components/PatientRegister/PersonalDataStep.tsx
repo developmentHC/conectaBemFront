@@ -13,7 +13,7 @@ import axios from "axios";
 const schema = z.object({
   name: z
     .string()
-    .min(3, "Nome inválido")
+    .min(3, "Nome deve ter pelo menos 3 caracteres")
     .regex(
       /^[A-Za-zÀ-ú]+(?: [A-Za-zÀ-ú]+)*$/,
       "O nome deve conter apenas letras e um espaço entre as palavras"
@@ -84,6 +84,10 @@ export const PersonalDataStep = () => {
     resolver: zodResolver(schema),
   });
 
+  useEffect(() => {
+    register("name");
+  }, [register]);
+
   const cepValue = watch("cepResidencial");
   const shouldFetchCep = cepValue?.replace(/\D/g, "").length === 8;
 
@@ -111,7 +115,7 @@ export const PersonalDataStep = () => {
       .replace(/\s+/g, " ")
       .trimStart();
 
-    setValue("name", onlyLettersAndSpace);
+    setValue("name", onlyLettersAndSpace, { shouldValidate: true });
     setNameInput(onlyLettersAndSpace);
   };
 
@@ -137,6 +141,9 @@ export const PersonalDataStep = () => {
           id="name"
           value={nameInput}
           required
+          helperText={errors.name?.message}
+          error={!!errors.name}
+          
         />
       </div>
       <div className="flex flex-col gap-2">
