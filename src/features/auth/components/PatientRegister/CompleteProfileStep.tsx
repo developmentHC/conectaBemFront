@@ -6,7 +6,7 @@ import { useRegisterPatient } from "../../hooks/useRegisterPatient";
 import { useUserStore } from "@/stores/userSessionStore";
 import { usePhotoUpload } from "../../hooks/usePhotoUpload";
 import { gtmEvents } from "@/utils/gtm";
-import toast from "react-hot-toast";
+
 
 export const CompleteProfileStep = () => {
   const [image, setImage] = useState<string | null>(null);
@@ -26,15 +26,16 @@ export const CompleteProfileStep = () => {
     estadoResidencial,
   } = usePatientRegisterStore();
   const { mutate: createPatient, isPending } = useRegisterPatient();
-  const { idUser, setProfilePhoto, clearProfilePhoto } = useUserStore();
+  const { idUser, setProfilePhoto } = useUserStore();
   const { mutateAsync: uploadPhoto } = usePhotoUpload();
 
   const [isUploading, setIsUploading] = useState(false);
 
   const onChangeImage = async (file: File | null, _previewUrl: string | null) => {
+    // mark as intentionally unused to satisfy lint
+    void _previewUrl;
     if (!file) {
       setImage(null);
-      clearProfilePhoto();
       updateFields({ profilePhoto: undefined });
       return;
     }
@@ -49,10 +50,10 @@ export const CompleteProfileStep = () => {
       setImage(photoUrl);
       setProfilePhoto(photoUrl);
       updateFields({ profilePhoto: photoUrl });
-      toast.success(`Foto enviada! URL: ${photoUrl}`);
+      
     } catch (error) {
       console.error(error);
-      // Error toast is handled by usePhotoUpload hook
+      
     } finally {
       setIsUploading(false);
     }

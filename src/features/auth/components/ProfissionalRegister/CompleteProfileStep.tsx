@@ -42,9 +42,11 @@ export const CompleteProfileStep = () => {
   const { mutateAsync: uploadPhoto } = usePhotoUpload();
 
   const onChangeImage = async (file: File | null, previewUrl: string | null) => {
+    // mark as intentionally unused to satisfy lint
+    void previewUrl;
     if (!file) {
       setImage(null);
-      setProfilePhoto(undefined);
+      setProfilePhoto("");
       updateFields({ photo: undefined });
       return;
     }
