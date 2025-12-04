@@ -22,6 +22,7 @@ export type ICreateProfissional = {
   professionalSpecialties: string[] | undefined;
   otherProfessionalSpecialties: string[] | undefined;
   professionalServicePreferences: string[] | undefined;
+  /** URL da foto de perfil hospedada (retornada por /auth/uploadPhoto) */
   profilePhoto: string | undefined;
   residentialAddress: {
     cep: string | undefined;
