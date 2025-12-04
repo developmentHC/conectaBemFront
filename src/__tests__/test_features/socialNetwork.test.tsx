@@ -11,7 +11,7 @@ jest.mock("next-auth/react", () => ({
 /* eslint-disable @next/next/no-img-element */
 jest.mock("next/image", () => ({
   __esModule: true,
-  default: (props: any) => <img alt="mocked" {...props} />,
+  default: (props: any) => <img {...props} alt={props.alt || ""} />,
 }));
 
 describe("SocialNetwork component", () => {

@@ -7,6 +7,7 @@ export type IProfessional = {
   rating: number;
   reviews: number;
   isFavorite: boolean;
+  accessibility: string[];
   preferablyServices: {
     id: number;
     name: string;
@@ -22,7 +23,7 @@ export type ICreateProfissional = {
   professionalSpecialties: string[] | undefined;
   otherProfessionalSpecialties: string[] | undefined;
   professionalServicePreferences: string[] | undefined;
-  /** URL da foto de perfil hospedada (retornada por /auth/uploadPhoto) */
+  acessibility: string[] | undefined;
   profilePhoto: string | undefined;
   residentialAddress: {
     cep: string | undefined;
