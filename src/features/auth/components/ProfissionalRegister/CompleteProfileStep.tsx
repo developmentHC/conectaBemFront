@@ -35,7 +35,6 @@ export const CompleteProfileStep = () => {
     photo,
     servicePreferences,
     specialties,
-    
   } = useProfissionalRegisterStore();
 
   const { idUser, setProfilePhoto } = useUserStore();
@@ -96,11 +95,10 @@ export const CompleteProfileStep = () => {
       professionalSpecialties: specialties,
       otherProfessionalSpecialties: [],
       professionalServicePreferences: servicePreferences,
-      acessibility: [], 
+      accessibility: [], 
       profilePhoto: photo,
     });
 
-    
 
     gtmEvents.professionalRegistrationComplete(
       idUser || "not_specified",
