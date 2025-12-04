@@ -10,16 +10,10 @@ jest.mock("next-auth/react", () => ({
 // Mock do next/image para não quebrar nos testes
 /* eslint-disable @next/next/no-img-element */
 jest.mock("next/image", () => ({
-  __esModule: true,
+  __esModule: true,  
+ /* eslint-disable @next/next/no-img-element */
+ default: (props: any) => <img alt="mocked" {...props} /> }))
 
-  default: (props: any) => <img alt="mocked" {...props} />,
-=======
-  default: (props: any) => <img {...props} alt={props.alt || ""} />,
->>>>>>> 309111e537eaf61d5e26da0e848d336592090c13
-=======
-  default: (props: any) => <img {...props} alt={props.alt || ""} />,
->>>>>>> 1dabcbe2d47a653395dc7b0b466f604b7e2cc124
-}));
 
 describe("SocialNetwork component", () => {
   beforeEach(() => {
