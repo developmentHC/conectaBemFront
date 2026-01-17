@@ -11,5 +11,5 @@ export const FormMultiStep = {
   Progress,
   Header,
   BackStepButton,
-  NeedHelpButton
-}
+  NeedHelpButton,
+};
