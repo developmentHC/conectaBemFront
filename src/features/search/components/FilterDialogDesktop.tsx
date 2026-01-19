@@ -1,12 +1,127 @@
+// import { IoMdClose } from "react-icons/io";
+// import { FilterDialogProps } from "./types";
+// import { Dialog, DialogContent, IconButton } from "@mui/material";
+
+// export const FilterDialogDesktop = ({
+//   open,
+//   onFilterChange,
+// }: FilterDialogProps) => {
+//   const valueOptions = ["$40", "$30", "$50"];
+//   const accessibilityOptions = [
+//     "Piso tátil",
+//     "Atendimento em libras",
+//     "Audiodescrição",
+//     "Corrimão",
+//     "Rampas",
+//   ];
+//   const serviceOptions = [
+//     "LGBTQIAP+ Friendly",
+//     "Pet Friendly",
+//     "Aceita Wellhub",
+//   ];
+
+//   const handleOnFilter = () => {
+//     onFilterChange();
+//   };
+
+//   return (
+//     <Dialog
+//       open={open ?? true}
+//       onClose={onFilterChange}
+//       maxWidth="md"
+//       fullWidth
+//     >
+//       <DialogContent>
+//         <div className="flex flex-col items-center gap-10">
+//           <div className="flex flex-col gap-3 w-full">
+//             <div className="flex justify-end">
+//               <IconButton onClick={onFilterChange}>
+//                 <IoMdClose className="text-2xl" size={20} />
+//               </IconButton>
+//             </div>
+//             <h1 className="text-2xl font-semibold">Filtros</h1>
+//           </div>
+
+//           <div className="w-full flex flex-col gap-4">
+//             <h2 className="text-2xl font-semibold">Valor</h2>
+//             <div className="flex gap-2">
+//               {valueOptions.map((item) => (
+//                 <button
+//                   key={item}
+//                   className="border border-blue-600 py-1 px-2 rounded-t-lg rounded-br-lg cursor-pointer whitespace-nowrap text-2x1"
+//                   type="button"
+//                 >
+//                   <span className="text-sm">{item}</span>
+//                 </button>
+//               ))}
+//             </div>
+//           </div>
+//           <div className="w-full flex flex-col gap-4">
+//             <span className="text-2xl font-semibold">Acessibilidade</span>
+//             <div className="flex flex-wrap gap-2">
+//               {accessibilityOptions.map((item) => (
+//                 <button
+//                   key={item}
+//                   className="border border-blue-600 py-1 px-2 rounded-t-lg rounded-br-lg cursor-pointer whitespace-nowrap"
+//                   type="button"
+//                 >
+//                   <span className="text-sm">{item}</span>
+//                 </button>
+//               ))}
+//             </div>
+//           </div>
+//           <div className="w-full flex flex-col gap-4">
+//             <span className="text-2xl font-semibold">Atendimento</span>
+//             <div className="flex flex-wrap gap-2">
+//               {serviceOptions.map((item) => (
+//                 <button
+//                   key={item}
+//                   className="border border-blue-600 py-1 px-2 rounded-t-lg rounded-br-lg cursor-pointer whitespace-nowrap"
+//                   type="button"
+//                 >
+//                   <span className="text-sm">{item}</span>
+//                 </button>
+//               ))}
+//             </div>
+//           </div>
+//           <div className="w-full flex flex-col gap-4">
+//             <span className="text-2xl font-semibold">Distância</span>
+//             <div className="flex flex-col gap-2">
+//               <input
+//                 type="range"
+//                 min={0}
+//                 max={12}
+//                 className="w-full bg-blue-600"
+//                 readOnly
+//               />
+//               <div className="flex justify-between text-gray-400 text-sm">
+//                 <span>0 km</span>
+//                 <span>12 km</span>
+//               </div>
+//             </div>
+//           </div>
+//           <button
+//             className="flex justify-center w-full bg-blue-600 py-2 rounded-lg text-center tracking-widest"
+//             onClick={handleOnFilter}
+//           >
+//             <p className="text-button font-semibold text-sm">FILTRAR</p>
+//           </button>
+//         </div>
+//       </DialogContent>
+//     </Dialog>
+//   );
+// };
+
 import { IoMdClose } from "react-icons/io";
 import { FilterDialogProps } from "./types";
 import { Dialog, DialogContent, IconButton } from "@mui/material";
+import { useState } from "react";
 
 export const FilterDialogDesktop = ({
   open,
   onFilterChange,
 }: FilterDialogProps) => {
-  const valueOptions = ["$", "$$", "$$$"];
+  const valueOptions = ["$40", "$30", "$50"];
   const accessibilityOptions = [
     "Piso tátil",
     "Atendimento em libras",
@@ -14,14 +129,39 @@ export const FilterDialogDesktop = ({
     "Corrimão",
     "Rampas",
   ];
+
   const serviceOptions = [
-    "LGBTQIAP+ Friendly",
-    "Pet Friendly",
-    "Aceita Wellhub",
+    "Pré-consulta",
+    "Exame",
+    "Consulta",
   ];
 
+  const paymentOptions = ["Visa", "Mastercard", "Pix", "Wellhub"];
+
+  const [selectedValues, setSelectedValues] = useState<string[]>([]);
+  const [selectedAccessibility, setSelectedAccessibility] = useState<string[]>([]);
+  const [selectedServices, setSelectedServices] = useState<string[]>([]);
+  const [selectedPayment, setSelectedPayment] = useState<string[]>([]);
+  const [distance, setDistance] = useState(0);
+
+   const toggleSelection = (item: string, set: any, selected: string[]) => {
+    if (selected.includes(item)) {
+      set(selected.filter((i) => i !== item));
+    } else {
+      set([...selected, item]);
+    }
+  };
+
   const handleOnFilter = () => {
-    onFilterChange();
+    const filters = {
+      values: selectedValues,
+      accessibility: selectedAccessibility,
+      services: selectedServices,
+      payments: selectedPayment,
+      distance: distance,
+    };
+    console.log("Filtros aplicados:", filters);
+    onFilterChange?.();
   };
 
   return (
@@ -48,7 +188,9 @@ export const FilterDialogDesktop = ({
               {valueOptions.map((item) => (
                 <button
                   key={item}
-                  className="border border-blue-600 py-1 px-2 rounded-t-lg rounded-br-lg cursor-pointer whitespace-nowrap text-2x1"
+                  onClick={() => toggleSelection(item, setSelectedValues, selectedValues)}
+                  className={`border py-1 px-2 rounded-t-lg rounded-br-lg cursor-pointer whitespace-nowrap text-sm
+                    ${selectedValues.includes(item) ? "bg-blue-600 text-white" : "border-blue-600 text-blue-600"}`}
                   type="button"
                 >
                   <span className="text-sm">{item}</span>
@@ -62,7 +204,26 @@ export const FilterDialogDesktop = ({
               {accessibilityOptions.map((item) => (
                 <button
                   key={item}
-                  className="border border-blue-600 py-1 px-2 rounded-t-lg rounded-br-lg cursor-pointer whitespace-nowrap"
+                  onClick={() => toggleSelection(item, setSelectedAccessibility, selectedAccessibility)}
+                  className={`border py-1 px-2 rounded-t-lg rounded-br-lg cursor-pointer whitespace-nowrap text-sm
+                    ${selectedAccessibility.includes(item) ? "bg-blue-600 text-white" : "border-blue-600 text-blue-600"}`}
+                  type="button"
+                >
+                  <span className="text-sm">{item}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+
+           <div className="w-full flex flex-col gap-4">
+            <span className="text-2xl font-semibold">Formas de pagamento aceitas</span>
+            <div className="flex flex-wrap gap-2">
+              {paymentOptions.map((item) => (
+                <button
+                  key={item}
+                  onClick={() => toggleSelection(item, setSelectedPayment, selectedPayment)}
+                  className={`border py-1 px-2 rounded-t-lg rounded-br-lg cursor-pointer whitespace-nowrap text-sm
+                    ${selectedPayment.includes(item) ? "bg-blue-600 text-white" : "border-blue-600 text-blue-600"}`}
                   type="button"
                 >
                   <span className="text-sm">{item}</span>
@@ -71,12 +232,14 @@ export const FilterDialogDesktop = ({
             </div>
           </div>
           <div className="w-full flex flex-col gap-4">
-            <span className="text-2xl font-semibold">Atendimento</span>
+            <span className="text-2xl font-semibold">Especialidade</span>
             <div className="flex flex-wrap gap-2">
               {serviceOptions.map((item) => (
                 <button
                   key={item}
-                  className="border border-blue-600 py-1 px-2 rounded-t-lg rounded-br-lg cursor-pointer whitespace-nowrap"
+                  onClick={() => toggleSelection(item, setSelectedServices, selectedServices)}
+                  className={`border py-1 px-2 rounded-t-lg rounded-br-lg cursor-pointer whitespace-nowrap text-sm
+                    ${selectedServices.includes(item) ? "bg-blue-600 text-white" : "border-blue-600 text-blue-600"}`}
                   type="button"
                 >
                   <span className="text-sm">{item}</span>
@@ -91,12 +254,14 @@ export const FilterDialogDesktop = ({
                 type="range"
                 min={0}
                 max={12}
-                className="w-full bg-blue-600"
+                value={distance}
+                onChange={(e) => setDistance(Number(e.target.value))}
+                className="w-full bg-blue-600 cursor-pointer"
                 readOnly
               />
               <div className="flex justify-between text-gray-400 text-sm">
                 <span>0 km</span>
-                <span>12 km</span>
+                <span>{distance} km</span>
               </div>
             </div>
           </div>
@@ -111,3 +276,4 @@ export const FilterDialogDesktop = ({
     </Dialog>
   );
 };
+

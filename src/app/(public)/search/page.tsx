@@ -19,6 +19,11 @@ function SearchPage() {
 
   const debouncedSearch = useDebounce(search, 500);
 
+  // Sempre que o termo mudar, volta para página 1
+  useEffect(() => {
+    setPage(1);
+  }, [debouncedSearch])
+
   const { data: filteredProfessionals, isLoading } = useFilterProfessional({ search: debouncedSearch, page });
 
   const onFilterChange = () => {
@@ -33,34 +38,7 @@ function SearchPage() {
     return <FilterPanelMobile onFilterChange={onFilterChange} />;
   }
 
-  if (isLoading) {
-    return (
-      <div className="flex justify-center">
-        <CircularProgress size={75} />
-      </div>
-    );
-  }
-
   console.log(filteredProfessionals);
-
-  <div className="flex flex-col gap-4 mt-2">
-  {isLoading ? (
-    <div className="flex justify-center mt-8">
-      <CircularProgress size={75} />
-    </div>
-  ) : filteredProfessionals?.length === 0 ? (
-    <div className="flex flex-col items-center justify-center mt-8 text-center">
-      <p className="text-lg font-medium text-gray-700">
-        Nenhum profissional encontrado
-      </p>
-      <p className="text-sm text-gray-500 mt-1">
-        Tente ajustar a busca ou remover alguns filtros.
-      </p>
-    </div>
-  ) : null}
-</div>
-
-
   
   return (
     <div className="flex flex-col gap-6 w-full">
@@ -88,7 +66,7 @@ function SearchPage() {
           ) : filteredProfessionals && filteredProfessionals.length > 0 ? (
             filteredProfessionals.map((professional: IProfessional) => (
               <FilteredProfessionalCard
-                key={professional.id}
+                key={professional._id}
                 professional={professional}
               />
             ))
@@ -100,17 +78,6 @@ function SearchPage() {
             </div>
           )}
         </div>
-
-        {/* <div className="flex flex-col gap-4 mt-2">
-          {filteredProfessionals
-            ?.slice(0, 4)
-            .map((professional: IProfessional) => (
-              <FilteredProfessionalCard
-                key={professional.id}
-                professional={professional}
-              />
-            ))}
-        </div> */}
       </div>
     </div>
   );

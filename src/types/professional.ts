@@ -1,20 +1,3 @@
-// export type IProfessional = {
-//   id: number;
-//   name: string;
-//   specialization: string;
-//   image: string;
-//   price: number;
-//   rating: number;
-//   reviews: number;
-//   isFavorite: boolean;
-//   accessibility: string[];
-//   preferablyServices: {
-//     id: number;
-//     name: string;
-//   }[];
-//   distance?: number;
-// };
-
 export type Address = {
   cep: string;
   address: string;
