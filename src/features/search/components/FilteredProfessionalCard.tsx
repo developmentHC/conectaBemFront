@@ -4,6 +4,7 @@ import { MdStarRate } from "react-icons/md";
 import { IProfessional } from "@/types/professional";
 import Image from "next/image";
 
+
 type ProfessionalCardProps = {
   professional: IProfessional;
 };
@@ -12,6 +13,8 @@ export const FilteredProfessionalCard = ({
   professional,
 }: ProfessionalCardProps) => {
   if (!professional) return null;
+
+  const services = professional.preferablyServices ?? [];
 
   return (
     <div className="bg-gray-50 rounded-lg shadow-md cursor-pointer max-h-[250px] w-full overflow-hidden ">
@@ -51,7 +54,7 @@ export const FilteredProfessionalCard = ({
           </div>
           <div className="min-h-[30px] max-h-[60px] mt-2 hidden lg:flex">
             <div className="flex flex-row gap-2 flex-wrap">
-              {professional.preferablyServices.slice(0, 2).map((service) => (
+              {services.slice(0, 2).map((service) => (
                 <div
                   key={service.id}
                   className="border border-blue-600 px-2 py-1 rounded-full text-xs"
@@ -59,7 +62,7 @@ export const FilteredProfessionalCard = ({
                   {service.name}
                 </div>
               ))}
-              {professional.preferablyServices.length > 2 && (
+              {services.length > 2 && (
                 <button className="text-sm text-blue-600 hover:text-blue-800 transition-all">
                   + ver mais
                 </button>
@@ -70,7 +73,7 @@ export const FilteredProfessionalCard = ({
       </div>
       <div className="min-h-[30px] max-h-[60px] flex my-4 mx-6 lg:hidden">
         <div className="flex flex-row gap-2 flex-wrap">
-          {professional.preferablyServices.slice(0, 2).map((service) => (
+          {services.slice(0, 2).map((service) => (
             <div
               key={service.id}
               className="border border-blue-600 px-2 py-1 rounded-full text-xs"
@@ -78,7 +81,7 @@ export const FilteredProfessionalCard = ({
               {service.name}
             </div>
           ))}
-          {professional.preferablyServices.length > 2 && (
+          {services.length > 2 && (
             <button className="text-sm text-blue-600 hover:text-blue-800 transition-all">
               + ver mais
             </button>

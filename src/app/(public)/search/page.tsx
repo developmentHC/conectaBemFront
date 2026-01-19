@@ -1,7 +1,7 @@
 "use client";
 
 import { IProfessional } from "@/types/professional";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FilterDialogDesktop } from "@/features/search/components/FilterDialogDesktop";
 import { FilterPanelMobile } from "@/features/search/components/FilterPanelMobile";
 import { MedicalSpecialization } from "@/components/MedicalSpecialization/MedicalSpecialization";
@@ -10,10 +10,16 @@ import { FilteredProfessionalCard } from "@/features/search/components/FilteredP
 import { useFilterProfessional } from "@/features/search/hooks/useFilterProfessional";
 import { SearchInput } from "@/components/SearchInput/SearchInput";
 import { CircularProgress } from "@mui/material";
+import { useDebounce } from "@/hooks/useDebounce";
 
 function SearchPage() {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const { data: filteredProfessionals, isLoading } = useFilterProfessional();
+  const [search, setSearch] = useState("");
+  const [page, setPage] = useState(1);
+
+  const debouncedSearch = useDebounce(search, 500);
+
+  const { data: filteredProfessionals, isLoading } = useFilterProfessional({ search: debouncedSearch, page });
 
   const onFilterChange = () => {
     setIsFilterOpen(!isFilterOpen);
@@ -35,9 +41,30 @@ function SearchPage() {
     );
   }
 
+  console.log(filteredProfessionals);
+
+  <div className="flex flex-col gap-4 mt-2">
+  {isLoading ? (
+    <div className="flex justify-center mt-8">
+      <CircularProgress size={75} />
+    </div>
+  ) : filteredProfessionals?.length === 0 ? (
+    <div className="flex flex-col items-center justify-center mt-8 text-center">
+      <p className="text-lg font-medium text-gray-700">
+        Nenhum profissional encontrado
+      </p>
+      <p className="text-sm text-gray-500 mt-1">
+        Tente ajustar a busca ou remover alguns filtros.
+      </p>
+    </div>
+  ) : null}
+</div>
+
+
+  
   return (
     <div className="flex flex-col gap-6 w-full">
-      <SearchInput />
+      <SearchInput value={search} onChange={setSearch} />
 
       {isFilterOpen && (
         <FilterDialogDesktop
@@ -54,6 +81,27 @@ function SearchPage() {
         </div>
 
         <div className="flex flex-col gap-4 mt-2">
+          {isLoading ? (
+            <div className="flex justify-center mt-8">
+              <CircularProgress size={75} />
+            </div>
+          ) : filteredProfessionals && filteredProfessionals.length > 0 ? (
+            filteredProfessionals.map((professional: IProfessional) => (
+              <FilteredProfessionalCard
+                key={professional.id}
+                professional={professional}
+              />
+            ))
+          ) : (
+            <div className="flex flex-col items-center justify-center mt-8 text-center bg-gray-50 p-8 rounded-lg border border-dashed border-gray-300">
+              <p className="text-lg font-medium text-gray-700">
+                Nenhum resultado encontrado
+              </p>
+            </div>
+          )}
+        </div>
+
+        {/* <div className="flex flex-col gap-4 mt-2">
           {filteredProfessionals
             ?.slice(0, 4)
             .map((professional: IProfessional) => (
@@ -62,7 +110,7 @@ function SearchPage() {
                 professional={professional}
               />
             ))}
-        </div>
+        </div> */}
       </div>
     </div>
   );

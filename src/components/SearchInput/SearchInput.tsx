@@ -1,6 +1,11 @@
 import { GrSearch } from "react-icons/gr";
 
-export const SearchInput = () => {
+type SearchInputProps = {
+  value: string;
+  onChange: (value: string) => void;
+}
+
+export const SearchInput = ({ value, onChange }: SearchInputProps) => {
   return (
     <div className="flex lg:items-center lg:justify-center">
       <div className="flex items-center justify-between w-full h-full border border-[#253E99] rounded-md lg:max-w-[480px]">
@@ -13,6 +18,8 @@ export const SearchInput = () => {
           className="bg-transparent w-full placeholder:text-lg placeholder:text-gray-500 p-4 outline-none"
           type="text"
           placeholder="Buscar profissionais e áreas"
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
         />
       </div>
     </div>
