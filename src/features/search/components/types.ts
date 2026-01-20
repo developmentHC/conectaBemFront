@@ -1,4 +1,7 @@
+import { professionalFilters } from "@/types/professionalFilters";
+
 export type FilterDialogProps = {
   open?: boolean;
-  onFilterChange: () => void;
+  onFilterChange: (filters: professionalFilters) => void;
+  onClose: () => void;
 };

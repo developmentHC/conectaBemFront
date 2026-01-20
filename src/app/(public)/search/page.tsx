@@ -11,6 +11,7 @@ import { useFilterProfessional } from "@/features/search/hooks/useFilterProfessi
 import { SearchInput } from "@/components/SearchInput/SearchInput";
 import { CircularProgress } from "@mui/material";
 import { useDebounce } from "@/hooks/useDebounce";
+import { professionalFilters } from "@/types/professionalFilters";
 
 function SearchPage() {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -19,12 +20,20 @@ function SearchPage() {
 
   const debouncedSearch = useDebounce(search, 500);
 
+  const [filters, setFilters] = useState<professionalFilters>({
+    values: [],
+    accessibility: [],
+    services: [],
+    payments: [],
+    distance: 0,
+  });
+
   // Sempre que o termo mudar, volta para página 1
   useEffect(() => {
     setPage(1);
   }, [debouncedSearch])
 
-  const { data: filteredProfessionals, isLoading } = useFilterProfessional({ search: debouncedSearch, page });
+  const { data: filteredProfessionals, isLoading } = useFilterProfessional({ search: debouncedSearch, page, filters });
 
   const onFilterChange = () => {
     setIsFilterOpen(!isFilterOpen);
@@ -35,7 +44,7 @@ function SearchPage() {
     typeof window !== "undefined" &&
     window.innerWidth < 768
   ) {
-    return <FilterPanelMobile onFilterChange={onFilterChange} />;
+    return <FilterPanelMobile onClose={() => setIsFilterOpen(false)} onFilterChange={onFilterChange} />;
   }
 
   console.log(filteredProfessionals);
@@ -47,7 +56,11 @@ function SearchPage() {
       {isFilterOpen && (
         <FilterDialogDesktop
           open={isFilterOpen}
-          onFilterChange={onFilterChange}
+          onClose={() => setIsFilterOpen(false)}
+          onFilterChange={(filters) => {
+            setFilters(filters);
+            setIsFilterOpen(false);
+          }}
         />
       )}
 

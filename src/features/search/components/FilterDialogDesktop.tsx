@@ -120,8 +120,9 @@ import { useState } from "react";
 export const FilterDialogDesktop = ({
   open,
   onFilterChange,
+  onClose
 }: FilterDialogProps) => {
-  const valueOptions = ["$40", "$30", "$50"];
+  const valueOptions = ["R$40", "R$30", "R$50"];
   const accessibilityOptions = [
     "Piso tátil",
     "Atendimento em libras",
@@ -161,7 +162,7 @@ export const FilterDialogDesktop = ({
       distance: distance,
     };
     console.log("Filtros aplicados:", filters);
-    onFilterChange?.();
+    onFilterChange(filters);
   };
 
   return (
@@ -175,7 +176,7 @@ export const FilterDialogDesktop = ({
         <div className="flex flex-col items-center gap-10">
           <div className="flex flex-col gap-3 w-full">
             <div className="flex justify-end">
-              <IconButton onClick={onFilterChange}>
+              <IconButton onClick={onClose}>
                 <IoMdClose className="text-2xl" size={20} />
               </IconButton>
             </div>
