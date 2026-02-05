@@ -6,12 +6,12 @@ export const useProfessional = () => {
   return useQuery<IProfessional[]>({
     queryKey: ["professional"],
     queryFn: async () => {
-      const response = await axios.get("mocks/professional.json");
+      const response = await axios.get("/mocks/professional.json");
 
       return response.data;
     },
     refetchOnWindowFocus: false,
     retry: false,
-    staleTime: 10 *60 * 1000,
+    staleTime: 10 * 60 * 1000,
   });
 };
