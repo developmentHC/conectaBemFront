@@ -10,21 +10,21 @@ type Props = {
 };
 
 function mapStatus(a: IAppointment): PatientAppointmentStatus {
-  const raw = String((a as any).derivedStatus ?? a.status ?? "").trim().toLowerCase();
+    const raw = String((a as any).derivedStatus ?? a.status ?? "").trim().toLowerCase();
 
-  // PT-BR (mock)
-  if (raw.includes("pendente") || raw.includes("aguardando")) return "pending";
-  if (raw.includes("confirm")) return "confirmed";
-  if (raw.includes("conclu")) return "completed";
-  if (raw.includes("cancel")) return "canceled";
+    // PT-BR (mock)
+    if (raw.includes("pendente") || raw.includes("aguardando")) return "pending";
+    if (raw.includes("confirm")) return "confirmed";
+    if (raw.includes("conclu")) return "completed";
+    if (raw.includes("cancel")) return "canceled";
 
-  // EN (backend)
-  if (raw === "pending") return "pending";
-  if (raw === "confirmed") return "confirmed";
-  if (raw === "completed") return "completed";
-  if (raw === "canceled" || raw === "cancelled") return "canceled";
+    // EN (backend)
+    if (raw === "pending") return "pending";
+    if (raw === "confirmed") return "confirmed";
+    if (raw === "completed") return "completed";
+    if (raw === "canceled" || raw === "cancelled") return "canceled";
 
-  return "confirmed";
+    return "confirmed";
 }
 
 
@@ -49,41 +49,45 @@ function formatPriceLabel(a: IAppointment) {
 }
 
 function formatAddressLine(a: IAppointment) {
+    if (a.selectedAddress) {
+        return a.selectedAddress;
+    }
 
     const addr = Array.isArray(a.address) ? (a.address.find((x: any) => x?.active) ?? a.address[0]) : (a.address as any);
     if (!addr) return undefined;
 
     const line = addr.address ?? "";
     const neighborhood = addr.neighborhood ? ` - ${addr.neighborhood}` : "";
-    return `${line}${neighborhood}`.trim() || undefined;
+    const cityState = addr.city && addr.state ? `, ${addr.city} - ${addr.state}` : "";
+    return `${line}${neighborhood}${cityState}`.trim() || undefined;
 }
 
 function getCtasByStatus(status: PatientAppointmentStatus) {
-  switch (status) {
-    case "confirmed":
-      return {
-        primary: "Informações do Agendamento",
-        secondary: "Perguntar ao Profissional",
-      };
+    switch (status) {
+        case "confirmed":
+            return {
+                primary: "Informações do Agendamento",
+                secondary: "Perguntar ao Profissional",
+            };
 
-    case "pending":
-      return {
-        primary: "Informações do Agendamento",
-        secondary: "Perguntar ao Profissional",
-        note: "Aguardando confirmação do profissional",
-      };
+        case "pending":
+            return {
+                primary: "Informações do Agendamento",
+                secondary: "Perguntar ao Profissional",
+                note: "Aguardando confirmação do profissional",
+            };
 
-    case "completed":
-      return {
-        primary: "Reagendar Atendimento",
-        secondary: "Avaliar Atendimento",
-      };
+        case "completed":
+            return {
+                primary: "Reagendar Atendimento",
+                secondary: "Avaliar Atendimento",
+            };
 
-    case "canceled":
-      return {
-        primary: "Informações do Agendamento",
-      };
-  }
+        case "canceled":
+            return {
+                primary: "Informações do Agendamento",
+            };
+    }
 }
 
 

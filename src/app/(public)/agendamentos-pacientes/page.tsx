@@ -2,13 +2,14 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { MdStarRate } from "react-icons/md";
 import { useAppointments } from "@/features/agentamentos/hooks/useAppointments";
 import { AppointmentsPatientGrid } from "@/features/agentamentos/components/AppointmentsPatientGrid";
 import { useProfessional } from "@/features/home/hooks/useProfessional";
 import { filterAndSortProfessionals } from "@/utils/filterProfessionals";
 import type { IAppointment } from "@/types/appointment";
+import { useRouter } from "next/navigation";
 
 type MainTab = "confirmed" | "pending" | "canceled";
 type ConfirmedSubFilter = "all" | "confirmed" | "completed";
@@ -32,8 +33,31 @@ function toInternalStatus(a: IAppointment): "confirmed" | "pending" | "completed
 export default function AgendamentosPacientesPage() {
 
   const { data: appointments = [], isLoading, error } = useAppointments();
+  const router = useRouter();
   const [mainTab, setMainTab] = useState<MainTab>("confirmed");
   const [confirmedFilter, setConfirmedFilter] = useState<ConfirmedSubFilter>("all");
+
+  const handleInfoNavigation = useCallback(
+    (appointmentId: string) => {
+      router.push(`/agendamentos-pacientes/${appointmentId}`);
+    },
+    [router],
+  );
+
+  const handleAskProfessional = useCallback(
+    (appointmentId: string) => {
+      const target = appointments.find((item) => String(item.id) === String(appointmentId));
+      const professionalName = target?.professional?.name ?? "profissional da ConectaBem";
+      const subject = encodeURIComponent(`Pergunta sobre o agendamento ${appointmentId}`);
+      const body = encodeURIComponent(`Olá ${professionalName},\n\n`);
+      const email = (target as any)?.professional?.email || "contato@conectabem.com";
+
+      if (typeof window !== "undefined") {
+        window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+      }
+    },
+    [appointments],
+  );
 
   const filteredAppointments = useMemo(() => {
     const withInternal = appointments.map((a) => ({ a, st: toInternalStatus(a) }));
@@ -173,8 +197,8 @@ export default function AgendamentosPacientesPage() {
         {hasFilteredAppointments ? (
           <AppointmentsPatientGrid
             appointments={filteredAppointments}
-            onInfo={(id) => console.log("info", id)}
-            onAsk={(id) => console.log("ask", id)}
+            onInfo={handleInfoNavigation}
+            onAsk={handleAskProfessional}
           />
         ) : (
           <section className="rounded-3xl  px-6 py-10 text-center">
