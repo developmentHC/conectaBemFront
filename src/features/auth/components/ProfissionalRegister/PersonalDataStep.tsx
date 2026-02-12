@@ -71,7 +71,7 @@ const schema = z.object({
     ),
   enderecoResidencial: z.string().min(3, "Endereço inválido"),
   numeroResidencial: z.string().min(1, "Número obrigatório"), 
-  bairroResidencial: z.string().min(3, "Bairro inválido"),
+  bairroResidencial: z.string().min(2, "Bairro inválido"),
   cidadeResidencial: z.string().min(3, "Cidade inválida"),
   estadoResidencial: z.string().min(2, "Estado inválido"),
 });
