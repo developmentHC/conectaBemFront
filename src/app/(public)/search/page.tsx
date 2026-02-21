@@ -1,7 +1,9 @@
 "use client";
 
 import { IProfessional } from "@/types/professional";
-import { useEffect, useState } from "react";
+import { professionalFilters } from "@/types/professionalFilters";
+import { useEffect, useMemo, useState } from "react";
+
 import { FilterDialogDesktop } from "@/features/search/components/FilterDialogDesktop";
 import { FilterPanelMobile } from "@/features/search/components/FilterPanelMobile";
 import { MedicalSpecialization } from "@/components/MedicalSpecialization/MedicalSpecialization";
@@ -11,7 +13,51 @@ import { useFilterProfessional } from "@/features/search/hooks/useFilterProfessi
 import { SearchInput } from "@/components/SearchInput/SearchInput";
 import { CircularProgress } from "@mui/material";
 import { useDebounce } from "@/hooks/useDebounce";
-import { professionalFilters } from "@/types/professionalFilters";
+
+const applyFilters = (
+  professionals: IProfessional[],
+  filters: professionalFilters
+) => {
+  return professionals.filter((p) => {
+    if (
+      filters.services.length &&
+      !filters.services.some((s) => p.services?.includes(s))
+    ) {
+      return false;
+    }
+
+    if (
+      filters.accessibility.length &&
+      !filters.accessibility.some((a) =>
+        p.accessibility?.includes(a)
+      )
+    ) {
+      return false;
+    }
+
+    if (
+      filters.payments.length &&
+      !filters.payments.some((pay) =>
+        p.payments?.includes(pay)
+      )
+    ) {
+      return false;
+    }
+
+    if (
+      filters.values.length &&
+      !filters.values.includes(p.priceRange)
+    ) {
+      return false;
+    }
+
+    if (filters.distance && p.distance > filters.distance) {
+      return false;
+    }
+
+    return true;
+  });
+};
 
 function SearchPage() {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -30,9 +76,18 @@ function SearchPage() {
 
   useEffect(() => {
     setPage(1);
-  }, [debouncedSearch])
+  }, [debouncedSearch]);
 
-  const { data: filteredProfessionals, isLoading } = useFilterProfessional({ search: debouncedSearch, page, filters });
+  const { data: professionals, isLoading } = useFilterProfessional({
+    search: debouncedSearch,
+    page,
+    filters,
+  });
+
+  const filteredProfessionals = useMemo(() => {
+    if (!professionals) return [];
+    return applyFilters(professionals, filters);
+  }, [professionals, filters]);
 
   const onFilterChange = () => {
     setIsFilterOpen(!isFilterOpen);
@@ -43,11 +98,14 @@ function SearchPage() {
     typeof window !== "undefined" &&
     window.innerWidth < 768
   ) {
-    return <FilterPanelMobile onClose={() => setIsFilterOpen(false)} onFilterChange={onFilterChange} />;
+    return (
+      <FilterPanelMobile
+        onClose={() => setIsFilterOpen(false)}
+        onFilterChange={onFilterChange}
+      />
+    );
   }
 
-  console.log(filteredProfessionals);
-  
   return (
     <div className="flex flex-col gap-6 w-full">
       <SearchInput value={search} onChange={setSearch} />
@@ -56,8 +114,8 @@ function SearchPage() {
         <FilterDialogDesktop
           open={isFilterOpen}
           onClose={() => setIsFilterOpen(false)}
-          onFilterChange={(filters) => {
-            setFilters(filters);
+          onFilterChange={(newFilters) => {
+            setFilters(newFilters);
             setIsFilterOpen(false);
           }}
         />
@@ -65,6 +123,7 @@ function SearchPage() {
 
       <div className="flex flex-col gap-4">
         <h1 className="text-2xl font-semibold">Resultados</h1>
+
         <div className="flex gap-2">
           <FilterButton onClick={onFilterChange} />
           <MedicalSpecialization />
@@ -75,8 +134,8 @@ function SearchPage() {
             <div className="flex justify-center mt-8">
               <CircularProgress size={75} />
             </div>
-          ) : filteredProfessionals && filteredProfessionals.length > 0 ? (
-            filteredProfessionals.map((professional: IProfessional) => (
+          ) : filteredProfessionals.length > 0 ? (
+            filteredProfessionals.map((professional) => (
               <FilteredProfessionalCard
                 key={professional._id}
                 professional={professional}
@@ -94,4 +153,5 @@ function SearchPage() {
     </div>
   );
 }
+
 export default SearchPage;
