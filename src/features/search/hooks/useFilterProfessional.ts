@@ -27,8 +27,6 @@ type Params = {
   filters: professionalFilters;
 }
 
-
-
 export const useFilterProfessional = ({ search, page, filters }: Params) => {
   return useQuery<IProfessional[]>({
     queryKey: ["professional", search, page, filters.values.join(","),
@@ -41,13 +39,11 @@ export const useFilterProfessional = ({ search, page, filters }: Params) => {
 
       const isMock = process.env.NEXT_PUBLIC_ENABLE_API_MOCKING === "true";
 
-      // const url = isMock
+      //  const url = isMock
       //   ? "/mocks/professional.json"
-      //   : `/search/searchBar/${encodeURIComponent(search)}/${page}`;
+      //   : `https://conecta-bem-back.vercel.app/search/searchBar/${encodeURIComponent(search)}`;
 
-       const url = isMock
-        ? "/mocks/professional.json"
-        : `https://conecta-bem-back.vercel.app/search/searchBar/${encodeURIComponent(search)}`;
+       const url = `https://conecta-bem-back.vercel.app/search/searchBar/${encodeURIComponent(search)}`;
 
        const response = await axios.get(url);
 
@@ -58,7 +54,7 @@ export const useFilterProfessional = ({ search, page, filters }: Params) => {
 
       return response.data.professionals ?? [];
     },
-    enabled: !!search, // só busca se tiver termo
+    enabled: !!search,
     refetchOnWindowFocus: false,
     retry: false,
     staleTime: 10 * 60 * 1000,

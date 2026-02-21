@@ -28,7 +28,6 @@ function SearchPage() {
     distance: 0,
   });
 
-  // Sempre que o termo mudar, volta para página 1
   useEffect(() => {
     setPage(1);
   }, [debouncedSearch])
