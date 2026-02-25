@@ -127,7 +127,19 @@ function SearchPage() {
 
         <div className="flex gap-2">
           <FilterButton onClick={onFilterChange} />
-          <MedicalSpecialization />
+          <MedicalSpecialization
+              selectedSpecializations={filters.services}
+              onToggleSpecialization={(name) => {
+                setFilters((prev) => {
+                  const alreadySelected = prev.services.includes(name);
+                  const updatedServices = alreadySelected
+                    ? prev.services.filter((s) => s !== name) 
+                    : [...prev.services, name];
+
+                  return { ...prev, services: updatedServices };
+                });
+              }}
+            />
         </div>
 
         <div className="flex flex-col gap-4 mt-2">
