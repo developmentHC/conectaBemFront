@@ -1,10 +1,11 @@
 import { IoMdClose } from "react-icons/io";
 import { FilterDialogProps } from "./types";
 import { Dialog, DialogContent, IconButton } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const FilterDialogDesktop = ({
   open,
+  filters,
   onFilterChange,
   onClose
 }: FilterDialogProps) => {
@@ -25,11 +26,11 @@ export const FilterDialogDesktop = ({
 
   const paymentOptions = ["Visa", "Mastercard", "Pix", "Wellhub"];
 
-  const [selectedValues, setSelectedValues] = useState<string[]>([]);
-  const [selectedAccessibility, setSelectedAccessibility] = useState<string[]>([]);
-  const [selectedServices, setSelectedServices] = useState<string[]>([]);
-  const [selectedPayment, setSelectedPayment] = useState<string[]>([]);
-  const [distance, setDistance] = useState(0);
+  const [selectedValues, setSelectedValues] = useState<string[]>(filters.values);
+  const [selectedAccessibility, setSelectedAccessibility] = useState<string[]>(filters.accessibility);
+  const [selectedServices, setSelectedServices] = useState<string[]>(filters.services);
+  const [selectedPayment, setSelectedPayment] = useState<string[]>(filters.payments);
+  const [distance, setDistance] = useState(filters.distance);
 
    const toggleSelection = (item: string, set: any, selected: string[]) => {
     if (selected.includes(item)) {

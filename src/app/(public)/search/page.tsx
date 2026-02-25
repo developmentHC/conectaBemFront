@@ -113,6 +113,7 @@ function SearchPage() {
       {isFilterOpen && (
         <FilterDialogDesktop
           open={isFilterOpen}
+          filters={filters}
           onClose={() => setIsFilterOpen(false)}
           onFilterChange={(newFilters) => {
             setFilters(newFilters);
