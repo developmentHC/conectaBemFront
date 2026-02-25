@@ -4,6 +4,7 @@ import { MdStarRate } from "react-icons/md";
 import { IProfessional } from "@/types/professional";
 import Image from "next/image";
 import { getAvatarUrl } from "@/utils/avatar";
+import Link from "next/link";
 
 type ProfessionalCardProps = {
   professional: IProfessional;
@@ -84,9 +85,14 @@ export const FilteredProfessionalCard = ({
             )}
           </div>
 
-          <button className="w-full bg-[#4353FF] hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition-colors mt-4">
-            Ver Perfil
-          </button>
+          <Link 
+            href={`/professional/${_id}`} 
+            className="w-full block"
+          >
+            <button className="w-full bg-[#4353FF] hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition-colors mt-4">
+              Ver Perfil
+            </button>
+          </Link>
         </div>
       </div>
     </div>
