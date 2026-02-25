@@ -11,9 +11,9 @@ const accessibilityOptions = [
 ];
 const serviceOptions = ["LGBTQIAP+ Friendly", "Pet Friendly", "Aceita Wellhub"];
 
-export const FilterPanelMobile = ({ onFilterChange }: FilterDialogProps) => {
+export const FilterPanelMobile = ({ onFilterChange, filters }: FilterDialogProps) => {
   const handleOnFilter = () => {
-    onFilterChange();
+    onFilterChange(filters);
   };
 
   return (
@@ -22,7 +22,7 @@ export const FilterPanelMobile = ({ onFilterChange }: FilterDialogProps) => {
         <div className="w-fit">
           <button
             className="flex items-center gap-1 text-sm"
-            onClick={onFilterChange}
+            onClick={() => onFilterChange(filters)}
           >
             <IoMdArrowBack size={20} />
             voltar
@@ -74,21 +74,7 @@ export const FilterPanelMobile = ({ onFilterChange }: FilterDialogProps) => {
             ))}
           </div>
         </div>
-        <div className="w-full flex flex-col gap-4">
-          <span className="text-xl">Distância</span>
-          <div className="flex flex-col gap-2">
-            <input
-              type="range"
-              min={0}
-              max={12}
-              className="w-full bg-blue-600"
-            />
-            <div className="flex justify-between text-gray-400 text-sm">
-              <span>0 km</span>
-              <span>12 km</span>
-            </div>
-          </div>
-        </div>
+
       </div>
       <button
         className="flex justify-center w-full bg-blue-600 py-2 rounded-lg text-center tracking-widest"

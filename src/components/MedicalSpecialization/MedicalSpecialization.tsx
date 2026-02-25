@@ -37,7 +37,7 @@ export const MedicalSpecialization = ({
   return (
     <div className="flex gap-2 overflow-x-auto lg:justify-center">
       {specialization.map((item) => {
-        const isActive = selectedSpecializations.includes(item.name);
+        const isActive = (selectedSpecializations || []).includes(item.name);
         return (
           <div
             key={item.id}

@@ -51,10 +51,6 @@ const applyFilters = (
       return false;
     }
 
-    if (filters.distance && p.distance > filters.distance) {
-      return false;
-    }
-
     return true;
   });
 };
@@ -102,6 +98,12 @@ function SearchPage() {
       <FilterPanelMobile
         onClose={() => setIsFilterOpen(false)}
         onFilterChange={onFilterChange}
+        filters={{
+          values: [],
+          accessibility: [],
+          services: [],
+          payments: [],
+        }}
       />
     );
   }
