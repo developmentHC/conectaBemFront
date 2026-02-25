@@ -10,6 +10,7 @@ export type Address = {
 
 export type Clinic = {
   _id: string;
+  name: string;
   addition: string;
   cep: string;
   address: string;

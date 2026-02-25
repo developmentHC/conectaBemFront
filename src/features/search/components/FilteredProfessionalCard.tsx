@@ -14,81 +14,79 @@ export const FilteredProfessionalCard = ({
 }: ProfessionalCardProps) => {
   if (!professional) return null;
 
-  const services = professional.professionalServicePreferences ?? [];
-  const specialties =
-    professional.professionalSpecialties?.join(", ") ?? "";
+  const {
+    name,
+    imageUrl,
+    ratingsAvg,
+    ratingsCount,
+    professionalSpecialties = [],
+    clinic,
+    _id
+  } = professional;
+
+  const location = clinic?.city && clinic?.state 
+    ? `${clinic.city} - ${clinic.state}`
+    : "Localização não informada";
 
   return (
-    <div className="bg-gray-50 rounded-lg shadow-md cursor-pointer max-h-[250px] w-full overflow-hidden">
-      <div className="flex flex-row h-full my-4 mx-6 gap-8">
-        <Image
-          className="rounded-lg max-w-[80px] lg:max-w-[160px] max-h-[80px] lg:max-h-[160px] object-cover"
-          src={professional.imageUrl || getAvatarUrl(professional.name)}
-          alt={professional.name}
-          width={240}
-          height={160}
-        />
-
-        <div className="flex flex-col">
-          <p className="text-2xl font-semibold w-40 truncate sm:w-full">
-            {professional.name}
-          </p>
-
-          <div className="flex gap-1 items-center">
-            <span className="font-semibold">
-              {Number.isInteger(professional.ratingsAvg)
-                ? `${professional.ratingsAvg}.0`
-                : professional.ratingsAvg}
-            </span>
-            <MdStarRate className="text-yellow-400" />
-            <span className="text-sm text-gray-400">
-              ({professional.ratingsCount} avaliações)
-            </span>
-          </div>
-
-          <div className="flex flex-col gap-[5px]">
-            <span className="text-gray-500 text-sm truncate max-w-[250px]">
-              {specialties}
-            </span>
-          </div>
-
-          <div className="min-h-[30px] max-h-[60px] mt-2 hidden lg:flex">
-            <div className="flex flex-row gap-2 flex-wrap">
-              {services.slice(0, 2).map((service, index) => (
-                <div
-                  key={`${professional._id}-service-${index}`}
-                  className="border border-blue-600 px-2 py-1 rounded-full text-xs"
-                >
-                  {service}
-                </div>
-              ))}
-
-              {services.length > 2 && (
-                <button className="text-sm text-blue-600 hover:text-blue-800 transition-all">
-                  + ver mais
-                </button>
-              )}
-            </div>
-          </div>
+    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden w-full p-4 mb-4">
+      <div className="flex flex-row gap-6">
+        <div className="relative min-w-[140px] h-[140px] lg:min-w-[180px] lg:h-[180px]">
+          <Image
+            className="rounded-xl object-cover"
+            src={imageUrl || getAvatarUrl(name)}
+            alt={name}
+            fill
+            sizes="(max-width: 768px) 140px, 180px"
+          />
         </div>
-      </div>
 
-      <div className="min-h-[30px] max-h-[60px] flex my-4 mx-6 lg:hidden">
-        <div className="flex flex-row gap-2 flex-wrap">
-          {services.slice(0, 2).map((service, index) => (
-            <div
-              key={`${professional._id}-service-mobile-${index}`}
-              className="border border-blue-600 px-2 py-1 rounded-full text-xs"
-            >
-              {service}
+        <div className="flex flex-col flex-1 justify-between">
+          <div>
+            <h3 className="text-[#2B478B] text-2xl font-bold truncate">
+              {name}
+            </h3>
+
+            <div className="flex items-center gap-1 mt-1">
+              <span className="font-bold text-gray-800 text-lg">
+                {(ratingsAvg || 0).toFixed(1)}
+              </span>
+              <MdStarRate className="text-yellow-400 text-xl" />
+              <span className="text-sm text-gray-400">
+                ({ratingsCount || 0} avaliações)
+              </span>
             </div>
-          ))}
 
-          {services.length > 2 && (
-            <button className="text-sm text-blue-600 hover:text-blue-800 transition-all">
-              + ver mais
-            </button>
-          )}
+            <div className="flex flex-col gap-0.5 mt-1">
+              <span className="text-gray-600 font-medium text-sm truncate">
+                {clinic?.name || "Clínica Independente"}
+              </span>
+              <span className="text-gray-400 text-xs">
+                {location}
+              </span>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-2 mt-3 max-w-[400px]">
+            {professionalSpecialties.length > 0 ? (
+              professionalSpecialties.slice(0, 4).map((spec, index) => (
+                <div
+                  key={`${_id}-spec-${index}`}
+                  className="border border-[#2B478B] text-[#2B478B] text-center py-1.5 px-2 rounded-2xl text-xs font-medium truncate"
+                >
+                  {spec}
+                </div>
+              ))
+            ) : (
+              <div className="text-gray-300 text-xs italic">
+                Nenhuma especialidade listada
+              </div>
+            )}
+          </div>
+
+          <button className="w-full bg-[#4353FF] hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition-colors mt-4">
+            Ver Perfil
+          </button>
         </div>
       </div>
     </div>
