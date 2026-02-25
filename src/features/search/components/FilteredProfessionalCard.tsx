@@ -1,6 +1,6 @@
 "use client";
 
-import { MdStarRate } from "react-icons/md";
+import { MdStarRate, MdPayments } from "react-icons/md";
 import { IProfessional } from "@/types/professional";
 import Image from "next/image";
 import { getAvatarUrl } from "@/utils/avatar";
@@ -22,12 +22,19 @@ export const FilteredProfessionalCard = ({
     ratingsCount,
     professionalSpecialties = [],
     clinic,
+    acceptedPayments,
     _id
   } = professional;
 
   const location = clinic?.city && clinic?.state 
     ? `${clinic.city} - ${clinic.state}`
     : "Localização não informada";
+
+  const paymentsList = acceptedPayments 
+    ? Object.entries(acceptedPayments)
+        .filter(([_, value]) => value === true)
+        .map(([key]) => key)
+    : [];
 
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden w-full p-4 mb-4">
@@ -69,7 +76,7 @@ export const FilteredProfessionalCard = ({
           </div>
 
           <div className="grid grid-cols-2 gap-2 mt-3 max-w-[400px]">
-            {professionalSpecialties.length > 0 ? (
+            {professionalSpecialties?.length > 0 ? (
               professionalSpecialties.slice(0, 4).map((spec, index) => (
                 <div
                   key={`${_id}-spec-${index}`}
@@ -84,6 +91,24 @@ export const FilteredProfessionalCard = ({
               </div>
             )}
           </div>
+
+          {paymentsList.length > 0 && (
+            <div className="mt-3 flex flex-wrap gap-2 items-center">
+              <span className="text-[10px] uppercase font-bold text-gray-400 flex items-center gap-1">
+                <MdPayments size={14} /> Aceita:
+              </span>
+              <div className="flex gap-1.5">
+                {paymentsList.map((method) => (
+                  <span 
+                    key={method} 
+                    className="bg-gray-100 text-gray-600 px-2 py-0.5 rounded text-[10px] font-semibold uppercase"
+                  >
+                    {method}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
 
           <Link 
             href={`/professional/${_id}`} 

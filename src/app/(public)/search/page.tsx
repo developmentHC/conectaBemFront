@@ -21,7 +21,7 @@ const applyFilters = (
   return professionals.filter((p) => {
     if (
       filters.services.length &&
-      !filters.services.some((s) => p.professionalSpecialties?.includes(s))
+      !filters.services.some((s) => (p.professionalSpecialties || []).includes(s))
     ) {
       return false;
     }
@@ -29,7 +29,7 @@ const applyFilters = (
     if (
       filters.accessibility.length &&
       !filters.accessibility.some((a) =>
-        p.accessibility?.includes(a)
+        p.professionalServicePreferences?.includes(a)
       )
     ) {
       return false;
@@ -38,7 +38,7 @@ const applyFilters = (
     if (
       filters.payments.length &&
       !filters.payments.some((pay) =>
-        p.payments?.includes(pay)
+        p.acceptedPayments?.includes(pay)
       )
     ) {
       return false;
@@ -67,7 +67,6 @@ function SearchPage() {
     accessibility: [],
     services: [],
     payments: [],
-    distance: 0,
   });
 
   useEffect(() => {
