@@ -48,7 +48,7 @@ export const FilterDialogDesktop = ({
       payments: selectedPayment,
       distance: distance,
     };
-    console.log("Filtros aplicados:", filters);
+    
     onFilterChange(filters);
   };
 

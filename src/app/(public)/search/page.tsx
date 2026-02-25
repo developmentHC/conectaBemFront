@@ -21,7 +21,7 @@ const applyFilters = (
   return professionals.filter((p) => {
     if (
       filters.services.length &&
-      !filters.services.some((s) => p.services?.includes(s))
+      !filters.services.some((s) => p.professionalSpecialties?.includes(s))
     ) {
       return false;
     }

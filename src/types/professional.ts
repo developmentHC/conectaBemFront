@@ -1,4 +1,16 @@
 export type Address = {
+  active: boolean;
+  address: string;
+  cep: string;
+  city: string;
+  neighborhood: string;
+  state: string;
+  _id: string;
+};
+
+export type Clinic = {
+  _id: string;
+  addition: string;
   cep: string;
   address: string;
   neighborhood: string;
@@ -7,36 +19,28 @@ export type Address = {
   state?: string;
 };
 
-export type Clinic = {
-  name: string;
-  cep: string;
-  address: string;
-  neighborhood: string;
-  number: string;
-};
-
 export type IProfessional = {
-    _id: string;
-    name: string;
-    imageUrl: string;
-    CNPJCPFProfissional: string;
-    birthdayDate: string;
-    ratingsAvg: number;
-    ratingsCount: number;
+  _id: string;
+  name: string;
+  imageUrl: string | null;
+  CNPJCPFProfissional: string;
+  birthdayDate: string;
+  ratingsAvg: number;
+  ratingsCount: number;
 
-    professionalSpecialties: string[];
-    otherProfessionalSpecialties: string[];
-    professionalServicePreferences: string[];
+  professionalSpecialties: string[];
+  otherProfessionalSpecialties: string[];
+  professionalServicePreferences: string[];
 
-    acceptedPayments: {
-      pix: boolean;
-      wellhub: boolean;
-      mastercard: boolean;
-      visa: boolean;
-    };
+  acceptedPayments: {
+    pix: boolean;
+    wellhub: boolean;
+    mastercard: boolean;
+    visa: boolean;
+  };
 
-    address: Address[];
-    clinic: Clinic;
+  address: Address[];
+  clinic: Clinic;
 };
 
 export type ICreateProfissional = {

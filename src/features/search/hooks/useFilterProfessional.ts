@@ -11,11 +11,16 @@ type Params = {
 
 export const useFilterProfessional = ({ search, page, filters }: Params) => {
   return useQuery<IProfessional[]>({
-    queryKey: ["professional", search, page, filters.values.join(","),
-    filters.accessibility.join(","),
-    filters.services.join(","),
-    filters.payments.join(","),
-    filters.distance,],
+    queryKey: [
+    "professional",
+    search,
+    page,
+    (filters.values ?? []).join(","),
+    (filters.accessibility ?? []).join(","),
+    (filters.services ?? []).join(","),
+    (filters.payments ?? []).join(","),
+    filters.distance,
+  ],
     queryFn: async () => {
       if(!search) return [];
 
