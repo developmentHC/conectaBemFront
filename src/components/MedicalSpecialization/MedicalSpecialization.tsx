@@ -1,3 +1,4 @@
+import { FilterButton } from "@/features/search/components/FilterButton";
 const specialization = [
   {
     id: 1,
@@ -27,15 +28,18 @@ const specialization = [
 
 export const MedicalSpecialization = () => {
   return (
-    <div className="flex gap-2 overflow-x-auto lg:justify-center">
-      {specialization.map((item) => (
-        <div
-          className="border border-blue-600 text-sm p-2 rounded-t-lg rounded-br-lg cursor-pointer "
-          key={item.id}
-        >
-          {item.name}
-        </div>
-      ))}
+    <div className="flex flex-col items-center justify-center gap-6 self-stretch w-full">
+      <div className="flex w-full max-w-[929px] items-center justify-center gap-2 flex-wrap">
+        <FilterButton onClick={() => { }} />
+        {specialization.map((item) => (
+          <div
+            className="flex h-10 items-center justify-center gap-2 px-3 py-2 rounded-t-lg rounded-br-lg border border-secondary-500 bg-white text-sm leading-[21px] text-black-500 cursor-pointer"
+            key={item.id}
+          >
+            {item.name}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

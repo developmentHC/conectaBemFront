@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useMemo, useState } from "react";
-import { AppointmentCard } from "./AppointmentCard";
+import { AppointmentCard } from "./AppointmentProfessionalCard";
 import type { IAppointment } from "@/types/appointment";
 
 const BASE_TIMES = [

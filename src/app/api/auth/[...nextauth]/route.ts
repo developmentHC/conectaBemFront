@@ -100,38 +100,60 @@ const nextAuthOptions: NextAuthOptions = {
     verifyRequest: "/auth/confirmar-codigo",
   },
   callbacks: {
-    async signIn({ user, account }) {
-      if (account?.provider === "google") {
-        try {
-          const response = await api.post("/auth/sendOTP", { email: user.email });
-          const data = response.data;
+  async signIn({ user, account }) {
+    // ... mantém como está
+    if (account?.provider === "google") {
+      try {
+        const response = await api.post("/auth/sendOTP", { email: user.email });
+        const data = response.data;
 
-          if (data.email.status === "completed") {
-            Object.assign(user, data.user);
-            return true;
-          } else if (data.email.status === "pending") {
-            const params = new URLSearchParams({
-              userId: data.id || "",
-            });
-            return `/auth/registro?${params.toString()}`;
-          }
-        } catch {
-          throw new Error("Erro ao fazer login");
+        if (data.email.status === "completed") {
+          Object.assign(user, data.user);
+          return true;
+        } else if (data.email.status === "pending") {
+          const params = new URLSearchParams({
+            userId: data.id || "",
+          });
+          return `/auth/registro?${params.toString()}`;
         }
+      } catch {
+        throw new Error("Erro ao fazer login");
       }
-      return true;
-    },
-    async jwt({ token, user }) {
-      if (user) {
-        token.user = user;
-      }
-      return token;
-    },
-    async session({ session, token }) {
-      session.user = token.user as any;
-      return session;
-    },
+    }
+    return true;
   },
+
+  async jwt({ token, user }) {
+    // mantém o user
+    if (user) {
+      token.user = user as any;
+
+      //  pega o token do backend e guarda num campo próprio
+      const backendToken = (user as any).token;
+      if (backendToken) {
+        (token as any).accessToken = backendToken;
+      }
+
+      // guardar type também de forma direta
+      const userType = (user as any).type;
+      if (userType) {
+        (token as any).userType = userType;
+      }
+    }
+    return token;
+  },
+
+  async session({ session, token }) {
+    session.user = token.user as any;
+
+    // expõe pro client
+    (session as any).accessToken = (token as any).accessToken;
+    (session as any).userType = (token as any).userType;
+
+    return session;
+  },
+},
+
   debug: process.env.NODE_ENV === "development",
   /* logger: {
     error(code, metadata) {

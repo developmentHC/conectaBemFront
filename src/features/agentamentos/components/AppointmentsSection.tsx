@@ -1,6 +1,8 @@
+"use client";
+
 import { useAppointments } from "../hooks/useAppointments";
 import { useFilterAppointments } from "../hooks/useFilterAppointments";
-import { AppointmentTimeline } from "./AppointmentTimeline";
+import { AppointmentTimeline } from "./AppointmentProfessionalTimeline";
 
 export const AppointmentsSection = ({
   tabValue,
@@ -14,7 +16,7 @@ export const AppointmentsSection = ({
   const filteredAppointments = useFilterAppointments(
     appointments || [],
     tabValue,
-    selectedDate 
+    selectedDate
   );
 
   if (isLoading) {
@@ -38,4 +40,4 @@ export const AppointmentsSection = ({
       <AppointmentTimeline appointments={filteredAppointments} />
     </section>
   );
-}
+};

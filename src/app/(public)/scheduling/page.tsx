@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import AppointmentStatusTabs from "@/features/agentamentos/components/AppointmentStatusTabs";
+import AppointmentStatusTabs from "@/features/agentamentos/components/AppointmentsStatusTabs";
 import { AppointmentDateTags } from "@/features/agentamentos/components/AppointmentDateTags";
 import { AppointmentsSection } from "@/features/agentamentos/components/AppointmentsSection";
 import { InlineCalendar } from "@/features/agentamentos/components/InlineCalendar";
