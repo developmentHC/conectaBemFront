@@ -104,7 +104,7 @@ export default function AgendamentosPacientesPage() {
   return (
     <main className="max-w-6xl mx-auto px-4 py-6">
       <h1 className="text-2xl font-semibold">Meus Agendamentos</h1>
-      <p className="mt-1 text-sm text-slate-500">
+      <p className="mt-1 text-base text-slate-500">
         Selecione o status para exibir seus agendamentos
       </p>
 
@@ -115,7 +115,7 @@ export default function AgendamentosPacientesPage() {
             type="button"
             onClick={() => setMainTab("confirmed")}
             className={[
-              "rounded-lg py-2 text-sm font-medium",
+              "rounded-lg py-2 text-base font-medium",
               mainTab === "confirmed" ? "bg-blue-600 text-white" : "text-slate-600 hover:bg-slate-50",
             ].join(" ")}
           >
@@ -126,7 +126,7 @@ export default function AgendamentosPacientesPage() {
             type="button"
             onClick={() => setMainTab("pending")}
             className={[
-              "rounded-lg py-2 text-sm font-medium",
+              "rounded-lg py-2 text-base font-medium",
               mainTab === "pending" ? "bg-blue-600 text-white" : "text-slate-600 hover:bg-slate-50",
             ].join(" ")}
           >
@@ -137,7 +137,7 @@ export default function AgendamentosPacientesPage() {
             type="button"
             onClick={() => setMainTab("canceled")}
             className={[
-              "rounded-lg py-2 text-sm font-medium",
+              "rounded-lg py-2 text-base font-medium",
               mainTab === "canceled" ? "bg-blue-600 text-white" : "text-slate-600 hover:bg-slate-50",
             ].join(" ")}
           >
@@ -153,7 +153,7 @@ export default function AgendamentosPacientesPage() {
             type="button"
             onClick={() => setConfirmedFilter("all")}
             className={[
-              "rounded-lg border px-3 py-1.5 text-sm font-medium",
+              "rounded-lg border px-3 py-1.5 text-base font-medium",
               confirmedFilter === "all"
                 ? "border-[#253E99] bg-blue-50 text-[#253E99]"
                 : "border-slate-200 bg-white text-slate-600 hover:bg-slate-50",
@@ -166,7 +166,7 @@ export default function AgendamentosPacientesPage() {
             type="button"
             onClick={() => setConfirmedFilter("confirmed")}
             className={[
-              "rounded-lg border px-3 py-1.5 text-sm font-medium",
+              "rounded-lg border px-3 py-1.5 text-base font-medium",
               confirmedFilter === "confirmed"
                 ? "border-[#253E99] bg-blue-50 text-[#253E99]"
                 : "border-slate-200 bg-white text-slate-600 hover:bg-slate-50",
@@ -179,7 +179,7 @@ export default function AgendamentosPacientesPage() {
             type="button"
             onClick={() => setConfirmedFilter("completed")}
             className={[
-              "rounded-lg border px-3 py-1.5 text-sm font-medium",
+              "rounded-lg border px-3 py-1.5 text-base font-medium",
               confirmedFilter === "completed"
                 ? "border-[#253E99] bg-blue-50 text-[#253E99]"
                 : "border-slate-200 bg-white text-slate-600 hover:bg-slate-50",
@@ -190,7 +190,7 @@ export default function AgendamentosPacientesPage() {
         </div>
       )}
 
-      {infoText && <p className="mt-4 text-sm text-slate-600">{infoText}</p>}
+      {infoText && <p className="mt-4 text-base text-slate-600">{infoText}</p>}
 
 
       <div className="mt-6">
@@ -204,7 +204,7 @@ export default function AgendamentosPacientesPage() {
           <section className="rounded-3xl  px-6 py-10 text-center">
             <div className="mx-auto flex max-w-2xl flex-col gap-2">
               <p className="text-base font-semibold text-slate-700">Não encontramos nenhum agendamento</p>
-              <p className="text-sm text-slate-500">
+              <p className="text-base text-slate-500">
                 Tente filtrar novamente ou que tal agendar com os profissionais abaixo.
               </p>
             </div>
@@ -227,11 +227,11 @@ function ProfessionalSuggestions() {
   const suggestions = useMemo(() => filterAndSortProfessionals(professionals).slice(0, 5), [professionals]);
 
   if (isLoading) {
-    return <p className="text-sm text-[#3857F4]">Carregando sugestões...</p>;
+    return <p className="text-base text-[#3857F4]">Carregando sugestões...</p>;
   }
 
   if (isError || suggestions.length === 0) {
-    return <p className="text-sm text-slate-500">Não foi possível carregar sugestões no momento.</p>;
+    return <p className="text-base text-slate-500">Não foi possível carregar sugestões no momento.</p>;
   }
 
   return (
@@ -258,14 +258,14 @@ function ProfessionalSuggestions() {
             <div className="flex flex-1 flex-col gap-3">
               <div>
                 <p className="text-xl font-semibold text-slate-900">{professional.name}</p>
-                <div className="mt-1 flex flex-wrap items-center gap-1 text-sm text-slate-600">
+                <div className="mt-1 flex flex-wrap items-center gap-1 text-base text-slate-600">
                   <span className="font-semibold">
                     {Number.isInteger(professional.rating) ? `${professional.rating}.0` : professional.rating}
                   </span>
                   <MdStarRate className="text-yellow-400" />
-                  <span className="text-xs text-slate-500">({professional.reviews} avaliações)</span>
+                  <span className="text-base text-slate-500">({professional.reviews} avaliações)</span>
                 </div>
-                <span className="text-sm text-slate-500">
+                <span className="text-base text-slate-500">
                   {typeof professional.price === "number"
                     ? professional.price.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })
                     : professional.price}
@@ -278,7 +278,7 @@ function ProfessionalSuggestions() {
                   {chips.map((label, index) => (
                     <span
                       key={`${professional.id}-chip-${index}-${label}`}
-                      className="rounded-full border border-[#3857F4] px-3 py-1 text-xs font-semibold text-[#3857F4]"
+                      className="rounded-full border border-[#3857F4] px-3 py-1 text-base font-semibold text-[#3857F4]"
                     >
                       {label}
                     </span>
@@ -288,7 +288,7 @@ function ProfessionalSuggestions() {
 
               <Link
                 href={`/profissional/${professional.id}`}
-                className="inline-flex h-11 w-full items-center justify-center rounded-xl bg-[#3857F4] text-sm font-semibold text-white transition hover:bg-blue-700"
+                className="inline-flex h-11 w-full items-center justify-center rounded-xl bg-[#3857F4] text-base font-semibold text-white transition hover:bg-blue-700"
               >
                 Ver perfil
               </Link>
