@@ -1,0 +1,204 @@
+[
+  {
+    "id": "1",
+    "status": "Pendente de confirmação",
+    "derivedStatus": "pending",
+    "dateTime": "2025-08-15T10:30:00-03:00",
+    "duration": 60,
+    "price": 180,
+    "serviceId": "REIKI-9876",
+    "yourObservation": "Prefiro música instrumental baixa durante o atendimento.",
+    "selectedAddress": "Av. Senador Salgado Filho, 2234 - Candelária, Natal - RN",
+    "professional": {
+      "id": "pro-01",
+      "name": "Maria Lourdes",
+      "specialization": "Reiki",
+      "image": "/images/professional/woman (1).jpeg",
+      "distanceKm": 5.4,
+      "rating": 4.9,
+      "totalReviews": 63,
+      "badges": ["Humanizada", "Pontual"]
+    },
+    "services": [
+      {
+        "id": "REIKI-9876",
+        "name": "Sessão de Reiki",
+        "description": "Equilíbrio energético completo com foco em relaxamento profundo.",
+        "durationMinutes": 60,
+        "price": 180
+      }
+    ],
+    "attachments": [
+      { "label": "Comprovante de pagamento", "url": "#" }
+    ],
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=Av.+Senador+Salgado+Filho,+2234+-+Natal,+RN",
+    "supportPhone": "+55 84 90000-0000"
+  },
+  {
+    "id": "2",
+    "status": "Concluído",
+    "derivedStatus": "completed",
+    "dateTime": "2025-07-29T16:00:00-03:00",
+    "duration": 50,
+    "price": 250,
+    "serviceId": "MASSO-1234",
+    "yourObservation": "Levarei exames impressos.",
+    "selectedAddress": "Rua Apodi, 567 - Tirol, Natal - RN",
+    "professional": {
+      "id": "pro-02",
+      "name": "João Ribeiro",
+      "specialization": "Massoterapia",
+      "image": "/images/professional/man (1).jpeg",
+      "distanceKm": 3.8,
+      "rating": 4.7,
+      "totalReviews": 112,
+      "badges": ["Atende em domicílio"]
+    },
+    "services": [
+      {
+        "id": "MASSO-1234",
+        "name": "Sessão de Massoterapia",
+        "description": "Liberação miofascial e alongamentos guiados.",
+        "durationMinutes": 50,
+        "price": 250
+      }
+    ],
+    "attachments": [],
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=Rua+Apodi,+567+-+Natal,+RN",
+    "supportPhone": "+55 84 98888-2222"
+  },
+  {
+    "id": "3",
+    "status": "Confirmado",
+    "derivedStatus": "confirmed",
+    "dateTime": "2025-08-05T09:00:00-03:00",
+    "duration": 45,
+    "price": 300,
+    "serviceId": "MTC-5543",
+    "yourObservation": "Sou alérgico a látex.",
+    "selectedAddress": "Av. Hermes da Fonseca, 1200 - Petrópolis, Natal - RN",
+    "professional": {
+      "id": "pro-03",
+      "name": "Fernanda Oliveira",
+      "specialization": "Acupuntura",
+      "image": "/images/professional/woman (2).jpeg",
+      "distanceKm": 2.1,
+      "rating": 5,
+      "totalReviews": 87,
+      "badges": ["Atendimento humanizado"]
+    },
+    "services": [
+      {
+        "id": "MTC-5543",
+        "name": "Sessão de Acupuntura",
+        "description": "Sessão focada em dores lombares e ansiedade.",
+        "durationMinutes": 45,
+        "price": 300
+      }
+    ],
+    "attachments": [
+      { "label": "Solicitação médica", "url": "#" }
+    ],
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=Av.+Hermes+da+Fonseca,+1200+-+Natal,+RN",
+    "supportPhone": "+55 84 97777-1212"
+  },
+  {
+    "id": "4",
+    "status": "Cancelado",
+    "derivedStatus": "canceled",
+    "dateTime": "2025-07-10T11:00:00-03:00",
+    "duration": 75,
+    "price": 450,
+    "serviceId": "AROMA-8890",
+    "yourObservation": "Cancelar caso chova forte.",
+    "selectedAddress": "Rua Mipibu, 750 - Petrópolis, Natal - RN",
+    "professional": {
+      "id": "pro-04",
+      "name": "Eduardo Santos",
+      "specialization": "Arteterapia",
+      "image": "/images/professional/man (3).jpeg",
+      "distanceKm": 6.4,
+      "rating": 4.6,
+      "totalReviews": 45,
+      "badges": []
+    },
+    "services": [
+      {
+        "id": "AROMA-8890",
+        "name": "Sessão de Aromaterapia",
+        "description": "Blend exclusivo com óleos essenciais.",
+        "durationMinutes": 75,
+        "price": 450
+      }
+    ],
+    "attachments": [],
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=Rua+Mipibu,+750+-+Natal,+RN",
+    "supportPhone": "+55 84 93434-9999"
+  },
+  {
+    "id": "5",
+    "status": "Realizado",
+    "derivedStatus": "completed",
+    "dateTime": "2025-06-22T14:30:00-03:00",
+    "duration": 60,
+    "price": 200,
+    "serviceId": "REFLEXO-9870",
+    "yourObservation": "Chegarei 10 minutos antes.",
+    "selectedAddress": "Av. Senador Salgado Filho, 2234 - Candelária, Natal - RN",
+    "professional": {
+      "id": "pro-01",
+      "name": "Maria Lourdes",
+      "specialization": "Reflexologia",
+      "image": "/images/professional/woman (1).jpeg",
+      "distanceKm": 5.4,
+      "rating": 4.9,
+      "totalReviews": 63,
+      "badges": ["Humanizada"]
+    },
+    "services": [
+      {
+        "id": "REFLEXO-9870",
+        "name": "Sessão de Reflexologia",
+        "description": "Foco em pontos de tensão nos pés e mãos.",
+        "durationMinutes": 60,
+        "price": 200
+      }
+    ],
+    "attachments": [],
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=Av.+Senador+Salgado+Filho,+2234+-+Natal,+RN",
+    "supportPhone": "+55 84 90000-0000"
+  },
+  {
+    "id": "6",
+    "status": "Cancelado",
+    "derivedStatus": "canceled",
+    "dateTime": "2025-07-01T13:00:00-03:00",
+    "duration": 40,
+    "price": 220,
+    "serviceId": "CONST-2123",
+    "yourObservation": "Sessão será online.",
+    "selectedAddress": "Online via ConectaBem Meet",
+    "professional": {
+      "id": "pro-06",
+      "name": "Ana Carvalho",
+      "specialization": "Constelação Familiar",
+      "image": "/images/professional/woman (6).jpeg",
+      "distanceKm": 0,
+      "rating": 4.8,
+      "totalReviews": 74,
+      "badges": ["Atendimento online"]
+    },
+    "services": [
+      {
+        "id": "CONST-2123",
+        "name": "Sessão de Constelação Familiar",
+        "description": "Sessão individual via videoconferência.",
+        "durationMinutes": 40,
+        "price": 220
+      }
+    ],
+    "attachments": [],
+    "mapUrl": "https://meet.conectabem.com/",
+    "supportPhone": "+55 84 95555-1515"
+  }
+]
