@@ -52,7 +52,7 @@ const schema = z.object({
       }
     ),
   enderecoClinica: z.string().min(5, "Endereço inválido"),
-  bairroClinica: z.string().min(3, "Bairro inválido"),
+  bairroClinica: z.string().min(2, "Bairro inválido"),
   numeroClinica: z
     .number({
       invalid_type_error: "Número inválido",
