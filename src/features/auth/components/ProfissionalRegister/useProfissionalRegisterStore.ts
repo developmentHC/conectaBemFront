@@ -39,10 +39,10 @@ type ProfissionalRegisterProps = {
   reset: () => void;
 } & States;
 
-export type Step = "personal_data" | "service_location" | "specialties" | "accessibility" |"complete_profile";
+export type Step = "personal_data" | "service_location" | "specialties" | "accessibility" | "complete_profile";
 
 const defaultsStates: States = {
-  name: undefined,
+  name: "Teste User",
   birthdate: undefined,
   cepResidencial: undefined,
   enderecoResidencial: undefined,
@@ -68,7 +68,7 @@ const defaultsStates: States = {
   description: undefined,
   suggestions: undefined,
   BackstepButton: undefined,
-  step: "personal_data",
+  step: "complete_profile",
 };
 
 export const useProfissionalRegisterStore = create<ProfissionalRegisterProps>((set) => ({

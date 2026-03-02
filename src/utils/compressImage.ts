@@ -2,10 +2,10 @@ import imageCompression from "browser-image-compression";
 
 export const compressImage = async (file: File): Promise<File> => {
   const options = {
-    maxSizeMB: 0.005,
-    maxWidthOrHeight: 1200,
+    maxSizeMB: 0.5, // ~500KB, dentro do limite de 3MB do backend
+    maxWidthOrHeight: 1200, // equilíbrio entre qualidade e tamanho
     useWebWorker: true,
-    fileType: "image/webp",
+    // Preserve original type (JPEG/PNG/etc) para passar no fileFilter do backend
   };
 
   try {

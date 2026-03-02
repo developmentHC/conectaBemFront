@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { MdStarRate } from "react-icons/md";
+import { FaUser } from "react-icons/fa";
 import { useProfessional } from "../hooks/useProfessional";
 import { useMemo } from "react";
 import { filterAndSortProfessionals } from "@/utils/filterProfessionals";
@@ -33,14 +34,23 @@ export const ProfessionalCard = ({
           key={professional.id ?? index}
           className="flex flex-col gap-4 cursor-pointer h-full max-h-[530px] professional-card"
         >
-          <div className="flex justify-center">
-            <Image
-              className="rounded-lg w-full lg:max-w-[216px] xl:max-w-[260px]"
-              src={professional.image || ""}
-              alt="profissional"
-              width={240}
-              height={160}
-            />
+          <div className="relative w-full h-[160px] flex justify-center items-center bg-gray-100 rounded-lg overflow-hidden">
+            {professional.image ? (
+              <Image
+                className="object-cover w-full h-full"
+                src={professional.image}
+                alt="profissional"
+                width={240}
+                height={160}
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.style.display = 'none';
+                  
+                }}
+              />
+            ) : (
+              <FaUser className="text-gray-300 text-6xl" />
+            )}
           </div>
           <div className="flex flex-col gap-1">
             <div className="flex justify-between items-center flex-wrap">
