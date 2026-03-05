@@ -1,36 +1,12 @@
-const specialization = [
-  {
-    id: 1,
-    name: "Reiki",
-  },
-  {
-    id: 2,
-    name: "Massoterapia",
-  },
-  {
-    id: 3,
-    name: "Acupuntura",
-  },
-  {
-    id: 4,
-    name: "Homeopatia",
-  },
-  {
-    id: 5,
-    name: "Yoga",
-  },
-  {
-    id: 6,
-    name: "Arteterapia",
-  },
-];
+import { specializationOptions } from "./options";
 
 export const MedicalSpecialization = () => {
   return (
-    <div className="flex gap-2 overflow-x-auto lg:justify-center">
-      {specialization.map((item) => (
+    <div className="flex items-center justify-center flex-wrap gap-2 px-1">
+      {specializationOptions.map((item) => (
         <div
-          className="border border-blue-600 text-sm p-2 rounded-t-lg rounded-br-lg cursor-pointer "
+          className="inline-flex min-w-[120px] justify-center px-4 py-2 text-base text-gray-800 border border-[#253E99] cursor-pointer bg-white"
+          style={{ borderRadius: "8px 8px 8px 0" }}
           key={item.id}
         >
           {item.name}
