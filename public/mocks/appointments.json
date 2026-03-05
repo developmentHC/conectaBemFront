@@ -27,7 +27,7 @@
   },
   {
     "id": 2,
-    "status": "Confirmado",
+    "status": "Concluido",
     "professional": {
       "name": "João Ribeiro",
       "specialization": "Massoterapia",
@@ -79,7 +79,7 @@
   },
   {
     "id": 4,
-    "status": "Realizado",
+    "status": "Cancelado",
     "professional": {
       "name": "Eduardo Santos",
       "specialization": "Arteterapia",

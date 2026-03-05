@@ -1,3 +1,4 @@
+
 import { specializationOptions } from "./options";
 
 export const MedicalSpecialization = () => {
@@ -12,6 +13,7 @@ export const MedicalSpecialization = () => {
           {item.name}
         </div>
       ))}
+
     </div>
   );
 };

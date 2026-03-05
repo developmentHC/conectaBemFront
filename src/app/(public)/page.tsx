@@ -45,16 +45,16 @@ export default function HomePage() {
       <section className="flex flex-col gap-6">
         <PersonalAddress />
         <div className="flex flex-col gap-14">
-          <div className="flex justify-between items-center gap-6">
-            <div className="flex flex-col gap-4 lg:w-full lg:max-w-[50%]">
-              <h1 className="lg:text-5xl text-2xl font-semibold">
+          <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+            <div className="flex flex-col gap-4 lg:w-full md:max-w-[60%] lg:max-w-[50%]">
+              <h1 className="text-2xl md:text-4xl lg:text-5xl font-semibold">
                 Conecta Bem: <br /> O cuidado que acolhe.
               </h1>
               <span className="lg:text-3xl">
                 Encontre os melhores profissionais de terapias alternativas para você!
               </span>
             </div>
-            <div className="hidden lg:flex w-full justify-end">
+            <div className="hidden md:flex w-full justify-end">
               <Image
                 className="w-full max-w-[1000px] h-full max-h-[268px] rounded-xl object-contain"
                 alt="logo"
@@ -64,7 +64,7 @@ export default function HomePage() {
               />
             </div>
           </div>
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col items-center gap-10 w-full max-w-[1336px] self-stretch">
             <SearchInput />
             <div className="flex flex-wrap items-center justify-center md:mx-auto md:w-4/5">
               <FilterButton onClick={onFilterChange} />
