@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element -- Tests mock next/image with a bare img element to keep the DOM simple. */
 import { render, screen, fireEvent } from "@testing-library/react";
 import { SocialNetwork } from "@/features/auth/components/SocialNetwork/SocialNetwork";
 import { signIn } from "next-auth/react";
@@ -10,7 +11,7 @@ jest.mock("next-auth/react", () => ({
 // Mock do next/image para não quebrar nos testes
 jest.mock("next/image", () => ({
   __esModule: true,
-  default: (props: any) => <img {...props} />,
+  default: (props: any) => <img {...props} alt={props.alt || ""} />,
 }));
 
 describe("SocialNetwork component", () => {
