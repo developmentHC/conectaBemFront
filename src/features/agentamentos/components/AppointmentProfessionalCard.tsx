@@ -7,20 +7,15 @@ export const AppointmentCard = ({
 }: {
   appointment: IAppointment;
 }) => {
-  // Mantém tuas cores por status para o badge, se você quiser reusar depois:
-  
 
-  // Tenta exibir uma lista com bullets:
-  // - se existir appointment.items (array), usa ela
-  // - senão, se specialization existir (string), mostra como 1 item
   const bulletItems: string[] =
     (Array.isArray((appointment as any).items) && (appointment as any).items.length
       ? (appointment as any).items
       : appointment.professional?.specialization
-      ? [appointment.professional.specialization]
-      : []) as string[];
+        ? [appointment.professional.specialization]
+        : []) as string[];
 
-  // Preço (se existir)
+
   const price = (appointment as any).price as string | number | undefined;
 
   return (
@@ -28,7 +23,7 @@ export const AppointmentCard = ({
       {/* Topo: foto + infos */}
       <div className="flex items-start gap-4">
         <Image
-          src={appointment.professional.image}
+          src={appointment.professional?.image ?? "/images/professional/woman (1).jpeg"}
           alt={`Foto de ${appointment.professional.name}`}
           className="rounded-md w-[96px] h-[96px] object-cover"
           width={96}
@@ -40,7 +35,7 @@ export const AppointmentCard = ({
             {appointment.professional.name}
           </h2>
 
-          {/* Lista com bullets (quando houver itens) */}
+
           {bulletItems.length > 0 && (
             <ul className="mt-2 list-disc pl-5 text-[#19171C] space-y-1">
               {bulletItems.map((it) => (
@@ -51,7 +46,7 @@ export const AppointmentCard = ({
             </ul>
           )}
 
-          {/* Linha de preço (opcional) */}
+
           {typeof price !== "undefined" && (
             <div className="mt-2 flex items-center gap-2">
               <LuWallet size={20} className="text-[#9790A2]" />
@@ -59,9 +54,9 @@ export const AppointmentCard = ({
                 <span className="font-semibold">Preço:</span>{" "}
                 {typeof price === "number"
                   ? price.toLocaleString("pt-BR", {
-                      style: "currency",
-                      currency: "BRL",
-                    })
+                    style: "currency",
+                    currency: "BRL",
+                  })
                   : price}
               </span>
             </div>
@@ -69,7 +64,7 @@ export const AppointmentCard = ({
         </div>
       </div>
 
-      {/* Botão único */}
+
       <div className="mt-4">
         <button
           type="button"

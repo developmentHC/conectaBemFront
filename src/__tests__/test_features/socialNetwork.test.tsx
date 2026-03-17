@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element -- Tests mock next/image with a bare img element to keep the DOM simple. */
 import { render, screen, fireEvent } from "@testing-library/react";
 import { SocialNetwork } from "@/features/auth/components/SocialNetwork/SocialNetwork";
 import { signIn } from "next-auth/react";

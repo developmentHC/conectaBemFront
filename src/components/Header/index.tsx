@@ -15,7 +15,7 @@ import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@mui/material";
 import { MenuItem } from "./types";
-import { MdMailOutline } from "react-icons/md";
+import { MdNotificationsNone } from "react-icons/md";
 import { ArrowLeftIcon } from "../../../public/images/icons/ArrowLeftIcon";
 import { useSession } from "next-auth/react";
 
@@ -101,6 +101,17 @@ export const Header = () => {
 
         {isMounted && (
           <ul className="gap-8 relative whitespace-nowrap mr-8 hidden lg:flex">
+            {status !== "authenticated" && (
+              <li className="relative group">
+                <Link
+                  href="/auth/registro-profissional"
+                  className="text-secondary-900 font-semibold"
+                >
+                  Quero ser um profissional
+                </Link>
+              </li>
+            )}
+
             {menuData.map((item, index) => {
               if (item.onlyonmobile) return null;
               if (item.menuitemtext === "Perfil") return null;
@@ -136,7 +147,7 @@ export const Header = () => {
                     ) : (
                       <>
                         {item.menuitemtext}
-                        <ChevronDownIcon className="w-4 h-4 fill-[#1D1B20] transition-transform" />
+                        <ChevronDownIcon className="w-4 h-4 text-[#9790A2] transition-transform" />
                       </>
                     )}
                   </button>
@@ -172,7 +183,7 @@ export const Header = () => {
           {status === "authenticated" ? (
             <>
               <div className="cursor-pointer">
-                <MdMailOutline
+                <MdNotificationsNone
                   className="text-2xl"
                   style={{
                     color: "#3857F4",

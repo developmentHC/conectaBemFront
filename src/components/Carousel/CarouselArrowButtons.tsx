@@ -50,11 +50,11 @@ export const usePrevNextButtons = (
 type PropType = ComponentPropsWithRef<'button'>
 
 export const PrevButton: React.FC<PropType> = (props) => {
-  const { ...restProps } = props
+  const { className, ...restProps } = props
 
   return (
     <button
-      className="mx-2"
+      className={`mx-2 text-[#F2F1F3] ${className || ""}`}
       type="button"
       {...restProps}
     >
@@ -64,11 +64,11 @@ export const PrevButton: React.FC<PropType> = (props) => {
 }
 
 export const NextButton: React.FC<PropType> = (props) => {
-  const { ...restProps } = props
+  const { className, ...restProps } = props
 
   return (
     <button
-      className="mx-1"
+      className={`mx-1 text-[#F2F1F3] ${className || ""}`}
       type="button"
       {...restProps}
     >
