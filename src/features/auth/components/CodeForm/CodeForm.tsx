@@ -126,10 +126,12 @@ export const CodeForm = ({ onValidationSuccess }: CodeFormProps) => {
       {!isPending && (
         <div className="flex flex-col gap-4">
           {error && (
-            <span className="text-red-600">
-              Código incorreto! Preencha corretamente ou reenvie o código e
-              tente novamente.
-            </span>
+            <div className="flex flex-col gap-2 p-3 bg-red-50 border border-red-200 rounded-lg">
+              <span className="text-red-600 font-semibold">Código incorreto</span>
+              <span className="text-red-600 text-sm">
+                Verifique o código recebido no seu e-mail e tente novamente. Se continuar com problemas, clique em reenviar código.
+              </span>
+            </div>
           )}
         </div>
       )}
