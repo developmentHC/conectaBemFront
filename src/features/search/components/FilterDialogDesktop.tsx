@@ -24,7 +24,7 @@ export const FilterDialogDesktop = ({
     "Consulta",
   ];
 
-  const paymentOptions = ["Visa", "Mastercard", "Pix", "Wellhub"];
+  const paymentOptions = ["Pet Friendly", "LGBTQIAP+ Friendly", "Pix", "Aceita Wellhub"];
 
   const [selectedValues, setSelectedValues] = useState<string[]>(filters.values);
   const [selectedAccessibility, setSelectedAccessibility] = useState<string[]>(filters.accessibility);
@@ -102,7 +102,7 @@ export const FilterDialogDesktop = ({
           </div>
 
            <div className="w-full flex flex-col gap-4">
-            <span className="text-2xl font-semibold">Formas de pagamento aceitas</span>
+            <span className="text-2xl font-semibold">Formas de pagamentos aceitas</span>
             <div className="flex flex-wrap gap-2">
               {paymentOptions.map((item) => (
                 <button
@@ -118,7 +118,7 @@ export const FilterDialogDesktop = ({
             </div>
           </div>
           <div className="w-full flex flex-col gap-4">
-            <span className="text-2xl font-semibold">Especialidade</span>
+            <span className="text-2xl font-semibold">Preferência de serviço</span>
             <div className="flex flex-wrap gap-2">
               {serviceOptions.map((item) => (
                 <button
@@ -134,6 +134,23 @@ export const FilterDialogDesktop = ({
             </div>
           </div>
 
+           <div className="w-full flex flex-col gap-4">
+            <span className="text-2xl font-semibold">Distância</span>
+            <div className="flex flex-col gap-2">
+              <input
+                type="range"
+                min={0}
+                max={12}
+                className="w-full bg-blue-600"
+                readOnly
+              />
+              <div className="flex justify-between text-gray-400 text-sm">
+                <span>0 km</span>
+                <span>12 km</span>
+              </div>
+            </div>
+          </div>
+
           <button
             className="flex justify-center w-full bg-blue-600 py-2 rounded-lg text-center tracking-widest"
             onClick={handleOnFilter}
@@ -145,4 +162,3 @@ export const FilterDialogDesktop = ({
     </Dialog>
   );
 };
-

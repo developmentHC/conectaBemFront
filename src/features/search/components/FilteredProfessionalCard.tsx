@@ -1,6 +1,6 @@
 "use client";
 
-import { MdStarRate, MdPayments } from "react-icons/md";
+import { MdStarRate, MdPayments, MdCheckCircle } from "react-icons/md";
 import { IProfessional } from "@/types/professional";
 import Image from "next/image";
 import { getAvatarUrl } from "@/utils/avatar";
@@ -23,6 +23,7 @@ export const FilteredProfessionalCard = ({
     professionalSpecialties = [],
     clinic,
     acceptedPayments,
+    professionalServicePreferences = [],
     _id
   } = professional;
 
@@ -92,10 +93,24 @@ export const FilteredProfessionalCard = ({
             )}
           </div>
 
+          {professionalServicePreferences.length > 0 && (
+            <div className="mt-3 flex flex-wrap gap-2">
+              {professionalServicePreferences.map((pref, index) => (
+                <div 
+                  key={`pref-${index}`}
+                  className="flex items-center gap-1 bg-green-50 text-green-700 px-2 py-1 rounded-lg border border-green-100 text-[11px] font-bold uppercase tracking-wider"
+                >
+                  <MdCheckCircle size={14} className="text-green-500" />
+                  {pref}
+                </div>
+              ))}
+            </div>
+          )}
+
           {paymentsList.length > 0 && (
             <div className="mt-3 flex flex-wrap gap-2 items-center">
               <span className="text-[10px] uppercase font-bold text-gray-400 flex items-center gap-1">
-                <MdPayments size={14} /> Aceita:
+                <MdPayments size={14} />
               </span>
               <div className="flex gap-1.5">
                 {paymentsList.map((method) => (

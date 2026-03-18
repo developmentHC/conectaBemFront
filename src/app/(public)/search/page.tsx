@@ -13,44 +13,48 @@ import { useFilterProfessional } from "@/features/search/hooks/useFilterProfessi
 import { SearchInput } from "@/components/SearchInput/SearchInput";
 import { CircularProgress } from "@mui/material";
 import { useDebounce } from "@/hooks/useDebounce";
+import { normalizeProfessionalFilter } from '@/utils/normalizeProfessionalFilter';
 
 const applyFilters = (
   professionals: IProfessional[],
   filters: professionalFilters
 ) => {
   return professionals.filter((p) => {
-    if (
+    const normalized = normalizeProfessionalFilter(p);
+
+      if (
       filters.services.length &&
-      !filters.services.some((s) => (p.professionalSpecialties || []).includes(s))
-    ) {
-      return false;
-    }
-
-    if (
-      filters.accessibility.length &&
-      !filters.accessibility.some((a) =>
-        p.professionalServicePreferences?.includes(a)
+      !filters.services.some(s =>
+        normalized.specialties.includes(s.toLowerCase())
       )
     ) {
-      return false;
-    }
+    return false;
+  }
 
-    if (
-      filters.payments.length &&
-      !filters.payments.some((pay) =>
-        p.acceptedPayments?.includes(pay)
-      )
-    ) {
-      return false;
-    }
+  if (
+    filters.accessibility.length &&
+    !filters.accessibility.some(a =>
+      normalized.accessibility.includes(a.toLowerCase())
+    )
+  ) {
+    return false;
+  }
 
-    if (
-      filters.values.length &&
-      !filters.values.includes(p.priceRange)
-    ) {
-      return false;
-    }
+  if (
+    filters.payments.length &&
+    !filters.payments.some(pay =>
+      normalized.payments.includes(pay.toLowerCase())
+    )
+  ) {
+    return false;
+  }
 
+  if (
+     filters.values.length &&
+     (!normalized.priceRange || !filters.values.includes(normalized.priceRange))
+  ) {
+    return false;
+  }
     return true;
   });
 };

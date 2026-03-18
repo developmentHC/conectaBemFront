@@ -1,27 +1,32 @@
 const specialization = [
   {
     id: 1,
-    name: "Reiki",
+    name: "Hipnoterapia",
   },
   {
     id: 2,
     name: "Massoterapia",
   },
+
   {
     id: 3,
-    name: "Acupuntura",
+    name: "Biodança",
   },
   {
     id: 4,
-    name: "Homeopatia",
+    name: "Acupuntura",
   },
   {
     id: 5,
-    name: "Yoga",
+    name: "Homeopatia",
   },
   {
     id: 6,
-    name: "Arteterapia",
+    name: "Cromoterapia",
+  },
+  {
+    id: 7,
+    name: "Fitoterapia",
   },
 ];
 

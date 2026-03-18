@@ -33,6 +33,8 @@ export type IProfessional = {
   otherProfessionalSpecialties: string[];
   professionalServicePreferences: string[];
 
+  priceRange: string;
+
   acceptedPayments: {
     pix: boolean;
     wellhub: boolean;
