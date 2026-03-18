@@ -13,20 +13,21 @@ import axios from "axios";
 const schema = z.object({
   name: z
     .string()
+    .min(1, "Nome é obrigatório")
     .min(3, "Nome deve ter pelo menos 3 caracteres")
     .regex(
       /^[A-Za-zÀ-ú]+(?: [A-Za-zÀ-ú]+)*$/,
-      "O nome deve conter apenas letras e um espaço entre as palavras"
+      "Nome deve conter apenas letras e espaços"
     ),
   birthdate: z
-    .instanceof(Date)
+    .instanceof(Date, { message: "Data de nascimento é obrigatória" })
     .refine(
       (date) => {
         const min = dayjs().subtract(110, "years").toDate();
         return date >= min;
       },
       {
-        message: "Digite uma data de nascimento válida",
+        message: "Data de nascimento inválida (máximo 110 anos)",
       }
     )
     .refine(
@@ -35,14 +36,15 @@ const schema = z.object({
         return date <= max;
       },
       {
-        message:
-          "Você deve ser maior de idade para se cadastrar na plataforma!",
+        message: "Você deve ter pelo menos 18 anos para se cadastrar",
       }
     ),
   cepResidencial: z
     .string()
     .length(9, "CEP inválido")
-    .regex(/^\d{5}-\d{3}$/, "Formato de CEP inválido")
+    .min(1, "CEP é obrigatório")
+    .length(9, "CEP deve conter 8 dígitos (formato: XXXXX-XXX)")
+    .regex(/^\d{5}-\d{3}$/, "Formato de CEP inválido (XXXXX-XXX)")
     .refine(
       async (cep) => {
         if (!/^\d{5}-\d{3}$/.test(cep)) {
@@ -58,14 +60,14 @@ const schema = z.object({
         }
       },
       {
-        message: "CEP não encontrado",
+        message: "CEP não encontrado. Verifique e tente novamente",
       }
     ),
-  enderecoResidencial: z.string().min(3, "Endereço inválido"),
-  numeroResidencial: z.string().min(1, "Número inválido"),
-  bairroResidencial: z.string().min(2, "Bairro inválido"),
-  cidadeResidencial: z.string().min(3, "Cidade inválida"),
-  estadoResidencial: z.string().min(2, "Estado inválido"),
+  enderecoResidencial: z.string().min(1, "Logradouro é obrigatório").min(3, "Logradouro deve ter pelo menos 3 caracteres"),
+  numeroResidencial: z.string().min(1, "Número é obrigatório"),
+  bairroResidencial: z.string().min(2, "Bairro é obrigatório").min(3, "Bairro deve ter pelo menos 3 caracteres"),
+  cidadeResidencial: z.string().min(1, "Cidade é obrigatória").min(3, "Cidade deve ter pelo menos 3 caracteres"),
+  estadoResidencial: z.string().min(1, "Estado é obrigatório").min(2, "Estado deve ter pelo menos 2 caracteres"),
 });
 
 type Data = z.infer<typeof schema>;
@@ -74,10 +76,9 @@ export const PersonalDataStep = () => {
   const { updateFields, changeStep } = usePatientRegisterStore();
   const [nameInput, setNameInput] = useState("");
 
-  // refs para scrollar até o primeiro erro
-  const fieldRefs = {
+    const fieldRefs = {
     name: useRef<HTMLDivElement | null>(null),
-    birthdate: useRef<HTMLDivElement | null>(null),
+    birthdayDate: useRef<HTMLDivElement | null>(null),
     cepResidencial: useRef<HTMLDivElement | null>(null),
     enderecoResidencial: useRef<HTMLDivElement | null>(null),
     numeroResidencial: useRef<HTMLDivElement | null>(null),
@@ -112,7 +113,7 @@ export const PersonalDataStep = () => {
     data.cepResidencial = data.cepResidencial.replace("-", "");
 
     updateFields({
-      birthdayDate: data.birthdate,
+      birthdayDate: data.birthdayDate,
     });
 
     updateFields(data);
@@ -124,7 +125,7 @@ export const PersonalDataStep = () => {
     // ordem dos campos para scrollar para o erro mais superior
     const orderedFields: (keyof Data)[] = [
       "name",
-      "birthdate",
+      "birthdayDate",
       "cepResidencial",
       "enderecoResidencial",
       "numeroResidencial",
@@ -201,8 +202,8 @@ export const PersonalDataStep = () => {
       </div>
 
       {/* Data de nascimento */}
-      <div ref={fieldRefs.birthdate} className="flex flex-col gap-2">
-        <label className={errors.birthdate ? "text-red-600" : ""}>
+      <div ref={fieldRefs.birthdayDate} className="flex flex-col gap-2">
+        <label className={errors.birthdayDate ? "text-red-600" : ""}>
           Data de Nascimento <span className="text-red-600">*</span>
         </label>
         <DatePicker
@@ -214,13 +215,13 @@ export const PersonalDataStep = () => {
               inputProps: {
                 placeholder: "DD/MM/AAAA",
               },
-              helperText: errors.birthdate?.message,
-              error: !!errors.birthdate,
+              helperText: errors.birthdayDate?.message,
+              error: !!errors.birthdayDate,
               required: true,
             },
           }}
           onChange={(date) =>
-            setValue("birthdate", date?.toDate() as any, {
+            setValue("birthdayDate", date?.toDate() as any, {
               shouldValidate: true,
             })
           }
@@ -251,6 +252,11 @@ export const PersonalDataStep = () => {
         </label>
         <TextField
           {...register("enderecoResidencial")}
+          onChange={(e) =>
+            setValue("enderecoResidencial", e.target.value, {
+              shouldValidate: true,
+            })
+          }
           placeholder="Nome da rua / avenida"
           error={!!errors.enderecoResidencial}
           helperText={errors.enderecoResidencial?.message}
@@ -277,6 +283,11 @@ export const PersonalDataStep = () => {
         </label>
         <TextField
           {...register("bairroResidencial")}
+          onChange={(e) =>
+            setValue("bairroResidencial", e.target.value, {
+              shouldValidate: true,
+            })
+          }
           placeholder="Nome do bairro"
           error={!!errors.bairroResidencial}
           helperText={errors.bairroResidencial?.message}
@@ -290,6 +301,11 @@ export const PersonalDataStep = () => {
         </label>
         <TextField
           {...register("cidadeResidencial")}
+          onChange={(e) =>
+            setValue("cidadeResidencial", e.target.value, {
+              shouldValidate: true,
+            })
+          }
           placeholder="Nome da cidade"
           error={!!errors.cidadeResidencial}
           helperText={errors.cidadeResidencial?.message}
@@ -303,6 +319,11 @@ export const PersonalDataStep = () => {
         </label>
         <TextField
           {...register("estadoResidencial")}
+          onChange={(e) =>
+            setValue("estadoResidencial", e.target.value, {
+              shouldValidate: true,
+            })
+          }
           placeholder="Nome do estado"
           error={!!errors.estadoResidencial}
           helperText={errors.estadoResidencial?.message}
