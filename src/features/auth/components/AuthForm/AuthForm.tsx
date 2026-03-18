@@ -13,7 +13,10 @@ import { useUserStore } from "@/stores/userSessionStore";
 type Data = z.infer<typeof schema>;
 
 const schema = z.object({
-  email: z.string().email("Ops! Verifique as informações e tente novamente"),
+  email: z
+    .string()
+    .min(1, "E-mail é obrigatório")
+    .email("Por favor, digite um e-mail válido"),
 });
 
 export const AuthForm = () => {

@@ -7,7 +7,7 @@ import { MdStar } from "react-icons/md";
 import clsx from "clsx";
 
 const schema = z.object({
-  suggestions: z.string().min(1, "Sugestão inválida"),
+  suggestions: z.string().min(1, "Por favor, descreva a especialidade que gostaria de sugerir"),
 });
 
 type Data = z.infer<typeof schema>;
