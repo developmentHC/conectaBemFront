@@ -11,12 +11,11 @@ import { CpfCnpjField } from "@/components/Fields/CpfCnpjField";
 import { isValidCNPJ, isValidCPF } from "@/utils/isCPFCNPJValid";
 
 const schema = z.object({
-  clinicName: z.string().min(1, "Nome da clínica é obrigatório").min(3, "Nome deve ter pelo menos 3 caracteres"),
+  clinicName: z.string().min(3, "Nome inválido"),
   cpfCNPJ: z
     .string()
-    .min(1, "CPF ou CNPJ é obrigatório")
-    .min(11, "CPF ou CNPJ deve ter pelo menos 11 dígitos")
-    .max(18, "CPF ou CNPJ inválido")
+    .min(11, "CNPJ ou CPF inválido")
+    .max(18, "CNPJ ou CPF inválido")
     .refine(
       (doc) => {
         const cleaned = doc.replace(/\D/g, "");
@@ -27,14 +26,13 @@ const schema = z.object({
         return false;
       },
       {
-        message: "CPF ou CNPJ inválido. Verifique os dígitos",
+        message: "CNPJ ou CPF inválido",
       }
     ),
   cepProfessional: z
     .string()
-    .min(1, "CEP é obrigatório")
-    .length(9, "CEP deve conter 8 dígitos (formato: XXXXX-XXX)")
-    .regex(/^\d{5}-\d{3}$/, "Formato de CEP inválido (XXXXX-XXX)")
+    .length(9, "CEP inválido")
+    .regex(/^\d{5}-\d{3}$/, "Formato de CEP inválido")
     .refine(
       async (cep) => {
         if (!/^\d{5}-\d{3}$/.test(cep)) {
@@ -50,20 +48,20 @@ const schema = z.object({
         }
       },
       {
-        message: "CEP não encontrado. Verifique e tente novamente",
+        message: "CEP não encontrado",
       }
     ),
-  enderecoClinica: z.string().min(1, "Endereço é obrigatório").min(5, "Endereço deve ter pelo menos 5 caracteres"),
-  bairroClinica: z.string().min(2, "Bairro é obrigatório").min(3, "Bairro deve ter pelo menos 3 caracteres"),
+  enderecoClinica: z.string().min(5, "Endereço inválido"),
+  bairroClinica: z.string().min(2, "Bairro inválido"),
   numeroClinica: z
     .number({
-      invalid_type_error: "Número deve ser um valor numérico",
+      invalid_type_error: "Número inválido",
       required_error: "Número é obrigatório",
     })
-    .min(1, "Número deve ser maior que 0"),
+    .min(1, "O número deve ser maior que 0"),
   complementoClinica: z.string(),
-  cidadeClinica: z.string().min(1, "Cidade é obrigatória").min(3, "Cidade deve ter pelo menos 3 caracteres"),
-  estadoClinica: z.string().min(1, "Estado é obrigatório").min(2, "Estado deve ter pelo menos 2 caracteres"),
+  cidadeClinica: z.string().min(3, "Cidade inválida"),
+  estadoClinica: z.string().min(3, "Estado inválido"),
 });
 
 type Data = z.infer<typeof schema>;

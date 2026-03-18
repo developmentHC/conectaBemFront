@@ -33,12 +33,12 @@ type Data = z.infer<typeof schema>;
 const schema = z.object({
   specialties: z
     .array(z.string())
-    .min(1, "Por favor, selecione pelo menos uma especialidade"),
+    .min(1, "Selecione pelo menos uma especialidade"),
   servicePreferences: z.array(z.string()).nullable(),
 });
 
 export const SpecialtyStep = () => {
-  const { setValue, handleSubmit, formState: { errors } } = useForm<Data>({
+  const { setValue, handleSubmit } = useForm<Data>({
     mode: "all",
     resolver: zodResolver(schema),
     defaultValues: { specialties: [], servicePreferences: [] },
@@ -124,14 +124,6 @@ export const SpecialtyStep = () => {
       </ul>
 
       {showSuggestions && <SuggestionForm />}
-
-      {errors.specialties && (
-        <div className="flex flex-col gap-2 p-3 bg-red-50 border border-red-200 rounded-lg">
-          <span className="text-red-600 font-semibold text-sm">
-            {errors.specialties.message}
-          </span>
-        </div>
-      )}
 
       <div className="flex flex-col gap-6">
         <div className="flex flex-col gap-2">
