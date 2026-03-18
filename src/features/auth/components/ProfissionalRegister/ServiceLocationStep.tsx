@@ -54,7 +54,7 @@ const schema = z.object({
       }
     ),
   enderecoClinica: z.string().min(1, "Endereço é obrigatório").min(5, "Endereço deve ter pelo menos 5 caracteres"),
-  bairroClinica: z.string().min(1, "Bairro é obrigatório").min(3, "Bairro deve ter pelo menos 3 caracteres"),
+  bairroClinica: z.string().min(2, "Bairro é obrigatório").min(3, "Bairro deve ter pelo menos 3 caracteres"),
   numeroClinica: z
     .number({
       invalid_type_error: "Número deve ser um valor numérico",
