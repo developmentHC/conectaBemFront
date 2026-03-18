@@ -76,10 +76,9 @@ export const PersonalDataStep = () => {
   const { updateFields, changeStep } = usePatientRegisterStore();
   const [nameInput, setNameInput] = useState("");
 
-  // refs para scrollar até o primeiro erro
-  const fieldRefs = {
+    const fieldRefs = {
     name: useRef<HTMLDivElement | null>(null),
-    birthdate: useRef<HTMLDivElement | null>(null),
+    birthdayDate: useRef<HTMLDivElement | null>(null),
     cepResidencial: useRef<HTMLDivElement | null>(null),
     enderecoResidencial: useRef<HTMLDivElement | null>(null),
     numeroResidencial: useRef<HTMLDivElement | null>(null),
@@ -114,7 +113,7 @@ export const PersonalDataStep = () => {
     data.cepResidencial = data.cepResidencial.replace("-", "");
 
     updateFields({
-      birthdayDate: data.birthdate,
+      birthdayDate: data.birthdayDate,
     });
 
     updateFields(data);
@@ -126,7 +125,7 @@ export const PersonalDataStep = () => {
     // ordem dos campos para scrollar para o erro mais superior
     const orderedFields: (keyof Data)[] = [
       "name",
-      "birthdate",
+      "birthdayDate",
       "cepResidencial",
       "enderecoResidencial",
       "numeroResidencial",
@@ -203,8 +202,8 @@ export const PersonalDataStep = () => {
       </div>
 
       {/* Data de nascimento */}
-      <div ref={fieldRefs.birthdate} className="flex flex-col gap-2">
-        <label className={errors.birthdate ? "text-red-600" : ""}>
+      <div ref={fieldRefs.birthdayDate} className="flex flex-col gap-2">
+        <label className={errors.birthdayDate ? "text-red-600" : ""}>
           Data de Nascimento <span className="text-red-600">*</span>
         </label>
         <DatePicker
@@ -216,13 +215,13 @@ export const PersonalDataStep = () => {
               inputProps: {
                 placeholder: "DD/MM/AAAA",
               },
-              helperText: errors.birthdate?.message,
-              error: !!errors.birthdate,
+              helperText: errors.birthdayDate?.message,
+              error: !!errors.birthdayDate,
               required: true,
             },
           }}
           onChange={(date) =>
-            setValue("birthdate", date?.toDate() as any, {
+            setValue("birthdayDate", date?.toDate() as any, {
               shouldValidate: true,
             })
           }
