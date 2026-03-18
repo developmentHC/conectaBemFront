@@ -13,21 +13,20 @@ import axios from "axios";
 const schema = z.object({
   name: z
     .string()
-    .min(1, "Nome é obrigatório")
     .min(3, "Nome deve ter pelo menos 3 caracteres")
     .regex(
       /^[A-Za-zÀ-ú]+(?: [A-Za-zÀ-ú]+)*$/,
-      "Nome deve conter apenas letras e espaços"
+      "O nome deve conter apenas letras e um espaço entre as palavras"
     ),
   birthdate: z
-    .instanceof(Date, { message: "Data de nascimento é obrigatória" })
+    .instanceof(Date)
     .refine(
       (date) => {
         const min = dayjs().subtract(110, "years").toDate();
         return date >= min;
       },
       {
-        message: "Data de nascimento inválida (máximo 110 anos)",
+        message: "Digite uma data de nascimento válida",
       }
     )
     .refine(
@@ -36,15 +35,14 @@ const schema = z.object({
         return date <= max;
       },
       {
-        message: "Você deve ter pelo menos 18 anos para se cadastrar",
+        message:
+          "Você deve ser maior de idade para se cadastrar na plataforma!",
       }
     ),
   cepResidencial: z
     .string()
     .length(9, "CEP inválido")
-    .min(1, "CEP é obrigatório")
-    .length(9, "CEP deve conter 8 dígitos (formato: XXXXX-XXX)")
-    .regex(/^\d{5}-\d{3}$/, "Formato de CEP inválido (XXXXX-XXX)")
+    .regex(/^\d{5}-\d{3}$/, "Formato de CEP inválido")
     .refine(
       async (cep) => {
         if (!/^\d{5}-\d{3}$/.test(cep)) {
@@ -60,14 +58,14 @@ const schema = z.object({
         }
       },
       {
-        message: "CEP não encontrado. Verifique e tente novamente",
+        message: "CEP não encontrado",
       }
     ),
-  enderecoResidencial: z.string().min(1, "Logradouro é obrigatório").min(3, "Logradouro deve ter pelo menos 3 caracteres"),
-  numeroResidencial: z.string().min(1, "Número é obrigatório"),
-  bairroResidencial: z.string().min(2, "Bairro é obrigatório").min(3, "Bairro deve ter pelo menos 3 caracteres"),
-  cidadeResidencial: z.string().min(1, "Cidade é obrigatória").min(3, "Cidade deve ter pelo menos 3 caracteres"),
-  estadoResidencial: z.string().min(1, "Estado é obrigatório").min(2, "Estado deve ter pelo menos 2 caracteres"),
+  enderecoResidencial: z.string().min(3, "Endereço inválido"),
+  numeroResidencial: z.string().min(1, "Número inválido"),
+  bairroResidencial: z.string().min(2, "Bairro inválido"),
+  cidadeResidencial: z.string().min(3, "Cidade inválida"),
+  estadoResidencial: z.string().min(2, "Estado inválido"),
 });
 
 type Data = z.infer<typeof schema>;
