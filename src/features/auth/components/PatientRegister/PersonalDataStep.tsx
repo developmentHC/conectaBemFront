@@ -65,7 +65,7 @@ const schema = z.object({
     ),
   enderecoResidencial: z.string().min(1, "Logradouro é obrigatório").min(3, "Logradouro deve ter pelo menos 3 caracteres"),
   numeroResidencial: z.string().min(1, "Número é obrigatório"),
-  bairroResidencial: z.string().min(1, "Bairro é obrigatório").min(3, "Bairro deve ter pelo menos 3 caracteres"),
+  bairroResidencial: z.string().min(2, "Bairro é obrigatório").min(3, "Bairro deve ter pelo menos 3 caracteres"),
   cidadeResidencial: z.string().min(1, "Cidade é obrigatória").min(3, "Cidade deve ter pelo menos 3 caracteres"),
   estadoResidencial: z.string().min(1, "Estado é obrigatório").min(2, "Estado deve ter pelo menos 2 caracteres"),
 });
