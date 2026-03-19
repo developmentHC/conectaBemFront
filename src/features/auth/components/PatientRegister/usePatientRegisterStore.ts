@@ -5,6 +5,7 @@ type States = {
   birthdayDate?: Date;
   cepResidencial?: string;
   enderecoResidencial?: string;
+  numeroResidencial?: string;
   bairroResidencial?: string;
   cidadeResidencial?: string;
   estadoResidencial?: string;
@@ -29,6 +30,7 @@ const defaultsStates: States = {
   birthdayDate: undefined,
   cepResidencial: undefined,
   enderecoResidencial: undefined,
+  numeroResidencial: undefined,
   bairroResidencial: undefined,
   cidadeResidencial: undefined,
   estadoResidencial: undefined,

@@ -26,6 +26,7 @@ export type ICreatePatient = {
   residentialAddress: {
     cep: string | undefined;
     address: string | undefined;
+    number: string | undefined;
     neighborhood: string | undefined;
     city: string | undefined;
     state: string | undefined;

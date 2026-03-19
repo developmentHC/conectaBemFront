@@ -24,6 +24,7 @@ export const CompleteProfileStep = () => {
     birthdayDate,
     cepResidencial,
     enderecoResidencial,
+    numeroResidencial,
     bairroResidencial,
     cidadeResidencial,
     estadoResidencial,
@@ -60,6 +61,7 @@ export const CompleteProfileStep = () => {
       residentialAddress: {
         cep: cepResidencial,
         address: enderecoResidencial,
+        number: numeroResidencial,
         neighborhood: bairroResidencial,
         city: cidadeResidencial,
         state: estadoResidencial,
