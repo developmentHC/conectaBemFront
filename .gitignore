@@ -43,3 +43,6 @@ next-env.d.ts
 
 *storybook.log
 .env*.local
+
+# Claude Code napkin (per-user agent memory)
+.claude/napkin.md
