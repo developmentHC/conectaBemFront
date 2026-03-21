@@ -2,7 +2,7 @@ import { PatientRegister } from "@/features/auth/components/PatientRegister";
 
 export default function registroPaciente() {
   return (
-    <main className="flex justify-center items-start">
+    <main className="flex items-start justify-center">
       <div className="flex flex-col gap-8 md:max-w-[450px]">
         <PatientRegister />
       </div>

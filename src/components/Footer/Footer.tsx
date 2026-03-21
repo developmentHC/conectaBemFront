@@ -2,7 +2,14 @@ type FooterLink = { label: string; href?: string };
 
 type FooterSection = { title: string; links: FooterLink[] };
 
-type FooterVariant = "default" | "full" | "compact" | "support-legal" | "legal-only" | "logged-in-patient" | "logged-in-professional";
+type FooterVariant =
+  | "default"
+  | "full"
+  | "compact"
+  | "support-legal"
+  | "legal-only"
+  | "logged-in-patient"
+  | "logged-in-professional";
 
 type FooterProps = {
   variant?: FooterVariant;
@@ -34,10 +41,7 @@ const PRESETS: Record<FooterVariant, Required<Omit<FooterProps, "variant">>> = {
         links: [{ label: "Quem Somos" }, { label: "Valores" }],
       },
     ],
-    bottomLinks: [
-      { label: "Termos de uso" },
-      { label: "Política de privacidade" },
-    ],
+    bottomLinks: [{ label: "Termos de uso" }, { label: "Política de privacidade" }],
     showBrand: false,
     showCopyright: false,
     copyrightText: "© 2025 Conecta Bem. Todos os direitos reservados.",
@@ -61,10 +65,7 @@ const PRESETS: Record<FooterVariant, Required<Omit<FooterProps, "variant">>> = {
         links: [{ label: "Quem Somos" }, { label: "Valores" }],
       },
     ],
-    bottomLinks: [
-      { label: "Termos de uso" },
-      { label: "Política de privacidade" },
-    ],
+    bottomLinks: [{ label: "Termos de uso" }, { label: "Política de privacidade" }],
     showBrand: true,
     showCopyright: false,
     copyrightText: "© 2025 Conecta Bem. Todos os direitos reservados.",
@@ -80,10 +81,7 @@ const PRESETS: Record<FooterVariant, Required<Omit<FooterProps, "variant">>> = {
         links: [{ label: "Quem Somos" }],
       },
     ],
-    bottomLinks: [
-      { label: "Termos de uso" },
-      { label: "Política de privacidade" },
-    ],
+    bottomLinks: [{ label: "Termos de uso" }, { label: "Política de privacidade" }],
     showBrand: true,
     showCopyright: false,
     copyrightText: "© 2025 Conecta Bem. Todos os direitos reservados.",
@@ -103,10 +101,7 @@ const PRESETS: Record<FooterVariant, Required<Omit<FooterProps, "variant">>> = {
   },
   "legal-only": {
     sections: [],
-    bottomLinks: [
-      { label: "Termos de uso" },
-      { label: "Política de privacidade" },
-    ],
+    bottomLinks: [{ label: "Termos de uso" }, { label: "Política de privacidade" }],
     showBrand: false,
     showCopyright: false,
     copyrightText: "© 2025 Conecta Bem. Todos os direitos reservados.",
@@ -139,10 +134,7 @@ const PRESETS: Record<FooterVariant, Required<Omit<FooterProps, "variant">>> = {
       },
       {
         title: "Legal",
-        links: [
-          { label: "Termos de Uso" },
-          { label: "Política de Privacidade" },
-        ],
+        links: [{ label: "Termos de Uso" }, { label: "Política de Privacidade" }],
       },
     ],
     bottomLinks: [],
@@ -166,19 +158,19 @@ export const Footer = ({
   const withBrand = showBrand ?? preset.showBrand;
 
   return (
-    <footer className="bg-[#253E99] flex flex-col px-6 py-8">
+    <footer className="flex flex-col bg-[#253E99] px-6 py-8">
       <div className="flex w-full justify-center">
-        <div className="flex flex-col lg:flex-row gap-[10px] w-full max-w-[1025px] items-start">
+        <div className="flex w-full max-w-[1025px] flex-col items-start gap-[10px] lg:flex-row">
           {withBrand && (
             <div className="flex items-start">
-              <div className="bg-lime-500 text-blue-900 font-extrabold rounded-md w-10 h-10 flex items-center justify-center">
+              <div className="flex h-10 w-10 items-center justify-center rounded-md bg-lime-500 font-extrabold text-blue-900">
                 CB
               </div>
             </div>
           )}
           {finalSections.map((section) => (
-            <div key={section.title} className="flex flex-col gap-2 min-w-[12rem]">
-              <h4 className="text-[#D7FF7B] font-bold">{section.title}</h4>
+            <div key={section.title} className="flex min-w-[12rem] flex-col gap-2">
+              <h4 className="font-bold text-[#D7FF7B]">{section.title}</h4>
               {section.links?.length ? (
                 <ul className="flex flex-col gap-2 text-white/70">
                   {section.links.map((link) => (
@@ -193,8 +185,8 @@ export const Footer = ({
         </div>
       </div>
       {finalBottom.length ? (
-        <div className="flex w-full justify-center mt-8">
-          <div className="flex w-full max-w-[1025px] flex-wrap gap-4 justify-between items-center">
+        <div className="mt-8 flex w-full justify-center">
+          <div className="flex w-full max-w-[1025px] flex-wrap items-center justify-between gap-4">
             {finalBottom.map((link) => (
               <span key={link.label} className="cursor-pointer text-[#F2F1F3] underline">
                 {link.label}
@@ -204,9 +196,9 @@ export const Footer = ({
         </div>
       ) : null}
       {showCopyright && (
-        <div className="flex w-full justify-center mt-8">
-          <div className="flex w-full max-w-[1025px] border-t border-white/20 pt-4">
-            <p className="text-white/70 text-sm">{copyrightText}</p>
+        <div className="mt-8 flex w-full justify-center">
+          <div className="flex w-full max-w-[1025px] border-white/20 border-t pt-4">
+            <p className="text-sm text-white/70">{copyrightText}</p>
           </div>
         </div>
       )}

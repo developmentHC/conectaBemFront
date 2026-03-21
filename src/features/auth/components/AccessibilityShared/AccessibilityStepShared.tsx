@@ -1,12 +1,12 @@
 "use client";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { AccessibilityForm } from "./AccessibilityForm";
 import {
   ACCESSIBILITY_OPTIONS,
   accessibilitySchema,
-  AccessibilityData as Data,
+  type AccessibilityData as Data,
 } from "./constants";
 
 interface AccessibilityStepSharedProps {
@@ -14,7 +14,10 @@ interface AccessibilityStepSharedProps {
   changeStep: (step: string) => void;
 }
 
-export const AccessibilityStepShared = ({ updateFields, changeStep }: AccessibilityStepSharedProps) => {
+export const AccessibilityStepShared = ({
+  updateFields,
+  changeStep,
+}: AccessibilityStepSharedProps) => {
   const { setValue, handleSubmit, watch, getValues } = useForm<Data>({
     mode: "all",
     resolver: zodResolver(accessibilitySchema),

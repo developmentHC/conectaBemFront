@@ -1,16 +1,16 @@
 "use client";
 
-import axios from "axios";
-import { Button, TextField } from "@mui/material";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { Button, TextField } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
+import axios from "axios";
 import dayjs from "dayjs";
-import { useProfissionalRegisterStore } from "./useProfissionalRegisterStore";
-import { CEPField } from "@/components/Fields/CEPField";
 import { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { CEPField } from "@/components/Fields/CEPField";
 import { useCEP } from "../../hooks/useCEP";
+import { useProfissionalRegisterStore } from "./useProfissionalRegisterStore";
 
 const schema = z.object({
   name: z
@@ -18,23 +18,23 @@ const schema = z.object({
     .min(3, "Nome inválido")
     .regex(
       /^[A-Za-zÀ-ú]+(?: [A-Za-zÀ-ú]+)*$/,
-      "O nome deve conter apenas letras e um espaço entre as palavras"
+      "O nome deve conter apenas letras e um espaço entre as palavras",
     ),
   birthdate: z
     .instanceof(Date, { message: "Data de nascimento inválida." })
     .nullable()
-    .refine((date) => date !== null && !isNaN(date.getTime()), {
-        message: "Data de nascimento é obrigatória!",
+    .refine((date) => date !== null && !Number.isNaN(date.getTime()), {
+      message: "Data de nascimento é obrigatória!",
     })
     .refine(
       (date) => {
-        if (!date) return true; 
+        if (!date) return true;
         const min = dayjs().subtract(110, "years").toDate();
         return date >= min;
       },
       {
         message: "Digite uma data de nascimento válida",
-      }
+      },
     )
     .refine(
       (date) => {
@@ -43,9 +43,8 @@ const schema = z.object({
         return date <= max;
       },
       {
-        message:
-          "Você deve ser maior de idade para se cadastrar na plataforma!",
-      }
+        message: "Você deve ser maior de idade para se cadastrar na plataforma!",
+      },
     ),
   cepResidencial: z
     .string()
@@ -58,7 +57,7 @@ const schema = z.object({
         }
         try {
           const response = await axios.get(
-            `https://viacep.com.br/ws/${cep.replace(/\D/g, "")}/json/`
+            `https://viacep.com.br/ws/${cep.replace(/\D/g, "")}/json/`,
           );
           return !response.data.erro;
         } catch {
@@ -67,10 +66,10 @@ const schema = z.object({
       },
       {
         message: "CEP não encontrado",
-      }
+      },
     ),
   enderecoResidencial: z.string().min(3, "Endereço inválido"),
-  numeroResidencial: z.string().min(1, "Número obrigatório"), 
+  numeroResidencial: z.string().min(1, "Número obrigatório"),
   bairroResidencial: z.string().min(3, "Bairro inválido"),
 
   cidadeResidencial: z.string().min(3, "Cidade inválida"),
@@ -100,10 +99,10 @@ export const PersonalDataStep = () => {
       bairroResidencial: "",
       cidadeResidencial: "",
       estadoResidencial: "",
-    }
+    },
   });
 
-  const nameValue = watch("name"); 
+  const nameValue = watch("name");
   const cepValue = watch("cepResidencial");
   const logradouroValue = watch("enderecoResidencial");
   const bairroValue = watch("bairroResidencial");
@@ -118,11 +117,11 @@ export const PersonalDataStep = () => {
 
   const onSubmit = handleSubmit(async (data: Data) => {
     const submittedData = {
-        ...data,
-        birthdate: data.birthdate === null ? undefined : data.birthdate,
-        cepResidencial: data.cepResidencial.replace("-", ""),
-        numeroResidencial: data.numeroResidencial ? parseInt(data.numeroResidencial, 10) : null,
-    }
+      ...data,
+      birthdate: data.birthdate === null ? undefined : data.birthdate,
+      cepResidencial: data.cepResidencial.replace("-", ""),
+      numeroResidencial: data.numeroResidencial ? parseInt(data.numeroResidencial, 10) : null,
+    };
 
     updateFields(submittedData);
 
@@ -201,14 +200,12 @@ export const PersonalDataStep = () => {
         </label>
         <CEPField
           {...register("cepResidencial")}
-          onChange={(e) =>
-            setValue("cepResidencial", e.target.value, { shouldValidate: true })
-          }
+          onChange={(e) => setValue("cepResidencial", e.target.value, { shouldValidate: true })}
           error={!!errors.cepResidencial}
           helperText={errors.cepResidencial?.message}
         />
         <div className="flex justify-end">
-          <span className="text-base text-[#1D1B20] underline cursor-pointer font-normal">
+          <span className="cursor-pointer font-normal text-[#1D1B20] text-base underline">
             Buscar CEP
           </span>
         </div>
@@ -286,9 +283,7 @@ export const PersonalDataStep = () => {
       </div>
 
       <div className="my-6">
-        <span className="text-sm font-bold">
-          Campos Obrigatórios ( * )
-        </span>
+        <span className="font-bold text-sm">Campos Obrigatórios ( * )</span>
       </div>
 
       <Button type="submit" variant="contained" size="large">

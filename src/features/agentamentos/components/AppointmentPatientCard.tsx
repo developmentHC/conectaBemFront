@@ -1,8 +1,7 @@
 "use client";
 
+import { BadgeDollarSign, CalendarDays, Clock3, MapPin } from "lucide-react";
 import Image from "next/image";
-import { CalendarDays, Clock3, BadgeDollarSign, MapPin } from "lucide-react";
-
 
 export type PatientAppointmentStatus = "confirmed" | "pending" | "completed" | "canceled";
 
@@ -87,23 +86,18 @@ function statusUi(status: PatientAppointmentStatus | string) {
   }
 }
 
-
-
-
 export function AppointmentPatientCard(props: AppointmentPatientCardProps) {
   const ui = statusUi(props.status);
 
   return (
     <article className="w-full rounded-2xl border border-slate-200 bg-white shadow-sm">
-
       <div className="px-4 pt-4">
         <div
-          className="w-full rounded-full border px-3 py-2 text-base font-medium flex items-center justify-center gap-2 text-slate-900"
+          className="flex w-full items-center justify-center gap-2 rounded-full border px-3 py-2 font-medium text-base text-slate-900"
           style={{ backgroundColor: ui.bgHex, borderColor: ui.borderHex }}
         >
-
           <span
-            className="grid h-4 w-4 place-items-center rounded-full border text-base leading-none font-bold"
+            className="grid h-4 w-4 place-items-center rounded-full border font-bold text-base leading-none"
             style={{ borderColor: ui.iconHex, color: ui.iconHex }}
             aria-hidden="true"
           >
@@ -114,9 +108,7 @@ export function AppointmentPatientCard(props: AppointmentPatientCardProps) {
         </div>
       </div>
 
-
-
-      <div className="px-4 pt-4 flex gap-3">
+      <div className="flex gap-3 px-4 pt-4">
         <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-xl bg-slate-100">
           {props.professional.imageUrl ? (
             <Image
@@ -130,7 +122,7 @@ export function AppointmentPatientCard(props: AppointmentPatientCardProps) {
         </div>
 
         <div className="min-w-0 flex-1">
-          <h3 className="text-base font-semibold text-blue-700 truncate">
+          <h3 className="truncate font-semibold text-base text-blue-700">
             {props.professional.name}
           </h3>
 
@@ -151,23 +143,21 @@ export function AppointmentPatientCard(props: AppointmentPatientCardProps) {
         </div>
       </div>
 
-      <hr className="my-4 mx-auto w-[92%] border-t border-[#CBC8D0]" />
+      <hr className="mx-auto my-4 w-[92%] border-[#CBC8D0] border-t" />
 
       {props.address?.addressLine && (
-        <div className="px-4 mt-3 text-base text-slate-600 flex items-start gap-2">
+        <div className="mt-3 flex items-start gap-2 px-4 text-base text-slate-600">
           <MapPin className="h-4 w-4 text-slate-400" />
           <span className="leading-5">{props.address.addressLine}</span>
         </div>
       )}
 
-      <hr className="my-4 mx-auto w-[92%] border-t border-[#CBC8D0]" />
-
-
+      <hr className="mx-auto my-4 w-[92%] border-[#CBC8D0] border-t" />
 
       {props.services?.length ? (
         <div className="px-4 pb-2">
-          <p className="text-base font-semibold text-slate-700">Serviços Agendados:</p>
-          <ul className="mt-2 list-disc pl-5 text-base text-slate-600 space-y-1">
+          <p className="font-semibold text-base text-slate-700">Serviços Agendados:</p>
+          <ul className="mt-2 list-disc space-y-1 pl-5 text-base text-slate-600">
             {props.services.map((s) => (
               <li key={s}>{s}</li>
             ))}
@@ -175,17 +165,16 @@ export function AppointmentPatientCard(props: AppointmentPatientCardProps) {
         </div>
       ) : (
         <div className="px-4 pb-2">
-          <p className="text-base font-semibold text-slate-700">Serviços Agendados:</p>
+          <p className="font-semibold text-base text-slate-700">Serviços Agendados:</p>
           <p className="mt-2 text-base text-slate-500">—</p>
         </div>
       )}
 
-
-      <div className="px-4 pb-4 pt-3 space-y-2">
+      <div className="space-y-2 px-4 pt-3 pb-4">
         <button
           type="button"
           onClick={props.primaryCta.onClick}
-          className="w-full rounded-xl bg-blue-600 px-4 py-2.5 text-base font-medium text-white hover:opacity-95"
+          className="w-full rounded-xl bg-blue-600 px-4 py-2.5 font-medium text-base text-white hover:opacity-95"
         >
           {props.primaryCta.label}
         </button>
@@ -194,7 +183,7 @@ export function AppointmentPatientCard(props: AppointmentPatientCardProps) {
           <button
             type="button"
             onClick={props.secondaryCta.onClick}
-            className="w-full rounded-xl border border-blue-300 bg-white px-4 py-2.5 text-base font-medium text-blue-700 hover:bg-blue-50"
+            className="w-full rounded-xl border border-blue-300 bg-white px-4 py-2.5 font-medium text-base text-blue-700 hover:bg-blue-50"
           >
             {props.secondaryCta.label}
           </button>

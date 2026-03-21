@@ -1,11 +1,7 @@
 "use client";
 
-import React, {
-  useEffect,
-  useRef,
-  useImperativeHandle,
-  forwardRef,
-} from "react";
+import type React from "react";
+import { forwardRef, useEffect, useImperativeHandle, useRef } from "react";
 
 type CodeInputProps = {
   value: (string | null)[];
@@ -28,7 +24,7 @@ export const CodeInput = forwardRef<CodeInputHandle, CodeInputProps>(
           refs.current[0]?.focus();
         },
       }),
-      []
+      [],
     );
 
     useEffect(() => {
@@ -39,19 +35,12 @@ export const CodeInput = forwardRef<CodeInputHandle, CodeInputProps>(
       }
     }, [value, onComplete]);
 
-    const handleChange = (
-      e: React.ChangeEvent<HTMLInputElement>,
-      index: number
-    ) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
       let formatedValue = e.target.value;
 
       formatedValue = formatedValue.replace(/\D/g, "").slice(-1);
 
-      const newValue = [
-        ...value.slice(0, index),
-        formatedValue,
-        ...value.slice(index + 1),
-      ];
+      const newValue = [...value.slice(0, index), formatedValue, ...value.slice(index + 1)];
 
       onChange?.(newValue);
 
@@ -81,13 +70,13 @@ export const CodeInput = forwardRef<CodeInputHandle, CodeInputProps>(
             }}
             value={value[index] || ""}
             key={index}
-            className="px-2 py-6 rounded-lg w-full text-center border-2 border-input-code-border focus:outline-blue-600 text-inputCodeText font-bold transition-all"
+            className="w-full rounded-lg border-2 border-input-code-border px-2 py-6 text-center font-bold text-inputCodeText transition-all focus:outline-blue-600"
             type="number"
           />
         ))}
       </div>
     );
-  }
+  },
 );
 
 CodeInput.displayName = "CodeInput";

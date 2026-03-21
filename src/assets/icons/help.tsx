@@ -1,4 +1,4 @@
-import { JSX } from "react";
+import type { JSX } from "react";
 
 export const HelpIcon = (args: JSX.IntrinsicElements["svg"]) => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" {...args}>

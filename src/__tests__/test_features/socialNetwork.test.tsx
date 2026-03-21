@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element -- Tests mock next/image with a bare img element to keep the DOM simple. */
-import { render, screen, fireEvent } from "@testing-library/react";
-import { SocialNetwork } from "@/features/auth/components/SocialNetwork/SocialNetwork";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { signIn } from "next-auth/react";
+import { SocialNetwork } from "@/features/auth/components/SocialNetwork/SocialNetwork";
 
 // Mock do signIn para não chamar a API real
 jest.mock("next-auth/react", () => ({

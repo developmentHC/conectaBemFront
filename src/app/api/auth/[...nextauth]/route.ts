@@ -1,7 +1,7 @@
-import { api } from "@/libs/api";
-import NextAuth, { NextAuthOptions } from "next-auth";
+import NextAuth, { type NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
+import { api } from "@/libs/api";
 
 const nextAuthOptions: NextAuthOptions = {
   providers: [
@@ -10,7 +10,7 @@ const nextAuthOptions: NextAuthOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
       authorization: {
         params: {
-          redirect_uri: process.env.NEXTAUTH_URL + "/api/auth/callback/google",
+          redirect_uri: `${process.env.NEXTAUTH_URL}/api/auth/callback/google`,
         },
       },
     }),
@@ -43,11 +43,15 @@ const nextAuthOptions: NextAuthOptions = {
 
             let userType = "patient";
 
-            if (data.userType && Array.isArray(data.userType) && data.userType.includes('professional')) {
+            if (
+              data.userType &&
+              Array.isArray(data.userType) &&
+              data.userType.includes("professional")
+            ) {
               userType = "professional";
             }
 
-            if (data.user && data.user._id) {
+            if (data.user?._id) {
               return {
                 id: data.user._id,
                 email: data.user.email,
@@ -68,7 +72,11 @@ const nextAuthOptions: NextAuthOptions = {
 
             let userType = "patient";
 
-            if (data.userType && Array.isArray(data.userType) && data.userType.includes('professional')) {
+            if (
+              data.userType &&
+              Array.isArray(data.userType) &&
+              data.userType.includes("professional")
+            ) {
               userType = "professional";
             }
 
@@ -100,59 +108,59 @@ const nextAuthOptions: NextAuthOptions = {
     verifyRequest: "/auth/confirmar-codigo",
   },
   callbacks: {
-  async signIn({ user, account }) {
-    // ... mantém como está
-    if (account?.provider === "google") {
-      try {
-        const response = await api.post("/auth/sendOTP", { email: user.email });
-        const data = response.data;
+    async signIn({ user, account }) {
+      // ... mantém como está
+      if (account?.provider === "google") {
+        try {
+          const response = await api.post("/auth/sendOTP", { email: user.email });
+          const data = response.data;
 
-        if (data.email.status === "completed") {
-          Object.assign(user, data.user);
-          return true;
-        } else if (data.email.status === "pending") {
-          const params = new URLSearchParams({
-            userId: data.id || "",
-          });
-          return `/auth/registro?${params.toString()}`;
+          if (data.email.status === "completed") {
+            Object.assign(user, data.user);
+            return true;
+          } else if (data.email.status === "pending") {
+            const params = new URLSearchParams({
+              userId: data.id || "",
+            });
+            return `/auth/registro?${params.toString()}`;
+          }
+        } catch {
+          throw new Error("Erro ao fazer login");
         }
-      } catch {
-        throw new Error("Erro ao fazer login");
       }
-    }
-    return true;
-  },
+      return true;
+    },
 
-  async jwt({ token, user }) {
-    // mantém o user
-    if (user) {
-      token.user = user as any;
+    async jwt({ token, user }) {
+      // mantém o user
+      if (user) {
+        token.user = user as any;
 
-      //  pega o token do backend e guarda num campo próprio
-      const backendToken = (user as any).token;
-      if (backendToken) {
-        (token as any).accessToken = backendToken;
+        //  pega o token do backend e guarda num campo próprio
+        const backendToken = (user as any).token;
+        if (backendToken) {
+          (token as any).accessToken = backendToken;
+        }
+
+        // guardar type também de forma direta
+        const userType = (user as any).type;
+        if (userType) {
+          (token as any).userType = userType;
+        }
       }
+      return token;
+    },
 
-      // guardar type também de forma direta
-      const userType = (user as any).type;
-      if (userType) {
-        (token as any).userType = userType;
-      }
-    }
-    return token;
+    async session({ session, token }) {
+      session.user = token.user as any;
+
+      // expõe pro client
+      (session as any).accessToken = (token as any).accessToken;
+      (session as any).userType = (token as any).userType;
+
+      return session;
+    },
   },
-
-  async session({ session, token }) {
-    session.user = token.user as any;
-
-    // expõe pro client
-    (session as any).accessToken = (token as any).accessToken;
-    (session as any).userType = (token as any).userType;
-
-    return session;
-  },
-},
 
   debug: process.env.NODE_ENV === "development",
   /* logger: {

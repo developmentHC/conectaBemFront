@@ -2,14 +2,14 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useCallback, useMemo, useState } from "react";
 import { MdStarRate } from "react-icons/md";
-import { useAppointments } from "@/features/agentamentos/hooks/useAppointments";
 import { AppointmentsPatientGrid } from "@/features/agentamentos/components/AppointmentsPatientGrid";
+import { useAppointments } from "@/features/agentamentos/hooks/useAppointments";
 import { useProfessional } from "@/features/home/hooks/useProfessional";
-import { filterAndSortProfessionals } from "@/utils/filterProfessionals";
 import type { IAppointment } from "@/types/appointment";
-import { useRouter } from "next/navigation";
+import { filterAndSortProfessionals } from "@/utils/filterProfessionals";
 
 type MainTab = "confirmed" | "pending" | "canceled";
 type ConfirmedSubFilter = "all" | "confirmed" | "completed";
@@ -31,7 +31,6 @@ function toInternalStatus(a: IAppointment): "confirmed" | "pending" | "completed
 }
 
 export default function AgendamentosPacientesPage() {
-
   const { data: appointments = [], isLoading, error } = useAppointments();
   const router = useRouter();
   const [mainTab, setMainTab] = useState<MainTab>("confirmed");
@@ -62,12 +61,16 @@ export default function AgendamentosPacientesPage() {
   const filteredAppointments = useMemo(() => {
     const withInternal = appointments.map((a) => ({ a, st: toInternalStatus(a) }));
 
-    if (mainTab === "pending") return withInternal.filter((x) => x.st === "pending").map((x) => x.a);
-    if (mainTab === "canceled") return withInternal.filter((x) => x.st === "canceled").map((x) => x.a);
+    if (mainTab === "pending")
+      return withInternal.filter((x) => x.st === "pending").map((x) => x.a);
+    if (mainTab === "canceled")
+      return withInternal.filter((x) => x.st === "canceled").map((x) => x.a);
 
     const base = withInternal.filter((x) => x.st === "confirmed" || x.st === "completed");
-    if (confirmedFilter === "confirmed") return base.filter((x) => x.st === "confirmed").map((x) => x.a);
-    if (confirmedFilter === "completed") return base.filter((x) => x.st === "completed").map((x) => x.a);
+    if (confirmedFilter === "confirmed")
+      return base.filter((x) => x.st === "confirmed").map((x) => x.a);
+    if (confirmedFilter === "completed")
+      return base.filter((x) => x.st === "completed").map((x) => x.a);
     return base.map((x) => x.a);
   }, [appointments, mainTab, confirmedFilter]);
 
@@ -85,29 +88,31 @@ export default function AgendamentosPacientesPage() {
 
   const hasFilteredAppointments = filteredAppointments.length > 0;
 
-
   if (isLoading) {
     return (
-      <main className="max-w-6xl mx-auto px-4 py-6">
-        <div className="text-center text-[#3857F4] text-lg font-medium">Carregando agendamentos...</div>
+      <main className="mx-auto max-w-6xl px-4 py-6">
+        <div className="text-center font-medium text-[#3857F4] text-lg">
+          Carregando agendamentos...
+        </div>
       </main>
     );
   }
 
   if (error) {
     return (
-      <main className="max-w-6xl mx-auto px-4 py-6">
-        <div className="text-center text-red-500 text-lg font-medium">Erro ao carregar agendamentos.</div>
+      <main className="mx-auto max-w-6xl px-4 py-6">
+        <div className="text-center font-medium text-lg text-red-500">
+          Erro ao carregar agendamentos.
+        </div>
       </main>
     );
   }
   return (
-    <main className="max-w-6xl mx-auto px-4 py-6">
-      <h1 className="text-2xl font-semibold">Meus Agendamentos</h1>
+    <main className="mx-auto max-w-6xl px-4 py-6">
+      <h1 className="font-semibold text-2xl">Meus Agendamentos</h1>
       <p className="mt-1 text-base text-slate-500">
         Selecione o status para exibir seus agendamentos
       </p>
-
 
       <div className="mt-5 w-full">
         <div className="grid grid-cols-3 rounded-xl border border-slate-200 bg-white p-1">
@@ -115,8 +120,10 @@ export default function AgendamentosPacientesPage() {
             type="button"
             onClick={() => setMainTab("confirmed")}
             className={[
-              "rounded-lg py-2 text-base font-medium",
-              mainTab === "confirmed" ? "bg-blue-600 text-white" : "text-slate-600 hover:bg-slate-50",
+              "rounded-lg py-2 font-medium text-base",
+              mainTab === "confirmed"
+                ? "bg-blue-600 text-white"
+                : "text-slate-600 hover:bg-slate-50",
             ].join(" ")}
           >
             Confirmados
@@ -126,7 +133,7 @@ export default function AgendamentosPacientesPage() {
             type="button"
             onClick={() => setMainTab("pending")}
             className={[
-              "rounded-lg py-2 text-base font-medium",
+              "rounded-lg py-2 font-medium text-base",
               mainTab === "pending" ? "bg-blue-600 text-white" : "text-slate-600 hover:bg-slate-50",
             ].join(" ")}
           >
@@ -137,8 +144,10 @@ export default function AgendamentosPacientesPage() {
             type="button"
             onClick={() => setMainTab("canceled")}
             className={[
-              "rounded-lg py-2 text-base font-medium",
-              mainTab === "canceled" ? "bg-blue-600 text-white" : "text-slate-600 hover:bg-slate-50",
+              "rounded-lg py-2 font-medium text-base",
+              mainTab === "canceled"
+                ? "bg-blue-600 text-white"
+                : "text-slate-600 hover:bg-slate-50",
             ].join(" ")}
           >
             Cancelados
@@ -146,14 +155,13 @@ export default function AgendamentosPacientesPage() {
         </div>
       </div>
 
-
       {mainTab === "confirmed" && (
         <div className="mt-4 flex gap-2">
           <button
             type="button"
             onClick={() => setConfirmedFilter("all")}
             className={[
-              "rounded-lg border px-3 py-1.5 text-base font-medium",
+              "rounded-lg border px-3 py-1.5 font-medium text-base",
               confirmedFilter === "all"
                 ? "border-[#253E99] bg-blue-50 text-[#253E99]"
                 : "border-slate-200 bg-white text-slate-600 hover:bg-slate-50",
@@ -166,7 +174,7 @@ export default function AgendamentosPacientesPage() {
             type="button"
             onClick={() => setConfirmedFilter("confirmed")}
             className={[
-              "rounded-lg border px-3 py-1.5 text-base font-medium",
+              "rounded-lg border px-3 py-1.5 font-medium text-base",
               confirmedFilter === "confirmed"
                 ? "border-[#253E99] bg-blue-50 text-[#253E99]"
                 : "border-slate-200 bg-white text-slate-600 hover:bg-slate-50",
@@ -179,7 +187,7 @@ export default function AgendamentosPacientesPage() {
             type="button"
             onClick={() => setConfirmedFilter("completed")}
             className={[
-              "rounded-lg border px-3 py-1.5 text-base font-medium",
+              "rounded-lg border px-3 py-1.5 font-medium text-base",
               confirmedFilter === "completed"
                 ? "border-[#253E99] bg-blue-50 text-[#253E99]"
                 : "border-slate-200 bg-white text-slate-600 hover:bg-slate-50",
@@ -192,7 +200,6 @@ export default function AgendamentosPacientesPage() {
 
       {infoText && <p className="mt-4 text-base text-slate-600">{infoText}</p>}
 
-
       <div className="mt-6">
         {hasFilteredAppointments ? (
           <AppointmentsPatientGrid
@@ -201,15 +208,17 @@ export default function AgendamentosPacientesPage() {
             onAsk={handleAskProfessional}
           />
         ) : (
-          <section className="rounded-3xl  px-6 py-10 text-center">
+          <section className="rounded-3xl px-6 py-10 text-center">
             <div className="mx-auto flex max-w-2xl flex-col gap-2">
-              <p className="text-base font-semibold text-slate-700">Não encontramos nenhum agendamento</p>
+              <p className="font-semibold text-base text-slate-700">
+                Não encontramos nenhum agendamento
+              </p>
               <p className="text-base text-slate-500">
                 Tente filtrar novamente ou que tal agendar com os profissionais abaixo.
               </p>
             </div>
             <div className="mt-8 text-left">
-              <p className="text-lg font-semibold text-slate-800">Sugestões de Profissionais</p>
+              <p className="font-semibold text-lg text-slate-800">Sugestões de Profissionais</p>
               <div className="mt-4">
                 <ProfessionalSuggestions />
               </div>
@@ -224,14 +233,19 @@ export default function AgendamentosPacientesPage() {
 function ProfessionalSuggestions() {
   const { data: professionals = [], isLoading, isError } = useProfessional();
 
-  const suggestions = useMemo(() => filterAndSortProfessionals(professionals).slice(0, 5), [professionals]);
+  const suggestions = useMemo(
+    () => filterAndSortProfessionals(professionals).slice(0, 5),
+    [professionals],
+  );
 
   if (isLoading) {
-    return <p className="text-base text-[#3857F4]">Carregando sugestões...</p>;
+    return <p className="text-[#3857F4] text-base">Carregando sugestões...</p>;
   }
 
   if (isError || suggestions.length === 0) {
-    return <p className="text-base text-slate-500">Não foi possível carregar sugestões no momento.</p>;
+    return (
+      <p className="text-base text-slate-500">Não foi possível carregar sugestões no momento.</p>
+    );
   }
 
   return (
@@ -257,17 +271,24 @@ function ProfessionalSuggestions() {
 
             <div className="flex flex-1 flex-col gap-3">
               <div>
-                <p className="text-xl font-semibold text-slate-900">{professional.name}</p>
+                <p className="font-semibold text-slate-900 text-xl">{professional.name}</p>
                 <div className="mt-1 flex flex-wrap items-center gap-1 text-base text-slate-600">
                   <span className="font-semibold">
-                    {Number.isInteger(professional.rating) ? `${professional.rating}.0` : professional.rating}
+                    {Number.isInteger(professional.rating)
+                      ? `${professional.rating}.0`
+                      : professional.rating}
                   </span>
                   <MdStarRate className="text-yellow-400" />
-                  <span className="text-base text-slate-500">({professional.reviews} avaliações)</span>
+                  <span className="text-base text-slate-500">
+                    ({professional.reviews} avaliações)
+                  </span>
                 </div>
                 <span className="text-base text-slate-500">
                   {typeof professional.price === "number"
-                    ? professional.price.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })
+                    ? professional.price.toLocaleString("pt-BR", {
+                        style: "currency",
+                        currency: "BRL",
+                      })
                     : professional.price}
                   {professional.distance ? ` | ${professional.distance} km` : ""}
                 </span>
@@ -278,7 +299,7 @@ function ProfessionalSuggestions() {
                   {chips.map((label, index) => (
                     <span
                       key={`${professional.id}-chip-${index}-${label}`}
-                      className="rounded-full border border-[#3857F4] px-3 py-1 text-base font-semibold text-[#3857F4]"
+                      className="rounded-full border border-[#3857F4] px-3 py-1 font-semibold text-[#3857F4] text-base"
                     >
                       {label}
                     </span>
@@ -288,7 +309,7 @@ function ProfessionalSuggestions() {
 
               <Link
                 href={`/profissional/${professional.id}`}
-                className="inline-flex h-11 w-full items-center justify-center rounded-xl bg-[#3857F4] text-base font-semibold text-white transition hover:bg-blue-700"
+                className="inline-flex h-11 w-full items-center justify-center rounded-xl bg-[#3857F4] font-semibold text-base text-white transition hover:bg-blue-700"
               >
                 Ver perfil
               </Link>

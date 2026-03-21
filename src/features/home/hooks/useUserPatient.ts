@@ -1,5 +1,5 @@
-import { IPatient } from "@/types/patient";
 import { useQuery } from "@tanstack/react-query";
+import type { IPatient } from "@/types/patient";
 
 export const useUserPatient = () => {
   return useQuery<IPatient>({

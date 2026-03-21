@@ -1,7 +1,6 @@
-import { useQuery } from "@tanstack/react-query";
+import { QueryClient, useQuery } from "@tanstack/react-query";
+import type { MenuItem } from "@/components/Header/types";
 import { createClient } from "@/libs/prismic";
-import { QueryClient } from "@tanstack/react-query";
-import { MenuItem } from "@/components/Header/types";
 
 export const queryClient = new QueryClient();
 
@@ -20,7 +19,7 @@ async function fetchMenuData(): Promise<MenuItem[]> {
       const menuItemRef = menuItem["menu-item"];
       const menuItemResponse = await client.getByID(menuItemRef.id);
       return menuItemResponse.data;
-    })
+    }),
   );
 }
 
