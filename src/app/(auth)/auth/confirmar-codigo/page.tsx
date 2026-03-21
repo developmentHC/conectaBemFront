@@ -1,11 +1,11 @@
 "use client";
 
+import { Button, Divider } from "@mui/material";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { ContactSupportIcon } from "@/assets/icons";
 import { CodeForm } from "@/features/auth/components/CodeForm/CodeForm";
 import { TitleCode } from "@/features/auth/components/CodeForm/TitleCode";
-import { Button, Divider } from "@mui/material";
-import { useEffect, useState } from "react";
 import { SuccessScreen } from "@/features/auth/components/SuccessScreen/SuccessScreen";
 
 export default function ConfirmCode() {
@@ -38,15 +38,14 @@ export default function ConfirmCode() {
     />
   ) : (
     <main className="flex justify-center">
-      <div className="flex flex-col md:max-w-[450px] justify-center gap-8">
+      <div className="flex flex-col justify-center gap-8 md:max-w-[450px]">
         <TitleCode />
 
         <CodeForm onValidationSuccess={handleSuccessValidation} />
 
         <div className="flex flex-col gap-4 text-gray-600">
           <span className="">
-            Não se esqueça de verificar sua caixa de spam, caso não encontre
-            nosso e-mail
+            Não se esqueça de verificar sua caixa de spam, caso não encontre nosso e-mail
           </span>
           <div className="flex items-center gap-2">
             <ContactSupportIcon className="fill-gray-600" />

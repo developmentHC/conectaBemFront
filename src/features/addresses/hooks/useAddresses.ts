@@ -6,7 +6,7 @@ export const useAddresses = () => {
     queryKey: ["userAddresses"],
     queryFn: async () => {
       const response = await axios.get("/mocks/adresses.json");
-      
+
       return response.data;
     },
     refetchOnWindowFocus: false,

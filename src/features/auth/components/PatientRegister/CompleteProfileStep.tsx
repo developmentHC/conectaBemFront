@@ -1,15 +1,15 @@
-import { MdEdit } from "react-icons/md";
-import { FaUser } from "react-icons/fa";
 import { Button, Checkbox, FormControlLabel, Link } from "@mui/material";
-import { useState } from "react";
-import { usePatientRegisterStore } from "./usePatientRegisterStore";
-import { useRegisterPatient } from "../../hooks/useRegisterPatient";
-import { useUserStore } from "@/stores/userSessionStore";
 import Image from "next/image";
-import { convertToBase64 } from "@/utils/transformImageToBase64";
+import { useState } from "react";
 import toast from "react-hot-toast";
+import { FaUser } from "react-icons/fa";
+import { MdEdit } from "react-icons/md";
+import { useUserStore } from "@/stores/userSessionStore";
 import { compressImage } from "@/utils/compressImage";
 import { gtmEvents } from "@/utils/gtm";
+import { convertToBase64 } from "@/utils/transformImageToBase64";
+import { useRegisterPatient } from "../../hooks/useRegisterPatient";
+import { usePatientRegisterStore } from "./usePatientRegisterStore";
 
 export const CompleteProfileStep = () => {
   const [image, setImage] = useState<string | null>(null);
@@ -75,47 +75,38 @@ export const CompleteProfileStep = () => {
     gtmEvents.patientRegistrationComplete(
       idUser || "not_specified",
       cidadeResidencial || "not_specified",
-      estadoResidencial || "not_specified"
+      estadoResidencial || "not_specified",
     );
   };
 
   return (
     <form className="flex flex-col gap-8">
-      <div className="flex justify-center items-center relative">
-        <input
-          onChange={onChangeImage}
-          type="file"
-          name="file"
-          id="file"
-          className="hidden"
-        />
+      <div className="relative flex items-center justify-center">
+        <input onChange={onChangeImage} type="file" name="file" id="file" className="hidden" />
         <label
           htmlFor="file"
-          className="bg-blue-600 h-[120px] w-[120px] rounded-full items-center justify-center flex flex-col relative cursor-pointer"
+          className="relative flex h-[120px] w-[120px] cursor-pointer flex-col items-center justify-center rounded-full bg-blue-600"
         >
           {image ? (
             <Image
               src={image}
-              className="w-full h-full rounded-full object-cover"
+              className="h-full w-full rounded-full object-cover"
               alt="profile"
               width={120}
               height={120}
             />
           ) : (
-            <FaUser className="text-button text-6xl" />
+            <FaUser className="text-6xl text-button" />
           )}
-          <div className="bg-white h-[35px] w-[35px] flex items-center justify-center rounded-full ml-24 mt-16 absolute shadow-lg cursor-pointer">
-            <MdEdit className="text-blue-600 text-3xl" />
+          <div className="absolute mt-16 ml-24 flex h-[35px] w-[35px] cursor-pointer items-center justify-center rounded-full bg-white shadow-lg">
+            <MdEdit className="text-3xl text-blue-600" />
           </div>
         </label>
       </div>
 
       <FormControlLabel
         control={
-          <Checkbox
-            checked={termsAccepted}
-            onChange={(e) => setTermsAccepted(e.target.checked)}
-          />
+          <Checkbox checked={termsAccepted} onChange={(e) => setTermsAccepted(e.target.checked)} />
         }
         label={
           <p>
@@ -129,11 +120,7 @@ export const CompleteProfileStep = () => {
       />
 
       <div className="flex flex-col gap-6">
-        <Button
-          onClick={onSubmit}
-          variant="contained"
-          disabled={!termsAccepted || isPending}
-        >
+        <Button onClick={onSubmit} variant="contained" disabled={!termsAccepted || isPending}>
           {isPending ? "Enviando..." : "Começar"}
         </Button>
       </div>

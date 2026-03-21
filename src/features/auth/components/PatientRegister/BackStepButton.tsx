@@ -1,5 +1,5 @@
-import { FormMultiStep } from "@/components/FormMultiStep";
 import Link from "next/link";
+import { FormMultiStep } from "@/components/FormMultiStep";
 import { usePatientRegisterStore } from "./usePatientRegisterStore";
 
 export const BackStepButton = () => {
@@ -14,21 +14,15 @@ export const BackStepButton = () => {
       )}
 
       {step === "specialties" && (
-        <FormMultiStep.BackStepButton
-          onClick={() => changeStep("personal_data")}
-        />
+        <FormMultiStep.BackStepButton onClick={() => changeStep("personal_data")} />
       )}
 
       {step === "accessibility" && (
-        <FormMultiStep.BackStepButton
-          onClick={() => changeStep("specialties")}
-        />
+        <FormMultiStep.BackStepButton onClick={() => changeStep("specialties")} />
       )}
 
       {step === "complete_profile" && (
-        <FormMultiStep.BackStepButton
-          onClick={() => changeStep("accessibility")}
-        />
+        <FormMultiStep.BackStepButton onClick={() => changeStep("accessibility")} />
       )}
     </>
   );

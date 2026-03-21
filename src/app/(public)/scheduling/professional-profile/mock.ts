@@ -7,14 +7,7 @@ export const mock = {
     price_range: "$$$",
     distance: "0.25km",
     photo_url: "url_da_imagem_do_profissional.jpg",
-    qualifications: [
-      "Sala individual",
-      "Quiropraxia",            
-      "Certificado XYZ",
-      "Libras",
-      
-      
-    ],
+    qualifications: ["Sala individual", "Quiropraxia", "Certificado XYZ", "Libras"],
     accessibility: [
       "Acessível para cadeirantes",
       "Banheiro adaptado",
@@ -29,12 +22,7 @@ export const mock = {
       "Avenida Floriano Peixoto, 320. Ubelândia, Minas Gerais",
     ],
     payment_methods: ["Pix", "Wellhub", "Master Card", "Visa"],
-    accepted_convenios: [
-      "Bradesco Seguros",
-      "Amil",
-      "Sul América",
-      "Assim Saúde",
-    ],
+    accepted_convenios: ["Bradesco Seguros", "Amil", "Sul América", "Assim Saúde"],
   },
   promotional_packages: [
     {

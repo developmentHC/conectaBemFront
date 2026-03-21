@@ -1,7 +1,7 @@
+import { useQuery } from "@tanstack/react-query";
 import { api } from "@/libs/api";
 import { useUserStore } from "@/stores/userSessionStore";
-import { IProfessional } from "@/types/professional";
-import { useQuery } from "@tanstack/react-query";
+import type { IProfessional } from "@/types/professional";
 
 export const useGetUser = (options = {}) => {
   const { setUser } = useUserStore();

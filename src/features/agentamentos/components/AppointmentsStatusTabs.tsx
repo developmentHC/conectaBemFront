@@ -12,14 +12,14 @@ export default function AppointmentStatusTabs({
   };
 
   return (
-    <div className="w-full flex flex-row items-start border-b border-[#B1ACB9]">
+    <div className="flex w-full flex-row items-start border-[#B1ACB9] border-b">
       {/* Confirmados */}
       <button
         type="button"
-        className={`flex justify-center items-center w-1/3 h-[42px] px-2 gap-[10px] border-b-2 text-[20px] font-bold leading-[130%] ${
+        className={`flex h-[42px] w-1/3 items-center justify-center gap-[10px] border-b-2 px-2 font-bold text-[20px] leading-[130%] ${
           tabValue === "confirmados"
-            ? "text-[#3857F4] border-[#3857F4]"
-            : "text-[#B1ACB9] border-transparent"
+            ? "border-[#3857F4] text-[#3857F4]"
+            : "border-transparent text-[#B1ACB9]"
         }`}
         onClick={() => handleTabChange("confirmados")}
       >
@@ -29,10 +29,10 @@ export default function AppointmentStatusTabs({
       {/* Pendentes */}
       <button
         type="button"
-        className={`flex justify-center items-center w-1/3 h-[42px] px-2 gap-[10px] border-b-2 text-[20px] font-bold leading-[130%] ${
+        className={`flex h-[42px] w-1/3 items-center justify-center gap-[10px] border-b-2 px-2 font-bold text-[20px] leading-[130%] ${
           tabValue === "pendentes"
-            ? "text-[#3857F4] border-[#3857F4]"
-            : "text-[#B1ACB9] border-transparent"
+            ? "border-[#3857F4] text-[#3857F4]"
+            : "border-transparent text-[#B1ACB9]"
         }`}
         onClick={() => handleTabChange("pendentes")}
       >
@@ -42,10 +42,10 @@ export default function AppointmentStatusTabs({
       {/* Cancelados */}
       <button
         type="button"
-        className={`flex justify-center items-center w-1/3 h-[42px] px-2 gap-[10px] border-b-2 text-[20px] font-bold leading-[130%] ${
+        className={`flex h-[42px] w-1/3 items-center justify-center gap-[10px] border-b-2 px-2 font-bold text-[20px] leading-[130%] ${
           tabValue === "cancelados"
-            ? "text-[#3857F4] border-[#3857F4]"
-            : "text-[#B1ACB9] border-transparent"
+            ? "border-[#3857F4] text-[#3857F4]"
+            : "border-transparent text-[#B1ACB9]"
         }`}
         onClick={() => handleTabChange("cancelados")}
       >

@@ -1,17 +1,12 @@
 "use client";
-import { useMemo, useRef, useEffect } from "react";
 import dayjs from "dayjs";
+import { useEffect, useMemo, useRef } from "react";
 import "dayjs/locale/pt-br";
-import {
-  LuCalendarDays,
-  LuChevronLeft,
-  LuChevronRight,
-} from "react-icons/lu";
+import { LuCalendarDays, LuChevronLeft, LuChevronRight } from "react-icons/lu";
 
 dayjs.locale("pt-br");
 
 export const AppointmentDateTags = ({
-  
   selectedDate,
   setSelectedDate,
   showCalendar,
@@ -57,28 +52,25 @@ export const AppointmentDateTags = ({
   };
 
   return (
-    <div className="w-full relative">
+    <div className="relative w-full">
       {/* setas mobile */}
       <button
         type="button"
         onClick={() => handleScroll("left")}
-        className="md:hidden absolute left-2 top-1/2 -translate-y-1/2 z-20 h-8 w-8 rounded-full bg-white/90 shadow flex items-center justify-center"
+        className="absolute top-1/2 left-2 z-20 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 shadow md:hidden"
       >
         <LuChevronLeft className="text-[#253E99]" />
       </button>
       <button
         type="button"
         onClick={() => handleScroll("right")}
-        className="md:hidden absolute right-2 top-1/2 -translate-y-1/2 z-20 h-8 w-8 rounded-full bg-white/90 shadow flex items-center justify-center"
+        className="absolute top-1/2 right-2 z-20 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 shadow md:hidden"
       >
         <LuChevronRight className="text-[#253E99]" />
       </button>
 
-      <div className="mt-2 w-full border border-[#E7EBFE] rounded-lg overflow-hidden">
-        <div
-          ref={scrollRef}
-          className="flex overflow-x-auto md:overflow-visible hide-scrollbar"
-        >
+      <div className="mt-2 w-full overflow-hidden rounded-lg border border-[#E7EBFE]">
+        <div ref={scrollRef} className="hide-scrollbar flex overflow-x-auto md:overflow-visible">
           {days.map((d, index) => {
             const iso = d.format("YYYY-MM-DD");
             const isSelected = iso === selectedDate;
@@ -92,23 +84,12 @@ export const AppointmentDateTags = ({
                   // se o calendário estiver aberto, ao clicar num dia da faixa, também posso atualizar o calendário
                   // (não fecho aqui pra ficar igual ao figma)
                 }}
-                className={`h-[72px] flex flex-col items-center justify-center gap-1 border-r border-[#E7EBFE] text-center transition-all duration-150
-                  w-[110px] flex-shrink-0
-                  md:w-auto md:flex-1 md:flex-shrink
-                  ${
-                    isSelected
-                      ? "bg-[#3857F4] text-white"
-                      : "bg-white text-[#19171C]"
-                  }
+                className={`flex h-[72px] w-[110px] flex-shrink-0 flex-col items-center justify-center gap-1 border-[#E7EBFE] border-r text-center transition-all duration-150 md:w-auto md:flex-1 md:flex-shrink ${isSelected ? "bg-[#3857F4] text-white" : "bg-white text-[#19171C]"}
                   ${index === days.length - 1 ? "md:border-r-0" : ""}
                 `}
               >
-                <span className="text-[16px] font-bold leading-[150%]">
-                  {labelTop(d)}
-                </span>
-                <span className="text-[14px] leading-[150%] capitalize">
-                  {labelBottom(d)}
-                </span>
+                <span className="font-bold text-[16px] leading-[150%]">{labelTop(d)}</span>
+                <span className="text-[14px] capitalize leading-[150%]">{labelBottom(d)}</span>
               </button>
             );
           })}
@@ -117,13 +98,7 @@ export const AppointmentDateTags = ({
           <button
             type="button"
             onClick={() => setShowCalendar(!showCalendar)}
-            className={`h-[72px] flex flex-col items-center justify-center gap-2 border-l border-[#E7EBFE] w-[120px] flex-shrink-0
-              md:w-auto md:flex-1 md:flex-shrink
-              ${
-                showCalendar
-                  ? "bg-[#0B29C1] text-white"
-                  : "bg-[#0B29C1] text-white"
-              }
+            className={`flex h-[72px] w-[120px] flex-shrink-0 flex-col items-center justify-center gap-2 border-[#E7EBFE] border-l md:w-auto md:flex-1 md:flex-shrink ${showCalendar ? "bg-[#0B29C1] text-white" : "bg-[#0B29C1] text-white"}
             `}
           >
             <LuCalendarDays size={20} className="text-[#E7EBFE]" />

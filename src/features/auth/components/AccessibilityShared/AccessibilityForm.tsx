@@ -1,7 +1,7 @@
 "use client";
+import { Button } from "@mui/material";
 import { useId } from "react";
 import { SelectableTag } from "@/components/SelectableTag";
-import { Button } from "@mui/material";
 
 export type AccessibilityFormProps = Readonly<{
   options: readonly string[];
@@ -40,11 +40,11 @@ export function AccessibilityForm({
           </SelectableTag>
         ))}
 
-        <div className="flex justify-end w-full">
+        <div className="flex w-full justify-end">
           <button
             type="button"
             onClick={onToggleExpand}
-            className="cursor-pointer w-fit text-end text-gray-600 mt-4"
+            className="mt-4 w-fit cursor-pointer text-end text-gray-600"
             aria-expanded={expanded}
             aria-controls={listId}
           >
@@ -53,7 +53,7 @@ export function AccessibilityForm({
         </div>
       </ul>
 
-      <div className="flex gap-2 flex-col-reverse">
+      <div className="flex flex-col-reverse gap-2">
         <Button
           className="w-full"
           sx={{ padding: "12px 0", borderRadius: "8px" }}

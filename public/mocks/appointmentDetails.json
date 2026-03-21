@@ -28,9 +28,7 @@
         "price": 180
       }
     ],
-    "attachments": [
-      { "label": "Comprovante de pagamento", "url": "#" }
-    ],
+    "attachments": [{ "label": "Comprovante de pagamento", "url": "#" }],
     "mapUrl": "https://www.google.com/maps/search/?api=1&query=Av.+Senador+Salgado+Filho,+2234+-+Natal,+RN",
     "supportPhone": "+55 84 90000-0000"
   },
@@ -96,9 +94,7 @@
         "price": 300
       }
     ],
-    "attachments": [
-      { "label": "Solicitação médica", "url": "#" }
-    ],
+    "attachments": [{ "label": "Solicitação médica", "url": "#" }],
     "mapUrl": "https://www.google.com/maps/search/?api=1&query=Av.+Hermes+da+Fonseca,+1200+-+Natal,+RN",
     "supportPhone": "+55 84 97777-1212"
   },

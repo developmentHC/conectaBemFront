@@ -9,7 +9,7 @@ describe("WelcomeSectionHeader", () => {
         title="Teste com batata frita"
         description="Descrição com teste"
         progress={20}
-      />
+      />,
     );
 
     const title = await screen.findByTestId("title");

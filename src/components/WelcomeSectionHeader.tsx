@@ -1,4 +1,5 @@
 import { LinearProgress } from "@mui/material";
+
 // import Link from "next/link";
 // import { IoMdArrowBack } from "react-icons/io";
 
@@ -20,16 +21,10 @@ export const WelcomeSectionHeader = ({
       {/* <Link className="w-fit" href={href}>
         <IoMdArrowBack className="text-xl cursor-pointer" />
       </Link> */}
-      <h1 className="text-2xl font-semibold w-full" data-testid="title">
+      <h1 className="w-full font-semibold text-2xl" data-testid="title">
         {title}
       </h1>
-      {progress && (
-        <LinearProgress
-          data-testid="progress"
-          variant="determinate"
-          value={progress}
-        />
-      )}
+      {progress && <LinearProgress data-testid="progress" variant="determinate" value={progress} />}
       {description && (
         <p className="text-gray-600" data-testid="description">
           {description}
