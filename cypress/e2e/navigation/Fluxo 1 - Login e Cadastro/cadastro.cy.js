@@ -67,11 +67,11 @@ describe("Fluxo de Cadastro", () => {
       cy.get("#name").type("Nome Teste");
       cy.get('input[placeholder="DD/MM/AAAA"]').then(($input) => {
         $input.prop("readOnly", false);
-        cy.wrap($input).type("28121999");
+        cy.wrap($input).scrollIntoView().clear({ force: true }).type("28121999", { force: true });
       });
 
-      cy.get('[name="cepResidencial"]').type("18870140");
-      cy.get('[name="numeroResidencial"]').type("306");
+      cy.get('[name="cepResidencial"]').scrollIntoView().type("18870140", { force: true });
+      cy.get('[name="numeroResidencial"]').scrollIntoView().type("306", { force: true });
 
       cy.wait(5000);
       cy.get("form.flex > .MuiButton-root").click();

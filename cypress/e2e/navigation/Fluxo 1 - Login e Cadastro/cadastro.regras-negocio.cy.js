@@ -125,7 +125,7 @@ function preencherFormularioBase({ nome, dataNascimento, cep, numero }) {
   cy.get("#name").scrollIntoView().clear().type(nome);
   cy.get('input[placeholder="DD/MM/AAAA"]').then(($input) => {
     $input.prop("readOnly", false);
-    cy.wrap($input).scrollIntoView().clear().type(dataNascimento);
+    cy.wrap($input).scrollIntoView().clear({ force: true }).type(dataNascimento, { force: true });
   });
   cy.get('input[name="cepResidencial"]').scrollIntoView().clear().type(cep, { force: true });
   cy.get('input[name="numeroResidencial"]').scrollIntoView().clear().type(numero, { force: true });
