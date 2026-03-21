@@ -123,7 +123,7 @@ describe("Cadastro – Regras de Negócio (Registro de Paciente)", () => {
  */
 function preencherFormularioBase({ nome, dataNascimento, cep, numero }) {
   cy.get("#name").scrollIntoView().clear().type(nome);
-  cy.get('input[name="birthdayDate"]')
+  cy.get('input[placeholder="DD/MM/AAAA"]')
     .scrollIntoView()
     .clear()
     .type(dataNascimento, { force: true });

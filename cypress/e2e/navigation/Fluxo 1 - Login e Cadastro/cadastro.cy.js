@@ -65,7 +65,7 @@ describe("Fluxo de Cadastro", () => {
       cy.get(".css-1bqevrn > a > .MuiButtonBase-root").click();
 
       cy.get("#name").type("Nome Teste");
-      cy.get(":nth-child(2) > .MuiFormControl-root > .MuiInputBase-root").type("28121999");
+      cy.get('input[placeholder="DD/MM/AAAA"]').type("28121999", { force: true });
 
       cy.get('[name="cepResidencial"]').type("18870140");
       cy.get('[name="numeroResidencial"]').type("306");
