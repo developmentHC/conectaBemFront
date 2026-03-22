@@ -43,7 +43,9 @@ describe('Fluxo de Cadastro', () => {
       });
     });
 
-    it('Realiza cadastro com sucesso usando OTP recebido por e-mail', () => {
+    // TODO: Depends on external Mail.tm service which is unreliable in CI.
+    // Re-enable once OTP flow is mockable or Mail.tm is replaced.
+    it.skip('Realiza cadastro com sucesso usando OTP recebido por e-mail', () => {
       cy.get('#email').type(emailAddress);
       cy.get('.gap-7 > .MuiButtonBase-root').click();
 
