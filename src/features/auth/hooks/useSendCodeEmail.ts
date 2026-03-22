@@ -1,8 +1,9 @@
 // import { useSession } from '@/stores/useSession';
-import { api } from "@/libs/api";
-import { useUserStore } from "@/stores/userSessionStore";
+
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+import { api } from "@/libs/api";
+import { useUserStore } from "@/stores/userSessionStore";
 
 export const useSendCodeEmail = () => {
   const router = useRouter();
@@ -27,7 +28,7 @@ export const useSendCodeEmail = () => {
       }
 
       router.push(`/home`);
-    }
+    },
   });
 };
 

@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useMemo, useState } from "react";
-import { AppointmentCard } from "./AppointmentProfessionalCard";
 import type { IAppointment } from "@/types/appointment";
+import { AppointmentCard } from "./AppointmentProfessionalCard";
 
 const BASE_TIMES = [
   "08:00",
@@ -18,7 +18,6 @@ const BASE_TIMES = [
 ];
 
 export function AppointmentTimeline({ appointments }: { appointments: IAppointment[] }) {
-
   const timesSet = useMemo(() => {
     const s = new Set(BASE_TIMES);
     appointments.forEach((a) => {
@@ -48,10 +47,10 @@ export function AppointmentTimeline({ appointments }: { appointments: IAppointme
   }, []);
 
   return (
-    <section className="w-full max-w-[929px] mx-auto relative">
+    <section className="relative mx-auto w-full max-w-[929px]">
       {/* linha vertical azul - desktop */}
       <div
-        className="hidden md:block absolute left-[72px] top-0 bottom-0 w-[2px] bg-[#0B29C1]"
+        className="absolute top-0 bottom-0 left-[72px] hidden w-[2px] bg-[#0B29C1] md:block"
         aria-hidden
       />
 
@@ -61,40 +60,39 @@ export function AppointmentTimeline({ appointments }: { appointments: IAppointme
           const hasItems = items.length > 0;
 
           return (
-            <div
-              key={time}
-              className="relative flex gap-4 min-h-[90px]"
-            >
+            <div key={time} className="relative flex min-h-[90px] gap-4">
               {/* coluna da hora */}
-              <div className="w-[60px] flex justify-end pt-2 pr-2">
+              <div className="flex w-[60px] justify-end pt-2 pr-2">
                 <span
-                  className={`text-[16px] md:text-[18px] font-semibold transition-colors duration-150 ${activeTime === time ? "text-[#0B29C1]" : "text-[#6B6B6B]"
-                    }`}
+                  className={`font-semibold text-[16px] transition-colors duration-150 md:text-[18px] ${
+                    activeTime === time ? "text-[#0B29C1]" : "text-[#6B6B6B]"
+                  }`}
                 >
                   {time}
                 </span>
               </div>
 
               {/* bolinha */}
-              <div className="relative w-[24px] flex justify-center">
+              <div className="relative flex w-[24px] justify-center">
                 {/* linha vertical azul no mobile (fica atrás da bolinha) */}
-                <span className="md:hidden absolute left-1 top-0 bottom-0 w-[2px] bg-[#0B29C1]"></span>
+                <span className="absolute top-0 bottom-0 left-1 w-[2px] bg-[#0B29C1] md:hidden"></span>
 
                 <span
-                  className={`w-[12px] h-[12px] rounded-full translate-x-[8px] mt-[10px] z-10 transition-all duration-200 ${activeTime === time ? "bg-[#0B29C1] scale-110" : "bg-[#9790A2] scale-100"
-                    }`}
+                  className={`z-10 mt-[10px] h-[12px] w-[12px] translate-x-[8px] rounded-full transition-all duration-200 ${
+                    activeTime === time ? "scale-110 bg-[#0B29C1]" : "scale-100 bg-[#9790A2]"
+                  }`}
                 />
               </div>
 
               {/* cards */}
-              <div className="flex-1 flex flex-col gap-4 pb-2 items-stretch">
+              <div className="flex flex-1 flex-col items-stretch gap-4 pb-2">
                 {hasItems ? (
                   items.map((appt) => (
                     <button
                       key={appt.id}
                       type="button"
                       onClick={() => setActiveTime(time)}
-                      className="text-left w-full"
+                      className="w-full text-left"
                     >
                       {/* no mobile o card vai ocupar 100% mesmo */}
                       <div className="w-full">

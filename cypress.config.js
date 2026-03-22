@@ -1,9 +1,9 @@
-const { defineConfig } = require('cypress');
+const { defineConfig } = require("cypress");
 
 module.exports = defineConfig({
   e2e: {
-    setupNodeEvents(on, config) {
-      on('task', {
+    setupNodeEvents(on, _config) {
+      on("task", {
         log(message) {
           console.log(message);
           return null;
@@ -15,6 +15,7 @@ module.exports = defineConfig({
       });
     },
     baseUrl: "https://conecta-bem-front.vercel.app/",
-    testIsolation: false
+    testIsolation: false,
+    retries: { runMode: 2, openMode: 0 },
   },
 });

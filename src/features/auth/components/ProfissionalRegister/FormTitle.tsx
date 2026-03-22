@@ -1,5 +1,5 @@
-import { useProfissionalRegisterStore } from "./useProfissionalRegisterStore";
 import { FormMultiStep } from "@/components/FormMultiStep";
+import { useProfissionalRegisterStore } from "./useProfissionalRegisterStore";
 
 export const FormTitle = () => {
   const { step } = useProfissionalRegisterStore();
@@ -33,9 +33,7 @@ export const FormTitle = () => {
       )}
       {step === "complete_profile" && (
         <>
-          <FormMultiStep.Title>
-            Lembre de completar seu perfil
-          </FormMultiStep.Title>
+          <FormMultiStep.Title>Lembre de completar seu perfil</FormMultiStep.Title>
           <span className="text-gray-500 text-sm">etapa 5/5</span>
         </>
       )}

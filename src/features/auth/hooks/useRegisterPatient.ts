@@ -1,9 +1,9 @@
-import { api } from "@/libs/api";
-import { ICreatePatient } from "@/types/patient";
 import { useMutation } from "@tanstack/react-query";
-import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 import toast from "react-hot-toast";
+import { api } from "@/libs/api";
+import type { ICreatePatient } from "@/types/patient";
 
 export const useRegisterPatient = () => {
   const router = useRouter();

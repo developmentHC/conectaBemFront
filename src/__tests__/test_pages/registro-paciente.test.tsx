@@ -1,10 +1,10 @@
-import RegistroPaciente from '@/app/(auth)/auth/registro-paciente/page';
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { fireEvent, render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import RegistroPaciente from "@/app/(auth)/auth/registro-paciente/page";
 import { PatientRegister } from "@/features/auth/components/PatientRegister";
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { fireEvent, render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
 //
 // 🔥 MOCK NECESSÁRIO PARA O CI (JSDOM não implementa scrollIntoView)
@@ -22,18 +22,13 @@ const queryClient = new QueryClient();
 // Componente Wrapper para fornecer o QueryClient
 const wrapper = ({ children }: { children: React.ReactNode }) => (
   <QueryClientProvider client={queryClient}>
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-      {children}
-    </LocalizationProvider>
+    <LocalizationProvider dateAdapter={AdapterDayjs}>{children}</LocalizationProvider>
   </QueryClientProvider>
 );
 
-jest.mock(
-  "../../features/auth/components/PatientRegister/usePatientRegisterStore",
-  () => ({
-    usePatientRegisterStore: () => ({ step: "personal_data" }),
-  })
-);
+jest.mock("../../features/auth/components/PatientRegister/usePatientRegisterStore", () => ({
+  usePatientRegisterStore: () => ({ step: "personal_data" }),
+}));
 
 describe("Registro Paciente Page", () => {
   it("should render the Registro paciente page", () => {
@@ -55,8 +50,7 @@ describe("Registro Paciente Page", () => {
     const user = userEvent.setup();
 
     const inputName = screen.getByPlaceholderText("Nome e Sobrenome");
-    const inputDataNascimentoWrapper =
-      screen.getByPlaceholderText("DD/MM/AAAA");
+    const inputDataNascimentoWrapper = screen.getByPlaceholderText("DD/MM/AAAA");
     const inputCEP = screen.getByPlaceholderText("00000-000");
     const buttonContinuar = screen.getByRole("button", {
       name: "Continuar",
@@ -67,8 +61,7 @@ describe("Registro Paciente Page", () => {
     });
 
     const inputDataNascimento =
-      inputDataNascimentoWrapper.querySelector("input") ||
-      inputDataNascimentoWrapper;
+      inputDataNascimentoWrapper.querySelector("input") || inputDataNascimentoWrapper;
 
     await user.type(inputDataNascimento as HTMLElement, "21/09/2002");
 
@@ -91,16 +84,14 @@ describe("Registro Paciente Page", () => {
     const user = userEvent.setup();
 
     const inputName = screen.getByPlaceholderText("Nome e Sobrenome");
-    const inputDataNascimentoWrapper =
-      screen.getByPlaceholderText("DD/MM/AAAA");
+    const inputDataNascimentoWrapper = screen.getByPlaceholderText("DD/MM/AAAA");
     const inputCEP = screen.getByPlaceholderText("00000-000");
     const buttonContinuar = screen.getByRole("button", {
       name: /continuar/i,
     });
 
     const inputDataNascimento =
-      inputDataNascimentoWrapper.querySelector("input") ||
-      inputDataNascimentoWrapper;
+      inputDataNascimentoWrapper.querySelector("input") || inputDataNascimentoWrapper;
 
     await user.type(inputDataNascimento as HTMLElement, "01/01/1990");
 
@@ -114,10 +105,6 @@ describe("Registro Paciente Page", () => {
 
     await user.click(buttonContinuar);
 
-    expect(
-      await screen.findByText(
-        "Nome deve ter pelo menos 3 caracteres"
-      )
-    ).toBeInTheDocument();
+    expect(await screen.findByText("Nome deve ter pelo menos 3 caracteres")).toBeInTheDocument();
   });
 });

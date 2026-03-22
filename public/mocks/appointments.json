@@ -11,7 +11,7 @@
     "date": "2025-08-15",
     "time": "10:30",
     "duration": 60,
-    "price": 180.00,
+    "price": 180.0,
     "serviceId": "REIKI-9876",
     "address": [
       {
@@ -37,7 +37,7 @@
     "date": "2025-07-29",
     "time": "16:00",
     "duration": 50,
-    "price": 250.00,
+    "price": 250.0,
     "serviceId": "MASSO-1234",
     "address": [
       {
@@ -63,7 +63,7 @@
     "date": "2025-08-05",
     "time": "09:00",
     "duration": 45,
-    "price": 300.00,
+    "price": 300.0,
     "serviceId": "MTC-5543",
     "address": [
       {
@@ -89,7 +89,7 @@
     "date": "2025-07-10",
     "time": "11:00",
     "duration": 75,
-    "price": 450.00,
+    "price": 450.0,
     "serviceId": "AROMA-8890",
     "address": [
       {
@@ -115,7 +115,7 @@
     "date": "2025-06-22",
     "time": "14:30",
     "duration": 60,
-    "price": 200.00,
+    "price": 200.0,
     "serviceId": "REFLEXO-9870",
     "address": [
       {
@@ -141,7 +141,7 @@
     "date": "2025-07-01",
     "time": "13:00",
     "duration": 40,
-    "price": 220.00,
+    "price": 220.0,
     "serviceId": "CONST-2123",
     "address": [
       {

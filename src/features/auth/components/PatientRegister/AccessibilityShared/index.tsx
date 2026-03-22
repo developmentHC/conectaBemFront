@@ -1,5 +1,5 @@
-import { usePatientRegisterStore } from "../usePatientRegisterStore";
 import { AccessibilityStepShared } from "../../AccessibilityShared/AccessibilityStepShared";
+import { usePatientRegisterStore } from "../usePatientRegisterStore";
 
 export const AccessibilityStep = () => {
   const { changeStep, updateFields } = usePatientRegisterStore();

@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import FacebookLogin from './FacebookLogin';
-import { GoogleLogin } from './GoogleLogin';
+import FacebookLogin from "./FacebookLogin";
+import { GoogleLogin } from "./GoogleLogin";
 
 export const SocialNetwork = () => {
   return (

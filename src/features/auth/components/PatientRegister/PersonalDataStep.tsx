@@ -1,14 +1,14 @@
-import { CEPField } from "@/components/Fields/CEPField";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, TextField } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
-import { useForm, FieldErrors } from "react-hook-form";
-import { z } from "zod";
-import { usePatientRegisterStore } from "./usePatientRegisterStore";
+import axios from "axios";
 import dayjs from "dayjs";
 import { useEffect, useRef, useState } from "react";
+import { type FieldErrors, useForm } from "react-hook-form";
+import { z } from "zod";
+import { CEPField } from "@/components/Fields/CEPField";
 import { useCEP } from "../../hooks/useCEP";
-import axios from "axios";
+import { usePatientRegisterStore } from "./usePatientRegisterStore";
 
 const schema = z.object({
   name: z
@@ -16,7 +16,7 @@ const schema = z.object({
     .min(3, "Nome deve ter pelo menos 3 caracteres")
     .regex(
       /^[A-Za-zÀ-ú]+(?: [A-Za-zÀ-ú]+)*$/,
-      "O nome deve conter apenas letras e um espaço entre as palavras"
+      "O nome deve conter apenas letras e um espaço entre as palavras",
     ),
   birthdayDate: z
     .instanceof(Date)
@@ -27,7 +27,7 @@ const schema = z.object({
       },
       {
         message: "Digite uma data de nascimento válida",
-      }
+      },
     )
     .refine(
       (date) => {
@@ -35,9 +35,8 @@ const schema = z.object({
         return date <= max;
       },
       {
-        message:
-          "Você deve ser maior de idade para se cadastrar na plataforma!",
-      }
+        message: "Você deve ser maior de idade para se cadastrar na plataforma!",
+      },
     ),
   cepResidencial: z
     .string()
@@ -50,7 +49,7 @@ const schema = z.object({
         }
         try {
           const response = await axios.get(
-            `https://viacep.com.br/ws/${cep.replace(/\D/g, "")}/json/`
+            `https://viacep.com.br/ws/${cep.replace(/\D/g, "")}/json/`,
           );
           return !response.data.erro;
         } catch {
@@ -59,7 +58,7 @@ const schema = z.object({
       },
       {
         message: "CEP não encontrado",
-      }
+      },
     ),
   enderecoResidencial: z.string().min(3, "Endereço inválido"),
   numeroResidencial: z.string().min(1, "Número inválido"),
@@ -74,7 +73,7 @@ export const PersonalDataStep = () => {
   const { updateFields, changeStep } = usePatientRegisterStore();
   const [nameInput, setNameInput] = useState("");
 
-    const fieldRefs = {
+  const fieldRefs = {
     name: useRef<HTMLDivElement | null>(null),
     birthdayDate: useRef<HTMLDivElement | null>(null),
     cepResidencial: useRef<HTMLDivElement | null>(null),
@@ -190,12 +189,9 @@ export const PersonalDataStep = () => {
           placeholder="Nome e Sobrenome"
           id="name"
           value={nameInput}
-
           required
           helperText={errors.name?.message}
           error={!!errors.name}
-          
-
         />
       </div>
 
@@ -308,7 +304,7 @@ export const PersonalDataStep = () => {
         />
       </div>
 
-      <p className="text-xs text-gray-500">
+      <p className="text-gray-500 text-xs">
         Campos Obrigatórios (<span>*</span>)
       </p>
 

@@ -1,8 +1,8 @@
 import "./globals.css";
-import { Lato } from "next/font/google";
-import { ReactNode } from "react";
-import { Toaster } from "react-hot-toast";
 import { GoogleTagManager } from "@next/third-parties/google";
+import { Lato } from "next/font/google";
+import type { ReactNode } from "react";
+import { Toaster } from "react-hot-toast";
 import {
   AuthProvider,
   MuiLocalizationProvider,
@@ -34,8 +34,8 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
             <MuiThemeProvider>
               <MuiLocalizationProvider>
                 <div>
-                    <Toaster position="top-center" />
-                    {children}
+                  <Toaster position="top-center" />
+                  {children}
                 </div>
               </MuiLocalizationProvider>
             </MuiThemeProvider>

@@ -6,7 +6,11 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
+    "format": "biome format --write .",
+    "typecheck": "tsc --noEmit",
+    "prepare": "husky",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "test": "jest",
@@ -16,7 +20,6 @@
   },
   "dependencies": {
     "@babel/core": "^7.26.9",
-    "@babel/eslint-parser": "^7.26.8",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@hookform/resolvers": "^3.9.1",
@@ -57,8 +60,8 @@
   "devDependencies": {
     "@babel/preset-env": "^7.26.0",
     "@babel/preset-react": "^7.26.3",
+    "@biomejs/biome": "^2.4.8",
     "@chromatic-com/storybook": "^3.2.3",
-    "@eslint/eslintrc": "^3",
     "@slicemachine/adapter-next": "^0.3.69",
     "@storybook/addon-essentials": "^8.4.7",
     "@storybook/addon-interactions": "^8.4.7",
@@ -81,11 +84,10 @@
     "chromatic": "^11.23.0",
     "cypress": "^15.3.0",
     "cypress-axe": "^1.7.0",
-    "eslint": "^9",
-    "eslint-config-next": "15.5.7",
-    "eslint-plugin-storybook": "^0.11.2",
+    "husky": "^9.1.7",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
+    "lint-staged": "^16.4.0",
     "msw": "^2.7.0",
     "msw-storybook-addon": "^2.0.4",
     "postcss": "^8",
@@ -95,9 +97,9 @@
     "ts-node": "^10.9.2",
     "typescript": "^5"
   },
-  "eslintConfig": {
-    "extends": [
-      "plugin:storybook/recommended"
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx,json,css}": [
+      "biome check --write"
     ]
   },
   "msw": {
