@@ -5,7 +5,7 @@ import { MdOutlineEdit } from "react-icons/md";
 
 export const PersonalAddress = () => {
   return (
-    <div className="flex items-center justify-center lg:justify-start gap-2 cursor-pointer text-lg w-fit">
+    <div className="flex w-fit cursor-pointer items-center justify-center gap-2 text-lg lg:justify-start">
       <span>Rua Fulaninho, 000, cidade, estado</span>
       <Link href="/address">
         <MdOutlineEdit className="text-secondary-500" />

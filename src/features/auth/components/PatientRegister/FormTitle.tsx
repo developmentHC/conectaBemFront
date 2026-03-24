@@ -26,9 +26,7 @@ export const FormTitle = () => {
       )}
       {step === "complete_profile" && (
         <>
-          <FormMultiStep.Title>
-            Quase tudo pronto para iniciar
-          </FormMultiStep.Title>
+          <FormMultiStep.Title>Quase tudo pronto para iniciar</FormMultiStep.Title>
           <span className="text-gray-500 text-sm">etapa 4/4</span>
         </>
       )}

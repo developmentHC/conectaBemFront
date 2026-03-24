@@ -1,13 +1,13 @@
 "use client";
 
 import { FormMultiStep } from "@/components/FormMultiStep";
-import { Step, usePatientRegisterStore } from "./usePatientRegisterStore";
-import { FormTitle } from "./FormTitle";
-import { Description } from "./Description";
-import { PersonalDataStep } from "./PersonalDataStep";
-import { SpecialtyStep } from "./SpecialityStep";
 import { AccessibilityStep } from "./AccessibilityShared";
 import { CompleteProfileStep } from "./CompleteProfileStep";
+import { Description } from "./Description";
+import { FormTitle } from "./FormTitle";
+import { PersonalDataStep } from "./PersonalDataStep";
+import { SpecialtyStep } from "./SpecialityStep";
+import { type Step, usePatientRegisterStore } from "./usePatientRegisterStore";
 
 const progresses: Record<Step, number> = {
   personal_data: 40,

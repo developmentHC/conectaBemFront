@@ -1,7 +1,7 @@
-import { api } from "@/libs/api";
-import NextAuth, { NextAuthOptions } from "next-auth";
+import NextAuth, { type NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
+import { api } from "@/libs/api";
 
 const nextAuthOptions: NextAuthOptions = {
   providers: [
@@ -10,7 +10,7 @@ const nextAuthOptions: NextAuthOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
       authorization: {
         params: {
-          redirect_uri: process.env.NEXTAUTH_URL + "/api/auth/callback/google",
+          redirect_uri: `${process.env.NEXTAUTH_URL}/api/auth/callback/google`,
         },
       },
     }),
@@ -43,11 +43,15 @@ const nextAuthOptions: NextAuthOptions = {
 
             let userType = "patient";
 
-            if (data.userType && Array.isArray(data.userType) && data.userType.includes('professional')) {
+            if (
+              data.userType &&
+              Array.isArray(data.userType) &&
+              data.userType.includes("professional")
+            ) {
               userType = "professional";
             }
 
-            if (data.user && data.user._id) {
+            if (data.user?._id) {
               return {
                 id: data.user._id,
                 email: data.user.email,
@@ -68,7 +72,11 @@ const nextAuthOptions: NextAuthOptions = {
 
             let userType = "patient";
 
-            if (data.userType && Array.isArray(data.userType) && data.userType.includes('professional')) {
+            if (
+              data.userType &&
+              Array.isArray(data.userType) &&
+              data.userType.includes("professional")
+            ) {
               userType = "professional";
             }
 

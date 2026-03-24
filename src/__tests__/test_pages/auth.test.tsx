@@ -1,8 +1,8 @@
-import { render, screen, fireEvent, waitFor, act, renderHook } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { act, fireEvent, render, renderHook, screen, waitFor } from "@testing-library/react";
 import { useCredentialLogin } from "@/features/auth/hooks/useCredentialLogin";
-import Register from "../../app/(auth)/auth/page";
 import { api } from "@/libs/api";
+import Register from "../../app/(auth)/auth/page";
 
 jest.mock("@/libs/api", () => ({
   api: { post: jest.fn() },
@@ -21,9 +21,7 @@ jest.mock("@/stores/userSessionStore", () => ({
   useUserStore: jest.fn(() => ({ setIdUser: setIdUserMock })),
 }));
 
-const consoleErrorMock = jest
-  .spyOn(console, "error")
-  .mockImplementation(() => {});
+const consoleErrorMock = jest.spyOn(console, "error").mockImplementation(() => {});
 
 const queryClient = new QueryClient();
 const wrapper = ({ children }: any) => (
@@ -42,9 +40,7 @@ describe("Auth Page", () => {
     const TestComponent = () => {
       const mutation = useCredentialLogin();
       return (
-        <button onClick={() => mutation.mutate({ email: "teste@test.com" })}>
-          Test Login
-        </button>
+        <button onClick={() => mutation.mutate({ email: "teste@test.com" })}>Test Login</button>
       );
     };
 
@@ -68,9 +64,6 @@ describe("Auth Page", () => {
       }
     });
 
-    expect(consoleErrorMock).toHaveBeenCalledWith(
-      "Erro ao enviar o OTP:",
-      fakeError
-    );
+    expect(consoleErrorMock).toHaveBeenCalledWith("Erro ao enviar o OTP:", fakeError);
   });
 });

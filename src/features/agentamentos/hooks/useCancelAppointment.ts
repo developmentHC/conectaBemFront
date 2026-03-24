@@ -1,7 +1,11 @@
 "use client";
 
-import type { CancelAppointmentResponse, IAppointment, IAppointmentDetail } from "@/types/appointment";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import type {
+  CancelAppointmentResponse,
+  IAppointment,
+  IAppointmentDetail,
+} from "@/types/appointment";
 import { cancelAppointmentRequest } from "../services/appointments";
 
 type Variables = {
@@ -13,8 +17,7 @@ export const useCancelAppointment = () => {
   const queryClient = useQueryClient();
 
   return useMutation<CancelAppointmentResponse, Error, Variables>({
-    mutationFn: ({ appointmentId, reason }) =>
-      cancelAppointmentRequest(appointmentId, { reason }),
+    mutationFn: ({ appointmentId, reason }) => cancelAppointmentRequest(appointmentId, { reason }),
     onSuccess: (_data, variables) => {
       queryClient.setQueryData<IAppointment[]>(["appointments"], (previous) => {
         if (!previous) return previous;

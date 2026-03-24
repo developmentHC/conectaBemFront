@@ -21,7 +21,7 @@ export async function getHomePlaceholderData() {
 
       // IDs das especialidades para buscar os nomes completos
       const especialidadesIds = especialidades_em_destaque.map(
-        (item: EspecialidadeItem) => item.lista_de_especialidades.id
+        (item: EspecialidadeItem) => item.lista_de_especialidades.id,
       );
 
       // Buscar os documentos das especialidades

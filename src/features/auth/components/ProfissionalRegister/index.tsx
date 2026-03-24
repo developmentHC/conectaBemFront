@@ -4,11 +4,8 @@ import { FormMultiStep } from "@/components/FormMultiStep";
 import { Step, useProfissionalRegisterStore } from "./useProfissionalRegisterStore";
 import { PersonalDataStep } from "./PersonalDataStep";
 import { ServiceLocationStep } from "./ServiceLocationStep";
-import { FormTitle } from "./FormTitle";
-import { Description } from "./Description";
 import { SpecialtyStep } from "./SpecialtyStep";
-import { AccessibilityStep } from "./AccessibilityStep";
-import { CompleteProfileStep } from "./CompleteProfileStep";
+import { type Step, useProfissionalRegisterStore } from "./useProfissionalRegisterStore";
 
 export const ProfissionalRegister = () => {
   const { step } = useProfissionalRegisterStore();

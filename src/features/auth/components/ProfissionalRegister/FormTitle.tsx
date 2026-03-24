@@ -1,5 +1,5 @@
-import { useProfissionalRegisterStore } from "./useProfissionalRegisterStore";
 import { FormMultiStep } from "@/components/FormMultiStep";
+import { useProfissionalRegisterStore } from "./useProfissionalRegisterStore";
 
 export const FormTitle = () => {
   const { step } = useProfissionalRegisterStore();

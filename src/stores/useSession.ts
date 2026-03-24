@@ -1,7 +1,7 @@
-import { IUserAuth as IJwt } from '@/types/auth';
-import Cookies from 'js-cookie';
-import { jwtDecode } from 'jwt-decode';
-import { create } from 'zustand';
+import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
+import { create } from "zustand";
+import type { IUserAuth as IJwt } from "@/types/auth";
 
 type SessionProps = {
   session: null | IJwt;
@@ -9,7 +9,7 @@ type SessionProps = {
 
 const getSessionFromToken = (): IJwt | null => {
   try {
-    const token = Cookies.get('authToken');
+    const token = Cookies.get("authToken");
     if (!token) return null;
     return jwtDecode<IJwt>(token);
   } catch {

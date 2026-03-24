@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect } from "react";
+import { Button } from "@mui/material";
 import Link from "next/link";
-
+import { useEffect } from "react";
 import { ErrorTemplate } from "@/components/ErrorTemplate";
 import { Button } from "@mui/material";
 
@@ -15,6 +15,7 @@ export default function GlobalError({
 }) {
 
 
+export default function GlobalError({ error, reset }: { error: Error; reset: () => void }) {
   useEffect(() => {
     if (process.env.NODE_ENV !== "production") {
       console.error(error);
@@ -36,7 +37,7 @@ export default function GlobalError({
         variant="contained"
         size="large"
         onClick={() => reset()}
-        className="w-full rounded-lg font-semibold shadow transition h-12"
+        className="h-12 w-full rounded-lg font-semibold shadow transition"
         sx={{
           bgcolor: "#2563eb",
           textTransform: "none",
@@ -56,7 +57,7 @@ export default function GlobalError({
         component={Link}
         href="/"
         prefetch={false}
-        className="w-full rounded-lg font-semibold transition h-12"
+        className="h-12 w-full rounded-lg font-semibold transition"
         sx={{
           textTransform: "none",
           borderRadius: "8px",

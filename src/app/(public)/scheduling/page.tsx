@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import AppointmentStatusTabs from "@/features/agentamentos/components/AppointmentsStatusTabs";
 import { AppointmentDateTags } from "@/features/agentamentos/components/AppointmentDateTags";
 import { AppointmentsSection } from "@/features/agentamentos/components/AppointmentsSection";
+import AppointmentStatusTabs from "@/features/agentamentos/components/AppointmentsStatusTabs";
 import { InlineCalendar } from "@/features/agentamentos/components/InlineCalendar";
 
 export default function AppointmentsPage() {
@@ -12,9 +12,9 @@ export default function AppointmentsPage() {
   const [showCalendar, setShowCalendar] = useState<boolean>(false);
 
   return (
-    <main className="w-full flex flex-col gap-6 justify-start overflow-hidden">
+    <main className="flex w-full flex-col justify-start gap-6 overflow-hidden">
       <section className="flex flex-col gap-2">
-        <h1 className="text-2xl font-semibold">Meus Agendamentos</h1>
+        <h1 className="font-semibold text-2xl">Meus Agendamentos</h1>
         <p>Selecione o status e a data para exibir seus agendamentos</p>
       </section>
 
@@ -33,23 +33,19 @@ export default function AppointmentsPage() {
 
       {/* calendário aberto (igual figma) */}
       {showCalendar && (
-        <section className="w-full max-w-[929px] mx-auto">
+        <section className="mx-auto w-full max-w-[929px]">
           <InlineCalendar
-  selectedDate={selectedDate}
-  onSelectDate={(iso) => {
-    setSelectedDate(iso);
-    setShowCalendar(false); 
-  }}
-/>
-
+            selectedDate={selectedDate}
+            onSelectDate={(iso) => {
+              setSelectedDate(iso);
+              setShowCalendar(false);
+            }}
+          />
         </section>
       )}
 
       {/* timeline filtrando por status + data */}
-      <AppointmentsSection
-        tabValue={tabValue}
-        selectedDate={selectedDate}
-      />
+      <AppointmentsSection tabValue={tabValue} selectedDate={selectedDate} />
     </main>
   );
 }

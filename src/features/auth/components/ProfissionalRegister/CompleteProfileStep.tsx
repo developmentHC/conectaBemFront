@@ -8,6 +8,9 @@ import { useRegisterProfissional } from "../../hooks/useRegisterProfissional";
 import { useUserStore } from "@/stores/userSessionStore";
 import { useProfilePhotoUpload } from "../../hooks/useProfilePhotoUpload";
 import { gtmEvents } from "@/utils/gtm";
+import { convertToBase64 } from "@/utils/transformImageToBase64";
+import { useRegisterProfissional } from "../../hooks/useRegisterProfissional";
+import { useProfissionalRegisterStore } from "./useProfissionalRegisterStore";
 
 export const CompleteProfileStep = () => {
   const [termsAccepted, setTermsAccepted] = useState(false);
@@ -76,7 +79,7 @@ export const CompleteProfileStep = () => {
       specialties?.[0] || "not_specified",
       servicePreferences?.[0] || "not_specified",
       cidadeClinica || "not_specified",
-      estadoClinica || "not_specified"
+      estadoClinica || "not_specified",
     );
   };
 
@@ -96,10 +99,7 @@ export const CompleteProfileStep = () => {
 
       <FormControlLabel
         control={
-          <Checkbox
-            checked={termsAccepted}
-            onChange={(e) => setTermsAccepted(e.target.checked)}
-          />
+          <Checkbox checked={termsAccepted} onChange={(e) => setTermsAccepted(e.target.checked)} />
         }
         label={
           <p>

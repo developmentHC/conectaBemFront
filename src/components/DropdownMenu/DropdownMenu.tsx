@@ -7,13 +7,7 @@ type DropdownMenuProps = {
   isOpen: boolean;
   onClose: () => void;
 };
-export const DropdownMenu = ({
-  id,
-  anchorEl,
-  children,
-  isOpen,
-  onClose,
-}: DropdownMenuProps) => {
+export const DropdownMenu = ({ id, anchorEl, children, isOpen, onClose }: DropdownMenuProps) => {
   return (
     <Menu
       anchorEl={anchorEl}

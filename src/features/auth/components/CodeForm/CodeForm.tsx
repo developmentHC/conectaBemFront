@@ -1,16 +1,13 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
 import { CircularProgress } from "@mui/material";
-import {
-  CodeInput,
-  type CodeInputHandle,
-} from "@/components/CodeInput/CodeInput";
-import { useCredentialLogin } from "../../hooks/useCredentialLogin";
-import { useCountdown } from "../../hooks/useCountdown";
-import { useUserStore } from "@/stores/userSessionStore";
-import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
+import { useEffect, useRef, useState } from "react";
+import { CodeInput, type CodeInputHandle } from "@/components/CodeInput/CodeInput";
+import { useUserStore } from "@/stores/userSessionStore";
+import { useCountdown } from "../../hooks/useCountdown";
+import { useCredentialLogin } from "../../hooks/useCredentialLogin";
 
 type CodeFormProps = {
   onValidationSuccess: (responseStatus: number) => void;
@@ -24,14 +21,8 @@ export const CodeForm = ({ onValidationSuccess }: CodeFormProps) => {
   const [isPending, setPending] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
 
-  const {
-    timeLeft: timeLeftResendCode,
-    startCountdown: startCountdownResendCode,
-  } = useCountdown();
-  const {
-    timeLeft: timeLeftValidCode,
-    startCountdown: startCountdownValidCode,
-  } = useCountdown();
+  const { timeLeft: timeLeftResendCode, startCountdown: startCountdownResendCode } = useCountdown();
+  const { timeLeft: timeLeftValidCode, startCountdown: startCountdownValidCode } = useCountdown();
 
   useEffect(() => {
     if (email) {
@@ -89,12 +80,10 @@ export const CodeForm = ({ onValidationSuccess }: CodeFormProps) => {
           </span>
         </span>
       ) : (
-        <span className="">
-          Código expirado! Por favor, solicite um novo código.
-        </span>
+        <span className="">Código expirado! Por favor, solicite um novo código.</span>
       )}
       <div className="flex flex-col gap-3 text-sm">
-        <div className="flex flex-col gap-4 ">
+        <div className="flex flex-col gap-4">
           <CodeInput
             ref={codeInputRef}
             value={code}
@@ -103,13 +92,13 @@ export const CodeForm = ({ onValidationSuccess }: CodeFormProps) => {
             error={!!error}
           />
           {timeLeftResendCode > 0 ? (
-            <span className="text-gray-400 test-sm flex justify-end">
+            <span className="test-sm flex justify-end text-gray-400">
               Reenviar código em {timeLeftResendCode} segundos
             </span>
           ) : (
             <span
               onClick={() => sendCode()}
-              className="text-[#1D1B20] cursor-pointer text-end font-[lato] font-bold text-base underline"
+              className="cursor-pointer text-end font-[lato] font-bold text-[#1D1B20] text-base underline"
             >
               Reenviar código
             </span>
@@ -127,8 +116,7 @@ export const CodeForm = ({ onValidationSuccess }: CodeFormProps) => {
         <div className="flex flex-col gap-4">
           {error && (
             <span className="text-red-600">
-              Código incorreto! Preencha corretamente ou reenvie o código e
-              tente novamente.
+              Código incorreto! Preencha corretamente ou reenvie o código e tente novamente.
             </span>
           )}
         </div>

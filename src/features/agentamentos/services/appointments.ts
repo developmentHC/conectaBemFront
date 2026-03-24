@@ -1,10 +1,10 @@
+import axios from "axios";
 import type {
   CancelAppointmentPayload,
   CancelAppointmentResponse,
   IAppointment,
   IAppointmentDetail,
 } from "@/types/appointment";
-import axios from "axios";
 
 export async function fetchAppointments(): Promise<IAppointment[]> {
   // Backend wiring ready to go — just uncomment when the API is available.

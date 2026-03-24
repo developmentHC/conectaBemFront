@@ -1,6 +1,6 @@
-import { Specialty } from "@/types/specialty";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import type { Specialty } from "@/types/specialty";
 
 export const useGetSpecialty = () => {
   return useQuery<Specialty[]>({

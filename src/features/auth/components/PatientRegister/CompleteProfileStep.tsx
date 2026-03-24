@@ -6,6 +6,9 @@ import { useRegisterPatient } from "../../hooks/useRegisterPatient";
 import { useUserStore } from "@/stores/userSessionStore";
 import { useProfilePhotoUpload } from "../../hooks/useProfilePhotoUpload";
 import { gtmEvents } from "@/utils/gtm";
+import { convertToBase64 } from "@/utils/transformImageToBase64";
+import { useRegisterPatient } from "../../hooks/useRegisterPatient";
+import { usePatientRegisterStore } from "./usePatientRegisterStore";
 
 export const CompleteProfileStep = () => {
 
@@ -57,7 +60,7 @@ export const CompleteProfileStep = () => {
     gtmEvents.patientRegistrationComplete(
       idUser || "not_specified",
       cidadeResidencial || "not_specified",
-      estadoResidencial || "not_specified"
+      estadoResidencial || "not_specified",
     );
   };
 
@@ -73,10 +76,7 @@ export const CompleteProfileStep = () => {
 
       <FormControlLabel
         control={
-          <Checkbox
-            checked={termsAccepted}
-            onChange={(e) => setTermsAccepted(e.target.checked)}
-          />
+          <Checkbox checked={termsAccepted} onChange={(e) => setTermsAccepted(e.target.checked)} />
         }
         label={
           <p>
