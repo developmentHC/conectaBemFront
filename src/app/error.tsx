@@ -13,23 +13,24 @@ export default function GlobalError({
   error: Error;
   reset: () => void;
 }) {
-  
+
 
   useEffect(() => {
-    // útil p/ logs durante QA; em prod vai para o server log
-    console.error(error);
+    if (process.env.NODE_ENV !== "production") {
+      console.error(error);
+    }
   }, [error]);
 
   return (
     <ErrorTemplate
-      
+
       title="Algo saiu do fluxo, mas já estamos resolvendo"
       subtitle={
         "Nosso sistema não está se sentindo muito bem agora.\nJá estamos cuidando disso para que tudo volte ao normal em breve."
       }
       illustrationSrc="/images/Error-500.svg"
     >
-     
+
       <Button
         type="button"
         variant="contained"
@@ -46,12 +47,12 @@ export default function GlobalError({
         Tentar Novamente
       </Button>
 
-      
+
       <Button
         type="button"
         variant="outlined"
         size="large"
-        
+
         component={Link}
         href="/"
         prefetch={false}
@@ -68,7 +69,7 @@ export default function GlobalError({
         Voltar ao início
       </Button>
 
-      
+
     </ErrorTemplate>
   );
 }

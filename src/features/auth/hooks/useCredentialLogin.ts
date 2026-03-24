@@ -21,8 +21,8 @@ export const useCredentialLogin = () => {
 
       router.push(`/auth/confirmar-codigo`);
     },
-    onError: (error) => {
-      console.error("Erro ao enviar o OTP:", error);
+    onError: () => {
+      toast.error("Erro ao enviar o código. Tente novamente.");
     },
   });
 };
