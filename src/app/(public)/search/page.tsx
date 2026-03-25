@@ -9,14 +9,32 @@ import { FilterButton } from "@/features/search/components/FilterButton";
 import { FilteredProfessionalCard } from "@/features/search/components/FilteredProfessionalCard";
 import { useFilterProfessional } from "@/features/search/hooks/useFilterProfessional";
 import { SearchInput } from "@/components/SearchInput/SearchInput";
+import { FiltersState } from "@/features/search/components/types";
 import { CircularProgress } from "@mui/material";
 
 function SearchPage() {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const defaultFilters: FiltersState = {
+    specialties: [],
+    availability: [],
+    value: [],
+    accessibility: [],
+    services: [],
+    distance: 12,
+  };
+  const [filters, setFilters] = useState<FiltersState>(defaultFilters);
   const { data: filteredProfessionals, isLoading } = useFilterProfessional();
 
   const onFilterChange = () => {
     setIsFilterOpen(!isFilterOpen);
+  };
+
+  const handleApplyFilters = (next: FiltersState) => {
+    setFilters(next);
+  };
+
+  const handleClearFilters = () => {
+    setFilters(defaultFilters);
   };
 
   if (
@@ -43,6 +61,9 @@ function SearchPage() {
         <FilterDialogDesktop
           open={isFilterOpen}
           onFilterChange={onFilterChange}
+          onApply={handleApplyFilters}
+          onClear={handleClearFilters}
+          initialFilters={filters}
         />
       )}
 

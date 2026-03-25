@@ -1,10 +1,14 @@
-import { IoMdClose } from "react-icons/io";
-import { FilterDialogProps } from "./types";
-import { Dialog, DialogContent, IconButton } from "@mui/material";
+import { Dialog, DialogContent } from "@mui/material";
+import { useEffect, useMemo, useState } from "react";
+import { specializationOptions } from "@/components/MedicalSpecialization/options";
+import { FilterDialogProps, FiltersState } from "./types";
 
 export const FilterDialogDesktop = ({
   open,
   onFilterChange,
+  onApply,
+  onClear,
+  initialFilters,
 }: FilterDialogProps) => {
   const valueOptions = ["$", "$$", "$$$"];
   const accessibilityOptions = [
@@ -20,9 +24,54 @@ export const FilterDialogDesktop = ({
     "Aceita Wellhub",
   ];
 
+  const defaultFilters: FiltersState = useMemo(
+    () => ({
+      specialties: [],
+      availability: [],
+      value: [],
+      accessibility: [],
+      services: [],
+      distance: 12,
+    }),
+    []
+  );
+
+  const [filters, setFilters] = useState<FiltersState>(initialFilters ?? defaultFilters);
+
+  useEffect(() => {
+    if (initialFilters) {
+      setFilters(initialFilters);
+    }
+  }, [initialFilters]);
+
+  const toggleChip = (key: keyof FiltersState, value: string) => {
+    setFilters((prev) => {
+      const list = prev[key] as string[];
+      const exists = list.includes(value);
+      const nextList = exists ? list.filter((item) => item !== value) : [...list, value];
+      return { ...prev, [key]: nextList };
+    });
+  };
+
+  const handleDistanceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const nextValue = Number(event.target.value);
+    setFilters((prev) => ({ ...prev, distance: nextValue }));
+  };
+
   const handleOnFilter = () => {
+    onApply?.(filters);
     onFilterChange();
   };
+
+  const handleClear = () => {
+    setFilters({ ...defaultFilters });
+    onClear?.();
+  };
+
+  const baseChipClass =
+    "inline-flex min-w-[86px] justify-center px-3 py-2 text-sm rounded-lg whitespace-nowrap";
+  const activeChipClass = "bg-[#253E99] border-[#253E99] text-white";
+  const inactiveChipClass = "bg-white border-[#253E99] text-gray-800";
 
   return (
     <Dialog
@@ -31,81 +80,150 @@ export const FilterDialogDesktop = ({
       maxWidth="md"
       fullWidth
     >
-      <DialogContent>
-        <div className="flex flex-col items-center gap-10">
-          <div className="flex flex-col gap-3 w-full">
-            <div className="flex justify-end">
-              <IconButton onClick={onFilterChange}>
-                <IoMdClose className="text-2xl" size={20} />
-              </IconButton>
-            </div>
-            <h1 className="text-2xl font-semibold">Filtros</h1>
+      <DialogContent className="p-0 bg-[#F3F5FA]">
+        <div className="flex flex-col gap-6 px-6 py-6 md:px-10 md:py-8">
+          <button
+            type="button"
+            onClick={onFilterChange}
+            className="flex items-center gap-2 text-sm text-[#000000] hover:text-gray-800"
+          >
+            <span className="text-lg">←</span>
+            <span>voltar</span>
+          </button>
+
+          <div className="flex flex-col gap-6">
+            <h1 className="text-2xl font-semibold text-[#000000]-700">Filtros de Busca</h1>
+
+            <section className="flex flex-col gap-3">
+              <h2 className="text-base font-semibold text-black">Especialidades</h2>
+              <div className="flex flex-wrap gap-2">
+                {specializationOptions.map((spec) => {
+                  const active = filters.specialties.includes(spec.name);
+                  return (
+                    <button
+                      key={spec.id}
+                      className={`${baseChipClass} ${active ? activeChipClass : inactiveChipClass}`}
+                      type="button"
+                      onClick={() => toggleChip("specialties", spec.name)}
+                    >
+                      {spec.name}
+                    </button>
+                  );
+                })}
+              </div>
+            </section>
+
+            <section className="flex flex-col gap-3">
+              <h2 className="text-base font-semibold text-black">Disponibilidade</h2>
+              <div className="flex flex-wrap gap-2">
+                {["Hoje", "Amanhã", "Próxima Semana", "Próximo Mês"].map((item) => {
+                  const active = filters.availability.includes(item);
+                  return (
+                    <button
+                      key={item}
+                      className={`${baseChipClass} ${active ? activeChipClass : inactiveChipClass}`}
+                      type="button"
+                      onClick={() => toggleChip("availability", item)}
+                    >
+                      {item}
+                    </button>
+                  );
+                })}
+              </div>
+            </section>
+
+            <section className="flex flex-col gap-3">
+              <h2 className="text-base font-semibold text-black">Valor</h2>
+              <div className="flex flex-wrap gap-2">
+                {valueOptions.map((item) => {
+                  const active = filters.value.includes(item);
+                  return (
+                    <button
+                      key={item}
+                      className={`${baseChipClass} ${active ? activeChipClass : inactiveChipClass}`}
+                      type="button"
+                      onClick={() => toggleChip("value", item)}
+                    >
+                      {item}
+                    </button>
+                  );
+                })}
+              </div>
+            </section>
+
+            <section className="flex flex-col gap-3">
+              <h2 className="text-base font-semibold text-black">Acessibilidade</h2>
+              <div className="flex flex-wrap gap-2">
+                {accessibilityOptions.map((item) => {
+                  const active = filters.accessibility.includes(item);
+                  return (
+                    <button
+                      key={item}
+                      className={`${baseChipClass} ${active ? activeChipClass : inactiveChipClass}`}
+                      type="button"
+                      onClick={() => toggleChip("accessibility", item)}
+                    >
+                      {item}
+                    </button>
+                  );
+                })}
+              </div>
+            </section>
+
+            <section className="flex flex-col gap-3">
+              <h2 className="text-base font-semibold text-black">Preferências de Atendimento</h2>
+              <div className="flex flex-wrap gap-2">
+                {serviceOptions.map((item) => {
+                  const active = filters.services.includes(item);
+                  return (
+                    <button
+                      key={item}
+                      className={`${baseChipClass} ${active ? activeChipClass : inactiveChipClass}`}
+                      type="button"
+                      onClick={() => toggleChip("services", item)}
+                    >
+                      {item}
+                    </button>
+                  );
+                })}
+              </div>
+            </section>
+
+            <section className="flex flex-col gap-3">
+              <h2 className="text-base font-semibold text-[#000000]-700">Distância</h2>
+              <div className="flex flex-col gap-2">
+                <input
+                  type="range"
+                  min={0}
+                  max={30}
+                  value={filters.distance}
+                  onChange={handleDistanceChange}
+                  className="w-full accent-[#3857F4]"
+                />
+                <div className="flex justify-between text-xs text-gray-500">
+                  <span>0</span>
+                  <span>30</span>
+                </div>
+              </div>
+            </section>
           </div>
 
-          <div className="w-full flex flex-col gap-4">
-            <h2 className="text-2xl font-semibold">Valor</h2>
-            <div className="flex gap-2">
-              {valueOptions.map((item) => (
-                <button
-                  key={item}
-                  className="border border-blue-600 py-1 px-2 rounded-t-lg rounded-br-lg cursor-pointer whitespace-nowrap text-2x1"
-                  type="button"
-                >
-                  <span className="text-sm">{item}</span>
-                </button>
-              ))}
-            </div>
+          <div className="flex flex-col gap-3 pt-2 md:flex-row md:justify-center md:gap-6">
+            <button
+              type="button"
+              onClick={handleOnFilter}
+              className="w-full md:w-1/2 rounded-md bg-[#3857F4] px-6 py-3 text-center text-sm font-semibold text-[#D7FF7B] shadow hover:bg-[#1b2f80]"
+            >
+              Pesquisar
+            </button>
+            <button
+              type="button"
+              onClick={handleClear}
+              className="w-full md:w-1/2 rounded-md border border-[#3857F4] bg-white px-6 py-3 text-center text-sm font-semibold text-[#3857F4] hover:bg-[#eef2ff]"
+            >
+              Limpar Filtros
+            </button>
           </div>
-          <div className="w-full flex flex-col gap-4">
-            <span className="text-2xl font-semibold">Acessibilidade</span>
-            <div className="flex flex-wrap gap-2">
-              {accessibilityOptions.map((item) => (
-                <button
-                  key={item}
-                  className="border border-blue-600 py-1 px-2 rounded-t-lg rounded-br-lg cursor-pointer whitespace-nowrap"
-                  type="button"
-                >
-                  <span className="text-sm">{item}</span>
-                </button>
-              ))}
-            </div>
-          </div>
-          <div className="w-full flex flex-col gap-4">
-            <span className="text-2xl font-semibold">Atendimento</span>
-            <div className="flex flex-wrap gap-2">
-              {serviceOptions.map((item) => (
-                <button
-                  key={item}
-                  className="border border-blue-600 py-1 px-2 rounded-t-lg rounded-br-lg cursor-pointer whitespace-nowrap"
-                  type="button"
-                >
-                  <span className="text-sm">{item}</span>
-                </button>
-              ))}
-            </div>
-          </div>
-          <div className="w-full flex flex-col gap-4">
-            <span className="text-2xl font-semibold">Distância</span>
-            <div className="flex flex-col gap-2">
-              <input
-                type="range"
-                min={0}
-                max={12}
-                className="w-full bg-blue-600"
-                readOnly
-              />
-              <div className="flex justify-between text-gray-400 text-sm">
-                <span>0 km</span>
-                <span>12 km</span>
-              </div>
-            </div>
-          </div>
-          <button
-            className="flex justify-center w-full bg-blue-600 py-2 rounded-lg text-center tracking-widest"
-            onClick={handleOnFilter}
-          >
-            <p className="text-button font-semibold text-sm">FILTRAR</p>
-          </button>
         </div>
       </DialogContent>
     </Dialog>
