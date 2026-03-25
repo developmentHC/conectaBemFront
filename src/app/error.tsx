@@ -4,16 +4,6 @@ import { Button } from "@mui/material";
 import Link from "next/link";
 import { useEffect } from "react";
 import { ErrorTemplate } from "@/components/ErrorTemplate";
-import { Button } from "@mui/material";
-
-export default function GlobalError({
-  error,
-  reset,
-}: {
-  error: Error;
-  reset: () => void;
-}) {
-
 
 export default function GlobalError({ error, reset }: { error: Error; reset: () => void }) {
   useEffect(() => {
