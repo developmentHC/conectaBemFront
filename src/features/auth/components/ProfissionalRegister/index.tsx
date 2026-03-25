@@ -1,11 +1,10 @@
 "use client";
 
 import { FormMultiStep } from "@/components/FormMultiStep";
-import { Step, useProfissionalRegisterStore } from "./useProfissionalRegisterStore";
+import { type Step, useProfissionalRegisterStore } from "./useProfissionalRegisterStore";
 import { PersonalDataStep } from "./PersonalDataStep";
 import { ServiceLocationStep } from "./ServiceLocationStep";
 import { SpecialtyStep } from "./SpecialtyStep";
-import { type Step, useProfissionalRegisterStore } from "./useProfissionalRegisterStore";
 
 export const ProfissionalRegister = () => {
   const { step } = useProfissionalRegisterStore();

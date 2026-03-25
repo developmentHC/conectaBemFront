@@ -8,15 +8,11 @@ import { useProfessional } from "../hooks/useProfessional";
 import { useMemo } from "react";
 import { filterAndSortProfessionals } from "@/utils/filterProfessionals";
 import Link from "next/link";
-import { useMemo } from "react";
-import { MdStarRate } from "react-icons/md";
 import {
   NextButton,
   PrevButton,
   usePrevNextButtons,
 } from "@/components/Carousel/CarouselArrowButtons";
-import { filterAndSortProfessionals } from "@/utils/filterProfessionals";
-import { useProfessional } from "../hooks/useProfessional";
 
 type ProfessionalSectionProps = {
   specialization?: string;

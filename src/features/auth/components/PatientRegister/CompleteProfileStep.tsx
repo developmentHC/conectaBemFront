@@ -7,8 +7,6 @@ import { useUserStore } from "@/stores/userSessionStore";
 import { useProfilePhotoUpload } from "../../hooks/useProfilePhotoUpload";
 import { gtmEvents } from "@/utils/gtm";
 import { convertToBase64 } from "@/utils/transformImageToBase64";
-import { useRegisterPatient } from "../../hooks/useRegisterPatient";
-import { usePatientRegisterStore } from "./usePatientRegisterStore";
 
 export const CompleteProfileStep = () => {
 
