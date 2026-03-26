@@ -36,6 +36,7 @@ export const CompleteProfileStep = () => {
     photo,
     servicePreferences,
     specialties,
+    accessibility,
   } = useProfissionalRegisterStore();
   const { idUser, setProfilePhoto } = useUserStore();
   const { mutate: createProfissional, isPending } = useRegisterProfissional();
@@ -83,7 +84,7 @@ export const CompleteProfileStep = () => {
       professionalSpecialties: specialties,
       otherProfessionalSpecialties: [],
       professionalServicePreferences: servicePreferences,
-      acessibility: [],
+      acessibility: accessibility ?? [],
       profilePhoto: photo,
     });
 
