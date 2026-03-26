@@ -26,7 +26,7 @@ const specialtiesMock = [
   "Outros",
 ];
 
-const services = ["LGBTQIAP+ Friendly", "Pet Friedly", "Aceita Wellhub"];
+const services = ["LGBTQIAP+ Friendly", "Pet Friendly", "Aceita Wellhub"];
 
 type Data = z.infer<typeof schema>;
 

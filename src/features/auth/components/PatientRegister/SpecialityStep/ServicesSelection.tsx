@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { SelectableTag } from "../../../../../components/SelectableTag";
 
-const services = ["LGBTQIAP+ Friendly", "Pet Friedly", "Aceita Wellhub"];
+const services = ["LGBTQIAP+ Friendly", "Pet Friendly", "Aceita Wellhub"];
 
 export const ServicesSelection = ({
   selecteds,
