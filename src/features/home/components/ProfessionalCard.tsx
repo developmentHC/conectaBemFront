@@ -107,11 +107,11 @@ export const ProfessionalCard = ({ specialization }: ProfessionalSectionProps) =
 
         <PrevButton
           onClick={onPrevButtonClick}
-          className="-translate-y-1/2 absolute top-1/2 left-2 z-10"
+          className="absolute top-1/2 left-2 z-10 -translate-y-1/2"
         />
         <NextButton
           onClick={onNextButtonClick}
-          className="-translate-y-1/2 absolute top-1/2 right-2 z-10"
+          className="absolute top-1/2 right-2 z-10 -translate-y-1/2"
         />
       </div>
 

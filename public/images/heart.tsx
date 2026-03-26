@@ -9,7 +9,6 @@ export const HeartIcon = (args: JSX.IntrinsicElements["svg"]) => (
       />
     </g>
     <defs>
-      {/* biome-ignore lint/correctness/useUniqueElementIds: static SVG icon used once per render */}
       <clipPath id="clip0_3088_15423">
         <rect width="40" height="40" fill="white" />
       </clipPath>

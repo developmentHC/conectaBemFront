@@ -67,9 +67,9 @@ export const Header = () => {
             className="relative h-8 w-12 focus:outline-none lg:hidden"
           >
             {isMobileMenuOpen ? (
-              <CloseIcon className="-translate-x-1/2 -translate-y-1/2 absolute top-1/2 left-1/2 h-6 w-6 fill-[#1D1B20] transition-transform duration-300" />
+              <CloseIcon className="absolute top-1/2 left-1/2 h-6 w-6 -translate-x-1/2 -translate-y-1/2 fill-[#1D1B20] transition-transform duration-300" />
             ) : (
-              <MenuIcon className="-translate-x-1/2 -translate-y-1/2 absolute top-1/2 left-1/2 h-6 w-6 fill-[#1D1B20] transition-transform duration-300" />
+              <MenuIcon className="absolute top-1/2 left-1/2 h-6 w-6 -translate-x-1/2 -translate-y-1/2 fill-[#1D1B20] transition-transform duration-300" />
             )}
           </button>
 

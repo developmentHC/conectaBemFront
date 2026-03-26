@@ -30,7 +30,7 @@ export function ErrorTemplate({
           priority
         />
         {status && (
-          <div className="-top-3 -left-3 absolute rounded-lg bg-blue-50 px-2 py-0.5 font-semibold text-blue-700 text-sm ring-1 ring-blue-200">
+          <div className="absolute -top-3 -left-3 rounded-lg bg-blue-50 px-2 py-0.5 font-semibold text-blue-700 text-sm ring-1 ring-blue-200">
             {status}
           </div>
         )}

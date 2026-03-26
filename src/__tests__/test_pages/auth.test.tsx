@@ -1,8 +1,8 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { act, fireEvent, render, renderHook, screen, waitFor } from "@testing-library/react";
+import toast from "react-hot-toast";
 import { useCredentialLogin } from "@/features/auth/hooks/useCredentialLogin";
 import { api } from "@/libs/api";
-import toast from "react-hot-toast";
 import Register from "../../app/(auth)/auth/page";
 
 jest.mock("@/libs/api", () => ({
@@ -23,7 +23,6 @@ const setIdUserMock = jest.fn();
 jest.mock("@/stores/userSessionStore", () => ({
   useUserStore: jest.fn(() => ({ setIdUser: setIdUserMock })),
 }));
-
 
 const queryClient = new QueryClient();
 const wrapper = ({ children }: any) => (

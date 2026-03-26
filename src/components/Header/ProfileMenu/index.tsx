@@ -71,7 +71,7 @@ export const ProfileMenu = (props: ProfileMenuProps) => {
           "absolute top-0 right-0 mt-12 w-48 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition-all",
           {
             "visible translate-y-0 opacity-100": isOpen,
-            "-translate-y-2 invisible opacity-0": !isOpen,
+            "invisible -translate-y-2 opacity-0": !isOpen,
           },
         )}
       >
