@@ -1,14 +1,10 @@
-
-import { ImageUpload } from "@/components/Inputs/ImageUpload";
-import { useProfissionalRegisterStore } from "./useProfissionalRegisterStore";
 import { Button, Checkbox, FormControlLabel, Link } from "@mui/material";
-import { useState } from "react";
 import NextLink from "next/link";
-import { useRegisterProfissional } from "../../hooks/useRegisterProfissional";
+import { useState } from "react";
+import { ImageUpload } from "@/components/Inputs/ImageUpload";
 import { useUserStore } from "@/stores/userSessionStore";
-import { useProfilePhotoUpload } from "../../hooks/useProfilePhotoUpload";
 import { gtmEvents } from "@/utils/gtm";
-import { convertToBase64 } from "@/utils/transformImageToBase64";
+import { useProfilePhotoUpload } from "../../hooks/useProfilePhotoUpload";
 import { useRegisterProfissional } from "../../hooks/useRegisterProfissional";
 import { useProfissionalRegisterStore } from "./useProfissionalRegisterStore";
 
@@ -85,16 +81,10 @@ export const CompleteProfileStep = () => {
 
   return (
     <form className="flex flex-col gap-8">
-      <span>
-        Estamos felizes em ter voce aqui, {name}. Vamos iniciar sua jornada?
-      </span>
+      <span>Estamos felizes em ter voce aqui, {name}. Vamos iniciar sua jornada?</span>
 
-      <div className="flex justify-center items-center relative">
-        <ImageUpload
-          onChange={onChangeImage}
-          value={photo}
-          className="mb-4"
-        />
+      <div className="relative flex items-center justify-center">
+        <ImageUpload onChange={onChangeImage} value={photo} className="mb-4" />
       </div>
 
       <FormControlLabel

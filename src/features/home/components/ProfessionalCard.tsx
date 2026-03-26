@@ -2,17 +2,17 @@
 
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
-import { MdStarRate } from "react-icons/md";
-import { FaUser } from "react-icons/fa";
-import { useProfessional } from "../hooks/useProfessional";
-import { useMemo } from "react";
-import { filterAndSortProfessionals } from "@/utils/filterProfessionals";
 import Link from "next/link";
+import { useMemo } from "react";
+import { FaUser } from "react-icons/fa";
+import { MdStarRate } from "react-icons/md";
 import {
   NextButton,
   PrevButton,
   usePrevNextButtons,
 } from "@/components/Carousel/CarouselArrowButtons";
+import { filterAndSortProfessionals } from "@/utils/filterProfessionals";
+import { useProfessional } from "../hooks/useProfessional";
 
 type ProfessionalSectionProps = {
   specialization?: string;
@@ -39,17 +39,17 @@ export const ProfessionalCard = ({ specialization }: ProfessionalSectionProps) =
       key={professionalItem.id ?? index}
       className="professional-card flex h-full max-h-[530px] cursor-pointer flex-col gap-4"
     >
-      <div className="relative w-full h-[160px] flex justify-center items-center bg-gray-100 rounded-lg overflow-hidden">
+      <div className="relative flex h-[160px] w-full items-center justify-center overflow-hidden rounded-lg bg-gray-100">
         {professionalItem.image ? (
           <Image
-            className="object-cover w-full h-full"
+            className="h-full w-full object-cover"
             src={professionalItem.image}
             alt="profissional"
             width={240}
             height={160}
           />
         ) : (
-          <FaUser className="text-gray-300 text-6xl" />
+          <FaUser className="text-6xl text-gray-300" />
         )}
       </div>
       <div className="flex flex-col gap-1">
@@ -107,11 +107,11 @@ export const ProfessionalCard = ({ specialization }: ProfessionalSectionProps) =
 
         <PrevButton
           onClick={onPrevButtonClick}
-          className="absolute top-1/2 left-2 z-10 -translate-y-1/2"
+          className="-translate-y-1/2 absolute top-1/2 left-2 z-10"
         />
         <NextButton
           onClick={onNextButtonClick}
-          className="absolute top-1/2 right-2 z-10 -translate-y-1/2"
+          className="-translate-y-1/2 absolute top-1/2 right-2 z-10"
         />
       </div>
 

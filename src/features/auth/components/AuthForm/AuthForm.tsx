@@ -3,6 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, CircularProgress } from "@mui/material";
 import TextField from "@mui/material/TextField";
+import { useId } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useUserStore } from "@/stores/userSessionStore";
@@ -20,6 +21,7 @@ const schema = z.object({
 export const AuthForm = () => {
   const { mutate: login, isPending } = useCredentialLogin();
   const { setEmail } = useUserStore();
+  const emailId = useId();
 
   const {
     register,
@@ -45,7 +47,7 @@ export const AuthForm = () => {
           {...register("email")}
           helperText={errors.email?.message}
           error={!!errors.email}
-          id="email"
+          id={emailId}
           placeholder="seuemail@conectabem.com"
         />
       </div>

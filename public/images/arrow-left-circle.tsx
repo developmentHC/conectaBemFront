@@ -9,6 +9,7 @@ export const ArrowLeftCircleIcon = (args: JSX.IntrinsicElements["svg"]) => (
       />
     </g>
     <defs>
+      {/* biome-ignore lint/correctness/useUniqueElementIds: static SVG icon used once per render */}
       <clipPath id="clip0_2831_13983">
         <rect width="40" height="40" fill="white" transform="translate(0 0.5)" />
       </clipPath>

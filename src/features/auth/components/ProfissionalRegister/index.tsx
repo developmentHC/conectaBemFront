@@ -1,10 +1,14 @@
 "use client";
 
 import { FormMultiStep } from "@/components/FormMultiStep";
-import { type Step, useProfissionalRegisterStore } from "./useProfissionalRegisterStore";
+import { AccessibilityStep } from "./AccessibilityStep";
+import { CompleteProfileStep } from "./CompleteProfileStep";
+import { Description } from "./Description";
+import { FormTitle } from "./FormTitle";
 import { PersonalDataStep } from "./PersonalDataStep";
 import { ServiceLocationStep } from "./ServiceLocationStep";
 import { SpecialtyStep } from "./SpecialtyStep";
+import { type Step, useProfissionalRegisterStore } from "./useProfissionalRegisterStore";
 
 export const ProfissionalRegister = () => {
   const { step } = useProfissionalRegisterStore();
@@ -18,8 +22,8 @@ export const ProfissionalRegister = () => {
   };
 
   return (
-    <div className="flex flex-col w-full pb-16 bg-[#F3F5FA]">
-      <div className="flex flex-col w-full max-w-[450px] gap-16">
+    <div className="flex w-full flex-col bg-[#F3F5FA] pb-16">
+      <div className="flex w-full max-w-[450px] flex-col gap-16">
         <FormMultiStep.Header className="gap-4">
           <FormTitle />
           <FormMultiStep.Progress progress={progresses[step]} />
@@ -33,7 +37,7 @@ export const ProfissionalRegister = () => {
         {step === "complete_profile" && <CompleteProfileStep />}
 
         {step !== "complete_profile" && (
-          <FormMultiStep.NeedHelpButton className="text-gray-500 justify-start gap-2 w-fit" />
+          <FormMultiStep.NeedHelpButton className="w-fit justify-start gap-2 text-gray-500" />
         )}
       </div>
     </div>

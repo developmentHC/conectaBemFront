@@ -56,7 +56,6 @@
     }
   },
   "css": {
-    "parser": { "tailwindDirectives": true },
     "formatter": { "enabled": true },
     "linter": { "enabled": true }
   },

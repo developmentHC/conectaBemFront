@@ -3,7 +3,7 @@ import { Button, TextField } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
 import axios from "axios";
 import dayjs from "dayjs";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { type FieldErrors, useForm } from "react-hook-form";
 import { z } from "zod";
 import { CEPField } from "@/components/Fields/CEPField";
@@ -72,6 +72,7 @@ type Data = z.infer<typeof schema>;
 export const PersonalDataStep = () => {
   const { updateFields, changeStep } = usePatientRegisterStore();
   const [nameInput, setNameInput] = useState("");
+  const nameId = useId();
 
   const fieldRefs = {
     name: useRef<HTMLDivElement | null>(null),
@@ -187,7 +188,7 @@ export const PersonalDataStep = () => {
           {...register("name")}
           onChange={replaceName}
           placeholder="Nome e Sobrenome"
-          id="name"
+          id={nameId}
           value={nameInput}
           required
           helperText={errors.name?.message}

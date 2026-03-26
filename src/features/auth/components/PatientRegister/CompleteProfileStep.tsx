@@ -1,15 +1,13 @@
-import { ImageUpload } from "@/components/Inputs/ImageUpload";
 import { Button, Checkbox, FormControlLabel, Link } from "@mui/material";
 import { useState } from "react";
-import { usePatientRegisterStore } from "./usePatientRegisterStore";
-import { useRegisterPatient } from "../../hooks/useRegisterPatient";
+import { ImageUpload } from "@/components/Inputs/ImageUpload";
 import { useUserStore } from "@/stores/userSessionStore";
-import { useProfilePhotoUpload } from "../../hooks/useProfilePhotoUpload";
 import { gtmEvents } from "@/utils/gtm";
-import { convertToBase64 } from "@/utils/transformImageToBase64";
+import { useProfilePhotoUpload } from "../../hooks/useProfilePhotoUpload";
+import { useRegisterPatient } from "../../hooks/useRegisterPatient";
+import { usePatientRegisterStore } from "./usePatientRegisterStore";
 
 export const CompleteProfileStep = () => {
-
   const [termsAccepted, setTermsAccepted] = useState(false);
   const {
     updateFields,
@@ -64,12 +62,8 @@ export const CompleteProfileStep = () => {
 
   return (
     <form className="flex flex-col gap-8">
-      <div className="flex justify-center items-center relative">
-        <ImageUpload
-          onChange={onChangeImage}
-          value={profilePhoto}
-          className="mb-4"
-        />
+      <div className="relative flex items-center justify-center">
+        <ImageUpload onChange={onChangeImage} value={profilePhoto} className="mb-4" />
       </div>
 
       <FormControlLabel

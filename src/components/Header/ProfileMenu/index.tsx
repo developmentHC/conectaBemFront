@@ -39,6 +39,7 @@ export const ProfileMenu = (props: ProfileMenuProps) => {
   return (
     <div className="relative z-10 hidden lg:flex" ref={menuRef}>
       <button
+        type="button"
         onClick={() => setIsOpen(!isOpen)}
         className="flex aspect-square h-[40px] w-[40px] items-center gap-1 transition-colors hover:text-blue-700"
         aria-expanded={isOpen}
@@ -70,7 +71,7 @@ export const ProfileMenu = (props: ProfileMenuProps) => {
           "absolute top-0 right-0 mt-12 w-48 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition-all",
           {
             "visible translate-y-0 opacity-100": isOpen,
-            "invisible -translate-y-2 opacity-0": !isOpen,
+            "-translate-y-2 invisible opacity-0": !isOpen,
           },
         )}
       >

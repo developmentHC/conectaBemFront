@@ -14,14 +14,12 @@ export default function GlobalError({ error, reset }: { error: Error; reset: () 
 
   return (
     <ErrorTemplate
-
       title="Algo saiu do fluxo, mas já estamos resolvendo"
       subtitle={
         "Nosso sistema não está se sentindo muito bem agora.\nJá estamos cuidando disso para que tudo volte ao normal em breve."
       }
       illustrationSrc="/images/Error-500.svg"
     >
-
       <Button
         type="button"
         variant="contained"
@@ -38,12 +36,10 @@ export default function GlobalError({ error, reset }: { error: Error; reset: () 
         Tentar Novamente
       </Button>
 
-
       <Button
         type="button"
         variant="outlined"
         size="large"
-
         component={Link}
         href="/"
         prefetch={false}
@@ -59,8 +55,6 @@ export default function GlobalError({ error, reset }: { error: Error; reset: () 
       >
         Voltar ao início
       </Button>
-
-
     </ErrorTemplate>
   );
 }

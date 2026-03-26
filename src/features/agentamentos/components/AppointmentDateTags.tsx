@@ -57,14 +57,14 @@ export const AppointmentDateTags = ({
       <button
         type="button"
         onClick={() => handleScroll("left")}
-        className="absolute top-1/2 left-2 z-20 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 shadow md:hidden"
+        className="-translate-y-1/2 absolute top-1/2 left-2 z-20 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 shadow md:hidden"
       >
         <LuChevronLeft className="text-[#253E99]" />
       </button>
       <button
         type="button"
         onClick={() => handleScroll("right")}
-        className="absolute top-1/2 right-2 z-20 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 shadow md:hidden"
+        className="-translate-y-1/2 absolute top-1/2 right-2 z-20 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 shadow md:hidden"
       >
         <LuChevronRight className="text-[#253E99]" />
       </button>
