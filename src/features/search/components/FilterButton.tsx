@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { MdFilterList } from "react-icons/md";
 
 type FilterButtonProps = {
   onClick: () => void;
@@ -7,11 +7,11 @@ type FilterButtonProps = {
 export const FilterButton = ({ onClick }: FilterButtonProps) => {
   return (
     <div
-      className="flex h-10 cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-t-lg rounded-br-lg border border-secondary-500 bg-secondary-500 px-3 py-2 text-gray-50"
+      className="inline-flex min-w-[120px] cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-lg bg-primary-500 px-4 py-2"
       onClick={onClick}
     >
-      <Image src="/images/filter.svg" alt="Filtro" width={15} height={15} />
-      <p className="text-[#F2F1F3] text-sm">Filtros</p>
+      <MdFilterList size={24} className="text-[#F2F1F3]" aria-hidden />
+      <p className="font-medium text-[#F2F1F3] text-base">Filtros</p>
     </div>
   );
 };

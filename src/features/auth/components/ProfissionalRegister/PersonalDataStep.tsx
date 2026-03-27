@@ -77,14 +77,14 @@ const schema = z.object({
         }
       },
       {
-        message: "CEP não encontrado",
+        message: "CEP não encontrado. Verifique e tente novamente",
       },
     ),
-  enderecoResidencial: z.string().min(3, "Endereço inválido"),
-  numeroResidencial: z.string().min(1, "Número obrigatório"),
-  bairroResidencial: z.string().min(3, "Bairro inválido"),
-  cidadeResidencial: z.string().min(3, "Cidade inválida"),
-  estadoResidencial: z.string().min(2, "Estado inválido"),
+  enderecoResidencial: z.string().min(3, "Endereço deve ter pelo menos 3 caracteres"),
+  numeroResidencial: z.string().min(1, "Número é obrigatório"),
+  bairroResidencial: z.string().min(3, "Bairro deve ter pelo menos 3 caracteres"),
+  cidadeResidencial: z.string().min(3, "Cidade deve ter pelo menos 3 caracteres"),
+  estadoResidencial: z.string().min(2, "Estado deve ter pelo menos 2 caracteres"),
 });
 
 type Data = z.infer<typeof schema>;

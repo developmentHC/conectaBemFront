@@ -18,7 +18,7 @@ jest.mock("next/image", () => ({
 
 describe("SocialNetwork component", () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    jest.clearAllMocks(); // limpa chamadas anteriores do signIn
   });
 
   it("renders Google login button with icon", () => {
@@ -36,5 +36,11 @@ describe("SocialNetwork component", () => {
 
     fireEvent.click(googleButton);
     expect(signIn).toHaveBeenCalledWith("google", { callbackUrl: "/" });
+  });
+
+  it("does not render a Facebook button (removed)", () => {
+    render(<SocialNetwork />);
+    const facebookButton = screen.queryByRole("button", { name: /entrar com o facebook/i });
+    expect(facebookButton).not.toBeInTheDocument();
   });
 });
