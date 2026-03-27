@@ -19,13 +19,13 @@ describe("Fluxo de Cadastro", () => {
 
   context("Validações do campo de e-mail", () => {
     it("Impede continuar com campo de e-mail vazio", () => {
-      cy.get("#email").should("be.visible").should("have.value", "");
+      cy.get('[data-testid="email-input"]').should("be.visible").should("have.value", "");
 
       cy.get(".gap-7 > .MuiButtonBase-root").should("be.disabled");
     });
 
     it("Impede continuar com e-mail inválido", () => {
-      cy.get("#email").type("emailinvalido");
+      cy.get('[data-testid="email-input"]').type("emailinvalido");
 
       cy.get(".gap-7 > .MuiButtonBase-root").should("be.disabled");
     });
@@ -42,7 +42,7 @@ describe("Fluxo de Cadastro", () => {
     // TODO: Depends on external Mail.tm service which is unreliable in CI.
     // Re-enable once OTP flow is mockable or Mail.tm is replaced.
     it.skip("Realiza cadastro com sucesso usando OTP recebido por e-mail", () => {
-      cy.get("#email").type(emailAddress);
+      cy.get('[data-testid="email-input"]').type(emailAddress);
       cy.get(".gap-7 > .MuiButtonBase-root").click();
 
       cy.wait(5000);
@@ -66,7 +66,7 @@ describe("Fluxo de Cadastro", () => {
       cy.get(".gap-5 > :nth-child(1)").click();
       cy.get(".css-1bqevrn > a > .MuiButtonBase-root").click();
 
-      cy.get("#name").type("Nome Teste");
+      cy.get('[data-testid="name-input"]').type("Nome Teste");
       cy.get('input[placeholder="DD/MM/AAAA"]').then(($input) => {
         $input.prop("readOnly", false);
         cy.wrap($input).scrollIntoView().clear({ force: true }).type("28121999", { force: true });

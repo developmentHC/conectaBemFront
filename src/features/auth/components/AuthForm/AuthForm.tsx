@@ -48,6 +48,7 @@ export const AuthForm = () => {
           helperText={errors.email?.message}
           error={!!errors.email}
           id={emailId}
+          inputProps={{ "data-testid": "email-input" }}
           placeholder="seuemail@conectabem.com"
         />
       </div>

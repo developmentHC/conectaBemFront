@@ -201,6 +201,7 @@ export const PersonalDataStep = () => {
           onChange={replaceName}
           value={nameValue}
           id={nameId}
+          inputProps={{ "data-testid": "name-input" }}
           variant="outlined"
           placeholder="Nome e Sobrenome"
           helperText={errors.name?.message}
