@@ -15,7 +15,16 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
-import { type ChangeEvent, type FormEvent, useEffect, useMemo, useRef, useState } from "react";
+import {
+  type ChangeEvent,
+  type FormEvent,
+  useCallback,
+  useEffect,
+  useId,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import toast from "react-hot-toast";
 import { useAppointmentDetail } from "@/features/agentamentos/hooks/useAppointmentDetail";
 import { useCancelAppointment } from "@/features/agentamentos/hooks/useCancelAppointment";
@@ -128,14 +137,15 @@ export default function CancelAppointmentPage() {
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+  const cancelReasonId = useId();
   const reasonCount = reason.length;
 
   const isSubmitting = cancelMutation.isPending;
 
-  const autoResizeTextarea = (element: HTMLTextAreaElement) => {
+  const autoResizeTextarea = useCallback((element: HTMLTextAreaElement) => {
     element.style.height = "auto";
     element.style.height = `${element.scrollHeight}px`;
-  };
+  }, []);
 
   const handleReasonChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     const incoming = event.target.value;
@@ -381,11 +391,11 @@ export default function CancelAppointmentPage() {
         <section className="space-y-6 rounded-lg border border-[#FFE1E1] bg-white p-6 shadow-sm">
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
-              <label htmlFor="cancel-reason" className="font-semibold text-[#1F2340] text-sm">
+              <label htmlFor={cancelReasonId} className="font-semibold text-[#1F2340] text-sm">
                 Justifique o seu cancelamento
               </label>
               <textarea
-                id="cancel-reason"
+                id={cancelReasonId}
                 name="cancel-reason"
                 ref={textareaRef}
                 rows={1}

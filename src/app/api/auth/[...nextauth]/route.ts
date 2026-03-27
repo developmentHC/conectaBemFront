@@ -93,7 +93,9 @@ const nextAuthOptions: NextAuthOptions = {
           }
           return null;
         } catch (error) {
-          console.error("Authorization error:", error);
+          if (process.env.NODE_ENV !== "production") {
+            console.error("Authorization error:", error);
+          }
           if (error instanceof Error && error.message === "ACCOUNT_PENDING") {
             throw error;
           }

@@ -30,11 +30,11 @@ export const Services = ({ title, duration, price, description, className }: Ser
       <div className="space-y-1">
         {isExapanded === true && <p className="my-2 text-[#322F37] text-xs">{description}</p>}
         {isExapanded === true ? (
-          <button onClick={() => setIsExpanded(false)}>
+          <button type="button" onClick={() => setIsExpanded(false)}>
             <p className="text-[#645D6F] text-xs lg:text-sm">- Ver menos</p>
           </button>
         ) : (
-          <button onClick={() => setIsExpanded(true)}>
+          <button type="button" onClick={() => setIsExpanded(true)}>
             <p className="text-[#645D6F] text-xs lg:text-sm">+ Ver mais</p>
           </button>
         )}

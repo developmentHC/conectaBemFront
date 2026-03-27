@@ -21,7 +21,6 @@ export type IPatient = {
 };
 
 export type ICreatePatient = {
-  userId: string | undefined;
   name: string | undefined;
   residentialAddress: {
     cep: string | undefined;
@@ -35,5 +34,6 @@ export type ICreatePatient = {
   userSpecialties: string[] | undefined;
   userServicePreferences: string[] | undefined;
   userAcessibilityPreferences: string[] | undefined;
+  /** URL da foto de perfil hospedada (retornada por /auth/uploadPhoto) */
   profilePhoto: string | undefined;
 };

@@ -5,7 +5,7 @@ import { Button, TextField } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
 import axios from "axios";
 import dayjs from "dayjs";
-import { useEffect } from "react";
+import { useEffect, useId } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { CEPField } from "@/components/Fields/CEPField";
@@ -80,6 +80,7 @@ type Data = z.infer<typeof schema>;
 
 export const PersonalDataStep = () => {
   const { changeStep, updateFields } = useProfissionalRegisterStore();
+  const nameId = useId();
 
   const {
     register,
@@ -161,7 +162,7 @@ export const PersonalDataStep = () => {
           {...register("name")}
           onChange={replaceName}
           value={nameValue}
-          id="name"
+          id={nameId}
           variant="outlined"
           placeholder="Nome e Sobrenome"
           helperText={errors.name?.message}

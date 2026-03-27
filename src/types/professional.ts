@@ -16,7 +16,6 @@ export type IProfessional = {
 };
 
 export type ICreateProfissional = {
-  userId: string | undefined;
   name: string | undefined;
   birthdayDate: number | undefined;
   CNPJCPFProfissional: string | undefined;

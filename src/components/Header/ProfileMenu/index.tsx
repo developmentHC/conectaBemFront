@@ -39,6 +39,7 @@ export const ProfileMenu = (props: ProfileMenuProps) => {
   return (
     <div className="relative z-10 hidden lg:flex" ref={menuRef}>
       <button
+        type="button"
         onClick={() => setIsOpen(!isOpen)}
         className="flex aspect-square h-[40px] w-[40px] items-center gap-1 transition-colors hover:text-blue-700"
         aria-expanded={isOpen}

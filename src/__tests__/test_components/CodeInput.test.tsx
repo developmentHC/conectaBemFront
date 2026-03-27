@@ -18,7 +18,9 @@ const RefWrapper = () => {
   return (
     <>
       <CodeInput value={["", ""]} ref={codeInputRef} />
-      <button onClick={() => codeInputRef.current?.focusOnFirstInput()}>Focus</button>
+      <button type="button" onClick={() => codeInputRef.current?.focusOnFirstInput()}>
+        Focus
+      </button>
     </>
   );
 };

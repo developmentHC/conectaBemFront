@@ -25,8 +25,6 @@ type UserStoreProps = {
   setExists: (exists: boolean) => void;
   setIdUser: (id: string) => void;
   setEmail: (email: string) => void;
-  setProfilePhoto: (photo: string) => void;
-  clearProfilePhoto: () => void;
   clearSession: () => void;
 };
 
@@ -56,8 +54,6 @@ export const useUserStore = create<UserStoreProps>()(
       setEmail: (email) => set({ email }),
       setUserType: (userType) => set({ userType }),
       setIdUser: (id) => set({ idUser: id }),
-      setProfilePhoto: (photo) => set({ profilePhoto: photo }),
-      clearProfilePhoto: () => set({ profilePhoto: null }),
       clearSession: () => {
         set({
           email: null,

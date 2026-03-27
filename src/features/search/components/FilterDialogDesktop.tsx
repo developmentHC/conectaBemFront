@@ -83,6 +83,7 @@ export const FilterDialogDesktop = ({ open, onFilterChange }: FilterDialogProps)
             </div>
           </div>
           <button
+            type="button"
             className="flex w-full justify-center rounded-lg bg-blue-600 py-2 text-center tracking-widest"
             onClick={handleOnFilter}
           >

@@ -33,7 +33,7 @@ export const FormTitle = () => {
       )}
       {step === "complete_profile" && (
         <>
-          <FormMultiStep.Title>Lembre de completar seu perfil</FormMultiStep.Title>
+          <FormMultiStep.Title>Quase tudo pronto para iniciar</FormMultiStep.Title>
           <span className="text-gray-500 text-sm">etapa 5/5</span>
         </>
       )}

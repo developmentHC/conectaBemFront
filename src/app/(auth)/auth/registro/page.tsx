@@ -2,7 +2,7 @@
 
 import { Box, Button, IconButton, Modal, Typography } from "@mui/material";
 import Link from "next/link";
-import { useState } from "react";
+import { useId, useState } from "react";
 import { CloseIcon, InfoIcon } from "@/assets/icons";
 import { FormMultiStep } from "@/components/FormMultiStep";
 
@@ -25,6 +25,7 @@ export default function Registro() {
 
   const [open, setOpen] = useState(false);
   const [userType, setUserType] = useState<"paciente" | "profissional" | null>(null);
+  const modalId = useId();
   const handleOpen = (type: "paciente" | "profissional") => {
     setUserType(type);
     setOpen(true);
@@ -73,8 +74,8 @@ export default function Registro() {
       <Modal
         open={open}
         onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+        aria-labelledby={`${modalId}-title`}
+        aria-describedby={`${modalId}-description`}
         slotProps={{
           backdrop: {
             sx: {
@@ -89,7 +90,7 @@ export default function Registro() {
             <Typography
               className="text-2xl"
               sx={{ fontWeight: "700" }}
-              id="modal-modal-title"
+              id={`${modalId}-title`}
               variant="h5"
             >
               Cadastrar como
@@ -98,7 +99,7 @@ export default function Registro() {
               <CloseIcon height={20} width={20} className="fill-[#1C1B1F]" />
             </IconButton>
           </Box>
-          <Typography id="modal-description" variant="body1">
+          <Typography id={`${modalId}-description`} variant="body1">
             Tem certeza que deseja se cadastrar como{" "}
             <span className="font-semibold">{userType}?</span>
           </Typography>

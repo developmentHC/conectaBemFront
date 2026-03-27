@@ -9,8 +9,10 @@ jest.mock("next-auth/react", () => ({
 }));
 
 // Mock do next/image para não quebrar nos testes
+/* eslint-disable @next/next/no-img-element */
 jest.mock("next/image", () => ({
   __esModule: true,
+  // biome-ignore lint/performance/noImgElement: jest mock requires plain img element
   default: (props: any) => <img {...props} alt={props.alt || ""} />,
 }));
 

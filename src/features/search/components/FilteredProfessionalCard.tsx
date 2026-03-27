@@ -50,7 +50,10 @@ export const FilteredProfessionalCard = ({ professional }: ProfessionalCardProps
                 </div>
               ))}
               {professional.preferablyServices.length > 2 && (
-                <button className="text-blue-600 text-sm transition-all hover:text-blue-800">
+                <button
+                  type="button"
+                  className="text-blue-600 text-sm transition-all hover:text-blue-800"
+                >
                   + ver mais
                 </button>
               )}
@@ -66,7 +69,10 @@ export const FilteredProfessionalCard = ({ professional }: ProfessionalCardProps
             </div>
           ))}
           {professional.preferablyServices.length > 2 && (
-            <button className="text-blue-600 text-sm transition-all hover:text-blue-800">
+            <button
+              type="button"
+              className="text-blue-600 text-sm transition-all hover:text-blue-800"
+            >
               + ver mais
             </button>
           )}
