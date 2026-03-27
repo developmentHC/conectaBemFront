@@ -10,21 +10,14 @@ interface PhotoUploadResponse {
 export const usePhotoUpload = () => {
   return useMutation({
     mutationFn: async (file: File): Promise<string> => {
-      try {
-        // Compress image before upload
-        const compressedFile = await compressImage(file);
+      const compressedFile = await compressImage(file);
 
-        // Create FormData
-        const formData = new FormData();
-        formData.append("photo", compressedFile);
+      const formData = new FormData();
+      formData.append("photo", compressedFile);
 
-        // Upload to backend
-        const response = await api.post<PhotoUploadResponse>("/auth/uploadPhoto", formData);
+      const response = await api.post<PhotoUploadResponse>("/auth/uploadPhoto", formData);
 
-        return response.data.url;
-      } catch {
-        throw new Error("Falha ao fazer upload da foto");
-      }
+      return response.data.url;
     },
     onSuccess: () => {
       toast.success("Foto carregada com sucesso!");
