@@ -5,12 +5,23 @@ import { Button, TextField } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
 import axios from "axios";
 import dayjs from "dayjs";
-import { useEffect, useId } from "react";
-import { useForm } from "react-hook-form";
+import { useEffect, useId, useRef } from "react";
+import { type FieldErrors, useForm } from "react-hook-form";
 import { z } from "zod";
 import { CEPField } from "@/components/Fields/CEPField";
 import { useCEP } from "../../hooks/useCEP";
 import { useProfissionalRegisterStore } from "./useProfissionalRegisterStore";
+
+const FIELD_ORDER = [
+  "name",
+  "birthdate",
+  "cepResidencial",
+  "enderecoResidencial",
+  "numeroResidencial",
+  "bairroResidencial",
+  "cidadeResidencial",
+  "estadoResidencial",
+] as const;
 
 const schema = z.object({
   name: z
@@ -82,6 +93,17 @@ export const PersonalDataStep = () => {
   const { changeStep, updateFields } = useProfissionalRegisterStore();
   const nameId = useId();
 
+  const fieldRefs = {
+    name: useRef<HTMLDivElement>(null),
+    birthdate: useRef<HTMLDivElement>(null),
+    cepResidencial: useRef<HTMLDivElement>(null),
+    enderecoResidencial: useRef<HTMLDivElement>(null),
+    numeroResidencial: useRef<HTMLDivElement>(null),
+    bairroResidencial: useRef<HTMLDivElement>(null),
+    cidadeResidencial: useRef<HTMLDivElement>(null),
+    estadoResidencial: useRef<HTMLDivElement>(null),
+  };
+
   const {
     register,
     handleSubmit,
@@ -116,7 +138,7 @@ export const PersonalDataStep = () => {
     cep: shouldFetchCep ? cepValue : "",
   });
 
-  const onSubmit = handleSubmit(async (data: Data) => {
+  const onValidSubmit = async (data: Data) => {
     const submittedData = {
       ...data,
       birthdate: data.birthdate === null ? undefined : data.birthdate,
@@ -129,7 +151,23 @@ export const PersonalDataStep = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
 
     changeStep("service_location");
-  });
+  };
+
+  const onInvalidSubmit = (formErrors: FieldErrors<Data>) => {
+    for (const field of FIELD_ORDER) {
+      if (formErrors[field]) {
+        const ref = fieldRefs[field].current;
+        if (ref) {
+          ref.scrollIntoView({ behavior: "smooth", block: "center" });
+          const input = ref.querySelector("input") as HTMLInputElement | null;
+          input?.focus();
+        }
+        break;
+      }
+    }
+  };
+
+  const onSubmit = handleSubmit(onValidSubmit, onInvalidSubmit);
 
   const replaceName = (e: React.ChangeEvent<HTMLInputElement>) => {
     const rawValue = e.target.value;
@@ -154,7 +192,7 @@ export const PersonalDataStep = () => {
 
   return (
     <form onSubmit={onSubmit} className="flex flex-col gap-6">
-      <div className="flex flex-col gap-2">
+      <div ref={fieldRefs.name} className="flex flex-col gap-2">
         <label className={errors.name ? "text-red-600" : ""}>
           Nome Completo <span className="text-red-600">*</span>
         </label>
@@ -170,7 +208,7 @@ export const PersonalDataStep = () => {
         />
       </div>
 
-      <div className="flex flex-col gap-2">
+      <div ref={fieldRefs.birthdate} className="flex flex-col gap-2">
         <label className={errors.birthdate ? "text-red-600" : ""}>
           Data de Nascimento <span className="text-red-600">*</span>
         </label>
@@ -195,7 +233,7 @@ export const PersonalDataStep = () => {
         />
       </div>
 
-      <div className="flex flex-col gap-2">
+      <div ref={fieldRefs.cepResidencial} className="flex flex-col gap-2">
         <label className={errors.cepResidencial ? "text-red-600" : ""}>
           CEP Residencial <span className="text-red-600">*</span>
         </label>
@@ -212,7 +250,7 @@ export const PersonalDataStep = () => {
         </div>
       </div>
 
-      <div className="flex flex-col gap-2">
+      <div ref={fieldRefs.enderecoResidencial} className="flex flex-col gap-2">
         <label className={errors.enderecoResidencial ? "text-red-600" : ""}>
           Longradouro <span className="text-red-600">*</span>
         </label>
@@ -231,7 +269,7 @@ export const PersonalDataStep = () => {
         />
       </div>
 
-      <div className="flex flex-col gap-2">
+      <div ref={fieldRefs.numeroResidencial} className="flex flex-col gap-2">
         <label className={errors.numeroResidencial ? "text-red-600" : ""}>
           Número <span className="text-red-600">*</span>
         </label>
@@ -246,7 +284,7 @@ export const PersonalDataStep = () => {
         />
       </div>
 
-      <div className="flex flex-col gap-2">
+      <div ref={fieldRefs.bairroResidencial} className="flex flex-col gap-2">
         <label className={errors.bairroResidencial ? "text-red-600" : ""}>
           Bairro <span className="text-red-600">*</span>
         </label>
@@ -265,7 +303,7 @@ export const PersonalDataStep = () => {
         />
       </div>
 
-      <div className="flex flex-col gap-2">
+      <div ref={fieldRefs.cidadeResidencial} className="flex flex-col gap-2">
         <label className={errors.cidadeResidencial ? "text-red-600" : ""}>
           Cidade <span className="text-red-600">*</span>
         </label>
@@ -284,7 +322,7 @@ export const PersonalDataStep = () => {
         />
       </div>
 
-      <div className="flex flex-col gap-2">
+      <div ref={fieldRefs.estadoResidencial} className="flex flex-col gap-2">
         <label className={errors.estadoResidencial ? "text-red-600" : ""}>
           Estado <span className="text-red-600">*</span>
         </label>
