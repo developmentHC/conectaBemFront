@@ -1,12 +1,14 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, CircularProgress } from "@mui/material";
 import TextField from "@mui/material/TextField";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useId } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { useCredentialLogin } from "../../hooks/useCredentialLogin";
 import { useUserStore } from "@/stores/userSessionStore";
+import { useCredentialLogin } from "../../hooks/useCredentialLogin";
+
 // import { signOut, useSession } from "next-auth/react";
 // import { useEffect } from "react";
 
@@ -19,6 +21,7 @@ const schema = z.object({
 export const AuthForm = () => {
   const { mutate: login, isPending } = useCredentialLogin();
   const { setEmail } = useUserStore();
+  const emailId = useId();
 
   const {
     register,
@@ -44,7 +47,7 @@ export const AuthForm = () => {
           {...register("email")}
           helperText={errors.email?.message}
           error={!!errors.email}
-          id="email"
+          id={emailId}
           placeholder="seuemail@conectabem.com"
         />
       </div>
@@ -53,7 +56,7 @@ export const AuthForm = () => {
         <Button
           disabled={!isValid}
           type="submit"
-          className="rounded-lg w-full text-lime-500"
+          className="w-full rounded-lg text-lime-500"
           variant="contained"
           size="large"
         >
@@ -62,11 +65,7 @@ export const AuthForm = () => {
       )}
 
       {isPending && (
-        <Button
-          className="rounded-lg w-full text-lime-500"
-          variant="contained"
-          size="large"
-        >
+        <Button className="w-full rounded-lg text-lime-500" variant="contained" size="large">
           <CircularProgress color="inherit" size={26} className="self-center" />
         </Button>
       )}

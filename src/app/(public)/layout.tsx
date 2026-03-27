@@ -1,22 +1,22 @@
 "use client";
 
-import { Header } from "@/components/Header/index";
 import { Footer } from "@/components/Footer/Footer";
+import { Header } from "@/components/Header/index";
 import { useSession } from "@/stores/useSession";
 
 export default function Layout({
-  children
+  children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
   const { session } = useSession();
   const isLoggedIn = !!session?.message?.id;
   const isProfessional = session?.message?.role === "professional";
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex min-h-screen flex-col">
       <Header />
-      <div className="lg:flex w-full max-w-[86rem] mx-auto px-10 py-10 min-h-[40vh] lg:justify-center lg:items-center">
+      <div className="mx-auto min-h-[40vh] w-full max-w-[86rem] px-10 py-10 lg:flex lg:items-center lg:justify-center">
         <main className="flex-1">{children}</main>
       </div>
       {isLoggedIn ? (
@@ -30,10 +30,7 @@ export default function Layout({
           sections={[
             {
               title: "Explorar",
-              links: [
-                { label: "Buscar Profissionais" },
-                { label: "Quero Ser um Profissional" },
-              ],
+              links: [{ label: "Buscar Profissionais" }, { label: "Quero Ser um Profissional" }],
             },
             {
               title: "Suporte",
@@ -44,10 +41,7 @@ export default function Layout({
               links: [{ label: "Quem Somos" }, { label: "Valores" }],
             },
           ]}
-          bottomLinks={[
-            { label: "Termos de Uso" },
-            { label: "Política de Privacidade" },
-          ]}
+          bottomLinks={[{ label: "Termos de Uso" }, { label: "Política de Privacidade" }]}
           showBrand={false}
         />
       )}

@@ -1,4 +1,4 @@
-import React from "react";
+import type React from "react";
 import { twMerge } from "tailwind-merge";
 
 type SelectableTagProps = {
@@ -18,9 +18,9 @@ export const SelectableTag = ({
         type="button"
         aria-pressed={!!active}
         className={twMerge(
-          "p-2 border border-blue-800 rounded cursor-pointer hover:bg-blue-600/50 transition-all rounded-t-lg rounded-br-lg",
+          "cursor-pointer rounded rounded-t-lg rounded-br-lg border border-blue-800 p-2 transition-all hover:bg-blue-600/50",
           active && "bg-blue-600/50",
-          className
+          className,
         )}
         {...buttonProps}
       >

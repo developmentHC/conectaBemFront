@@ -1,10 +1,10 @@
-import { Button, TextField } from "@mui/material";
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { useState } from "react";
-import { MdStar } from "react-icons/md";
+import { Button, TextField } from "@mui/material";
 import clsx from "clsx";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { MdStar } from "react-icons/md";
+import { z } from "zod";
 
 const schema = z.object({
   suggestions: z.string().min(1, "Sugestão inválida"),
@@ -42,8 +42,8 @@ export const SuggestionForm = () => {
   return (
     <div className="flex flex-col gap-4">
       <span className="text-sm">
-        Sua especialidade não está na lista? Envie sua sugestão e iremos
-        analisar a viabilidade de incluí-la em nosso cadastro
+        Sua especialidade não está na lista? Envie sua sugestão e iremos analisar a viabilidade de
+        incluí-la em nosso cadastro
       </span>
       <TextField
         {...register("suggestions")}
@@ -58,9 +58,7 @@ export const SuggestionForm = () => {
       <Button
         onClick={handleSuggestionSubmit}
         disabled={suggestionsSent}
-        className={clsx(
-          suggestionsSent && "!bg-blue-secondary-900 !text-white"
-        )}
+        className={clsx(suggestionsSent && "!bg-blue-secondary-900 !text-white")}
         variant="contained"
       >
         {!suggestionsSent ? (

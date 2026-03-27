@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { Box, Button, IconButton, Modal, Typography } from "@mui/material";
+import Link from "next/link";
+import { useId, useState } from "react";
 import { CloseIcon, InfoIcon } from "@/assets/icons";
 import { FormMultiStep } from "@/components/FormMultiStep";
-import { Button, Modal, Box, Typography, IconButton } from "@mui/material";
-import Link from "next/link";
 
 export default function Registro() {
   const style = {
@@ -24,9 +24,8 @@ export default function Registro() {
   };
 
   const [open, setOpen] = useState(false);
-  const [userType, setUserType] = useState<"paciente" | "profissional" | null>(
-    null
-  );
+  const [userType, setUserType] = useState<"paciente" | "profissional" | null>(null);
+  const modalId = useId();
   const handleOpen = (type: "paciente" | "profissional") => {
     setUserType(type);
     setOpen(true);
@@ -34,13 +33,11 @@ export default function Registro() {
   const handleClose = () => setOpen(false);
 
   return (
-    <main className="flex justify-center w-full">
-      <div className="flex flex-col gap-8 w-full md:max-w-[450px] mt-8">
+    <main className="flex w-full justify-center">
+      <div className="mt-8 flex w-full flex-col gap-8 md:max-w-[450px]">
         <FormMultiStep.Header className="gap-4">
           <FormMultiStep.Title>Tudo pronto para começar</FormMultiStep.Title>
-          <FormMultiStep.Description>
-            Você deseja se cadastrar como:
-          </FormMultiStep.Description>
+          <FormMultiStep.Description>Você deseja se cadastrar como:</FormMultiStep.Description>
         </FormMultiStep.Header>
         <div className="flex flex-col gap-5">
           <Button
@@ -71,14 +68,14 @@ export default function Registro() {
           </Button>
         </div>
         <div>
-          <FormMultiStep.NeedHelpButton className="flex items-center  text-gray-600 gap-2" />
+          <FormMultiStep.NeedHelpButton className="flex items-center gap-2 text-gray-600" />
         </div>
       </div>
       <Modal
         open={open}
         onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+        aria-labelledby={`${modalId}-title`}
+        aria-describedby={`${modalId}-description`}
         slotProps={{
           backdrop: {
             sx: {
@@ -93,28 +90,21 @@ export default function Registro() {
             <Typography
               className="text-2xl"
               sx={{ fontWeight: "700" }}
-              id="modal-modal-title"
+              id={`${modalId}-title`}
               variant="h5"
             >
               Cadastrar como
             </Typography>
-            <IconButton className="w-fit h-fit" onClick={handleClose}>
+            <IconButton className="h-fit w-fit" onClick={handleClose}>
               <CloseIcon height={20} width={20} className="fill-[#1C1B1F]" />
             </IconButton>
           </Box>
-          <Typography id="modal-description" variant="body1">
+          <Typography id={`${modalId}-description`} variant="body1">
             Tem certeza que deseja se cadastrar como{" "}
             <span className="font-semibold">{userType}?</span>
           </Typography>
-          <Typography
-            variant="body2"
-            className="flex font-normal text-gray-700 items-center gap-2"
-          >
-            <InfoIcon
-              className="fill-input-code-border"
-              height={20}
-              width={21}
-            />
+          <Typography variant="body2" className="flex items-center gap-2 font-normal text-gray-700">
+            <InfoIcon className="fill-input-code-border" height={20} width={21} />
             Atenção, esta ação não poderá ser desfeita.
           </Typography>
           <Box
@@ -152,11 +142,7 @@ export default function Registro() {
             sx={{ mt: "24px", gap: "4px", color: "#645D6F" }}
             className="flex break-words"
           >
-            <InfoIcon
-              className="fill-input-code-border"
-              height={20}
-              width={21}
-            />
+            <InfoIcon className="fill-input-code-border" height={20} width={21} />
             Saiba mais sobre os perfis disponíveis no ConectaBem
           </Typography>
         </Box>

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { SelectableTag } from "../../../../../components/SelectableTag";
 
-const services = ["LGBTQIAP+ Friendly", "Pet Friedly", "Aceita Wellhub"];
+const services = ["LGBTQIAP+ Friendly", "Pet Friendly", "Aceita Wellhub"];
 
 export const ServicesSelection = ({
   selecteds,
@@ -28,7 +28,6 @@ export const ServicesSelection = ({
 
   return (
     <div className="flex flex-col gap-6">
-
       <ul className="flex flex-wrap gap-2">
         {visibleCollapse.map((service) => (
           <SelectableTag
@@ -39,10 +38,10 @@ export const ServicesSelection = ({
             {service}
           </SelectableTag>
         ))}
-        <div className="flex justify-end w-full">
+        <div className="flex w-full justify-end">
           <span
             onClick={() => setCollapseServices(!collapseServices)}
-            className="cursor-pointer w-fit text-end text-gray-600 mt-4"
+            className="mt-4 w-fit cursor-pointer text-end text-gray-600"
           >
             {collapseServices ? "+ Ver menos" : "+ Ver mais"}
           </span>

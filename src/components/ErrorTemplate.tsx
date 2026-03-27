@@ -1,6 +1,6 @@
 // ErrorTemplate.tsx
 import Image from "next/image";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 type ErrorTemplateProps = {
   status?: number;
@@ -18,7 +18,7 @@ export function ErrorTemplate({
   children,
 }: ErrorTemplateProps) {
   return (
-    <main className="min-h-screen w-full flex flex-col items-center justify-center px-4 py-8">
+    <main className="flex min-h-screen w-full flex-col items-center justify-center px-4 py-8">
       {/* Ilustração + badge */}
       <div className="relative w-full max-w-[452px]">
         <Image
@@ -26,36 +26,32 @@ export function ErrorTemplate({
           alt={`Erro ${status ?? ""}`}
           width={452}
           height={159}
-          className="w-full h-auto"
+          className="h-auto w-full"
           priority
         />
         {status && (
-          <div className="absolute -left-3 -top-3 rounded-lg bg-blue-50 px-2 py-0.5 text-sm font-semibold text-blue-700 ring-1 ring-blue-200">
+          <div className="absolute -top-3 -left-3 rounded-lg bg-blue-50 px-2 py-0.5 font-semibold text-blue-700 text-sm ring-1 ring-blue-200">
             {status}
           </div>
         )}
       </div>
 
       {/* Conteúdo */}
-      <div className="mt-6 w-full max-w-[452px] flex flex-col items-start gap-6">
-        <div className="w-full flex flex-col items-start gap-2">
-          <h1 className="text-[24px] leading-[31px] font-bold text-gray-900">
-            {title}
-          </h1>
+      <div className="mt-6 flex w-full max-w-[452px] flex-col items-start gap-6">
+        <div className="flex w-full flex-col items-start gap-2">
+          <h1 className="font-bold text-[24px] text-gray-900 leading-[31px]">{title}</h1>
 
           {typeof subtitle === "string" ? (
-            <p className="text-[16px] leading-[24px] text-gray-600 whitespace-pre-line">
+            <p className="whitespace-pre-line text-[16px] text-gray-600 leading-[24px]">
               {subtitle}
             </p>
           ) : (
-            <div className="text-[16px] leading-[24px] text-gray-600">{subtitle}</div>
+            <div className="text-[16px] text-gray-600 leading-[24px]">{subtitle}</div>
           )}
         </div>
 
         {/* Ações */}
-        <div className="w-full flex flex-col items-stretch gap-6">
-          {children}
-        </div>
+        <div className="flex w-full flex-col items-stretch gap-6">{children}</div>
       </div>
     </main>
   );

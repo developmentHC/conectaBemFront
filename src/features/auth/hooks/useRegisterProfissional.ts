@@ -1,9 +1,9 @@
-import { api } from "@/libs/api";
-import { ICreateProfissional } from "@/types/professional";
 import { useMutation } from "@tanstack/react-query";
-import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 import toast from "react-hot-toast";
+import { api } from "@/libs/api";
+import type { ICreateProfissional } from "@/types/professional";
 
 export const useRegisterProfissional = () => {
   const router = useRouter();

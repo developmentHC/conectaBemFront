@@ -2,11 +2,7 @@
 
 import { createTheme, ThemeProvider } from "@mui/material";
 
-export const MuiThemeProvider = ({
-  children,
-}: {
-  children: React.ReactNode;
-}) => {
+export const MuiThemeProvider = ({ children }: { children: React.ReactNode }) => {
   const theme = createTheme({
     palette: {
       primary: {
@@ -14,13 +10,7 @@ export const MuiThemeProvider = ({
       },
     },
     typography: {
-      fontFamily: [
-        "Lato",
-        "-apple-system",
-        "Roboto",
-        "Arial",
-        "sans-serif",
-      ].join(","),
+      fontFamily: ["Lato", "-apple-system", "Roboto", "Arial", "sans-serif"].join(","),
       h5: {
         fontSize: "1.5rem",
         fontWeight: 700,

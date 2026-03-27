@@ -1,8 +1,8 @@
-import { api } from "@/libs/api";
-import { useUserStore } from "@/stores/userSessionStore";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import { api } from "@/libs/api";
+import { useUserStore } from "@/stores/userSessionStore";
 
 export const useCredentialLogin = () => {
   const router = useRouter();
@@ -21,8 +21,8 @@ export const useCredentialLogin = () => {
 
       router.push(`/auth/confirmar-codigo`);
     },
-    onError: (error) => {
-      console.error("Erro ao enviar o OTP:", error);
+    onError: () => {
+      toast.error("Erro ao enviar o código. Tente novamente.");
     },
   });
 };

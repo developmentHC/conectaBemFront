@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element -- Tests mock next/image with a bare img element to keep the DOM simple. */
-import { render, screen, fireEvent } from "@testing-library/react";
-import { SocialNetwork } from "@/features/auth/components/SocialNetwork/SocialNetwork";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { signIn } from "next-auth/react";
+import { SocialNetwork } from "@/features/auth/components/SocialNetwork/SocialNetwork";
 
 // Mock do signIn para não chamar a API real
 jest.mock("next-auth/react", () => ({
@@ -9,27 +9,25 @@ jest.mock("next-auth/react", () => ({
 }));
 
 // Mock do next/image para não quebrar nos testes
+/* eslint-disable @next/next/no-img-element */
 jest.mock("next/image", () => ({
   __esModule: true,
+  // biome-ignore lint/performance/noImgElement: jest mock requires plain img element
   default: (props: any) => <img {...props} alt={props.alt || ""} />,
 }));
 
 describe("SocialNetwork component", () => {
   beforeEach(() => {
-    jest.clearAllMocks(); // limpa chamadas anteriores do signIn
+    jest.clearAllMocks();
   });
 
-  it("renders both Google and Facebook login buttons with icons", () => {
+  it("renders Google login button with icon", () => {
     render(<SocialNetwork />);
 
     const googleButton = screen.getByRole("button", { name: /entrar com o google/i });
-    const facebookButton = screen.getByRole("button", { name: /entrar com o facebook/i });
 
     expect(googleButton).toBeInTheDocument();
     expect(googleButton.querySelector("img")).toBeInTheDocument();
-
-    expect(facebookButton).toBeInTheDocument();
-    expect(facebookButton.querySelector("img")).toBeInTheDocument();
   });
 
   it("calls signIn correctly for Google button", () => {
@@ -38,13 +36,5 @@ describe("SocialNetwork component", () => {
 
     fireEvent.click(googleButton);
     expect(signIn).toHaveBeenCalledWith("google", { callbackUrl: "/" });
-  });
-
-  it("calls signIn correctly for Facebook button", () => {
-    render(<SocialNetwork />);
-    const facebookButton = screen.getByRole("button", { name: /entrar com o facebook/i });
-
-    fireEvent.click(facebookButton);
-    expect(signIn).toHaveBeenCalledWith("facebook");
   });
 });

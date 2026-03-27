@@ -1,12 +1,9 @@
-import {
-  IconButton,
-  IconButtonProps,
-} from "@mui/material";
+import { IconButton, type IconButtonProps } from "@mui/material";
 import { IoMdArrowBack } from "react-icons/io";
 
 export const BackStepButton = ({ ...props }: IconButtonProps) => {
   return (
-    <IconButton className="w-fit h-fit" {...props}>
+    <IconButton className="h-fit w-fit" {...props}>
       <IoMdArrowBack />
     </IconButton>
   );

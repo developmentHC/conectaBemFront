@@ -1,6 +1,6 @@
+import { useState } from "react";
 import { SelectableTag } from "@/components/SelectableTag";
 import { useGetSpecialty } from "@/features/auth/hooks/useGetSpecialty";
-import { useState } from "react";
 
 export const SpecialitiesSelection = ({
   selecteds,
@@ -41,10 +41,10 @@ export const SpecialitiesSelection = ({
           </SelectableTag>
         ))}
 
-        <div className="flex justify-end w-full">
+        <div className="flex w-full justify-end">
           <span
             onClick={() => setCollapseSpecialty(!collapseSpecialty)}
-            className="cursor-pointer w-fit text-end text-gray-600 mt-4"
+            className="mt-4 w-fit cursor-pointer text-end text-gray-600"
           >
             {collapseSpecialty ? "+ Ver menos" : "+ Ver mais"}
           </span>

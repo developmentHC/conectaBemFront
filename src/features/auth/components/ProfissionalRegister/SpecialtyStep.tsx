@@ -1,10 +1,10 @@
-import { Button } from "@mui/material";
-import { MouseEvent, useEffect, useState } from "react";
-import { useProfissionalRegisterStore } from "./useProfissionalRegisterStore";
-import { z } from "zod";
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Button } from "@mui/material";
+import { type MouseEvent, useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 import { SuggestionForm } from "./SuggestionForm";
+import { useProfissionalRegisterStore } from "./useProfissionalRegisterStore";
 
 const specialtiesMock = [
   "Acunputura",
@@ -26,14 +26,12 @@ const specialtiesMock = [
   "Outros",
 ];
 
-const services = ["LGBTQIAP+ Friendly", "Pet Friedly", "Aceita Wellhub"];
+const services = ["LGBTQIAP+ Friendly", "Pet Friendly", "Aceita Wellhub"];
 
 type Data = z.infer<typeof schema>;
 
 const schema = z.object({
-  specialties: z
-    .array(z.string())
-    .min(1, "Selecione pelo menos uma especialidade"),
+  specialties: z.array(z.string()).min(1, "Selecione pelo menos uma especialidade"),
   servicePreferences: z.array(z.string()).nullable(),
 });
 
@@ -51,9 +49,7 @@ export const SpecialtyStep = () => {
   const [collapseService, setCollapseService] = useState<boolean>(false);
   const [showSuggestions, setShowSuggestions] = useState<boolean>(false);
 
-  const visibleSpecialties = collapseSpecialty
-    ? specialtiesMock
-    : specialtiesMock?.slice(0, 8);
+  const visibleSpecialties = collapseSpecialty ? specialtiesMock : specialtiesMock?.slice(0, 8);
 
   const visibleServices = collapseService ? services : services?.slice(0, 8);
 
@@ -65,9 +61,7 @@ export const SpecialtyStep = () => {
     if (specialty === "Outros") setShowSuggestions((prev) => !prev);
 
     setSelectedSpecialties((prev) =>
-      prev.includes(specialty)
-        ? prev.filter((item) => item !== specialty)
-        : [...prev, specialty]
+      prev.includes(specialty) ? prev.filter((item) => item !== specialty) : [...prev, specialty],
     );
   };
 
@@ -77,9 +71,7 @@ export const SpecialtyStep = () => {
     if (!service) return;
 
     setSelectedServices((prev) =>
-      prev.includes(service)
-        ? prev.filter((item) => item !== service)
-        : [...prev, service]
+      prev.includes(service) ? prev.filter((item) => item !== service) : [...prev, service],
     );
   };
 
@@ -105,7 +97,7 @@ export const SpecialtyStep = () => {
           <li
             key={specialty}
             onClick={handleClickSpecialty}
-            className={`p-2 border border-blue-800 rounded cursor-pointer hover:bg-blue-600/50 transition-all rounded-t-lg rounded-br-lg ${
+            className={`cursor-pointer rounded rounded-t-lg rounded-br-lg border border-blue-800 p-2 transition-all hover:bg-blue-600/50 ${
               selectedSpecialties.includes(specialty) ? "bg-blue-600/50" : ""
             }`}
           >
@@ -113,10 +105,10 @@ export const SpecialtyStep = () => {
           </li>
         ))}
 
-        <div className="flex justify-end w-full">
+        <div className="flex w-full justify-end">
           <span
             onClick={() => setCollapseSpecialty(!collapseSpecialty)}
-            className="cursor-pointer w-fit text-end text-gray-600 mt-4"
+            className="mt-4 w-fit cursor-pointer text-end text-gray-600"
           >
             {collapseSpecialty ? "+ Ver menos" : "+ Ver mais"}
           </span>
@@ -128,9 +120,7 @@ export const SpecialtyStep = () => {
       <div className="flex flex-col gap-6">
         <div className="flex flex-col gap-2">
           <h2 className="text-2xl">Atendimento</h2>
-          <span>
-            Escolha as opções que você e seu estabelecimento fornecem suporte
-          </span>
+          <span>Escolha as opções que você e seu estabelecimento fornecem suporte</span>
         </div>
 
         <ul className="flex flex-wrap gap-2">
@@ -138,16 +128,15 @@ export const SpecialtyStep = () => {
             <li
               onClick={handleClickService}
               key={service}
-              className={`p-2 border border-blue-800 rounded cursor-pointer hover:bg-blue-600/50 transition-all rounded-t-lg rounded-br-lg 
-              ${selectedServices.includes(service) ? "bg-blue-600/50" : ""}`}
+              className={`cursor-pointer rounded rounded-t-lg rounded-br-lg border border-blue-800 p-2 transition-all hover:bg-blue-600/50 ${selectedServices.includes(service) ? "bg-blue-600/50" : ""}`}
             >
               {service}
             </li>
           ))}
-          <div className="flex justify-end w-full">
+          <div className="flex w-full justify-end">
             <span
               onClick={() => setCollapseService(!collapseService)}
-              className="cursor-pointer w-fit text-end text-gray-600 mt-4"
+              className="mt-4 w-fit cursor-pointer text-end text-gray-600"
             >
               {collapseService ? "+ Ver menos" : "+ Ver mais"}
             </span>

@@ -1,6 +1,6 @@
+import Link from "next/link";
 import { FormMultiStep } from "@/components/FormMultiStep";
 import { useProfissionalRegisterStore } from "./useProfissionalRegisterStore";
-import Link from "next/link";
 
 export const BackStepButton = () => {
   const { changeStep, step } = useProfissionalRegisterStore();
@@ -14,21 +14,15 @@ export const BackStepButton = () => {
       )}
 
       {step === "service_location" && (
-        <FormMultiStep.BackStepButton
-          onClick={() => changeStep("personal_data")}
-        />
+        <FormMultiStep.BackStepButton onClick={() => changeStep("personal_data")} />
       )}
 
       {step === "specialties" && (
-        <FormMultiStep.BackStepButton
-          onClick={() => changeStep("service_location")}
-        />
+        <FormMultiStep.BackStepButton onClick={() => changeStep("service_location")} />
       )}
 
       {step === "complete_profile" && (
-        <FormMultiStep.BackStepButton
-          onClick={() => changeStep("specialties")}
-        />
+        <FormMultiStep.BackStepButton onClick={() => changeStep("specialties")} />
       )}
     </>
   );
