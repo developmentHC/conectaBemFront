@@ -86,11 +86,11 @@ describe("Cadastro – Regras de Negócio (Registro de Paciente)", () => {
       {
         descricao: "Formato inválido",
         cep: "12345",
-        erro: "CEP inválido",
+        erro: "CEP deve conter 8 dígitos",
       },
       {
         descricao: "CEP inexistente",
-        cep: "00000000",
+        cep: "00000-000",
         erro: "CEP não encontrado",
       },
       {
@@ -112,7 +112,7 @@ describe("Cadastro – Regras de Negócio (Registro de Paciente)", () => {
         if (erro) {
           cy.contains(erro).should("be.visible");
         } else {
-          cy.contains("CEP inválido").should("not.exist");
+          cy.contains("CEP deve conter 8 dígitos").should("not.exist");
           cy.contains("CEP não encontrado").should("not.exist");
         }
       });
