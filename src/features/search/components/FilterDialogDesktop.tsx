@@ -1,7 +1,7 @@
 import { Dialog, DialogContent } from "@mui/material";
 import { useEffect, useMemo, useState } from "react";
 import { specializationOptions } from "@/components/MedicalSpecialization/options";
-import { FilterDialogProps, FiltersState } from "./types";
+import type { FilterDialogProps, FiltersState } from "./types";
 
 export const FilterDialogDesktop = ({
   open,
@@ -18,11 +18,7 @@ export const FilterDialogDesktop = ({
     "Corrimão",
     "Rampas",
   ];
-  const serviceOptions = [
-    "LGBTQIAP+ Friendly",
-    "Pet Friendly",
-    "Aceita Wellhub",
-  ];
+  const serviceOptions = ["LGBTQIAP+ Friendly", "Pet Friendly", "Aceita Wellhub"];
 
   const defaultFilters: FiltersState = useMemo(
     () => ({
@@ -33,7 +29,7 @@ export const FilterDialogDesktop = ({
       services: [],
       distance: 12,
     }),
-    []
+    [],
   );
 
   const [filters, setFilters] = useState<FiltersState>(initialFilters ?? defaultFilters);
@@ -74,28 +70,23 @@ export const FilterDialogDesktop = ({
   const inactiveChipClass = "bg-white border-[#253E99] text-gray-800";
 
   return (
-    <Dialog
-      open={open ?? true}
-      onClose={onFilterChange}
-      maxWidth="md"
-      fullWidth
-    >
-      <DialogContent className="p-0 bg-[#F3F5FA]">
+    <Dialog open={open ?? true} onClose={onFilterChange} maxWidth="md" fullWidth>
+      <DialogContent className="bg-[#F3F5FA] p-0">
         <div className="flex flex-col gap-6 px-6 py-6 md:px-10 md:py-8">
           <button
             type="button"
             onClick={onFilterChange}
-            className="flex items-center gap-2 text-sm text-[#000000] hover:text-gray-800"
+            className="flex items-center gap-2 text-[#000000] text-sm hover:text-gray-800"
           >
             <span className="text-lg">←</span>
             <span>voltar</span>
           </button>
 
           <div className="flex flex-col gap-6">
-            <h1 className="text-2xl font-semibold text-[#000000]-700">Filtros de Busca</h1>
+            <h1 className="font-semibold text-2xl text-[#000000]-700">Filtros de Busca</h1>
 
             <section className="flex flex-col gap-3">
-              <h2 className="text-base font-semibold text-black">Especialidades</h2>
+              <h2 className="font-semibold text-base text-black">Especialidades</h2>
               <div className="flex flex-wrap gap-2">
                 {specializationOptions.map((spec) => {
                   const active = filters.specialties.includes(spec.name);
@@ -114,7 +105,7 @@ export const FilterDialogDesktop = ({
             </section>
 
             <section className="flex flex-col gap-3">
-              <h2 className="text-base font-semibold text-black">Disponibilidade</h2>
+              <h2 className="font-semibold text-base text-black">Disponibilidade</h2>
               <div className="flex flex-wrap gap-2">
                 {["Hoje", "Amanhã", "Próxima Semana", "Próximo Mês"].map((item) => {
                   const active = filters.availability.includes(item);
@@ -133,7 +124,7 @@ export const FilterDialogDesktop = ({
             </section>
 
             <section className="flex flex-col gap-3">
-              <h2 className="text-base font-semibold text-black">Valor</h2>
+              <h2 className="font-semibold text-base text-black">Valor</h2>
               <div className="flex flex-wrap gap-2">
                 {valueOptions.map((item) => {
                   const active = filters.value.includes(item);
@@ -152,7 +143,7 @@ export const FilterDialogDesktop = ({
             </section>
 
             <section className="flex flex-col gap-3">
-              <h2 className="text-base font-semibold text-black">Acessibilidade</h2>
+              <h2 className="font-semibold text-base text-black">Acessibilidade</h2>
               <div className="flex flex-wrap gap-2">
                 {accessibilityOptions.map((item) => {
                   const active = filters.accessibility.includes(item);
@@ -171,7 +162,7 @@ export const FilterDialogDesktop = ({
             </section>
 
             <section className="flex flex-col gap-3">
-              <h2 className="text-base font-semibold text-black">Preferências de Atendimento</h2>
+              <h2 className="font-semibold text-base text-black">Preferências de Atendimento</h2>
               <div className="flex flex-wrap gap-2">
                 {serviceOptions.map((item) => {
                   const active = filters.services.includes(item);
@@ -190,7 +181,7 @@ export const FilterDialogDesktop = ({
             </section>
 
             <section className="flex flex-col gap-3">
-              <h2 className="text-base font-semibold text-[#000000]-700">Distância</h2>
+              <h2 className="font-semibold text-[#000000]-700 text-base">Distância</h2>
               <div className="flex flex-col gap-2">
                 <input
                   type="range"
@@ -200,7 +191,7 @@ export const FilterDialogDesktop = ({
                   onChange={handleDistanceChange}
                   className="w-full accent-[#3857F4]"
                 />
-                <div className="flex justify-between text-xs text-gray-500">
+                <div className="flex justify-between text-gray-500 text-xs">
                   <span>0</span>
                   <span>30</span>
                 </div>
@@ -212,14 +203,14 @@ export const FilterDialogDesktop = ({
             <button
               type="button"
               onClick={handleOnFilter}
-              className="w-full md:w-1/2 rounded-md bg-[#3857F4] px-6 py-3 text-center text-sm font-semibold text-[#D7FF7B] shadow hover:bg-[#1b2f80]"
+              className="w-full rounded-md bg-[#3857F4] px-6 py-3 text-center font-semibold text-[#D7FF7B] text-sm shadow hover:bg-[#1b2f80] md:w-1/2"
             >
               Pesquisar
             </button>
             <button
               type="button"
               onClick={handleClear}
-              className="w-full md:w-1/2 rounded-md border border-[#3857F4] bg-white px-6 py-3 text-center text-sm font-semibold text-[#3857F4] hover:bg-[#eef2ff]"
+              className="w-full rounded-md border border-[#3857F4] bg-white px-6 py-3 text-center font-semibold text-[#3857F4] text-sm hover:bg-[#eef2ff] md:w-1/2"
             >
               Limpar Filtros
             </button>

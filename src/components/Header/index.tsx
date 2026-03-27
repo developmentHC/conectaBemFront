@@ -1,30 +1,24 @@
 "use client";
 
-import { useMenuData } from "@/libs/getMenuData";
-import Image from "next/image";
-import { useEffect, useState } from "react";
-import {
-  MenuIcon,
-  CloseIcon,
-  SearchIcon,
-  ChevronDownIcon,
-} from "@/assets/icons/";
-import { ProfileMenu } from "./ProfileMenu";
-import { MobileMenu } from "./MobileMenu";
-import { useRouter, usePathname } from "next/navigation";
-import Link from "next/link";
 import { Button } from "@mui/material";
-import { MenuItem } from "./types";
-import { MdNotificationsNone } from "react-icons/md";
-import { ArrowLeftIcon } from "../../../public/images/icons/ArrowLeftIcon";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
+import { MdNotificationsNone } from "react-icons/md";
+import { ChevronDownIcon, CloseIcon, MenuIcon, SearchIcon } from "@/assets/icons/";
+import { useMenuData } from "@/libs/getMenuData";
+import { ArrowLeftIcon } from "../../../public/images/icons/ArrowLeftIcon";
+import { MobileMenu } from "./MobileMenu";
+import { ProfileMenu } from "./ProfileMenu";
+import type { MenuItem } from "./types";
 
 export const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
   const [hoveredItem, setHoveredItem] = useState<number | null>(null);
   const [isMounted, setIsMounted] = useState<boolean>(false);
-  const [profileMenuItemsState, setProfileMenuItemsState] =
-    useState<MenuItem>();
+  const [profileMenuItemsState, setProfileMenuItemsState] = useState<MenuItem>();
   const { data: session, status } = useSession();
   const { data: menuData = [] } = useMenuData();
   const router = useRouter();
@@ -35,9 +29,7 @@ export const Header = () => {
   }, []);
 
   useEffect(() => {
-    const profileMenuItems = menuData.find(
-      (item) => item.menuitemtext === "Perfil"
-    );
+    const profileMenuItems = menuData.find((item) => item.menuitemtext === "Perfil");
     setProfileMenuItemsState(profileMenuItems);
   }, [menuData]);
 
@@ -55,33 +47,35 @@ export const Header = () => {
 
   return (
     <div className="">
-      <header className="flex items-center text-blue-600 lg:bg-background lg:border-b border-gray-300 w-full px-12 lg:py-6 pt-6">
-        <div className="flex items-center justify-between w-full lg:pt-2 gap-4">
+      <header className="flex w-full items-center border-gray-300 px-12 pt-6 text-blue-600 lg:border-b lg:bg-background lg:py-6">
+        <div className="flex w-full items-center justify-between gap-4 lg:pt-2">
           {pathname !== "/" && (
             <button
-              className="lg:hidden h-8 w-12"
+              type="button"
+              className="h-8 w-12 lg:hidden"
               onClick={() => router.back()}
               aria-label="Voltar"
             >
-              <ArrowLeftIcon className="w-6 h-6 text-[#1D1B20]" />
+              <ArrowLeftIcon className="h-6 w-6 text-[#1D1B20]" />
             </button>
           )}
 
           <button
+            type="button"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label={isMobileMenuOpen ? "Fechar menu" : "Abrir menu"}
-            className="lg:hidden relative h-8 w-12 focus:outline-none"
+            className="relative h-8 w-12 focus:outline-none lg:hidden"
           >
             {isMobileMenuOpen ? (
-              <CloseIcon className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-6 h-6 fill-[#1D1B20] transition-transform duration-300" />
+              <CloseIcon className="absolute top-1/2 left-1/2 h-6 w-6 -translate-x-1/2 -translate-y-1/2 fill-[#1D1B20] transition-transform duration-300" />
             ) : (
-              <MenuIcon className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-6 h-6 fill-[#1D1B20] transition-transform duration-300" />
+              <MenuIcon className="absolute top-1/2 left-1/2 h-6 w-6 -translate-x-1/2 -translate-y-1/2 fill-[#1D1B20] transition-transform duration-300" />
             )}
           </button>
 
-          <div className="w-full lg:justify-normal justify-center items-center flex">
+          <div className="flex w-full items-center justify-center lg:justify-normal">
             <Image
-              className="hidden lg:block cursor-pointer"
+              className="hidden cursor-pointer lg:block"
               src="/images/logo.svg"
               alt="logo"
               width={60}
@@ -89,7 +83,7 @@ export const Header = () => {
               onClick={() => router.push("/")}
             />
             <Image
-              className="block lg:hidden cursor-pointer"
+              className="block cursor-pointer lg:hidden"
               src="/images/logo.svg"
               alt="logo"
               width={60}
@@ -100,12 +94,12 @@ export const Header = () => {
         </div>
 
         {isMounted && (
-          <ul className="gap-8 relative whitespace-nowrap mr-8 hidden lg:flex">
+          <ul className="relative mr-8 hidden gap-8 whitespace-nowrap lg:flex">
             {status !== "authenticated" && (
-              <li className="relative group">
+              <li className="group relative">
                 <Link
                   href="/auth/registro-profissional"
-                  className="text-secondary-900 font-semibold"
+                  className="font-semibold text-secondary-900"
                 >
                   Quero ser um profissional
                 </Link>
@@ -117,49 +111,40 @@ export const Header = () => {
               if (item.menuitemtext === "Perfil") return null;
 
               const shouldShowItem =
-                (session?.user?.type === "patient" &&
-                  item.showtopatientusers) ||
-                (session?.user?.type === "professional" &&
-                  item.showtoprofessionalusers) ||
+                (session?.user?.type === "patient" && item.showtopatientusers) ||
+                (session?.user?.type === "professional" && item.showtoprofessionalusers) ||
                 (session?.user?.type === undefined && item.showtounsignedusers);
 
               if (!shouldShowItem) return null;
               return (
                 <li
                   key={`menu-item-${item.menuitemtext}-${index}`}
-                  className="relative group"
-                  onMouseEnter={
-                    !item.menuitemlink.url
-                      ? () => setHoveredItem(index)
-                      : undefined
-                  }
-                  onMouseLeave={
-                    !item.menuitemlink.url
-                      ? () => setHoveredItem(null)
-                      : undefined
-                  }
+                  className="group relative"
+                  onMouseEnter={!item.menuitemlink.url ? () => setHoveredItem(index) : undefined}
+                  onMouseLeave={!item.menuitemlink.url ? () => setHoveredItem(null) : undefined}
                 >
-                  <button className="text-secondary-900 font-semibold flex items-center gap-2">
+                  <button
+                    type="button"
+                    className="flex items-center gap-2 font-semibold text-secondary-900"
+                  >
                     {item.menuitemlink.url ? (
-                      <Link href={item.menuitemlink.url || "#"}>
-                        {item.menuitemtext}
-                      </Link>
+                      <Link href={item.menuitemlink.url || "#"}>{item.menuitemtext}</Link>
                     ) : (
                       <>
                         {item.menuitemtext}
-                        <ChevronDownIcon className="w-4 h-4 text-[#9790A2] transition-transform" />
+                        <ChevronDownIcon className="h-4 w-4 text-[#9790A2] transition-transform" />
                       </>
                     )}
                   </button>
 
                   {hoveredItem === index && (
-                    <div className="absolute top-full left-0 w-48 bg-white ring-1 ring-black ring-opacity-5 rounded-lg shadow-lg py-2 z-50 whitespace-normal animate-fade-in">
+                    <div className="absolute top-full left-0 z-50 w-48 animate-fade-in whitespace-normal rounded-lg bg-white py-2 shadow-lg ring-1 ring-black ring-opacity-5">
                       <ul className="space-y-2">
                         {item.submenu.map((subItem, subIndex) => (
                           <li key={`submenu-item-${subItem.text}-${subIndex}`}>
                             <Link
                               href={subItem.link || "#"}
-                              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-[#3858F4] transition-colors"
+                              className="block px-4 py-2 text-gray-700 text-sm transition-colors hover:bg-gray-100 hover:text-[#3858F4]"
                             >
                               {subItem.text}
                             </Link>
@@ -174,11 +159,14 @@ export const Header = () => {
           </ul>
         )}
 
-        <div className="space-x-4 flex justify-center items-center">
-          <button type="submit" className="hidden lg:block" aria-label="Buscar" onClick={() => router.push("/search")}>
-            <SearchIcon
-              className="fill-[#1D1B20] h-10 w-10 p-2"
-            />
+        <div className="flex items-center justify-center space-x-4">
+          <button
+            type="submit"
+            className="hidden lg:block"
+            aria-label="Buscar"
+            onClick={() => router.push("/search")}
+          >
+            <SearchIcon className="h-10 w-10 fill-[#1D1B20] p-2" />
           </button>
           {status === "authenticated" ? (
             <>
@@ -201,9 +189,7 @@ export const Header = () => {
                 if (pathname.startsWith("/auth")) e.preventDefault();
                 setIsMobileMenuOpen(false);
               }}
-              className={
-                pathname.startsWith("/auth") ? "opacity-0 lg:hidden" : ""
-              }
+              className={pathname.startsWith("/auth") ? "opacity-0 lg:hidden" : ""}
             >
               <Button variant="contained" color="primary" size="medium">
                 Entrar
@@ -214,10 +200,7 @@ export const Header = () => {
       </header>
 
       {isMobileMenuOpen && (
-        <MobileMenu
-          menuData={menuData}
-          onClose={() => setIsMobileMenuOpen(false)}
-        />
+        <MobileMenu menuData={menuData} onClose={() => setIsMobileMenuOpen(false)} />
       )}
     </div>
   );

@@ -1,14 +1,14 @@
-import axios from "axios";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, TextField } from "@mui/material";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { useProfissionalRegisterStore } from "./useProfissionalRegisterStore";
-import { useCEP } from "../../hooks/useCEP";
 import { CEPField } from "@/components/Fields/CEPField";
-import { useEffect, useState } from "react";
 import { CpfCnpjField } from "@/components/Fields/CpfCnpjField";
 import { isValidCNPJ, isValidCPF } from "@/utils/isCPFCNPJValid";
+import { useCEP } from "../../hooks/useCEP";
+import { useProfissionalRegisterStore } from "./useProfissionalRegisterStore";
 
 const schema = z.object({
   clinicName: z.string().min(3, "Nome inválido"),
@@ -27,7 +27,7 @@ const schema = z.object({
       },
       {
         message: "CNPJ ou CPF inválido",
-      }
+      },
     ),
   cepProfessional: z
     .string()
@@ -40,7 +40,7 @@ const schema = z.object({
         }
         try {
           const response = await axios.get(
-            `https://viacep.com.br/ws/${cep.replace(/\D/g, "")}/json/`
+            `https://viacep.com.br/ws/${cep.replace(/\D/g, "")}/json/`,
           );
           return !response.data.erro;
         } catch {
@@ -49,7 +49,7 @@ const schema = z.object({
       },
       {
         message: "CEP não encontrado",
-      }
+      },
     ),
   enderecoClinica: z.string().min(5, "Endereço inválido"),
   bairroClinica: z.string().min(2, "Bairro inválido"),
@@ -134,11 +134,7 @@ export const ServiceLocationStep = () => {
 
   const onSubmit = handleSubmit(async (data) => {
     data.cepProfessional = data.cepProfessional.replace("-", "");
-    data.cpfCNPJ = data.cpfCNPJ
-      .replace(".", "")
-      .replace(".", "")
-      .replace("-", "")
-      .replace("/", "");
+    data.cpfCNPJ = data.cpfCNPJ.replace(".", "").replace(".", "").replace("-", "").replace("/", "");
 
     updateFields(data);
 
@@ -244,7 +240,7 @@ export const ServiceLocationStep = () => {
           <TextField
             {...register("numeroClinica", {
               valueAsNumber: true,
-              setValueAs: (value) => (value == "" ? undefined : Number(value)),
+              setValueAs: (value) => (value === "" ? undefined : Number(value)),
             })}
             placeholder="1014"
             type="number"

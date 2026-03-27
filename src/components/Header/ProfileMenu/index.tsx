@@ -1,13 +1,13 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
-import { FaUser } from "react-icons/fa";
-import clsx from "clsx";
-import { ChevronRightIcon } from "@/assets/icons";
-import { ProfileMenuProps } from "./types";
 import { signOut, useSession } from "next-auth/react";
+import { useEffect, useRef, useState } from "react";
+import { FaUser } from "react-icons/fa";
+import { ChevronRightIcon } from "@/assets/icons";
+import type { ProfileMenuProps } from "./types";
 
 export const ProfileMenu = (props: ProfileMenuProps) => {
   const menuRef = useRef<HTMLDivElement>(null);
@@ -39,8 +39,9 @@ export const ProfileMenu = (props: ProfileMenuProps) => {
   return (
     <div className="relative z-10 hidden lg:flex" ref={menuRef}>
       <button
+        type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-1 hover:text-blue-700 transition-colors aspect-square h-[40px] w-[40px]"
+        className="flex aspect-square h-[40px] w-[40px] items-center gap-1 transition-colors hover:text-blue-700"
         aria-expanded={isOpen}
         aria-label="Menu do perfil"
       >
@@ -49,7 +50,7 @@ export const ProfileMenu = (props: ProfileMenuProps) => {
             src={session?.user?.image}
             alt=""
             sizes="(max-width: 768px) 100vw, 50vw"
-            className="object-cover object-center rounded-full"
+            className="rounded-full object-cover object-center"
             fill
           />
         ) : (
@@ -67,18 +68,17 @@ export const ProfileMenu = (props: ProfileMenuProps) => {
 
       <div
         className={clsx(
-          "absolute right-0 top-0 mt-12 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 transition-all",
+          "absolute top-0 right-0 mt-12 w-48 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition-all",
           {
-            "opacity-100 visible translate-y-0": isOpen,
-            "opacity-0 invisible -translate-y-2": !isOpen,
-          }
+            "visible translate-y-0 opacity-100": isOpen,
+            "invisible -translate-y-2 opacity-0": !isOpen,
+          },
         )}
       >
         <ul>
           {props.items?.submenu.map((item, index) => {
             const shouldShowItem =
-              (session?.user?.type === "patient" &&
-                item.showtowhichusertype === "patient") ||
+              (session?.user?.type === "patient" && item.showtowhichusertype === "patient") ||
               (session?.user?.type === "professional" &&
                 item.showtowhichusertype === "professional");
 
@@ -88,15 +88,11 @@ export const ProfileMenu = (props: ProfileMenuProps) => {
               <li key={index}>
                 <Link
                   href={item.link || `#`}
-                  className="flex justify-between p-3 text-sm text-secondary-900 hover:bg-gray-100 items-center"
+                  className="flex items-center justify-between p-3 text-secondary-900 text-sm hover:bg-gray-100"
                   onClick={() => setIsOpen(false)}
                 >
                   <p className="pr-4">{item.text}</p>
-                  <ChevronRightIcon
-                    className="fill-secondary"
-                    height={24}
-                    width={24}
-                  />
+                  <ChevronRightIcon className="fill-secondary" height={24} width={24} />
                 </Link>
               </li>
             );
@@ -104,43 +100,33 @@ export const ProfileMenu = (props: ProfileMenuProps) => {
           <li>
             <Link
               href="#"
-              className="flex justify-between p-3 text-sm text-secondary hover:bg-gray-100 items-center"
+              className="flex items-center justify-between p-3 text-secondary text-sm hover:bg-gray-100"
               onClick={() => signOut({ redirect: false })}
             >
               Sair
-              <ChevronRightIcon
-                className="fill-secondary"
-                height={24}
-                width={24}
-              />
+              <ChevronRightIcon className="fill-secondary" height={24} width={24} />
             </Link>
           </li>
-          <div className="border-t border-t-black-600 mx-3 hidden lg:block" />
+          <div className="mx-3 hidden border-t border-t-black-600 lg:block" />
           <li>
             <Link
               href="#"
-              className="flex justify-between p-3 text-sm text-alert hover:bg-gray-100 items-center"
+              className="flex items-center justify-between p-3 text-alert text-sm hover:bg-gray-100"
               onClick={() => setIsOpen(false)}
             >
               Excluir conta
-              <ChevronRightIcon
-                className="text-secondary"
-                height={24}
-                width={24}
-              />
+              <ChevronRightIcon className="text-secondary" height={24} width={24} />
             </Link>
           </li>
-          <div className="border-t border-t-black-600 mx-3 hidden lg:block" />
+          <div className="mx-3 hidden border-t border-t-black-600 lg:block" />
           <li className="hidden lg:block">
             <Link
               href="#"
-              className="block p-3 text-sm text-[#3857F4] hover:bg-gray-100 items-center"
+              className="block items-center p-3 text-[#3857F4] text-sm hover:bg-gray-100"
               onClick={() => setIsOpen(false)}
             >
               Trocar para Perfil{" "}
-              {session?.user?.type === "professional"
-                ? "de Cliente"
-                : "Profissional"}
+              {session?.user?.type === "professional" ? "de Cliente" : "Profissional"}
             </Link>
           </li>
         </ul>

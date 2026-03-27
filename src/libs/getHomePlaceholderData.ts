@@ -21,7 +21,7 @@ export async function getHomePlaceholderData() {
 
       // IDs das especialidades para buscar os nomes completos
       const especialidadesIds = especialidades_em_destaque.map(
-        (item: EspecialidadeItem) => item.lista_de_especialidades.id
+        (item: EspecialidadeItem) => item.lista_de_especialidades.id,
       );
 
       // Buscar os documentos das especialidades
@@ -42,7 +42,9 @@ export async function getHomePlaceholderData() {
         especialidades,
       });
     } catch (error) {
-      console.error("Erro ao buscar dados do Prismic:", error);
+      if (process.env.NODE_ENV !== "production") {
+        console.error("Erro ao buscar dados do Prismic:", error);
+      }
     }
   }
 

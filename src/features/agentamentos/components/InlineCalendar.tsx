@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import dayjs from "dayjs";
+import { useState } from "react";
 import "dayjs/locale/pt-br";
 import { LuChevronLeft, LuChevronRight } from "react-icons/lu";
 
@@ -15,7 +15,7 @@ export function InlineCalendar({
   onSelectDate: (iso: string) => void;
 }) {
   const [currentMonth, setCurrentMonth] = useState(
-    selectedDate ? dayjs(selectedDate).startOf("month") : dayjs().startOf("month")
+    selectedDate ? dayjs(selectedDate).startOf("month") : dayjs().startOf("month"),
   );
 
   const startOfMonth = currentMonth.startOf("month");
@@ -57,28 +57,28 @@ export function InlineCalendar({
   const monthLabel = currentMonth.format("MMMM YYYY");
 
   return (
-    <div className=" rounded-lg py-6 px-4 shadow-sm ">
+    <div className="rounded-lg px-4 py-6 shadow-sm">
       {/* header */}
-      <div className="flex items-center justify-between mb-4">
+      <div className="mb-4 flex items-center justify-between">
         <button
           type="button"
           onClick={handlePrev}
-          className="h-8 w-8 flex items-center justify-center rounded-full hover:bg-[#E7EBFE]"
+          className="flex h-8 w-8 items-center justify-center rounded-full hover:bg-[#E7EBFE]"
         >
           <LuChevronLeft />
         </button>
-        <h2 className="text-lg font-semibold capitalize">{monthLabel}</h2>
+        <h2 className="font-semibold text-lg capitalize">{monthLabel}</h2>
         <button
           type="button"
           onClick={handleNext}
-          className="h-8 w-8 flex items-center justify-center rounded-full hover:bg-[#E7EBFE]"
+          className="flex h-8 w-8 items-center justify-center rounded-full hover:bg-[#E7EBFE]"
         >
           <LuChevronRight />
         </button>
       </div>
 
       {/* dias da semana */}
-      <div className="grid grid-cols-7 text-center text-sm text-[#575757] mb-2">
+      <div className="mb-2 grid grid-cols-7 text-center text-[#575757] text-sm">
         <span>S</span>
         <span>T</span>
         <span>Q</span>
@@ -103,14 +103,13 @@ export function InlineCalendar({
               key={d.date}
               type="button"
               onClick={() => onSelectDate(d.date)}
-              className={`aspect-square flex items-center justify-center rounded-full
-                ${
-                  isSelected
-                    ? "bg-[#3857F4] text-white"
-                    : isToday
+              className={`flex aspect-square items-center justify-center rounded-full ${
+                isSelected
+                  ? "bg-[#3857F4] text-white"
+                  : isToday
                     ? "border border-[#3857F4] text-[#3857F4]"
                     : "text-[#19171C] hover:bg-[#E7EBFE]"
-                }
+              }
               `}
             >
               {d.label}

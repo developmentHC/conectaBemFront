@@ -1,6 +1,6 @@
+import { useMutation } from "@tanstack/react-query";
 import { api } from "@/libs/api";
 import { useUserStore } from "@/stores/userSessionStore";
-import { useMutation } from "@tanstack/react-query";
 
 export const useConfirmOTP = () => {
   const { email } = useUserStore();

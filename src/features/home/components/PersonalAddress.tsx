@@ -1,11 +1,10 @@
-"use client"
+"use client";
 
 import Link from "next/link";
+import { type KeyboardEvent, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { MdOutlineEdit } from "react-icons/md";
-import { KeyboardEvent, useCallback, useEffect, useMemo, useRef, useState } from "react";
-
-import { useUserPatient } from "../hooks/useUserPatient";
 import { useUserStore } from "@/stores/userSessionStore";
+import { useUserPatient } from "../hooks/useUserPatient";
 
 const ANON_ADDRESS_KEY = "home:search-address";
 
@@ -29,7 +28,6 @@ export const PersonalAddress = () => {
       return;
     }
 
-    
     window.localStorage.removeItem(ANON_ADDRESS_KEY);
     setSearchAddress(null);
     setInputValue("");
@@ -68,7 +66,7 @@ export const PersonalAddress = () => {
         handleSearch();
       }
     },
-    [handleSearch]
+    [handleSearch],
   );
 
   const focusAddressInput = useCallback(() => {
@@ -82,18 +80,18 @@ export const PersonalAddress = () => {
   }, [isEditing]);
 
   const headline = isAuthenticated
-    ? registeredAddress ?? "Atualize seu endereço para personalizar os resultados"
-    : searchAddress ?? "Digite seu endereço para encontrar profissionais próximos";
+    ? (registeredAddress ?? "Atualize seu endereço para personalizar os resultados")
+    : (searchAddress ?? "Digite seu endereço para encontrar profissionais próximos");
 
   return (
     <div className="flex flex-col gap-2">
-      <div className="flex flex-wrap items-center gap-2 text-lg font-semibold text-gray-900">
+      <div className="flex flex-wrap items-center gap-2 font-semibold text-gray-900 text-lg">
         {isAuthenticated ? (
           <span>{headline}</span>
         ) : isEditing ? (
           <input
             ref={inputRef}
-            className="min-w-[260px] max-w-[520px] bg-transparent text-base font-semibold text-gray-900 outline-none placeholder:text-gray-500"
+            className="min-w-[260px] max-w-[520px] bg-transparent font-semibold text-base text-gray-900 outline-none placeholder:text-gray-500"
             type="text"
             placeholder="Digite seu endereço para encontrar profissionais próximos"
             value={inputValue}

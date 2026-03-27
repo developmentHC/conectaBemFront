@@ -1,7 +1,7 @@
 "use client";
 
-import type { IAppointmentDetail } from "@/types/appointment";
 import { useQuery } from "@tanstack/react-query";
+import type { IAppointmentDetail } from "@/types/appointment";
 import { fetchAppointmentDetail } from "../services/appointments";
 
 export const useAppointmentDetail = (appointmentId?: string | null) => {

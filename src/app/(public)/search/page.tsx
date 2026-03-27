@@ -1,16 +1,16 @@
 "use client";
 
-import { IProfessional } from "@/types/professional";
-import { useState } from "react";
-import { FilterDialogDesktop } from "@/features/search/components/FilterDialogDesktop";
-import { FilterPanelMobile } from "@/features/search/components/FilterPanelMobile";
-import { MedicalSpecialization } from "@/components/MedicalSpecialization/MedicalSpecialization";
-import { FilterButton } from "@/features/search/components/FilterButton";
-import { FilteredProfessionalCard } from "@/features/search/components/FilteredProfessionalCard";
-import { useFilterProfessional } from "@/features/search/hooks/useFilterProfessional";
-import { SearchInput } from "@/components/SearchInput/SearchInput";
-import { FiltersState } from "@/features/search/components/types";
 import { CircularProgress } from "@mui/material";
+import { useState } from "react";
+import { MedicalSpecialization } from "@/components/MedicalSpecialization/MedicalSpecialization";
+import { SearchInput } from "@/components/SearchInput/SearchInput";
+import { FilterButton } from "@/features/search/components/FilterButton";
+import { FilterDialogDesktop } from "@/features/search/components/FilterDialogDesktop";
+import { FilteredProfessionalCard } from "@/features/search/components/FilteredProfessionalCard";
+import { FilterPanelMobile } from "@/features/search/components/FilterPanelMobile";
+import type { FiltersState } from "@/features/search/components/types";
+import { useFilterProfessional } from "@/features/search/hooks/useFilterProfessional";
+import type { IProfessional } from "@/types/professional";
 
 function SearchPage() {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -37,11 +37,7 @@ function SearchPage() {
     setFilters(defaultFilters);
   };
 
-  if (
-    isFilterOpen &&
-    typeof window !== "undefined" &&
-    window.innerWidth < 768
-  ) {
+  if (isFilterOpen && typeof window !== "undefined" && window.innerWidth < 768) {
     return <FilterPanelMobile onFilterChange={onFilterChange} />;
   }
 
@@ -54,7 +50,7 @@ function SearchPage() {
   }
 
   return (
-    <div className="flex flex-col gap-6 w-full">
+    <div className="flex w-full flex-col gap-6">
       <SearchInput />
 
       {isFilterOpen && (
@@ -68,21 +64,16 @@ function SearchPage() {
       )}
 
       <div className="flex flex-col gap-4">
-        <h1 className="text-2xl font-semibold">Resultados</h1>
+        <h1 className="font-semibold text-2xl">Resultados</h1>
         <div className="flex gap-2">
           <FilterButton onClick={onFilterChange} />
           <MedicalSpecialization />
         </div>
 
-        <div className="flex flex-col gap-4 mt-2">
-          {filteredProfessionals
-            ?.slice(0, 4)
-            .map((professional: IProfessional) => (
-              <FilteredProfessionalCard
-                key={professional.id}
-                professional={professional}
-              />
-            ))}
+        <div className="mt-2 flex flex-col gap-4">
+          {filteredProfessionals?.slice(0, 4).map((professional: IProfessional) => (
+            <FilteredProfessionalCard key={professional.id} professional={professional} />
+          ))}
         </div>
       </div>
     </div>

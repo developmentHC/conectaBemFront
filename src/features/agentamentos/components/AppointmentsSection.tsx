@@ -13,15 +13,11 @@ export const AppointmentsSection = ({
 }) => {
   const { data: appointments, isLoading, error } = useAppointments();
 
-  const filteredAppointments = useFilterAppointments(
-    appointments || [],
-    tabValue,
-    selectedDate
-  );
+  const filteredAppointments = useFilterAppointments(appointments || [], tabValue, selectedDate);
 
   if (isLoading) {
     return (
-      <div className="text-center text-[#3857F4] text-lg font-medium">
+      <div className="text-center font-medium text-[#3857F4] text-lg">
         Carregando agendamentos...
       </div>
     );
@@ -29,7 +25,7 @@ export const AppointmentsSection = ({
 
   if (error) {
     return (
-      <div className="text-center text-red-500 text-lg font-medium">
+      <div className="text-center font-medium text-lg text-red-500">
         Erro ao carregar agendamentos.
       </div>
     );

@@ -5,7 +5,7 @@ export const gtmEvents = {
     method: "email" | "google" | "facebook",
     isNewUser: boolean,
     idUser?: string,
-    userType?: "patient" | "professional" | null
+    userType?: "patient" | "professional" | null,
   ) => {
     sendGTMEvent({
       event: "login",
@@ -23,7 +23,7 @@ export const gtmEvents = {
     specialty: string,
     serviceType: string,
     city: string,
-    state: string
+    state: string,
   ) => {
     sendGTMEvent({
       event: "professional_registration_complete",
@@ -39,11 +39,7 @@ export const gtmEvents = {
     });
   },
 
-  patientRegistrationComplete: (
-    idUser: string,
-    city: string,
-    state: string
-  ) => {
+  patientRegistrationComplete: (idUser: string, city: string, state: string) => {
     sendGTMEvent({
       event: "patient_registration_complete",
       user_id_hash: btoa(idUser),

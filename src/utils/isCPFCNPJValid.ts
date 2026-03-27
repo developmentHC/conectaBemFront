@@ -9,23 +9,23 @@ export const isValidCPF = (cpf: string): boolean => {
   let remainder: number;
 
   for (let i = 1; i <= 9; i++) {
-    sum += parseInt(cleaned.substring(i - 1, i)) * (11 - i);
+    sum += parseInt(cleaned.substring(i - 1, i), 10) * (11 - i);
   }
 
   remainder = (sum * 10) % 11;
   if (remainder === 10 || remainder === 11) remainder = 0;
-  if (remainder !== parseInt(cleaned.substring(9, 10))) return false;
+  if (remainder !== parseInt(cleaned.substring(9, 10), 10)) return false;
 
   sum = 0;
 
   for (let i = 1; i <= 10; i++) {
-    sum += parseInt(cleaned.substring(i - 1, i)) * (12 - i);
+    sum += parseInt(cleaned.substring(i - 1, i), 10) * (12 - i);
   }
 
   remainder = (sum * 10) % 11;
   if (remainder === 10 || remainder === 11) remainder = 0;
 
-  return remainder === parseInt(cleaned.substring(10, 11));
+  return remainder === parseInt(cleaned.substring(10, 11), 10);
 };
 
 export const isValidCNPJ = (cnpj: string): boolean => {
@@ -42,12 +42,12 @@ export const isValidCNPJ = (cnpj: string): boolean => {
   let pos = length - 7;
 
   for (let i = length; i >= 1; i--) {
-    sum += parseInt(numbers.charAt(length - i)) * pos--;
+    sum += parseInt(numbers.charAt(length - i), 10) * pos--;
     if (pos < 2) pos = 9;
   }
 
   let result = sum % 11 < 2 ? 0 : 11 - (sum % 11);
-  if (result !== parseInt(digits.charAt(0))) return false;
+  if (result !== parseInt(digits.charAt(0), 10)) return false;
 
   length = 13;
   numbers = cleaned.substring(0, length);
@@ -55,11 +55,11 @@ export const isValidCNPJ = (cnpj: string): boolean => {
   pos = length - 7;
 
   for (let i = length; i >= 1; i--) {
-    sum += parseInt(numbers.charAt(length - i)) * pos--;
+    sum += parseInt(numbers.charAt(length - i), 10) * pos--;
     if (pos < 2) pos = 9;
   }
 
   result = sum % 11 < 2 ? 0 : 11 - (sum % 11);
 
-  return result === parseInt(digits.charAt(1));
+  return result === parseInt(digits.charAt(1), 10);
 };
