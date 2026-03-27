@@ -45,6 +45,6 @@ describe("Registro Profissional Page", () => {
     expect(nameLabelElement).toHaveClass("text-red-600");
 
     expect(screen.getByText("Data de nascimento é obrigatória!")).toBeInTheDocument();
-    expect(screen.getByText("CEP inválido")).toBeInTheDocument();
+    expect(screen.getByText("CEP é obrigatório")).toBeInTheDocument();
   });
 });

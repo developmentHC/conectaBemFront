@@ -21,17 +21,13 @@ describe("SocialNetwork component", () => {
     jest.clearAllMocks(); // limpa chamadas anteriores do signIn
   });
 
-  it("renders both Google and Facebook login buttons with icons", () => {
+  it("renders Google login button with icon", () => {
     render(<SocialNetwork />);
 
     const googleButton = screen.getByRole("button", { name: /entrar com o google/i });
-    const facebookButton = screen.getByRole("button", { name: /entrar com o facebook/i });
 
     expect(googleButton).toBeInTheDocument();
     expect(googleButton.querySelector("img")).toBeInTheDocument();
-
-    expect(facebookButton).toBeInTheDocument();
-    expect(facebookButton.querySelector("img")).toBeInTheDocument();
   });
 
   it("calls signIn correctly for Google button", () => {
@@ -42,11 +38,9 @@ describe("SocialNetwork component", () => {
     expect(signIn).toHaveBeenCalledWith("google", { callbackUrl: "/" });
   });
 
-  it("calls signIn correctly for Facebook button", () => {
+  it("does not render a Facebook button (removed)", () => {
     render(<SocialNetwork />);
-    const facebookButton = screen.getByRole("button", { name: /entrar com o facebook/i });
-
-    fireEvent.click(facebookButton);
-    expect(signIn).toHaveBeenCalledWith("facebook");
+    const facebookButton = screen.queryByRole("button", { name: /entrar com o facebook/i });
+    expect(facebookButton).not.toBeInTheDocument();
   });
 });

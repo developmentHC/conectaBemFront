@@ -15,7 +15,7 @@ import { useProfissionalRegisterStore } from "./useProfissionalRegisterStore";
 const schema = z.object({
   name: z
     .string()
-    .min(3, "Nome inválido")
+    .min(3, "Nome deve ter pelo menos 3 caracteres")
     .regex(
       /^[A-Za-zÀ-ú]+(?: [A-Za-zÀ-ú]+)*$/,
       "O nome deve conter apenas letras e um espaço entre as palavras",
@@ -48,8 +48,9 @@ const schema = z.object({
     ),
   cepResidencial: z
     .string()
-    .length(9, "CEP inválido")
-    .regex(/^\d{5}-\d{3}$/, "Formato de CEP inválido")
+    .min(1, "CEP é obrigatório")
+    .length(9, "CEP deve conter 8 dígitos (formato: XXXXX-XXX)")
+    .regex(/^\d{5}-\d{3}$/, "Formato de CEP inválido (XXXXX-XXX)")
     .refine(
       async (cep) => {
         if (!/^\d{5}-\d{3}$/.test(cep)) {
@@ -65,15 +66,14 @@ const schema = z.object({
         }
       },
       {
-        message: "CEP não encontrado",
+        message: "CEP não encontrado. Verifique e tente novamente",
       },
     ),
-  enderecoResidencial: z.string().min(3, "Endereço inválido"),
-  numeroResidencial: z.string().min(1, "Número obrigatório"),
-  bairroResidencial: z.string().min(3, "Bairro inválido"),
-
-  cidadeResidencial: z.string().min(3, "Cidade inválida"),
-  estadoResidencial: z.string().min(2, "Estado inválido"),
+  enderecoResidencial: z.string().min(3, "Endereço deve ter pelo menos 3 caracteres"),
+  numeroResidencial: z.string().min(1, "Número é obrigatório"),
+  bairroResidencial: z.string().min(3, "Bairro deve ter pelo menos 3 caracteres"),
+  cidadeResidencial: z.string().min(3, "Cidade deve ter pelo menos 3 caracteres"),
+  estadoResidencial: z.string().min(2, "Estado deve ter pelo menos 2 caracteres"),
 });
 
 type Data = z.infer<typeof schema>;
@@ -218,6 +218,11 @@ export const PersonalDataStep = () => {
         </label>
         <TextField
           {...register("enderecoResidencial")}
+          onChange={(e) =>
+            setValue("enderecoResidencial", e.target.value, {
+              shouldValidate: true,
+            })
+          }
           value={logradouroValue}
           variant="outlined"
           placeholder="Nome da rua / avenida, número"
@@ -247,6 +252,11 @@ export const PersonalDataStep = () => {
         </label>
         <TextField
           {...register("bairroResidencial")}
+          onChange={(e) =>
+            setValue("bairroResidencial", e.target.value, {
+              shouldValidate: true,
+            })
+          }
           value={bairroValue}
           variant="outlined"
           placeholder="Nome do bairro"
@@ -261,6 +271,11 @@ export const PersonalDataStep = () => {
         </label>
         <TextField
           {...register("cidadeResidencial")}
+          onChange={(e) =>
+            setValue("cidadeResidencial", e.target.value, {
+              shouldValidate: true,
+            })
+          }
           value={cidadeValue}
           variant="outlined"
           placeholder="Nome da cidade"
@@ -275,6 +290,11 @@ export const PersonalDataStep = () => {
         </label>
         <TextField
           {...register("estadoResidencial")}
+          onChange={(e) =>
+            setValue("estadoResidencial", e.target.value, {
+              shouldValidate: true,
+            })
+          }
           value={estadoValue}
           variant="outlined"
           placeholder="Nome do estado"
