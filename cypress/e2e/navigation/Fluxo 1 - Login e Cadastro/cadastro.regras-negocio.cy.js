@@ -124,10 +124,7 @@ describe("Cadastro – Regras de Negócio (Registro de Paciente)", () => {
  * Helper local (simples e explícito)
  */
 function preencherFormularioBase({ nome, dataNascimento, cep, numero }) {
-  cy.get('[data-testid="name-input"]')
-    .scrollIntoView()
-    .clear({ force: true })
-    .type(nome, { force: true });
+  cy.get('input[name="name"]').scrollIntoView().clear({ force: true }).type(nome, { force: true });
   cy.get('input[placeholder="DD/MM/AAAA"]').then(($input) => {
     $input.prop("readOnly", false);
     cy.wrap($input).scrollIntoView().clear({ force: true }).type(dataNascimento, { force: true });
