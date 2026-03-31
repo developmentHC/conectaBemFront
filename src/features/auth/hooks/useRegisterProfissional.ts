@@ -1,4 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
+import { isAxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import toast from "react-hot-toast";
@@ -39,7 +40,11 @@ export const useRegisterProfissional = () => {
       }
     },
     onError: (error) => {
-      toast.error(error.message);
+      const message =
+        isAxiosError(error) && error.response?.data?.message
+          ? error.response.data.message
+          : "Não foi possível completar seu cadastro. Tente novamente.";
+      toast.error(message);
     },
   });
 };
