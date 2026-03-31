@@ -96,12 +96,13 @@ export const CodeForm = ({ onValidationSuccess }: CodeFormProps) => {
               Reenviar código em {timeLeftResendCode} segundos
             </span>
           ) : (
-            <span
+            <button
+              type="button"
               onClick={() => sendCode()}
               className="cursor-pointer text-end font-[lato] font-bold text-[#1D1B20] text-base underline"
             >
               Reenviar código
-            </span>
+            </button>
           )}
         </div>
       </div>
@@ -115,7 +116,7 @@ export const CodeForm = ({ onValidationSuccess }: CodeFormProps) => {
       {!isPending && (
         <div className="flex flex-col gap-4">
           {error && (
-            <span className="text-red-600">
+            <span role="alert" aria-live="polite" className="text-red-600">
               Código incorreto! Preencha corretamente ou reenvie o código e tente novamente.
             </span>
           )}
