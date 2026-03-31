@@ -60,7 +60,7 @@
   "devDependencies": {
     "@babel/preset-env": "^7.26.0",
     "@babel/preset-react": "^7.26.3",
-    "@biomejs/biome": "^2.4.8",
+    "@biomejs/biome": "^2.4.9",
     "@chromatic-com/storybook": "^3.2.3",
     "@slicemachine/adapter-next": "^0.3.69",
     "@storybook/addon-essentials": "^8.4.7",

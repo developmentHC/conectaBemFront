@@ -8,15 +8,33 @@ import { FilterButton } from "@/features/search/components/FilterButton";
 import { FilterDialogDesktop } from "@/features/search/components/FilterDialogDesktop";
 import { FilteredProfessionalCard } from "@/features/search/components/FilteredProfessionalCard";
 import { FilterPanelMobile } from "@/features/search/components/FilterPanelMobile";
+import type { FiltersState } from "@/features/search/components/types";
 import { useFilterProfessional } from "@/features/search/hooks/useFilterProfessional";
 import type { IProfessional } from "@/types/professional";
 
 function SearchPage() {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const defaultFilters: FiltersState = {
+    specialties: [],
+    availability: [],
+    value: [],
+    accessibility: [],
+    services: [],
+    distance: 12,
+  };
+  const [filters, setFilters] = useState<FiltersState>(defaultFilters);
   const { data: filteredProfessionals, isLoading } = useFilterProfessional();
 
   const onFilterChange = () => {
     setIsFilterOpen(!isFilterOpen);
+  };
+
+  const handleApplyFilters = (next: FiltersState) => {
+    setFilters(next);
+  };
+
+  const handleClearFilters = () => {
+    setFilters(defaultFilters);
   };
 
   if (isFilterOpen && typeof window !== "undefined" && window.innerWidth < 768) {
@@ -35,7 +53,15 @@ function SearchPage() {
     <div className="flex w-full flex-col gap-6">
       <SearchInput />
 
-      {isFilterOpen && <FilterDialogDesktop open={isFilterOpen} onFilterChange={onFilterChange} />}
+      {isFilterOpen && (
+        <FilterDialogDesktop
+          open={isFilterOpen}
+          onFilterChange={onFilterChange}
+          onApply={handleApplyFilters}
+          onClear={handleClearFilters}
+          initialFilters={filters}
+        />
+      )}
 
       <div className="flex flex-col gap-4">
         <h1 className="font-semibold text-2xl">Resultados</h1>

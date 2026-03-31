@@ -11,8 +11,12 @@ jest.mock("react-hot-toast", () => ({
 jest.mock("@/features/auth/components/CodeForm/CodeForm", () => ({
   CodeForm: ({ onValidationSuccess }: any) => (
     <>
-      <button onClick={() => onValidationSuccess(200)}>Simular Sucesso 200</button>
-      <button onClick={() => onValidationSuccess(201)}>Simular Sucesso 201</button>
+      <button type="button" onClick={() => onValidationSuccess(200)}>
+        Simular Sucesso 200
+      </button>
+      <button type="button" onClick={() => onValidationSuccess(201)}>
+        Simular Sucesso 201
+      </button>
     </>
   ),
 }));

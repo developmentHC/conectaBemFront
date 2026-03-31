@@ -15,6 +15,10 @@ const wrapper = ({ children }: { children: React.ReactNode }) => (
   </QueryClientProvider>
 );
 
+beforeAll(() => {
+  Element.prototype.scrollIntoView = jest.fn();
+});
+
 describe("Registro Profissional Page", () => {
   it("should render the Registro Profissional page", () => {
     render(<RegistroProficional />, { wrapper });
@@ -39,12 +43,12 @@ describe("Registro Profissional Page", () => {
     const continueButton = screen.getByText("Continuar");
     fireEvent.click(continueButton);
 
-    await screen.findByText("Data de nascimento é obrigatória!");
+    await screen.findByText("Nome deve ter pelo menos 3 caracteres");
 
     const nameLabelElement = screen.getByText("Data de Nascimento");
     expect(nameLabelElement).toHaveClass("text-red-600");
 
     expect(screen.getByText("Data de nascimento é obrigatória!")).toBeInTheDocument();
-    expect(screen.getByText("CEP inválido")).toBeInTheDocument();
+    expect(screen.getByText("CEP é obrigatório")).toBeInTheDocument();
   });
 });

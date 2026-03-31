@@ -4,6 +4,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useMemo } from "react";
+import { FaUser } from "react-icons/fa";
 import { MdStarRate } from "react-icons/md";
 import {
   NextButton,
@@ -38,14 +39,18 @@ export const ProfessionalCard = ({ specialization }: ProfessionalSectionProps) =
       key={professionalItem.id ?? index}
       className="professional-card flex h-full max-h-[530px] cursor-pointer flex-col gap-4"
     >
-      <div className="flex justify-center">
-        <Image
-          className="w-full rounded-lg lg:max-w-[216px] xl:max-w-[260px]"
-          src={professionalItem.image || ""}
-          alt="profissional"
-          width={240}
-          height={160}
-        />
+      <div className="relative flex h-[160px] w-full items-center justify-center overflow-hidden rounded-lg bg-gray-100">
+        {professionalItem.image ? (
+          <Image
+            className="h-full w-full object-cover"
+            src={professionalItem.image}
+            alt="profissional"
+            width={240}
+            height={160}
+          />
+        ) : (
+          <FaUser className="text-6xl text-gray-300" />
+        )}
       </div>
       <div className="flex flex-col gap-1">
         <div className="flex flex-wrap items-center justify-between">

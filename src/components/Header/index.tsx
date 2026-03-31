@@ -51,6 +51,7 @@ export const Header = () => {
         <div className="flex w-full items-center justify-between gap-4 lg:pt-2">
           {pathname !== "/" && (
             <button
+              type="button"
               className="h-8 w-12 lg:hidden"
               onClick={() => router.back()}
               aria-label="Voltar"
@@ -60,6 +61,7 @@ export const Header = () => {
           )}
 
           <button
+            type="button"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label={isMobileMenuOpen ? "Fechar menu" : "Abrir menu"}
             className="relative h-8 w-12 focus:outline-none lg:hidden"
@@ -121,7 +123,10 @@ export const Header = () => {
                   onMouseEnter={!item.menuitemlink.url ? () => setHoveredItem(index) : undefined}
                   onMouseLeave={!item.menuitemlink.url ? () => setHoveredItem(null) : undefined}
                 >
-                  <button className="flex items-center gap-2 font-semibold text-secondary-900">
+                  <button
+                    type="button"
+                    className="flex items-center gap-2 font-semibold text-secondary-900"
+                  >
                     {item.menuitemlink.url ? (
                       <Link href={item.menuitemlink.url || "#"}>{item.menuitemtext}</Link>
                     ) : (
