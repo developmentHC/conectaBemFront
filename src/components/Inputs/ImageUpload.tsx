@@ -92,11 +92,9 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
         className="hidden"
       />
 
-      <div
+      <button
+        type="button"
         onClick={handleClick}
-        onKeyDown={(e) => (e.key === "Enter" || e.key === " " ? handleClick() : undefined)}
-        role="button"
-        tabIndex={0}
         aria-label="Editar foto de perfil"
         className="relative flex h-[120px] w-[120px] cursor-pointer flex-col items-center justify-center rounded-full bg-blue-600"
       >
@@ -118,7 +116,7 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
         >
           <MdEdit className="text-3xl text-blue-600" />
         </div>
-      </div>
+      </button>
     </div>
   );
 };

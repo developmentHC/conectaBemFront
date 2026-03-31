@@ -71,7 +71,7 @@ export const CodeInput = forwardRef<CodeInputHandle, CodeInputProps>(
             }}
             value={value[index] || ""}
             key={index}
-            aria-label={`Dígito ${index + 1} de 4`}
+            aria-label={`Dígito ${index + 1} de ${value.length}`}
             className={`w-full rounded-lg border-2 px-2 py-6 text-center ${
               error
                 ? "border-red-600 focus:outline-red-400"
