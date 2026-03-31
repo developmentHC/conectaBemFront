@@ -67,7 +67,7 @@ export const CompleteProfileStep = () => {
       professionalSpecialties: specialties,
       otherProfessionalSpecialties: [],
       professionalServicePreferences: servicePreferences,
-      acessibility: accessibility ?? [],
+      accessibility: accessibility ?? [],
       profilePhoto: photo,
     });
 
