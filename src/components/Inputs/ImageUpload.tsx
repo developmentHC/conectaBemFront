@@ -94,7 +94,7 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
 
       <div
         onClick={handleClick}
-        onKeyDown={(e) => e.key === 'Enter' || e.key === ' ' ? handleClick() : undefined}
+        onKeyDown={(e) => (e.key === "Enter" || e.key === " " ? handleClick() : undefined)}
         role="button"
         tabIndex={0}
         aria-label="Editar foto de perfil"
