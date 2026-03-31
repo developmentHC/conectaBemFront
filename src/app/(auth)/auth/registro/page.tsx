@@ -94,7 +94,7 @@ export default function Registro() {
             >
               Cadastrar como
             </Typography>
-            <IconButton className="h-fit w-fit" onClick={handleClose}>
+            <IconButton className="h-fit w-fit" onClick={handleClose} aria-label="Fechar modal">
               <CloseIcon height={20} width={20} className="fill-[#1C1B1F]" />
             </IconButton>
           </Box>

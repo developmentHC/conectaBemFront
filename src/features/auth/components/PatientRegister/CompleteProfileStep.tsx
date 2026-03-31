@@ -98,7 +98,12 @@ export const CompleteProfileStep = () => {
           ) : (
             <FaUser className="text-6xl text-button" />
           )}
-          <div className="absolute mt-16 ml-24 flex h-[35px] w-[35px] cursor-pointer items-center justify-center rounded-full bg-white shadow-lg">
+          <div
+            role="button"
+            tabIndex={0}
+            aria-label="Editar foto de perfil"
+            className="absolute mt-16 ml-24 flex h-[35px] w-[35px] cursor-pointer items-center justify-center rounded-full bg-white shadow-lg"
+          >
             <MdEdit className="text-3xl text-blue-600" />
           </div>
         </label>

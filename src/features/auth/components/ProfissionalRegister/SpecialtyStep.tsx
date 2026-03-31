@@ -66,7 +66,7 @@ export const SpecialtyStep = () => {
   };
 
   const handleClickService = (e: MouseEvent) => {
-    const service = (e.target as HTMLLIElement).textContent;
+    const service = (e.target as HTMLButtonElement).textContent;
 
     if (!service) return;
 
@@ -125,12 +125,14 @@ export const SpecialtyStep = () => {
 
         <ul className="flex flex-wrap gap-2">
           {visibleServices.sort().map((service) => (
-            <li
-              onClick={handleClickService}
-              key={service}
-              className={`cursor-pointer rounded rounded-t-lg rounded-br-lg border border-blue-800 p-2 transition-all hover:bg-blue-600/50 ${selectedServices.includes(service) ? "bg-blue-600/50" : ""}`}
-            >
-              {service}
+            <li key={service}>
+              <button
+                type="button"
+                onClick={handleClickService}
+                className={`cursor-pointer rounded rounded-t-lg rounded-br-lg border border-blue-800 p-2 transition-all hover:bg-blue-600/50 ${selectedServices.includes(service) ? "bg-blue-600/50" : ""}`}
+              >
+                {service}
+              </button>
             </li>
           ))}
           <div className="flex w-full justify-end">
