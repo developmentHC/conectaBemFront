@@ -214,7 +214,7 @@ export const ServiceLocationStep = () => {
           }}
         />
       </div>
-      <div className="flex gap-4">
+      <div className="flex flex-col gap-4 sm:flex-row">
         <div className="flex flex-col gap-2">
           <label>
             Bairro da Clínica <span className="text-red-600">*</span>

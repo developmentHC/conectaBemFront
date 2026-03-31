@@ -52,7 +52,7 @@ export const Header = () => {
           {pathname !== "/" && (
             <button
               type="button"
-              className="h-8 w-12 lg:hidden"
+              className="h-11 w-11 lg:hidden"
               onClick={() => router.back()}
               aria-label="Voltar"
             >
@@ -64,7 +64,7 @@ export const Header = () => {
             type="button"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label={isMobileMenuOpen ? "Fechar menu" : "Abrir menu"}
-            className="relative h-8 w-12 focus:outline-none lg:hidden"
+            className="relative h-11 w-11 focus:outline-none lg:hidden"
           >
             {isMobileMenuOpen ? (
               <CloseIcon className="absolute top-1/2 left-1/2 h-6 w-6 -translate-x-1/2 -translate-y-1/2 fill-[#1D1B20] transition-transform duration-300" />
