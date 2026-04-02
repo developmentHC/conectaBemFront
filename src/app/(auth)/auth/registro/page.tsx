@@ -33,7 +33,7 @@ export default function Registro() {
   const handleClose = () => setOpen(false);
 
   return (
-    <main className="flex w-full justify-center">
+    <div className="flex w-full justify-center">
       <div className="mt-8 flex w-full flex-col gap-8 md:max-w-[450px]">
         <FormMultiStep.Header className="gap-4">
           <FormMultiStep.Title>Tudo pronto para começar</FormMultiStep.Title>
@@ -147,6 +147,6 @@ export default function Registro() {
           </Typography>
         </Box>
       </Modal>
-    </main>
+    </div>
   );
 }

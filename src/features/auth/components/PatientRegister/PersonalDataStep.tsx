@@ -15,7 +15,7 @@ const schema = z.object({
     .string()
     .min(3, "Nome deve ter pelo menos 3 caracteres")
     .regex(
-      /^[A-Za-zÀ-ú]+(?: [A-Za-zÀ-ú]+)*$/,
+      /^[A-Za-zÀ-ÖØ-öø-ÿ-]+(?: [A-Za-zÀ-ÖØ-öø-ÿ-]+)*$/,
       "O nome deve conter apenas letras e um espaço entre as palavras",
     ),
   birthdayDate: z
@@ -73,6 +73,13 @@ export const PersonalDataStep = () => {
   const { updateFields, changeStep } = usePatientRegisterStore();
   const [nameInput, setNameInput] = useState("");
   const nameId = useId();
+  const birthdayId = useId();
+  const cepId = useId();
+  const enderecoId = useId();
+  const numeroId = useId();
+  const bairroId = useId();
+  const cidadeId = useId();
+  const estadoId = useId();
 
   const fieldRefs = {
     name: useRef<HTMLDivElement | null>(null),
@@ -151,7 +158,7 @@ export const PersonalDataStep = () => {
     const rawValue = e.target.value;
 
     const onlyLettersAndSpace = rawValue
-      .replace(/[^A-Za-zÀ-ú\s]/g, "")
+      .replace(/[^A-Za-zÀ-ÖØ-öø-ÿ\s-]/g, "")
       .replace(/\s+/g, " ")
       .trimStart();
 
@@ -180,7 +187,7 @@ export const PersonalDataStep = () => {
     <form onSubmit={onSubmit} className="flex flex-col gap-4">
       {/* Nome */}
       <div ref={fieldRefs.name} className="flex flex-col gap-2">
-        <label className={errors.name ? "text-red-600" : ""}>
+        <label htmlFor={nameId} className={errors.name ? "text-red-600" : ""}>
           Nome <span className="text-red-600">*</span>
         </label>
 
@@ -190,18 +197,20 @@ export const PersonalDataStep = () => {
           placeholder="Nome e Sobrenome"
           id={nameId}
           value={nameInput}
-          required
           autoComplete="name"
           helperText={errors.name?.message}
           error={!!errors.name}
-          inputProps={{ "aria-required": "true", "aria-describedby": "error-name" }}
+          inputProps={{
+            "aria-required": "true",
+            ...(errors.name && { "aria-describedby": "error-name" }),
+          }}
           FormHelperTextProps={{ id: "error-name" }}
         />
       </div>
 
       {/* Data de nascimento */}
       <div ref={fieldRefs.birthdayDate} className="flex flex-col gap-2">
-        <label className={errors.birthdayDate ? "text-red-600" : ""}>
+        <label htmlFor={birthdayId} className={errors.birthdayDate ? "text-red-600" : ""}>
           Data de Nascimento <span className="text-red-600">*</span>
         </label>
         <DatePicker
@@ -211,14 +220,14 @@ export const PersonalDataStep = () => {
           slotProps={{
             textField: {
               inputProps: {
+                id: birthdayId,
                 placeholder: "DD/MM/AAAA",
                 autoComplete: "bday",
                 "aria-required": "true",
-                "aria-describedby": "error-birthdate",
+                ...(errors.birthdayDate && { "aria-describedby": "error-birthdate" }),
               },
               helperText: errors.birthdayDate?.message,
               error: !!errors.birthdayDate,
-              required: true,
               FormHelperTextProps: { id: "error-birthdate" },
             },
           }}
@@ -232,11 +241,12 @@ export const PersonalDataStep = () => {
 
       {/* CEP */}
       <div ref={fieldRefs.cepResidencial} className="flex flex-col gap-2">
-        <label className={errors.cepResidencial ? "text-red-600" : ""}>
+        <label htmlFor={cepId} className={errors.cepResidencial ? "text-red-600" : ""}>
           CEP Residencial <span className="text-red-600">*</span>
         </label>
         <CEPField
           {...register("cepResidencial")}
+          id={cepId}
           onChange={(e) =>
             setValue("cepResidencial", e.target.value, {
               shouldValidate: true,
@@ -245,18 +255,22 @@ export const PersonalDataStep = () => {
           helperText={errors.cepResidencial?.message}
           error={!!errors.cepResidencial}
           autoComplete="postal-code"
-          inputProps={{ "aria-required": "true", "aria-describedby": "error-cep" }}
+          inputProps={{
+            "aria-required": "true",
+            ...(errors.cepResidencial && { "aria-describedby": "error-cep" }),
+          }}
           FormHelperTextProps={{ id: "error-cep" }}
         />
       </div>
 
       {/* Logradouro */}
       <div ref={fieldRefs.enderecoResidencial} className="flex flex-col gap-2">
-        <label className={errors.enderecoResidencial ? "text-red-600" : ""}>
+        <label htmlFor={enderecoId} className={errors.enderecoResidencial ? "text-red-600" : ""}>
           Logradouro <span className="text-red-600">*</span>
         </label>
         <TextField
           {...register("enderecoResidencial")}
+          id={enderecoId}
           onChange={(e) =>
             setValue("enderecoResidencial", e.target.value, {
               shouldValidate: true,
@@ -265,33 +279,41 @@ export const PersonalDataStep = () => {
           placeholder="Nome da rua / avenida"
           error={!!errors.enderecoResidencial}
           helperText={errors.enderecoResidencial?.message}
-          inputProps={{ "aria-required": "true", "aria-describedby": "error-endereco" }}
+          inputProps={{
+            "aria-required": "true",
+            ...(errors.enderecoResidencial && { "aria-describedby": "error-endereco" }),
+          }}
           FormHelperTextProps={{ id: "error-endereco" }}
         />
       </div>
 
       {/* Número */}
       <div ref={fieldRefs.numeroResidencial} className="flex flex-col gap-2">
-        <label className={errors.numeroResidencial ? "text-red-600" : ""}>
+        <label htmlFor={numeroId} className={errors.numeroResidencial ? "text-red-600" : ""}>
           Número <span className="text-red-600">*</span>
         </label>
         <TextField
           {...register("numeroResidencial")}
+          id={numeroId}
           placeholder="0000"
           error={!!errors.numeroResidencial}
           helperText={errors.numeroResidencial?.message}
-          inputProps={{ "aria-required": "true", "aria-describedby": "error-numero" }}
+          inputProps={{
+            "aria-required": "true",
+            ...(errors.numeroResidencial && { "aria-describedby": "error-numero" }),
+          }}
           FormHelperTextProps={{ id: "error-numero" }}
         />
       </div>
 
       {/* Bairro */}
       <div ref={fieldRefs.bairroResidencial} className="flex flex-col gap-2">
-        <label className={errors.bairroResidencial ? "text-red-600" : ""}>
+        <label htmlFor={bairroId} className={errors.bairroResidencial ? "text-red-600" : ""}>
           Bairro <span className="text-red-600">*</span>
         </label>
         <TextField
           {...register("bairroResidencial")}
+          id={bairroId}
           onChange={(e) =>
             setValue("bairroResidencial", e.target.value, {
               shouldValidate: true,
@@ -300,18 +322,22 @@ export const PersonalDataStep = () => {
           placeholder="Nome do bairro"
           error={!!errors.bairroResidencial}
           helperText={errors.bairroResidencial?.message}
-          inputProps={{ "aria-required": "true", "aria-describedby": "error-bairro" }}
+          inputProps={{
+            "aria-required": "true",
+            ...(errors.bairroResidencial && { "aria-describedby": "error-bairro" }),
+          }}
           FormHelperTextProps={{ id: "error-bairro" }}
         />
       </div>
 
       {/* Cidade */}
       <div ref={fieldRefs.cidadeResidencial} className="flex flex-col gap-2">
-        <label className={errors.cidadeResidencial ? "text-red-600" : ""}>
+        <label htmlFor={cidadeId} className={errors.cidadeResidencial ? "text-red-600" : ""}>
           Cidade <span className="text-red-600">*</span>
         </label>
         <TextField
           {...register("cidadeResidencial")}
+          id={cidadeId}
           onChange={(e) =>
             setValue("cidadeResidencial", e.target.value, {
               shouldValidate: true,
@@ -320,18 +346,22 @@ export const PersonalDataStep = () => {
           placeholder="Nome da cidade"
           error={!!errors.cidadeResidencial}
           helperText={errors.cidadeResidencial?.message}
-          inputProps={{ "aria-required": "true", "aria-describedby": "error-cidade" }}
+          inputProps={{
+            "aria-required": "true",
+            ...(errors.cidadeResidencial && { "aria-describedby": "error-cidade" }),
+          }}
           FormHelperTextProps={{ id: "error-cidade" }}
         />
       </div>
 
       {/* Estado */}
       <div ref={fieldRefs.estadoResidencial} className="flex flex-col gap-2">
-        <label className={errors.estadoResidencial ? "text-red-600" : ""}>
+        <label htmlFor={estadoId} className={errors.estadoResidencial ? "text-red-600" : ""}>
           Estado <span className="text-red-600">*</span>
         </label>
         <TextField
           {...register("estadoResidencial")}
+          id={estadoId}
           onChange={(e) =>
             setValue("estadoResidencial", e.target.value, {
               shouldValidate: true,
@@ -340,12 +370,15 @@ export const PersonalDataStep = () => {
           placeholder="Nome do estado"
           error={!!errors.estadoResidencial}
           helperText={errors.estadoResidencial?.message}
-          inputProps={{ "aria-required": "true", "aria-describedby": "error-estado" }}
+          inputProps={{
+            "aria-required": "true",
+            ...(errors.estadoResidencial && { "aria-describedby": "error-estado" }),
+          }}
           FormHelperTextProps={{ id: "error-estado" }}
         />
       </div>
 
-      <p className="text-gray-500 text-xs">
+      <p className="text-gray-600 text-xs">
         Campos Obrigatórios (<span>*</span>)
       </p>
 

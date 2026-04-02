@@ -7,7 +7,7 @@ import { SuggestionForm } from "./SuggestionForm";
 import { useProfissionalRegisterStore } from "./useProfissionalRegisterStore";
 
 const specialtiesMock = [
-  "Acunputura",
+  "Acupuntura",
   "Aromaterapia",
   "Arteterapia",
   "Biodança",
@@ -36,7 +36,11 @@ const schema = z.object({
 });
 
 export const SpecialtyStep = () => {
-  const { setValue, handleSubmit } = useForm<Data>({
+  const {
+    setValue,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Data>({
     mode: "all",
     resolver: zodResolver(schema),
     defaultValues: { specialties: [], servicePreferences: [] },
@@ -90,13 +94,34 @@ export const SpecialtyStep = () => {
 
   return (
     <form onSubmit={onSubmit} className="flex flex-col gap-8">
-      <span>Escolha as especialidades que irá fornecer atendimento *</span>
+      <div className="flex flex-col gap-1">
+        <span>Escolha as especialidades que irá fornecer atendimento *</span>
+        {errors.specialties && (
+          <p className="text-red-600 text-sm" role="alert">
+            {errors.specialties.message}
+          </p>
+        )}
+      </div>
 
-      <ul className="flex flex-wrap gap-2">
+      <ul
+        role="listbox"
+        aria-multiselectable="true"
+        aria-label="Especialidades"
+        className="flex flex-wrap gap-2"
+      >
         {visibleSpecialties.map((specialty) => (
           <li
             key={specialty}
+            role="option"
+            aria-selected={selectedSpecialties.includes(specialty)}
+            tabIndex={0}
             onClick={handleClickSpecialty}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                handleClickSpecialty(e as any);
+              }
+            }}
             className={`cursor-pointer rounded rounded-t-lg rounded-br-lg border border-blue-800 p-2 transition-all hover:bg-blue-600/50 ${
               selectedSpecialties.includes(specialty) ? "bg-blue-600/50" : ""
             }`}
