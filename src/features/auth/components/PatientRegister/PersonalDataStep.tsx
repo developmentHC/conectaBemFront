@@ -15,7 +15,7 @@ const schema = z.object({
     .string()
     .min(3, "Nome deve ter pelo menos 3 caracteres")
     .regex(
-      /^[A-Za-zÀ-ÿ-]+(?: [A-Za-zÀ-ÿ-]+)*$/,
+      /^[A-Za-zÀ-ÖØ-öø-ÿ-]+(?: [A-Za-zÀ-ÖØ-öø-ÿ-]+)*$/,
       "O nome deve conter apenas letras e um espaço entre as palavras",
     ),
   birthdayDate: z
@@ -158,7 +158,7 @@ export const PersonalDataStep = () => {
     const rawValue = e.target.value;
 
     const onlyLettersAndSpace = rawValue
-      .replace(/[^A-Za-zÀ-ÿ\s-]/g, "")
+      .replace(/[^A-Za-zÀ-ÖØ-öø-ÿ\s-]/g, "")
       .replace(/\s+/g, " ")
       .trimStart();
 

@@ -16,7 +16,12 @@ const schema = z.object({
 });
 
 export const SpecialtyStep = () => {
-  const { setValue, handleSubmit, watch } = useForm<Data>({
+  const {
+    setValue,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<Data>({
     mode: "all",
     resolver: zodResolver(schema),
     defaultValues: { specialties: [], servicePreferences: [] },
@@ -46,6 +51,11 @@ export const SpecialtyStep = () => {
           onChange={(selecteds) => setValue("specialties", selecteds)}
           selecteds={selectedSpecialties}
         />
+        {errors.specialties && (
+          <p className="text-red-600 text-sm" role="alert">
+            {errors.specialties.message}
+          </p>
+        )}
       </div>
 
       <div className="flex flex-col gap-2">
