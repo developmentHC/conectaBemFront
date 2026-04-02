@@ -92,7 +92,12 @@ export const SpecialtyStep = () => {
     <form onSubmit={onSubmit} className="flex flex-col gap-8">
       <span>Escolha as especialidades que irá fornecer atendimento *</span>
 
-      <ul role="listbox" aria-multiselectable="true" aria-label="Especialidades" className="flex flex-wrap gap-2">
+      <ul
+        role="listbox"
+        aria-multiselectable="true"
+        aria-label="Especialidades"
+        className="flex flex-wrap gap-2"
+      >
         {visibleSpecialties.map((specialty) => (
           <li
             key={specialty}

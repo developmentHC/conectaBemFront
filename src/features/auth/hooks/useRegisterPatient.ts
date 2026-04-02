@@ -61,6 +61,7 @@ export const useRegisterPatient = () => {
       }
     },
     onError: (error) => {
+      if (error.message === "pendingToken ausente") return;
       toast.error(error.message);
     },
   });
