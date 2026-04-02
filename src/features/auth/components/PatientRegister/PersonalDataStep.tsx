@@ -193,7 +193,7 @@ export const PersonalDataStep = () => {
           autoComplete="name"
           helperText={errors.name?.message}
           error={!!errors.name}
-          inputProps={{ "aria-required": "true", "aria-describedby": "error-name" }}
+          inputProps={{ "aria-required": "true", ...(errors.name && { "aria-describedby": "error-name" }) }}
           FormHelperTextProps={{ id: "error-name" }}
         />
       </div>
@@ -213,11 +213,10 @@ export const PersonalDataStep = () => {
                 placeholder: "DD/MM/AAAA",
                 autoComplete: "bday",
                 "aria-required": "true",
-                "aria-describedby": "error-birthdate",
+                ...(errors.birthdayDate && { "aria-describedby": "error-birthdate" }),
               },
               helperText: errors.birthdayDate?.message,
               error: !!errors.birthdayDate,
-              required: true,
               FormHelperTextProps: { id: "error-birthdate" },
             },
           }}
@@ -244,7 +243,7 @@ export const PersonalDataStep = () => {
           helperText={errors.cepResidencial?.message}
           error={!!errors.cepResidencial}
           autoComplete="postal-code"
-          inputProps={{ "aria-required": "true", "aria-describedby": "error-cep" }}
+          inputProps={{ "aria-required": "true", ...(errors.cepResidencial && { "aria-describedby": "error-cep" }) }}
           FormHelperTextProps={{ id: "error-cep" }}
         />
       </div>
@@ -264,7 +263,7 @@ export const PersonalDataStep = () => {
           placeholder="Nome da rua / avenida"
           error={!!errors.enderecoResidencial}
           helperText={errors.enderecoResidencial?.message}
-          inputProps={{ "aria-required": "true", "aria-describedby": "error-endereco" }}
+          inputProps={{ "aria-required": "true", ...(errors.enderecoResidencial && { "aria-describedby": "error-endereco" }) }}
           FormHelperTextProps={{ id: "error-endereco" }}
         />
       </div>
@@ -279,7 +278,7 @@ export const PersonalDataStep = () => {
           placeholder="0000"
           error={!!errors.numeroResidencial}
           helperText={errors.numeroResidencial?.message}
-          inputProps={{ "aria-required": "true", "aria-describedby": "error-numero" }}
+          inputProps={{ "aria-required": "true", ...(errors.numeroResidencial && { "aria-describedby": "error-numero" }) }}
           FormHelperTextProps={{ id: "error-numero" }}
         />
       </div>
@@ -299,7 +298,7 @@ export const PersonalDataStep = () => {
           placeholder="Nome do bairro"
           error={!!errors.bairroResidencial}
           helperText={errors.bairroResidencial?.message}
-          inputProps={{ "aria-required": "true", "aria-describedby": "error-bairro" }}
+          inputProps={{ "aria-required": "true", ...(errors.bairroResidencial && { "aria-describedby": "error-bairro" }) }}
           FormHelperTextProps={{ id: "error-bairro" }}
         />
       </div>
@@ -319,7 +318,7 @@ export const PersonalDataStep = () => {
           placeholder="Nome da cidade"
           error={!!errors.cidadeResidencial}
           helperText={errors.cidadeResidencial?.message}
-          inputProps={{ "aria-required": "true", "aria-describedby": "error-cidade" }}
+          inputProps={{ "aria-required": "true", ...(errors.cidadeResidencial && { "aria-describedby": "error-cidade" }) }}
           FormHelperTextProps={{ id: "error-cidade" }}
         />
       </div>
@@ -339,7 +338,7 @@ export const PersonalDataStep = () => {
           placeholder="Nome do estado"
           error={!!errors.estadoResidencial}
           helperText={errors.estadoResidencial?.message}
-          inputProps={{ "aria-required": "true", "aria-describedby": "error-estado" }}
+          inputProps={{ "aria-required": "true", ...(errors.estadoResidencial && { "aria-describedby": "error-estado" }) }}
           FormHelperTextProps={{ id: "error-estado" }}
         />
       </div>

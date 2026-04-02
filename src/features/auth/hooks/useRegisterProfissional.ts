@@ -12,6 +12,12 @@ export const useRegisterProfissional = () => {
 
   return useMutation({
     mutationFn: async (data: ICreateProfissional) => {
+      if (!pendingToken) {
+        toast.error("Sessão expirada. Por favor, faça o login novamente.");
+        router.push("/auth");
+        throw new Error("pendingToken ausente");
+      }
+
       const response = await api.post("/auth/createProfessional", data, {
         headers: { Authorization: `Bearer ${pendingToken}` },
       });
