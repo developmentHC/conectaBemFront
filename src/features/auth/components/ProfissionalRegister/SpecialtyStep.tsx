@@ -7,7 +7,7 @@ import { SuggestionForm } from "./SuggestionForm";
 import { useProfissionalRegisterStore } from "./useProfissionalRegisterStore";
 
 const specialtiesMock = [
-  "Acunputura",
+  "Acupuntura",
   "Aromaterapia",
   "Arteterapia",
   "Biodança",
@@ -92,11 +92,20 @@ export const SpecialtyStep = () => {
     <form onSubmit={onSubmit} className="flex flex-col gap-8">
       <span>Escolha as especialidades que irá fornecer atendimento *</span>
 
-      <ul className="flex flex-wrap gap-2">
+      <ul role="listbox" aria-multiselectable="true" aria-label="Especialidades" className="flex flex-wrap gap-2">
         {visibleSpecialties.map((specialty) => (
           <li
             key={specialty}
+            role="option"
+            aria-selected={selectedSpecialties.includes(specialty)}
+            tabIndex={0}
             onClick={handleClickSpecialty}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                handleClickSpecialty(e as any);
+              }
+            }}
             className={`cursor-pointer rounded rounded-t-lg rounded-br-lg border border-blue-800 p-2 transition-all hover:bg-blue-600/50 ${
               selectedSpecialties.includes(specialty) ? "bg-blue-600/50" : ""
             }`}

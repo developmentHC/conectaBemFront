@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { signIn } from "next-auth/react";
+import { getSession, signIn } from "next-auth/react";
 import toast from "react-hot-toast";
 import { api } from "@/libs/api";
 import { useUserStore } from "@/stores/userSessionStore";
@@ -8,7 +8,7 @@ import type { ICreateProfissional } from "@/types/professional";
 
 export const useRegisterProfissional = () => {
   const router = useRouter();
-  const { pendingToken, clearPendingToken } = useUserStore();
+  const { pendingToken, clearPendingToken, setUser } = useUserStore();
 
   return useMutation({
     mutationFn: async (data: ICreateProfissional) => {
@@ -34,6 +34,16 @@ export const useRegisterProfissional = () => {
         });
 
         if (result?.ok) {
+          const session = await getSession();
+          if (session?.user) {
+            setUser({
+              id: (session.user as any).id ?? (session.user as any)._id,
+              email: session.user.email ?? "",
+              name: session.user.name ?? undefined,
+              photo: (session.user as any).profilePhoto ?? session.user.image ?? undefined,
+              type: (session as any).userType ?? undefined,
+            });
+          }
           toast.success("Cadastro realizado e sessão iniciada!");
           router.push("/");
         } else {

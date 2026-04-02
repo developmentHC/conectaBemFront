@@ -40,7 +40,7 @@ export const AuthForm = () => {
   return (
     <form className="flex flex-col gap-7" onSubmit={onSubmit}>
       <div className="flex flex-col gap-2">
-        <label>
+        <label htmlFor={emailId}>
           E-mail<span className="text-red-600">*</span>
         </label>
         <TextField

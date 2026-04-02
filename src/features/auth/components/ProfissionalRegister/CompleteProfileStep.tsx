@@ -82,7 +82,7 @@ export const CompleteProfileStep = () => {
 
   return (
     <form className="flex flex-col gap-8">
-      <span>Estamos felizes em ter voce aqui, {name}. Vamos iniciar sua jornada?</span>
+      <span>Estamos felizes em ter você aqui, {name}. Vamos iniciar sua jornada?</span>
 
       <div className="relative flex items-center justify-center">
         <ImageUpload onChange={onChangeImage} value={photo} className="mb-4" />

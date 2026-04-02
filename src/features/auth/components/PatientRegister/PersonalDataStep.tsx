@@ -190,7 +190,6 @@ export const PersonalDataStep = () => {
           placeholder="Nome e Sobrenome"
           id={nameId}
           value={nameInput}
-          required
           autoComplete="name"
           helperText={errors.name?.message}
           error={!!errors.name}
