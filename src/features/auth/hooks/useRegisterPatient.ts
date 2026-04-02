@@ -3,20 +3,24 @@ import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import toast from "react-hot-toast";
 import { api } from "@/libs/api";
+import { useUserStore } from "@/stores/userSessionStore";
 import type { ICreatePatient } from "@/types/patient";
 
 export const useRegisterPatient = () => {
   const router = useRouter();
+  const { pendingToken, clearPendingToken } = useUserStore();
 
   return useMutation({
     mutationFn: async (data: ICreatePatient) => {
-      const response = await api.post("/auth/createPatient", data);
+      const response = await api.post("/auth/createPatient", data, {
+        headers: { Authorization: `Bearer ${pendingToken}` },
+      });
 
       return response.data;
     },
     onSuccess: async (data) => {
+      clearPendingToken();
       try {
-        console.log("data:", data);
         const token = data.token;
 
         if (!token) {

@@ -3,18 +3,23 @@ import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import toast from "react-hot-toast";
 import { api } from "@/libs/api";
+import { useUserStore } from "@/stores/userSessionStore";
 import type { ICreateProfissional } from "@/types/professional";
 
 export const useRegisterProfissional = () => {
   const router = useRouter();
+  const { pendingToken, clearPendingToken } = useUserStore();
 
   return useMutation({
     mutationFn: async (data: ICreateProfissional) => {
-      const response = await api.post("/auth/createProfessional", data);
+      const response = await api.post("/auth/createProfessional", data, {
+        headers: { Authorization: `Bearer ${pendingToken}` },
+      });
 
       return response.data;
     },
     onSuccess: async (data) => {
+      clearPendingToken();
       try {
         const token = data.token;
 
