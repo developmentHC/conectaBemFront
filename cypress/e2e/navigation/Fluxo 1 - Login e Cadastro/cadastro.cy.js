@@ -23,6 +23,12 @@ describe("Fluxo de Cadastro", () => {
   });
 
   context("Cadastro completo de paciente com bypass de OTP", () => {
+    before(function () {
+      if (!Cypress.env("OTP_BYPASS_ENABLED")) {
+        this.skip();
+      }
+    });
+
     it("Realiza cadastro completo usando email @test.conectabem.com e OTP 0000", () => {
       // Usa email único por execução para não colidir com runs anteriores
       const email = `qa-paciente-${Date.now()}@test.conectabem.com`;

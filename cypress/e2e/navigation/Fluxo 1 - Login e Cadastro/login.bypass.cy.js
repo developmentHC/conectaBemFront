@@ -8,6 +8,12 @@ import { enterOTPCode } from "../../utils/mailtm.js";
  * `npm run seed:test-users` na API antes de executar essa suite.
  */
 describe("Login com bypass de OTP — usuários de teste", () => {
+  before(function () {
+    if (!Cypress.env("OTP_BYPASS_ENABLED")) {
+      this.skip();
+    }
+  });
+
   beforeEach(() => {
     cy.visit("/");
     cy.get(".MuiButtonBase-root").first().click();
