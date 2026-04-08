@@ -2,10 +2,9 @@ import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { getSession, signIn } from "next-auth/react";
 import toast from "react-hot-toast";
-import { useUserStore } from "@/stores/userSessionStore";
-import { gtmEvents } from "@/utils/gtm";
-import type { ICreatePatient } from "@/types/patient";
 import { postAuthCreatepatient } from "@/kubb/hooks/usePostAuthCreatepatient";
+import { useUserStore } from "@/stores/userSessionStore";
+import type { ICreatePatient } from "@/types/patient";
 
 export const useRegisterPatient = () => {
   const router = useRouter();
@@ -20,10 +19,7 @@ export const useRegisterPatient = () => {
       }
 
       //  Substituindo api.post manual pelo cliente gerado pelo Kubb
-      return postAuthCreatepatient(
-        data as any,
-        { authorization: `Bearer ${pendingToken}` },
-      );
+      return postAuthCreatepatient(data as any, { authorization: `Bearer ${pendingToken}` });
     },
     onSuccess: async (data) => {
       clearPendingToken();

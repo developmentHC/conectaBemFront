@@ -1,40 +1,39 @@
-
-import axios from 'axios'
-import type { AxiosRequestConfig, AxiosResponse } from 'axios'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
+import type { RequestConfig, ResponseErrorConfig } from "@kubb/plugin-client/clients/axios";
+import type { AxiosRequestConfig, AxiosResponse } from "axios";
+import axios from "axios";
 
 export const kubbClient = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || 'https://conecta-bem-back.vercel.app/',
+  baseURL: process.env.NEXT_PUBLIC_API_URL || "https://conecta-bem-back.vercel.app/",
   withCredentials: true,
   headers: {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   },
-})
+});
 
 // Interceptor para injetar o token em todas as requests
 kubbClient.interceptors.request.use((config) => {
-  if (typeof window !== 'undefined') {
+  if (typeof window !== "undefined") {
     const token = document.cookie
-      .split('; ')
-      .find((row) => row.startsWith('next-auth.session-token='))
-      ?.split('=')[1]
+      .split("; ")
+      .find((row) => row.startsWith("next-auth.session-token="))
+      ?.split("=")[1];
 
     if (token) {
-      config.headers.Authorization = `Bearer ${token}`
+      config.headers.Authorization = `Bearer ${token}`;
     }
   }
-  return config
-})
+  return config;
+});
 
 // Export default no formato que o Kubb espera
-export default async function customFetch<TData, TError = unknown, TVariables = unknown>(
-  config: RequestConfig<TVariables>
+export default async function customFetch<TData, _TError = unknown, TVariables = unknown>(
+  config: RequestConfig<TVariables>,
 ): Promise<AxiosResponse<TData>> {
   return kubbClient.request<TData>({
     ...config,
-  } as AxiosRequestConfig)
+  } as AxiosRequestConfig);
 }
 
 // Tipo Client que o Kubb espera
-export type Client = typeof customFetch
-export type { RequestConfig, ResponseErrorConfig }
+export type Client = typeof customFetch;
+export type { RequestConfig, ResponseErrorConfig };
