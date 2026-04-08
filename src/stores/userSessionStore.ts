@@ -19,12 +19,15 @@ type UserStoreProps = {
   profilePhoto: string | null;
   userType: UserType;
   isAuthenticated: boolean;
+  pendingToken: string | null;
 
   setUser: (userData: UserData) => void;
   setUserType: (userType: UserType) => void;
   setExists: (exists: boolean) => void;
   setIdUser: (id: string) => void;
   setEmail: (email: string) => void;
+  setPendingToken: (token: string) => void;
+  clearPendingToken: () => void;
   clearSession: () => void;
 };
 
@@ -38,6 +41,7 @@ export const useUserStore = create<UserStoreProps>()(
       profilePhoto: null,
       userType: null,
       isAuthenticated: false,
+      pendingToken: null,
       setUser: (userData) => {
         set({
           idUser: userData.id,
@@ -54,6 +58,8 @@ export const useUserStore = create<UserStoreProps>()(
       setEmail: (email) => set({ email }),
       setUserType: (userType) => set({ userType }),
       setIdUser: (id) => set({ idUser: id }),
+      setPendingToken: (token) => set({ pendingToken: token }),
+      clearPendingToken: () => set({ pendingToken: null }),
       clearSession: () => {
         set({
           email: null,
@@ -63,6 +69,7 @@ export const useUserStore = create<UserStoreProps>()(
           profilePhoto: null,
           userType: null,
           isAuthenticated: false,
+          pendingToken: null,
         });
         if (typeof window !== "undefined") {
           sessionStorage.removeItem("user-session");
@@ -80,6 +87,7 @@ export const useUserStore = create<UserStoreProps>()(
         name: state.name,
         userType: state.userType,
         isAuthenticated: state.isAuthenticated,
+        pendingToken: state.pendingToken,
       }),
     },
   ),

@@ -87,13 +87,14 @@ export function extractOTPCode(emailBody) {
 
 /**
  * Digita o código OTP nos campos da tela.
+ * Usa aria-label para selecionar cada dígito — mais robusto que seletores CSS.
  */
 export function enterOTPCode(codigo) {
   const digitos = codigo.split("");
   digitos.forEach((digito, index) => {
-    cy.get(`.gap-3 > .flex-col > .flex > :nth-child(${index + 1})`)
+    cy.get(`input[aria-label="Dígito ${index + 1} de ${digitos.length}"]`)
       .should("be.visible")
       .clear()
-      .type(digito, { delay: 200 });
+      .type(digito, { delay: 100 });
   });
 }

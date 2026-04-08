@@ -1,20 +1,11 @@
-import {
-  createTempAccount,
-  enterOTPCode,
-  extractOTPCode,
-  getEmailContent,
-  getLatestEmail,
-} from "../../utils/mailtm.js";
+import { enterOTPCode } from "../../utils/mailtm.js";
 
 describe("Fluxo de Cadastro", () => {
-  let emailAddress;
-  let token;
-
   beforeEach(() => {
     cy.visit("/");
 
     // Abre o modal de cadastro/login
-    cy.get(".MuiButtonBase-root").click();
+    cy.get(".MuiButtonBase-root").first().click();
   });
 
   context("Validações do campo de e-mail", () => {
@@ -31,42 +22,29 @@ describe("Fluxo de Cadastro", () => {
     });
   });
 
-  context("Cadastro completo com código via e-mail (Mail.tm)", () => {
-    before(() => {
-      createTempAccount().then((res) => {
-        emailAddress = res.emailAddress;
-        token = res.token;
-      });
+  context("Cadastro completo de paciente com bypass de OTP", () => {
+    before(function () {
+      if (!Cypress.env("OTP_BYPASS_ENABLED")) {
+        this.skip();
+      }
     });
 
-    // TODO: Depends on external Mail.tm service which is unreliable in CI.
-    // Re-enable once OTP flow is mockable or Mail.tm is replaced.
-    it.skip("Realiza cadastro com sucesso usando OTP recebido por e-mail", () => {
-      cy.get('input[name="email"]').type(emailAddress);
+    it("Realiza cadastro completo usando email @test.conectabem.com e OTP 0000", () => {
+      // Usa email único por execução para não colidir com runs anteriores
+      const email = `qa-paciente-${Date.now()}@test.conectabem.com`;
+
+      cy.get('input[name="email"]').type(email);
       cy.get(".gap-7 > .MuiButtonBase-root").click();
 
-      cy.wait(5000);
+      // Bypass ativo: sem espera de e-mail externo, OTP fixo 0000
+      enterOTPCode("0000");
 
-      getLatestEmail(token)
-        .then((message) => {
-          return getEmailContent(token, message.id);
-        })
-        .then((emailRes) => {
-          const emailBody = emailRes.body.text || emailRes.body.html || "";
-
-          const codigo = extractOTPCode(emailBody);
-          if (!codigo) {
-            throw new Error("Não foi possível extrair o código OTP");
-          }
-
-          enterOTPCode(codigo);
-        });
-
-      // Continuação do fluxo de cadastro
+      // Seleciona tipo de conta: Paciente
       cy.get(".gap-5 > :nth-child(1)").click();
       cy.get(".css-1bqevrn > a > .MuiButtonBase-root").click();
 
-      cy.get('input[name="name"]').type("Nome Teste");
+      // Dados pessoais
+      cy.get('input[name="name"]').type("QA Paciente Teste");
       cy.get('input[placeholder="DD/MM/AAAA"]').then(($input) => {
         $input.prop("readOnly", false);
         cy.wrap($input).scrollIntoView().clear({ force: true }).type("28121999", { force: true });
@@ -78,13 +56,16 @@ describe("Fluxo de Cadastro", () => {
       cy.wait(5000);
       cy.get("form.flex > .MuiButton-root").click();
 
-      cy.get(":nth-child(1) > .flex-col > .flex-wrap > :nth-child(1) > .p-2").click();
-      cy.get(":nth-child(2) > .flex-col > .flex-wrap > :nth-child(1) > .p-2").click();
+      // Especialidades
+      cy.get(":nth-child(1) > .flex-col > .flex-wrap > :nth-child(1) > button").click();
+      cy.get(":nth-child(2) > .flex-col > .flex-wrap > :nth-child(1) > button").click();
       cy.get(".md\\:max-w-\\[450px\\] > .gap-8 > .MuiButtonBase-root").click();
 
+      // Preferências de atendimento
       cy.get(":nth-child(2) > .p-2").click();
       cy.get(".flex-col-reverse > .MuiButton-contained").click();
 
+      // Termos
       cy.get(".PrivateSwitchBase-input").click();
       cy.get(".gap-6 > .MuiButtonBase-root").click();
 

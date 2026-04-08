@@ -47,7 +47,7 @@ export const CompleteProfileStep = () => {
         city: cidadeResidencial,
         state: estadoResidencial,
       },
-      userAcessibilityPreferences: accessibility,
+      userAccessibilityPreferences: accessibility,
       userServicePreferences: servicePreferences,
       userSpecialties: specialties,
       profilePhoto: profilePhoto,
