@@ -23,7 +23,7 @@ declare module "next-auth" {
 
     userSpecialties?: string[];
     userServicePreferences?: string[];
-    userAcessibilityPreferences?: string[];
+    userAccessibilityPreferences?: string[];
     professionalSpecialties?: string[];
     otherProfessionalSpecialties?: string[];
     professionalServicePreferences?: string[];

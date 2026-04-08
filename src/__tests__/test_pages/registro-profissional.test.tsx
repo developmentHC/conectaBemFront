@@ -31,7 +31,7 @@ describe("Registro Profissional Page", () => {
     expect(screen.getByText("Data de Nascimento")).toBeInTheDocument();
     expect(screen.getByText("CEP Residencial")).toBeInTheDocument();
     expect(screen.getByText("Número")).toBeInTheDocument();
-    expect(screen.getByText("Longradouro")).toBeInTheDocument();
+    expect(screen.getByText("Logradouro")).toBeInTheDocument();
     expect(screen.getByText("Bairro")).toBeInTheDocument();
     expect(screen.getByText("Cidade")).toBeInTheDocument();
     expect(screen.getByText("Estado")).toBeInTheDocument();

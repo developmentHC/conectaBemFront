@@ -92,8 +92,10 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
         className="hidden"
       />
 
-      <div
+      <button
+        type="button"
         onClick={handleClick}
+        aria-label="Editar foto de perfil"
         className="relative flex h-[120px] w-[120px] cursor-pointer flex-col items-center justify-center rounded-full bg-blue-600"
       >
         {preview ? (
@@ -108,10 +110,13 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
           <FaUser className="text-6xl text-[#D7FF7B]" />
         )}
 
-        <div className="absolute mt-16 ml-24 flex h-[35px] w-[35px] cursor-pointer items-center justify-center rounded-full bg-white shadow-lg">
+        <div
+          role="presentation"
+          className="absolute mt-16 ml-24 flex h-[35px] w-[35px] cursor-pointer items-center justify-center rounded-full bg-white shadow-lg"
+        >
           <MdEdit className="text-3xl text-blue-600" />
         </div>
-      </div>
+      </button>
     </div>
   );
 };
