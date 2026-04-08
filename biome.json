@@ -67,6 +67,6 @@
   },
   "files": {
     "ignoreUnknown": true,
-    "includes": ["**", "!public/mockServiceWorker.js"]
+    "includes": ["**", "!public/mockServiceWorker.js", "!src/kubb/**"]
   }
 }
