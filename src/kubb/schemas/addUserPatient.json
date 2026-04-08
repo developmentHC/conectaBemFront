@@ -1,0 +1,168 @@
+{
+  "type": "object",
+  "properties": {
+    "type": { "type": "string", "example": "object" },
+    "required": {
+      "type": "array",
+      "example": [
+        "userId",
+        "name",
+        "birthdayDate",
+        "residentialAddress",
+        "userSpecialties",
+        "userServicePreferences"
+      ],
+      "items": { "type": "string" }
+    },
+    "properties": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "object",
+          "properties": {
+            "type": { "type": "string", "example": "string" },
+            "example": {
+              "type": "string",
+              "example": "689dd16cfc1851d20da42b55"
+            }
+          }
+        },
+        "name": {
+          "type": "object",
+          "properties": {
+            "type": { "type": "string", "example": "string" },
+            "example": { "type": "string", "example": "João Silva" }
+          }
+        },
+        "birthdayDate": {
+          "type": "object",
+          "properties": {
+            "type": { "type": "string", "example": "number" },
+            "example": { "type": "number", "example": 1632824400000 }
+          }
+        },
+        "residentialAddress": {
+          "type": "object",
+          "properties": {
+            "type": { "type": "string", "example": "object" },
+            "required": {
+              "type": "array",
+              "example": ["cep", "address", "neighborhood", "city", "state"],
+              "items": { "type": "string" }
+            },
+            "properties": {
+              "type": "object",
+              "properties": {
+                "cep": {
+                  "type": "object",
+                  "properties": {
+                    "type": { "type": "string", "example": "string" },
+                    "example": { "type": "string", "example": "13295-000" }
+                  }
+                },
+                "address": {
+                  "type": "object",
+                  "properties": {
+                    "type": { "type": "string", "example": "string" },
+                    "example": {
+                      "type": "string",
+                      "example": "Rua das Orquídeas"
+                    }
+                  }
+                },
+                "neighborhood": {
+                  "type": "object",
+                  "properties": {
+                    "type": { "type": "string", "example": "string" },
+                    "example": { "type": "string", "example": "Centro" }
+                  }
+                },
+                "city": {
+                  "type": "object",
+                  "properties": {
+                    "type": { "type": "string", "example": "string" },
+                    "example": { "type": "string", "example": "Itupeva" }
+                  }
+                },
+                "state": {
+                  "type": "object",
+                  "properties": {
+                    "type": { "type": "string", "example": "string" },
+                    "example": { "type": "string", "example": "SP" }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "userSpecialties": {
+          "type": "object",
+          "properties": {
+            "type": { "type": "string", "example": "array" },
+            "items": {
+              "type": "object",
+              "properties": {
+                "type": { "type": "string", "example": "string" }
+              }
+            },
+            "example": {
+              "type": "array",
+              "example": ["Cardiologia", "Clínica Geral"],
+              "items": { "type": "string" }
+            }
+          }
+        },
+        "userServicePreferences": {
+          "type": "object",
+          "properties": {
+            "type": { "type": "string", "example": "array" },
+            "items": {
+              "type": "object",
+              "properties": {
+                "type": { "type": "string", "example": "string" }
+              }
+            },
+            "example": {
+              "type": "array",
+              "example": ["Consulta", "Exame"],
+              "items": { "type": "string" }
+            }
+          }
+        },
+        "userAccessibilityPreferences": {
+          "type": "object",
+          "properties": {
+            "type": { "type": "string", "example": "array" },
+            "items": {
+              "type": "object",
+              "properties": {
+                "type": { "type": "string", "example": "string" }
+              }
+            },
+            "example": {
+              "type": "array",
+              "example": ["Cadeira de rodas", "Deficiência visual"],
+              "items": { "type": "string" }
+            },
+            "description": { "type": "string", "example": "Opcional" }
+          }
+        },
+        "profilePhoto": {
+          "type": "object",
+          "properties": {
+            "type": { "type": "string", "example": "string" },
+            "example": {
+              "type": "string",
+              "example": "https://res.cloudinary.com/.../foto.png"
+            },
+            "description": {
+              "type": "string",
+              "example": "URL da foto enviada anteriormente no upload"
+            }
+          }
+        }
+      }
+    }
+  },
+  "x-readme-ref-name": "AddUserPatient"
+}

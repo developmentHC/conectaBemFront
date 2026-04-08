@@ -2,9 +2,10 @@ import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { getSession, signIn } from "next-auth/react";
 import toast from "react-hot-toast";
-import { api } from "@/libs/api";
 import { useUserStore } from "@/stores/userSessionStore";
+import { gtmEvents } from "@/utils/gtm";
 import type { ICreatePatient } from "@/types/patient";
+import { postAuthCreatepatient } from "@/kubb/hooks/usePostAuthCreatepatient";
 
 export const useRegisterPatient = () => {
   const router = useRouter();
@@ -18,27 +19,24 @@ export const useRegisterPatient = () => {
         throw new Error("pendingToken ausente");
       }
 
-      const response = await api.post("/auth/createPatient", data, {
-        headers: { Authorization: `Bearer ${pendingToken}` },
-      });
-
-      return response.data;
+      //  Substituindo api.post manual pelo cliente gerado pelo Kubb
+      return postAuthCreatepatient(
+        data as any,
+        { authorization: `Bearer ${pendingToken}` },
+      );
     },
     onSuccess: async (data) => {
       clearPendingToken();
       try {
-        const token = data.token;
-
+        const token = (data as any)?.token;
         if (!token) {
           toast.error("Resposta inválida do servidor após o registro.");
           return;
         }
-
         const result = await signIn("credentials", {
           token,
           redirect: false,
         });
-
         if (result?.ok) {
           const session = await getSession();
           if (session?.user) {

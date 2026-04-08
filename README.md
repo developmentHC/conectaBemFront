@@ -29,6 +29,38 @@ Essas são as principais tecnologias que você encontrará no Projeto:
 - **Jest e React Testing Library:** Ferramentas para escrever e rodar testes automatizados para garantir que os componentes funcionem como esperado.
 - **Storybook:** Uma ferramenta para desenvolver e visualizar componentes de UI de forma isolada, facilitando a criação e o teste.
 
+## Geração de Tipos e Hooks com Kubb
+
+O projeto utiliza o [Kubb](https://kubb.dev) para gerar automaticamente tipos TypeScript e hooks do React Query a partir do Swagger do backend.
+
+Os arquivos gerados ficam em `src/kubb/` e **não devem ser editados manualmente**.
+
+### Regenerar após mudanças no backend
+
+Sempre que o Swagger do backend for atualizado, execute:
+
+```bash
+npx kubb generate
+```
+
+Isso irá atualizar os arquivos em:
+
+- `src/kubb/types/` — tipos de request/response de cada endpoint
+- `src/kubb/hooks/` — hooks do React Query prontos para uso
+- `src/kubb/schemas/` — schemas Zod gerados
+
+### Como usar os hooks gerados
+
+Importe diretamente de `src/kubb/hooks`:
+
+```ts
+import { usePostAuthCreatepatient } from '@/kubb/hooks/usePostAuthCreatepatient'
+```
+
+### Cliente HTTP
+
+O cliente base está em `src/libs/kubbClient.ts`. Ele usa axios com interceptor para injetar o token de autenticação automaticamente em todas as requisições.
+
 ## Estrutura de Pastas
 
 A organização do código (dentro da pasta `src`) segue a estrutura:
