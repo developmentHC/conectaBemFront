@@ -1,39 +1,34 @@
-
-import { defineConfig } from '@kubb/core'
-import { pluginOas } from '@kubb/plugin-oas'
-import { pluginTs } from '@kubb/plugin-ts'
-import { pluginReactQuery } from '@kubb/plugin-react-query'
+import { defineConfig } from "@kubb/core";
+import { pluginOas } from "@kubb/plugin-oas";
+import { pluginReactQuery } from "@kubb/plugin-react-query";
+import { pluginTs } from "@kubb/plugin-ts";
 
 export default defineConfig({
   input: {
-    path: 'https://conecta-bem-back.vercel.app/swagger-output.json',
+    path: "https://conecta-bem-back.vercel.app/swagger-output.json",
   },
   output: {
-    path: './src/kubb',
+    path: "./src/kubb",
     clean: true,
-    
   },
   plugins: [
     pluginOas(),
     pluginTs({
       output: {
-        path: 'types',
-        
+        path: "types",
       },
     }),
     pluginReactQuery({
       output: {
-        path: 'hooks',
-       
+        path: "hooks",
       },
-      
-      
+
       client: {
-        importPath: '@/libs/kubbClient',
+        importPath: "@/libs/kubbClient",
       },
       mutation: {
-        methods: ['post', 'put', 'patch', 'delete'],
+        methods: ["post", "put", "patch", "delete"],
       },
     }),
   ],
-})
+});
