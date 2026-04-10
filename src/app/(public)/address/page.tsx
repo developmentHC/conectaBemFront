@@ -5,7 +5,6 @@ import clsx from "clsx";
 import Image from "next/image";
 import { HouseIcon, LocationIcon } from "@/assets/svgs";
 import { useAddresses } from "@/features/addresses/hooks/useAddresses";
-import type { Endereco } from "@/types/address";
 
 export default function Addresses() {
   const { data: addresses } = useAddresses();
@@ -17,10 +16,11 @@ export default function Addresses() {
           <Typography variant="h5" component="h1">
             Endereços
           </Typography>
+
           <Button
             className={clsx({
-              hidden: !addresses?.enderecos?.lista[0],
-              block: addresses?.enderecos?.lista[0],
+              hidden: !addresses?.length,
+              block: addresses?.length,
             })}
             variant="contained"
             size="large"
@@ -29,9 +29,10 @@ export default function Addresses() {
           </Button>
         </div>
       </div>
-      {addresses?.enderecos?.lista[0] ? (
+
+      {addresses?.length ? (
         <div className="space-y-8">
-          {addresses.enderecos.lista.map((address: Endereco) => (
+          {addresses.map((address) => (
             <div
               key={address.id}
               className={clsx(
@@ -44,25 +45,31 @@ export default function Addresses() {
                   Endereço principal
                 </div>
               )}
+
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
                   <Typography variant="h5">{address.tipo}</Typography>
+
                   {address.tipo === "Casa" && (
                     <HouseIcon width={31} height={31} className="fill-secondary-500" />
                   )}
+
                   {address.tipo === "Outros" && (
                     <LocationIcon width={31} height={31} className="fill-secondary-500" />
                   )}
                 </div>
+
                 <div className="space-y-2">
                   <Typography variant="body1">
                     {address.rua} - {address.bairro}, {address.cidade} - {address.estado}
                   </Typography>
-                  <div className="space-y">
+
+                  <div>
                     <div className="flex space-x-2">
                       <Typography className="!font-bold">cep</Typography>
                       <Typography>{address.cep}</Typography>
                     </div>
+
                     <div className="flex space-x-2">
                       <Typography className="!font-bold">complemento</Typography>
                       <Typography>{address.complemento}</Typography>
@@ -70,6 +77,7 @@ export default function Addresses() {
                   </div>
                 </div>
               </div>
+
               <div className="flex gap-4">
                 <Button className="w-full" variant="outlined" color="primary" size="large">
                   Editar
@@ -84,19 +92,24 @@ export default function Addresses() {
       ) : (
         <div className="flex flex-col">
           <div className="mb-24 space-y-8 px-6 text-center lg:mb-8">
-            <Typography variant="h6">Você não possui endereços cadastrados</Typography>
+            <Typography variant="h6">
+              Você não possui endereços cadastrados
+            </Typography>
+
             <Image
               className="mx-auto"
               src="/images/clipboard.png"
-              alt={""}
+              alt=""
               width={194}
               height={190}
             />
+
             <Typography variant="body1" className="text-base">
               Que tal <strong className="font-bold">adicionar</strong> um novo endereço e achar os
               melhores profissionais da sua região?
             </Typography>
           </div>
+
           <div className="absolute bottom-0 left-0 flex w-full justify-center bg-[#E7EBFE] py-3 lg:static lg:bg-transparent">
             <Button
               variant="contained"

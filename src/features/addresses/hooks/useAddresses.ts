@@ -1,16 +1,20 @@
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import { useGetAddress } from "@/kubb";
 
 export const useAddresses = () => {
-  return useQuery({
-    queryKey: ["userAddresses"],
-    queryFn: async () => {
-      const response = await axios.get("/mocks/adresses.json");
+  const query = useGetAddress();
 
-      return response.data;
-    },
-    refetchOnWindowFocus: false,
-    retry: false,
-    staleTime: 1 * 60 * 60 * 1000,
-  });
+  const adaptedData = query.data?.addresses?.map((addr) => ({
+    id: addr._id,
+    bairro: addr.bairro,
+    rua: addr.endereco,
+    estado: addr.estado,
+    cep: addr.cep,
+    complemento: addr.complemento,
+    principal: addr.active,
+  }));
+
+  return {
+    ...query,
+    data: adaptedData,
+  }
 };
