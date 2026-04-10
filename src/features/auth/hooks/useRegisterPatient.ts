@@ -2,7 +2,8 @@ import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { getSession, signIn } from "next-auth/react";
 import toast from "react-hot-toast";
-import { api } from "@/libs/api";
+import { postAuthCreatepatient } from "@/kubb/hooks/usePostAuthCreatepatient";
+import type { PostAuthCreatepatientMutationResponse } from "@/kubb/types/PostAuthCreatepatient";
 import { useUserStore } from "@/stores/userSessionStore";
 import type { ICreatePatient } from "@/types/patient";
 
@@ -18,27 +19,21 @@ export const useRegisterPatient = () => {
         throw new Error("pendingToken ausente");
       }
 
-      const response = await api.post("/auth/createPatient", data, {
-        headers: { Authorization: `Bearer ${pendingToken}` },
-      });
-
-      return response.data;
+      // TODO: remover `as any` quando o swagger gerar schemas corretos (hoje AddUserPatient vem como JSON Schema metadata em vez do payload real)
+      return postAuthCreatepatient(data as any, { authorization: `Bearer ${pendingToken}` });
     },
-    onSuccess: async (data) => {
+    onSuccess: async (data: PostAuthCreatepatientMutationResponse) => {
       clearPendingToken();
       try {
-        const token = data.token;
-
+        const token = "token" in data ? data.token : undefined;
         if (!token) {
           toast.error("Resposta inválida do servidor após o registro.");
           return;
         }
-
         const result = await signIn("credentials", {
           token,
           redirect: false,
         });
-
         if (result?.ok) {
           const session = await getSession();
           if (session?.user) {

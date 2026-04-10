@@ -1,0 +1,263 @@
+{
+  "type": "object",
+  "properties": {
+    "type": { "type": "string", "example": "object" },
+    "required": {
+      "type": "array",
+      "example": [
+        "userId",
+        "name",
+        "birthdayDate",
+        "CNPJCPFProfissional",
+        "residentialAddress",
+        "clinic",
+        "professionalSpecialties",
+        "professionalServicePreferences"
+      ],
+      "items": { "type": "string" }
+    },
+    "properties": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "object",
+          "properties": {
+            "type": { "type": "string", "example": "string" },
+            "example": {
+              "type": "string",
+              "example": "689dd16cfc1851d20da42b55"
+            }
+          }
+        },
+        "name": {
+          "type": "object",
+          "properties": {
+            "type": { "type": "string", "example": "string" },
+            "example": { "type": "string", "example": "João Silva" }
+          }
+        },
+        "birthdayDate": {
+          "type": "object",
+          "properties": {
+            "type": { "type": "string", "example": "number" },
+            "example": { "type": "number", "example": 1632824400000 }
+          }
+        },
+        "CNPJCPFProfissional": {
+          "type": "object",
+          "properties": {
+            "type": { "type": "string", "example": "string" },
+            "example": { "type": "string", "example": "123.456.789-00" }
+          }
+        },
+        "residentialAddress": {
+          "type": "object",
+          "properties": {
+            "type": { "type": "string", "example": "object" },
+            "required": {
+              "type": "array",
+              "example": ["cep", "address", "neighborhood", "city", "state"],
+              "items": { "type": "string" }
+            },
+            "properties": {
+              "type": "object",
+              "properties": {
+                "cep": {
+                  "type": "object",
+                  "properties": {
+                    "type": { "type": "string", "example": "string" },
+                    "example": { "type": "string", "example": "12345-678" }
+                  }
+                },
+                "address": {
+                  "type": "object",
+                  "properties": {
+                    "type": { "type": "string", "example": "string" },
+                    "example": {
+                      "type": "string",
+                      "example": "Avenida Paulista"
+                    }
+                  }
+                },
+                "neighborhood": {
+                  "type": "object",
+                  "properties": {
+                    "type": { "type": "string", "example": "string" },
+                    "example": { "type": "string", "example": "Bela Vista" }
+                  }
+                },
+                "city": {
+                  "type": "object",
+                  "properties": {
+                    "type": { "type": "string", "example": "string" },
+                    "example": { "type": "string", "example": "São Paulo" }
+                  }
+                },
+                "state": {
+                  "type": "object",
+                  "properties": {
+                    "type": { "type": "string", "example": "string" },
+                    "example": { "type": "string", "example": "SP" }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "clinic": {
+          "type": "object",
+          "properties": {
+            "type": { "type": "string", "example": "object" },
+            "required": {
+              "type": "array",
+              "example": [
+                "name",
+                "cep",
+                "address",
+                "neighborhood",
+                "number",
+                "city",
+                "state"
+              ],
+              "items": { "type": "string" }
+            },
+            "properties": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "object",
+                  "properties": {
+                    "type": { "type": "string", "example": "string" },
+                    "example": {
+                      "type": "string",
+                      "example": "Clínica Saúde Total"
+                    }
+                  }
+                },
+                "cep": {
+                  "type": "object",
+                  "properties": {
+                    "type": { "type": "string", "example": "string" },
+                    "example": { "type": "string", "example": "12345-678" }
+                  }
+                },
+                "address": {
+                  "type": "object",
+                  "properties": {
+                    "type": { "type": "string", "example": "string" },
+                    "example": {
+                      "type": "string",
+                      "example": "Avenida Paulista"
+                    }
+                  }
+                },
+                "neighborhood": {
+                  "type": "object",
+                  "properties": {
+                    "type": { "type": "string", "example": "string" },
+                    "example": { "type": "string", "example": "Bela Vista" }
+                  }
+                },
+                "number": {
+                  "type": "object",
+                  "properties": {
+                    "type": { "type": "string", "example": "string" },
+                    "example": { "type": "string", "example": "1000" }
+                  }
+                },
+                "city": {
+                  "type": "object",
+                  "properties": {
+                    "type": { "type": "string", "example": "string" },
+                    "example": { "type": "string", "example": "São Paulo" }
+                  }
+                },
+                "state": {
+                  "type": "object",
+                  "properties": {
+                    "type": { "type": "string", "example": "string" },
+                    "example": { "type": "string", "example": "SP" }
+                  }
+                },
+                "addition": {
+                  "type": "object",
+                  "properties": {
+                    "type": { "type": "string", "example": "string" },
+                    "example": { "type": "string", "example": "Sala 123" }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "professionalSpecialties": {
+          "type": "object",
+          "properties": {
+            "type": { "type": "string", "example": "array" },
+            "items": {
+              "type": "object",
+              "properties": {
+                "type": { "type": "string", "example": "string" }
+              }
+            },
+            "example": {
+              "type": "array",
+              "example": ["Cardiologia", "Clínica Geral"],
+              "items": { "type": "string" }
+            }
+          }
+        },
+        "professionalServicePreferences": {
+          "type": "object",
+          "properties": {
+            "type": { "type": "string", "example": "array" },
+            "items": {
+              "type": "object",
+              "properties": {
+                "type": { "type": "string", "example": "string" }
+              }
+            },
+            "example": {
+              "type": "array",
+              "example": ["Consulta", "Exame"],
+              "items": { "type": "string" }
+            }
+          }
+        },
+        "otherProfessionalSpecialties": {
+          "type": "object",
+          "properties": {
+            "type": { "type": "string", "example": "array" },
+            "items": {
+              "type": "object",
+              "properties": {
+                "type": { "type": "string", "example": "string" }
+              }
+            },
+            "example": {
+              "type": "array",
+              "example": ["Acupuntura"],
+              "items": { "type": "string" }
+            },
+            "description": { "type": "string", "example": "Opcional" }
+          }
+        },
+        "profilePhoto": {
+          "type": "object",
+          "properties": {
+            "type": { "type": "string", "example": "string" },
+            "example": {
+              "type": "string",
+              "example": "https://res.cloudinary.com/.../foto.png"
+            },
+            "description": {
+              "type": "string",
+              "example": "URL da foto enviada anteriormente no upload"
+            }
+          }
+        }
+      }
+    }
+  },
+  "x-readme-ref-name": "AddUserProfessional"
+}

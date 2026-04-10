@@ -1,0 +1,86 @@
+{
+  "type": "object",
+  "properties": {
+    "type": { "type": "string", "example": "object" },
+    "required": {
+      "type": "array",
+      "example": ["professionalId", "dateTime", "address"],
+      "items": { "type": "string" }
+    },
+    "properties": {
+      "type": "object",
+      "properties": {
+        "professionalId": {
+          "type": "object",
+          "properties": {
+            "type": { "type": "string", "example": "string" },
+            "example": {
+              "type": "string",
+              "example": "6876317147871e2d7f74dd90"
+            },
+            "description": {
+              "type": "string",
+              "example": "ID do profissional com quem o paciente deseja agendar"
+            }
+          }
+        },
+        "notes": {
+          "type": "object",
+          "properties": {
+            "type": { "type": "string", "example": "string" },
+            "example": {
+              "type": "string",
+              "example": "Trazer exames anteriores"
+            },
+            "description": {
+              "type": "string",
+              "example": "Observações adicionais para o profissional"
+            }
+          }
+        },
+        "dateTime": {
+          "type": "object",
+          "properties": {
+            "type": { "type": "string", "example": "string" },
+            "format": { "type": "string", "example": "date-time" },
+            "example": { "type": "string", "example": "2025-09-10T10:00:00Z" },
+            "description": {
+              "type": "string",
+              "example": "Data/hora do agendamento no formato ISO 8601"
+            }
+          }
+        },
+        "address": {
+          "type": "object",
+          "properties": {
+            "type": { "type": "string", "example": "object" },
+            "required": {
+              "type": "array",
+              "example": ["clinicId"],
+              "items": { "type": "string" }
+            },
+            "properties": {
+              "type": "object",
+              "properties": {
+                "clinicId": {
+                  "type": "object",
+                  "properties": {
+                    "type": { "type": "string", "example": "string" },
+                    "example": {
+                      "type": "string",
+                      "example": "688d1507f086e02085acf44c"
+                    },
+                    "description": {
+                      "type": "string",
+                      "example": "ID da clínica/endereço onde ocorrerá o atendimento"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

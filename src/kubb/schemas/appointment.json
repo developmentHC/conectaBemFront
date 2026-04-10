@@ -1,0 +1,60 @@
+{
+  "type": "object",
+  "properties": {
+    "type": { "type": "string", "example": "object" },
+    "properties": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "object",
+          "properties": {
+            "type": { "type": "string", "example": "string" },
+            "example": {
+              "type": "string",
+              "example": "64fae32bd00141c1a2eaa321"
+            }
+          }
+        },
+        "patient": {
+          "type": "object",
+          "properties": {
+            "type": { "type": "string", "example": "string" },
+            "example": {
+              "type": "string",
+              "example": "64fae24ad00141c1a2eaa320"
+            }
+          }
+        },
+        "professional": {
+          "type": "object",
+          "properties": {
+            "type": { "type": "string", "example": "string" },
+            "example": {
+              "type": "string",
+              "example": "64fae109d00141c1a2eaa31f"
+            }
+          }
+        },
+        "dateTime": {
+          "type": "object",
+          "properties": {
+            "type": { "type": "string", "example": "string" },
+            "format": { "type": "string", "example": "date-time" },
+            "example": {
+              "type": "string",
+              "example": "2025-08-01T14:00:00.000Z"
+            }
+          }
+        },
+        "status": {
+          "type": "object",
+          "properties": {
+            "type": { "type": "string", "example": "string" },
+            "example": { "type": "string", "example": "confirmed" }
+          }
+        }
+      }
+    }
+  },
+  "x-readme-ref-name": "Appointment"
+}
