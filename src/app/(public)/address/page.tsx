@@ -5,9 +5,29 @@ import clsx from "clsx";
 import Image from "next/image";
 import { HouseIcon, LocationIcon } from "@/assets/svgs";
 import { useAddresses } from "@/features/addresses/hooks/useAddresses";
+import { useQueryClient } from "@tanstack/react-query";
+import { usePutActiveAddress, usePutAddress } from "@/kubb";
+import { Address, AddressPutActiveAddressPayload } from "@/types/address";
 
 export default function Addresses() {
   const { data: addresses } = useAddresses();
+  const queryClient = useQueryClient();
+
+  const { mutate } = usePutActiveAddress({
+    mutation: {
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ["userAddresses"] });
+      },
+    },
+  });
+
+  const handleSetActive = (address: AddressPutActiveAddressPayload) => {
+    mutate({
+      data: {
+        addressId: address.id,
+      } as any,
+    });
+  };
 
   return (
     <main className="mx-auto w-full max-w-[452px] space-y-10 sm:px-0">
@@ -77,6 +97,18 @@ export default function Addresses() {
                   </div>
                 </div>
               </div>
+
+              {!address.principal && (
+                <Button
+                  onClick={() => handleSetActive(address)}
+                  className="w-full"
+                  variant="contained"
+                  color="secondary"
+                  size="small"
+                >
+                  Tornar principal
+                </Button>
+              )}
 
               <div className="flex gap-4">
                 <Button className="w-full" variant="outlined" color="primary" size="large">
