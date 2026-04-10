@@ -48,13 +48,13 @@ export default function Addresses() {
 
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <Typography variant="h5">{address.tipo}</Typography>
+                  <Typography variant="h5">{address.type}</Typography>
 
-                  {address.tipo === "Casa" && (
+                  {address.type === "Casa" && (
                     <HouseIcon width={31} height={31} className="fill-secondary-500" />
                   )}
 
-                  {address.tipo === "Outros" && (
+                  {address.type !== "Casa" && (
                     <LocationIcon width={31} height={31} className="fill-secondary-500" />
                   )}
                 </div>
