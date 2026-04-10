@@ -7,7 +7,7 @@ import { HouseIcon, LocationIcon } from "@/assets/svgs";
 import { useAddresses } from "@/features/addresses/hooks/useAddresses";
 import { useQueryClient } from "@tanstack/react-query";
 import { PutActiveAddressMutationRequest, usePutActiveAddress, usePutAddress } from "@/kubb";
-import { Address, AddressPutActiveAddressPayload } from "@/types/address";
+import { Address } from "@/types/address";
 
 export default function Addresses() {
   const { data: addresses } = useAddresses();
