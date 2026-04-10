@@ -5,7 +5,7 @@ import { pluginTs } from "@kubb/plugin-ts";
 
 export default defineConfig({
   input: {
-    path: "https://conecta-bem-back.vercel.app/swagger-output.json",
+    path: process.env.KUBB_SWAGGER_URL || "https://conecta-bem-back.vercel.app/swagger-output.json",
   },
   output: {
     path: "./src/kubb",

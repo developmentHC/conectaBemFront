@@ -13,9 +13,15 @@ export const kubbClient = axios.create({
 // Interceptor para injetar o token em todas as requests
 kubbClient.interceptors.request.use((config) => {
   if (typeof window !== "undefined") {
+    // Em HTTPS o NextAuth prefixar o cookie com __Secure-
+    const cookieName =
+      window.location.protocol === "https:"
+        ? "__Secure-next-auth.session-token"
+        : "next-auth.session-token";
+
     const token = document.cookie
       .split("; ")
-      .find((row) => row.startsWith("next-auth.session-token="))
+      .find((row) => row.startsWith(`${cookieName}=`))
       ?.split("=")[1];
 
     if (token) {
