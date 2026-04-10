@@ -6,7 +6,7 @@ import Image from "next/image";
 import { HouseIcon, LocationIcon } from "@/assets/svgs";
 import { useAddresses } from "@/features/addresses/hooks/useAddresses";
 import { useQueryClient } from "@tanstack/react-query";
-import { usePutActiveAddress, usePutAddress } from "@/kubb";
+import { PutActiveAddressMutationRequest, usePutActiveAddress, usePutAddress } from "@/kubb";
 import { Address, AddressPutActiveAddressPayload } from "@/types/address";
 
 export default function Addresses() {
@@ -21,11 +21,11 @@ export default function Addresses() {
     },
   });
 
-  const handleSetActive = (address: AddressPutActiveAddressPayload) => {
+  const handleSetActive = (address: Address) => {
     mutate({
       data: {
         addressId: address.id,
-      } as any,
+      } satisfies PutActiveAddressMutationRequest,
     });
   };
 

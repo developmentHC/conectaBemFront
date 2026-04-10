@@ -9,7 +9,3 @@ export type Address = {
   principal: boolean;
   type: string;
 };
-
-export type AddressPutActiveAddressPayload = {
-  id: string;
-};
