@@ -3,4 +3,5 @@ export type professionalFilters = {
   accessibility: string[];
   services: string[];
   payments: string[];
+  distance: string [];
 };

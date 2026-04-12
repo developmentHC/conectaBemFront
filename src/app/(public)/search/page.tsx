@@ -71,6 +71,7 @@ function SearchPage() {
     accessibility: [],
     services: [],
     payments: [],
+    distance: [],
   });
 
   useEffect(() => {
@@ -106,6 +107,7 @@ function SearchPage() {
           accessibility: [],
           services: [],
           payments: [],
+          distance: [],
         }}
       />
     );
