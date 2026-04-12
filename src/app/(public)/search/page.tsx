@@ -125,7 +125,14 @@ function SearchPage() {
           filters={filters}
           onClose={() => setIsFilterOpen(false)}
           onFilterChange={(newFilters) => {
-            setFilters(newFilters);
+            setFilters({
+              specialty: newFilters.specialty ?? [],
+              values: newFilters.values ?? [],
+              accessibility: newFilters.accessibility ?? [],
+              services: newFilters.services ?? [],
+              payments: newFilters.payments ?? [],
+              distance: newFilters.distance ?? [],
+            });
             setIsFilterOpen(false);
           }}
         />
