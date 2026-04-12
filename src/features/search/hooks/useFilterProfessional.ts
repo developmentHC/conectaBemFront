@@ -37,8 +37,7 @@ export const useFilterProfessional = ({ search, page, filters }: Params) => {
 
           filters.services.forEach((s) => params.append("service", s));
           filters.accessibility.forEach((a) => params.append("accessibility", a));
-          filters.values.forEach((v) => params.append("specialty", v));
-
+          filters.specialty?.forEach((sp) => params.append("specialty", sp));
           params.append("page", String(page));
 
           url = `https://conecta-bem-back.vercel.app/search/professionals?${params.toString()}`;

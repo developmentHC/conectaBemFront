@@ -23,9 +23,9 @@ const applyFilters = (
     const normalized = normalizeProfessionalFilter(p);
 
       if (
-      filters.services.length &&
-      !filters.services.some(s =>
-        normalized.specialties.includes(s.toLowerCase())
+        filters.specialty.length &&
+        !filters.specialty.some(s =>
+          normalized.specialties.includes(s.toLowerCase())
       )
     ) {
     return false;
@@ -67,6 +67,7 @@ function SearchPage() {
   const debouncedSearch = useDebounce(search, 500);
 
   const [filters, setFilters] = useState<professionalFilters>({
+    specialty: [],
     values: [],
     accessibility: [],
     services: [],
@@ -103,6 +104,7 @@ function SearchPage() {
         onClose={() => setIsFilterOpen(false)}
         onFilterChange={onFilterChange}
         filters={{
+          specialty: [],
           values: [],
           accessibility: [],
           services: [],
@@ -135,15 +137,15 @@ function SearchPage() {
         <div className="flex gap-2">
           <FilterButton onClick={onFilterChange} />
           <MedicalSpecialization
-              selectedSpecializations={filters.services}
+              selectedSpecializations={filters.specialty}
               onToggleSpecialization={(name) => {
                 setFilters((prev) => {
-                  const alreadySelected = prev.services.includes(name);
+                  const alreadySelected = prev.specialty.includes(name);
                   const updatedServices = alreadySelected
-                    ? prev.services.filter((s) => s !== name) 
-                    : [...prev.services, name];
+                    ? prev.specialty.filter((s) => s !== name) 
+                    : [...prev.specialty, name];
 
-                  return { ...prev, services: updatedServices };
+                  return { ...prev, specialty: updatedServices };
                 });
               }}
             />
