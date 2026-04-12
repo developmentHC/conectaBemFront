@@ -24,15 +24,23 @@ export const useFilterProfessional = ({ search, page, filters }: Params) => {
     queryFn: async () => {
       if(!search) return [];
 
-       const url = `https://conecta-bem-back.vercel.app/search/searchBar/${encodeURIComponent(search)}`;
+      let url = "";
+
+      if (search) {
+        url = `https://conecta-bem-back.vercel.app/search/searchBar/${encodeURIComponent(search)}`;
+      } else {
+        url = `https://conecta-bem-back.vercel.app/search/professionals?page=${page}`;
+      }
+
+      // console.log("🌐 URL FINAL:", url);
 
        const response = await axios.get(url);
 
-       console.log("API RESPONSE", response.data);
+      //  console.log("📦 RESPONSE BRUTA:", response.data);
        
       return response.data.professionals ?? [];
     },
-    enabled: !!search,
+    enabled: true,
     refetchOnWindowFocus: false,
     retry: false,
     staleTime: 10 * 60 * 1000,
