@@ -15,30 +15,32 @@ export const useFilterProfessional = ({ search, page, filters }: Params) => {
     "professional",
     search,
     page,
-    (filters.values ?? []).join(","),
-    (filters.accessibility ?? []).join(","),
-    (filters.services ?? []).join(","),
-    (filters.payments ?? []).join(","),
-    filters.distance,
-  ],
+      (filters.values ?? []).join(","),
+      (filters.accessibility ?? []).join(","),
+      (filters.services ?? []).join(","),
+      (filters.payments ?? []).join(","),
+      filters.distance,
+    ],
     queryFn: async () => {
-      if(!search) return [];
-
       let url = "";
 
-      if (search) {
+      const hasFilters =
+        filters.values.length ||
+        filters.accessibility.length ||
+        filters.services.length ||
+        filters.payments.length;
+
+      if (search && !hasFilters) {
         url = `https://conecta-bem-back.vercel.app/search/searchBar/${encodeURIComponent(search)}`;
       } else {
-        url = `https://conecta-bem-back.vercel.app/search/professionals?page=${page}`;
+        url = `https://conecta-bem-back.vercel.app/search/professionals`;
       }
 
-      // console.log("🌐 URL FINAL:", url);
+      console.log("🌐 URL:", url);
 
-       const response = await axios.get(url);
+      const response = await axios.get(url);
 
-      //  console.log("📦 RESPONSE BRUTA:", response.data);
-       
-      return response.data.professionals ?? [];
+      return response.data.professionals ?? response.data ?? [];
     },
     enabled: true,
     refetchOnWindowFocus: false,
