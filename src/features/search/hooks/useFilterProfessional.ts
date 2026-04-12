@@ -36,8 +36,6 @@ export const useFilterProfessional = ({ search, page, filters }: Params) => {
         url = `https://conecta-bem-back.vercel.app/search/professionals`;
       }
 
-      console.log("🌐 URL:", url);
-
       const response = await axios.get(url);
 
       return response.data.professionals ?? response.data ?? [];
