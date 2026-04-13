@@ -32,6 +32,15 @@ const applyFilters = (
   }
 
   if (
+      filters.services.length &&
+      !filters.services.some(s => 
+        normalized.services?.includes(s.toLowerCase())
+      )
+    ) {
+      return false;
+    }
+
+  if (
     filters.accessibility.length &&
     !filters.accessibility.some(a =>
       normalized.accessibility.includes(a.toLowerCase())
@@ -102,15 +111,11 @@ function SearchPage() {
     return (
       <FilterPanelMobile
         onClose={() => setIsFilterOpen(false)}
-        onFilterChange={onFilterChange}
-        filters={{
-          specialty: [],
-          values: [],
-          accessibility: [],
-          services: [],
-          payments: [],
-          distance: [],
+        onFilterChange={(newFilters) => {
+          setFilters(newFilters);
+          setIsFilterOpen(false);
         }}
+        filters={filters}
       />
     );
   }
@@ -125,6 +130,7 @@ function SearchPage() {
           filters={filters}
           onClose={() => setIsFilterOpen(false)}
           onFilterChange={(newFilters) => {
+            console.log("ANTES DE SETAR:", newFilters.services);
             setFilters({
               specialty: newFilters.specialty ?? [],
               values: newFilters.values ?? [],

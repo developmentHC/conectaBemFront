@@ -2,6 +2,7 @@ import { IProfessional } from "@/types/professional";
 
 export interface NormalizedProfessionalFilter {
   specialties: string[];
+  services: string[];
   accessibility: string[];
   payments: string[];
   priceRange: string | null;
@@ -28,7 +29,8 @@ export function normalizeProfessionalFilter(
 ): NormalizedProfessionalFilter {
   return {
     specialties: normalizeArray(professional.professionalSpecialties || []),
-    accessibility: normalizeArray(professional.professionalServicePreferences || []),
+    accessibility: normalizeArray(professional.otherProfessionalSpecialties || []),
+    services: normalizeArray(professional.professionalServicePreferences || []),
     payments: normalizePayments(professional.acceptedPayments),
     priceRange: professional.priceRange ?? 0,
   };

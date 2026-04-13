@@ -19,12 +19,19 @@ export const FilterDialogDesktop = ({
   ];
 
   const serviceOptions = [
-    "Pré-consulta",
-    "Exame",
-    "Consulta",
-  ];
+  "Pré-consulta",
+  "Exame",
+  "Consulta",
+  "Pet Friendly",
+  "LGBTQIAP+ Friendly"
+];
 
-  const paymentOptions = ["Pet Friendly", "LGBTQIAP+ Friendly", "Pix", "Aceita Wellhub"];
+  const paymentOptions = [
+  "Pix",
+  "Cartão de crédito",
+  "Cartão de débito",
+  "Dinheiro"
+];
 
   const [selectedValues, setSelectedValues] = useState<string[]>(filters.values);
   const [selectedAccessibility, setSelectedAccessibility] = useState<string[]>(filters.accessibility);

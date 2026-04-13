@@ -22,6 +22,11 @@ export const useFilterProfessional = ({ search, page, filters }: Params) => {
       filters.distance,
     ],
     queryFn: async () => {
+      console.log("SERVICES NO HOOK:", filters.services);
+      console.log("ACCESSIBILITY NO HOOK:", filters.accessibility);
+      console.log("VALUES NO HOOK:", filters.values);
+      console.log("PAYMENTS NO HOOK:", filters.payments);
+
       let url = "";
 
       const hasFilters =
@@ -46,8 +51,6 @@ export const useFilterProfessional = ({ search, page, filters }: Params) => {
       console.log("🌐 URL FINAL:", url);
 
       const response = await axios.get(url);
-
-      console.log("📦 RESPONSE:", response.data);
 
       return response.data.professionals ?? response.data ?? [];
     },
