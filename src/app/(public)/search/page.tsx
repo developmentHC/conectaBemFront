@@ -81,7 +81,7 @@ function SearchPage() {
     accessibility: [],
     services: [],
     payments: [],
-    distance: [],
+    distance: 0,
   });
 
   useEffect(() => {
@@ -130,7 +130,6 @@ function SearchPage() {
           filters={filters}
           onClose={() => setIsFilterOpen(false)}
           onFilterChange={(newFilters) => {
-            console.log("ANTES DE SETAR:", newFilters.services);
             setFilters({
               specialty: newFilters.specialty ?? [],
               values: newFilters.values ?? [],

@@ -37,6 +37,8 @@ export const FilterDialogDesktop = ({
   const [selectedAccessibility, setSelectedAccessibility] = useState<string[]>(filters.accessibility);
   const [selectedServices, setSelectedServices] = useState<string[]>(filters.services);
   const [selectedPayment, setSelectedPayment] = useState<string[]>(filters.payments);
+  const [selectedDistance, setSelectedDistance] = useState<number>(filters.distance || 0);
+  const [selectedSpecialty, setSelectedSpecialty] = useState<string[]>(filters.specialty || []);
 
    const toggleSelection = (item: string, set: any, selected: string[]) => {
     if (selected.includes(item)) {
@@ -52,6 +54,8 @@ export const FilterDialogDesktop = ({
       accessibility: selectedAccessibility,
       services: selectedServices,
       payments: selectedPayment,
+      distance: selectedDistance,
+      specialty: selectedSpecialty,
     };
     
     onFilterChange(filters);
@@ -148,8 +152,9 @@ export const FilterDialogDesktop = ({
                 type="range"
                 min={0}
                 max={12}
+                value={selectedDistance}
+                onChange={(e) => setSelectedDistance(Number(e.target.value))}
                 className="w-full bg-blue-600"
-                readOnly
               />
               <div className="flex justify-between text-gray-400 text-sm">
                 <span>0 km</span>
