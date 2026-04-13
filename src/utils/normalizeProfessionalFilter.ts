@@ -20,7 +20,7 @@ const normalizePayments = (payments?: Record<string, boolean>): string[] => {
   if (!payments) return [];
 
   return Object.entries(payments)
-    .filter(([_, value]) => value)
+    .filter(([, value]) => value)
     .map(([key]) => key.toLowerCase());
 };
 

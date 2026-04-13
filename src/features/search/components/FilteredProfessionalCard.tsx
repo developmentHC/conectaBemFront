@@ -33,7 +33,7 @@ export const FilteredProfessionalCard = ({
 
   const paymentsList = acceptedPayments 
     ? Object.entries(acceptedPayments)
-        .filter(([_, value]) => value === true)
+        .filter(([, value]) => value === true)
         .map(([key]) => key)
     : [];
 

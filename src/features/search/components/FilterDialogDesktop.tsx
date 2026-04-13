@@ -1,7 +1,7 @@
 import { IoMdClose } from "react-icons/io";
 import { FilterDialogProps } from "./types";
 import { Dialog, DialogContent, IconButton } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export const FilterDialogDesktop = ({
   open,
