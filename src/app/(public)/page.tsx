@@ -11,9 +11,6 @@ import { FilterButton } from "@/features/search/components/FilterButton";
 import { FilterDialogDesktop } from "@/features/search/components/FilterDialogDesktop";
 import { FilterPanelMobile } from "@/features/search/components/FilterPanelMobile";
 import type { FiltersState } from "@/features/search/components/types";
-
-import { useTheme } from "@mui/material/styles";
-import useMediaQuery from "@mui/material/useMediaQuery";
 import { useIsMobile } from "@/hooks/useIsMobile";
 
 export default function HomePage() {
@@ -40,7 +37,7 @@ export default function HomePage() {
   const handleClearFilters = () => {
     setFilters(defaultFilters);
   };
-  
+
   if (isFilterOpen && isMobile) {
     return <FilterPanelMobile onFilterChange={onFilterChange} />;
   }
