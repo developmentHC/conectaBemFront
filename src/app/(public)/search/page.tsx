@@ -11,8 +11,10 @@ import { FilterPanelMobile } from "@/features/search/components/FilterPanelMobil
 import type { FiltersState } from "@/features/search/components/types";
 import { useFilterProfessional } from "@/features/search/hooks/useFilterProfessional";
 import type { IProfessional } from "@/types/professional";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 function SearchPage() {
+  const isMobile = useIsMobile();
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const defaultFilters: FiltersState = {
     specialties: [],
@@ -37,7 +39,7 @@ function SearchPage() {
     setFilters(defaultFilters);
   };
 
-  if (isFilterOpen && typeof window !== "undefined" && window.innerWidth < 768) {
+  if (isFilterOpen && isMobile) {
     return <FilterPanelMobile onFilterChange={onFilterChange} />;
   }
 
