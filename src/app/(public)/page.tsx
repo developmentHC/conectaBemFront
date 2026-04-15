@@ -11,6 +11,7 @@ import { FilterButton } from "@/features/search/components/FilterButton";
 import { FilterDialogDesktop } from "@/features/search/components/FilterDialogDesktop";
 import { FilterPanelMobile } from "@/features/search/components/FilterPanelMobile";
 import type { FiltersState } from "@/features/search/components/types";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 export default function HomePage() {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -23,6 +24,7 @@ export default function HomePage() {
     distance: 12,
   };
   const [filters, setFilters] = useState<FiltersState>(defaultFilters);
+  const isMobile = useIsMobile();
 
   const onFilterChange = () => {
     setIsFilterOpen((prev) => !prev);
@@ -36,7 +38,7 @@ export default function HomePage() {
     setFilters(defaultFilters);
   };
 
-  if (isFilterOpen && typeof window !== "undefined" && window.innerWidth < 768) {
+  if (isFilterOpen && isMobile) {
     return <FilterPanelMobile onFilterChange={onFilterChange} />;
   }
 
