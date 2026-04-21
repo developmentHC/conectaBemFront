@@ -8,18 +8,21 @@ import { useAddresses } from "@/features/addresses/hooks/useAddresses";
 import { useQueryClient } from "@tanstack/react-query";
 import { PutActiveAddressMutationRequest, usePutActiveAddress, usePutAddress } from "@/kubb";
 import { Address } from "@/types/address";
+import { getAddressQueryKey } from "@/kubb";
 
 export default function Addresses() {
   const { data: addresses } = useAddresses();
   const queryClient = useQueryClient();
 
   const { mutate } = usePutActiveAddress({
-    mutation: {
-      onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: ["userAddresses"] });
-      },
+  mutation: {
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: getAddressQueryKey(),
+      });
     },
-  });
+  },
+});
 
   const handleSetActive = (address: Address) => {
     mutate({
