@@ -87,7 +87,7 @@ export type AddUserPatient = {
         /**
          * @type object | undefined
          */
-        address?: {
+        endereco?: {
           /**
            * @type string | undefined
            */
@@ -100,7 +100,7 @@ export type AddUserPatient = {
         /**
          * @type object | undefined
          */
-        neighborhood?: {
+        bairro?: {
           /**
            * @type string | undefined
            */
@@ -113,7 +113,7 @@ export type AddUserPatient = {
         /**
          * @type object | undefined
          */
-        city?: {
+        numero?: {
           /**
            * @type string | undefined
            */
@@ -126,11 +126,67 @@ export type AddUserPatient = {
         /**
          * @type object | undefined
          */
-        state?: {
+        cidade?: {
           /**
            * @type string | undefined
            */
           type?: string;
+          /**
+           * @type string | undefined
+           */
+          example?: string;
+        };
+        /**
+         * @type object | undefined
+         */
+        estado?: {
+          /**
+           * @type string | undefined
+           */
+          type?: string;
+          /**
+           * @type string | undefined
+           */
+          example?: string;
+        };
+        /**
+         * @type object | undefined
+         */
+        complemento?: {
+          /**
+           * @type string | undefined
+           */
+          type?: string;
+          /**
+           * @type string | undefined
+           */
+          example?: string;
+        };
+        /**
+         * @type object | undefined
+         */
+        name?: {
+          /**
+           * @type string | undefined
+           */
+          type?: string;
+          /**
+           * @type string | undefined
+           */
+          example?: string;
+        };
+        /**
+         * @type object | undefined
+         */
+        type?: {
+          /**
+           * @type string | undefined
+           */
+          type?: string;
+          /**
+           * @type array | undefined
+           */
+          enum?: string[];
           /**
            * @type string | undefined
            */
@@ -185,7 +241,7 @@ export type AddUserPatient = {
     /**
      * @type object | undefined
      */
-    userAccessibilityPreferences?: {
+    accessibility?: {
       /**
        * @type string | undefined
        */

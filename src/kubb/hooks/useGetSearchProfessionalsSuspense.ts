@@ -31,7 +31,7 @@ export type GetSearchProfessionalsSuspenseQueryKey = ReturnType<
 >;
 
 /**
- * @description Retorna profissionais com filtros opcionais de especialidade, acessibilidade e tipo de serviço. Os filtros podem ser combinados (AND).
+ * @description Retorna até 10 profissionais com filtros opcionais de especialidade, acessibilidade e tipo de serviço. Os filtros podem ser combinados (AND).
  * @summary Lista profissionais com filtros combinados
  * {@link /search/professionals}
  */
@@ -71,7 +71,7 @@ export function getSearchProfessionalsSuspenseQueryOptions(
 }
 
 /**
- * @description Retorna profissionais com filtros opcionais de especialidade, acessibilidade e tipo de serviço. Os filtros podem ser combinados (AND).
+ * @description Retorna até 10 profissionais com filtros opcionais de especialidade, acessibilidade e tipo de serviço. Os filtros podem ser combinados (AND).
  * @summary Lista profissionais com filtros combinados
  * {@link /search/professionals}
  */

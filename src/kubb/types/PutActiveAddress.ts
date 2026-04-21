@@ -3,6 +3,13 @@
  * Do not edit manually.
  */
 
+export type PutActiveAddressHeaderParams = {
+  /**
+   * @type string | undefined
+   */
+  authorization?: string;
+};
+
 /**
  * @description Endereço principal atualizado com sucesso
  */
@@ -24,7 +31,17 @@ export type PutActiveAddress304 = {
 };
 
 /**
- * @description Usuário ou endereço não encontrado
+ * @description Não autorizado
+ */
+export type PutActiveAddress401 = any;
+
+/**
+ * @description Acesso Negado
+ */
+export type PutActiveAddress403 = any;
+
+/**
+ * @description Usuário não encontrado
  */
 export type PutActiveAddress404 = {
   /**
@@ -58,35 +75,10 @@ export type PutActiveAddress500 = {
  */
 export type PutActiveAddressMutationRequest = {
   /**
-   * @type string | undefined
+   * @description ID do endereço a ser definido como principal
+   * @type string
    */
-  type?: string;
-  /**
-   * @type array | undefined
-   */
-  required?: string[];
-  /**
-   * @type object | undefined
-   */
-  properties?: {
-    /**
-     * @type object | undefined
-     */
-    addressId?: {
-      /**
-       * @type string | undefined
-       */
-      type?: string;
-      /**
-       * @type string | undefined
-       */
-      example?: string;
-      /**
-       * @type string | undefined
-       */
-      description?: string;
-    };
-  };
+  addressId: string;
 };
 
 export type PutActiveAddressMutationResponse = PutActiveAddress200;
@@ -94,5 +86,11 @@ export type PutActiveAddressMutationResponse = PutActiveAddress200;
 export type PutActiveAddressMutation = {
   Response: PutActiveAddress200;
   Request: PutActiveAddressMutationRequest;
-  Errors: PutActiveAddress404 | PutActiveAddress422 | PutActiveAddress500;
+  HeaderParams: PutActiveAddressHeaderParams;
+  Errors:
+    | PutActiveAddress401
+    | PutActiveAddress403
+    | PutActiveAddress404
+    | PutActiveAddress422
+    | PutActiveAddress500;
 };

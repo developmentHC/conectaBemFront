@@ -11,8 +11,8 @@ export const useAddresses = () => {
     cep: addr.cep,
     complemento: addr.complemento,
     principal: addr.active,
-    type: "Casa", // Default for handle with the designer's front-end. This field does'nt return of API
-    cidade: "", // Value needs be return with API. While doesn't exists this field returned of API. This field was putted here to doesn't have problem in TypeScript
+    type: addr.type,
+    cidade: addr.cidade,
   }));
 
   return {

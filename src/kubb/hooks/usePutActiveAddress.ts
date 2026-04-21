@@ -17,6 +17,9 @@ import type {
 import type {
   PutActiveAddressMutationRequest,
   PutActiveAddressMutationResponse,
+  PutActiveAddressHeaderParams,
+  PutActiveAddress401,
+  PutActiveAddress403,
   PutActiveAddress404,
   PutActiveAddress422,
   PutActiveAddress500,
@@ -37,6 +40,7 @@ export type PutActiveAddressMutationKey = ReturnType<
  */
 export async function putActiveAddress(
   data: PutActiveAddressMutationRequest,
+  headers?: PutActiveAddressHeaderParams,
   config: Partial<RequestConfig<PutActiveAddressMutationRequest>> & {
     client?: Client;
   } = {},
@@ -48,7 +52,11 @@ export async function putActiveAddress(
   const res = await request<
     PutActiveAddressMutationResponse,
     ResponseErrorConfig<
-      PutActiveAddress404 | PutActiveAddress422 | PutActiveAddress500
+      | PutActiveAddress401
+      | PutActiveAddress403
+      | PutActiveAddress404
+      | PutActiveAddress422
+      | PutActiveAddress500
     >,
     PutActiveAddressMutationRequest
   >({
@@ -56,6 +64,7 @@ export async function putActiveAddress(
     url: `/active-address`,
     data: requestData,
     ...requestConfig,
+    headers: { ...headers, ...requestConfig.headers },
   });
   return res.data;
 }
@@ -69,14 +78,21 @@ export function putActiveAddressMutationOptions<TContext = unknown>(
   return mutationOptions<
     PutActiveAddressMutationResponse,
     ResponseErrorConfig<
-      PutActiveAddress404 | PutActiveAddress422 | PutActiveAddress500
+      | PutActiveAddress401
+      | PutActiveAddress403
+      | PutActiveAddress404
+      | PutActiveAddress422
+      | PutActiveAddress500
     >,
-    { data: PutActiveAddressMutationRequest },
+    {
+      data: PutActiveAddressMutationRequest;
+      headers?: PutActiveAddressHeaderParams;
+    },
     TContext
   >({
     mutationKey,
-    mutationFn: async ({ data }) => {
-      return putActiveAddress(data, config);
+    mutationFn: async ({ data, headers }) => {
+      return putActiveAddress(data, headers, config);
     },
   });
 }
@@ -91,9 +107,16 @@ export function usePutActiveAddress<TContext>(
     mutation?: UseMutationOptions<
       PutActiveAddressMutationResponse,
       ResponseErrorConfig<
-        PutActiveAddress404 | PutActiveAddress422 | PutActiveAddress500
+        | PutActiveAddress401
+        | PutActiveAddress403
+        | PutActiveAddress404
+        | PutActiveAddress422
+        | PutActiveAddress500
       >,
-      { data: PutActiveAddressMutationRequest },
+      {
+        data: PutActiveAddressMutationRequest;
+        headers?: PutActiveAddressHeaderParams;
+      },
       TContext
     > & { client?: QueryClient };
     client?: Partial<RequestConfig<PutActiveAddressMutationRequest>> & {
@@ -111,18 +134,32 @@ export function usePutActiveAddress<TContext>(
   ) as UseMutationOptions<
     PutActiveAddressMutationResponse,
     ResponseErrorConfig<
-      PutActiveAddress404 | PutActiveAddress422 | PutActiveAddress500
+      | PutActiveAddress401
+      | PutActiveAddress403
+      | PutActiveAddress404
+      | PutActiveAddress422
+      | PutActiveAddress500
     >,
-    { data: PutActiveAddressMutationRequest },
+    {
+      data: PutActiveAddressMutationRequest;
+      headers?: PutActiveAddressHeaderParams;
+    },
     TContext
   >;
 
   return useMutation<
     PutActiveAddressMutationResponse,
     ResponseErrorConfig<
-      PutActiveAddress404 | PutActiveAddress422 | PutActiveAddress500
+      | PutActiveAddress401
+      | PutActiveAddress403
+      | PutActiveAddress404
+      | PutActiveAddress422
+      | PutActiveAddress500
     >,
-    { data: PutActiveAddressMutationRequest },
+    {
+      data: PutActiveAddressMutationRequest;
+      headers?: PutActiveAddressHeaderParams;
+    },
     TContext
   >(
     {
@@ -134,9 +171,16 @@ export function usePutActiveAddress<TContext>(
   ) as UseMutationResult<
     PutActiveAddressMutationResponse,
     ResponseErrorConfig<
-      PutActiveAddress404 | PutActiveAddress422 | PutActiveAddress500
+      | PutActiveAddress401
+      | PutActiveAddress403
+      | PutActiveAddress404
+      | PutActiveAddress422
+      | PutActiveAddress500
     >,
-    { data: PutActiveAddressMutationRequest },
+    {
+      data: PutActiveAddressMutationRequest;
+      headers?: PutActiveAddressHeaderParams;
+    },
     TContext
   >;
 }

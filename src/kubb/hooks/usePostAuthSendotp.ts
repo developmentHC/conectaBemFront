@@ -18,6 +18,7 @@ import type {
   PostAuthSendotpMutationRequest,
   PostAuthSendotpMutationResponse,
   PostAuthSendotp422,
+  PostAuthSendotp429,
   PostAuthSendotp500,
 } from "../types/PostAuthSendotp.ts";
 import { mutationOptions, useMutation } from "@tanstack/react-query";
@@ -46,7 +47,9 @@ export async function postAuthSendotp(
 
   const res = await request<
     PostAuthSendotpMutationResponse,
-    ResponseErrorConfig<PostAuthSendotp422 | PostAuthSendotp500>,
+    ResponseErrorConfig<
+      PostAuthSendotp422 | PostAuthSendotp429 | PostAuthSendotp500
+    >,
     PostAuthSendotpMutationRequest
   >({
     method: "POST",
@@ -65,7 +68,9 @@ export function postAuthSendotpMutationOptions<TContext = unknown>(
   const mutationKey = postAuthSendotpMutationKey();
   return mutationOptions<
     PostAuthSendotpMutationResponse,
-    ResponseErrorConfig<PostAuthSendotp422 | PostAuthSendotp500>,
+    ResponseErrorConfig<
+      PostAuthSendotp422 | PostAuthSendotp429 | PostAuthSendotp500
+    >,
     { data: PostAuthSendotpMutationRequest },
     TContext
   >({
@@ -85,7 +90,9 @@ export function usePostAuthSendotp<TContext>(
   options: {
     mutation?: UseMutationOptions<
       PostAuthSendotpMutationResponse,
-      ResponseErrorConfig<PostAuthSendotp422 | PostAuthSendotp500>,
+      ResponseErrorConfig<
+        PostAuthSendotp422 | PostAuthSendotp429 | PostAuthSendotp500
+      >,
       { data: PostAuthSendotpMutationRequest },
       TContext
     > & { client?: QueryClient };
@@ -103,14 +110,18 @@ export function usePostAuthSendotp<TContext>(
     config,
   ) as UseMutationOptions<
     PostAuthSendotpMutationResponse,
-    ResponseErrorConfig<PostAuthSendotp422 | PostAuthSendotp500>,
+    ResponseErrorConfig<
+      PostAuthSendotp422 | PostAuthSendotp429 | PostAuthSendotp500
+    >,
     { data: PostAuthSendotpMutationRequest },
     TContext
   >;
 
   return useMutation<
     PostAuthSendotpMutationResponse,
-    ResponseErrorConfig<PostAuthSendotp422 | PostAuthSendotp500>,
+    ResponseErrorConfig<
+      PostAuthSendotp422 | PostAuthSendotp429 | PostAuthSendotp500
+    >,
     { data: PostAuthSendotpMutationRequest },
     TContext
   >(
@@ -122,7 +133,9 @@ export function usePostAuthSendotp<TContext>(
     queryClient,
   ) as UseMutationResult<
     PostAuthSendotpMutationResponse,
-    ResponseErrorConfig<PostAuthSendotp422 | PostAuthSendotp500>,
+    ResponseErrorConfig<
+      PostAuthSendotp422 | PostAuthSendotp429 | PostAuthSendotp500
+    >,
     { data: PostAuthSendotpMutationRequest },
     TContext
   >;
