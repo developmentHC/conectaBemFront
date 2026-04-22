@@ -193,7 +193,7 @@ export const PersonalDataStep = () => {
     setValue("enderecoResidencial", data.logradouro);
     setValue("bairroResidencial", data.bairro);
     setValue("cidadeResidencial", data.localidade);
-    setValue("estadoResidencial", data.estado);
+    setValue("estadoResidencial", data.uf);
     setValue("numeroResidencial", "");
   }, [data, setValue]);
 
