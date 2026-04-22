@@ -100,7 +100,7 @@ export type AddUserProfessional = {
         /**
          * @type object | undefined
          */
-        address?: {
+        endereco?: {
           /**
            * @type string | undefined
            */
@@ -113,7 +113,7 @@ export type AddUserProfessional = {
         /**
          * @type object | undefined
          */
-        neighborhood?: {
+        bairro?: {
           /**
            * @type string | undefined
            */
@@ -126,7 +126,24 @@ export type AddUserProfessional = {
         /**
          * @type object | undefined
          */
-        city?: {
+        numero?: {
+          /**
+           * @type string | undefined
+           */
+          type?: string;
+          /**
+           * @type string | undefined
+           */
+          example?: string;
+          /**
+           * @type string | undefined
+           */
+          description?: string;
+        };
+        /**
+         * @type object | undefined
+         */
+        cidade?: {
           /**
            * @type string | undefined
            */
@@ -139,11 +156,54 @@ export type AddUserProfessional = {
         /**
          * @type object | undefined
          */
-        state?: {
+        estado?: {
           /**
            * @type string | undefined
            */
           type?: string;
+          /**
+           * @type string | undefined
+           */
+          example?: string;
+        };
+        /**
+         * @type object | undefined
+         */
+        complemento?: {
+          /**
+           * @type string | undefined
+           */
+          type?: string;
+          /**
+           * @type string | undefined
+           */
+          example?: string;
+        };
+        /**
+         * @type object | undefined
+         */
+        name?: {
+          /**
+           * @type string | undefined
+           */
+          type?: string;
+          /**
+           * @type string | undefined
+           */
+          example?: string;
+        };
+        /**
+         * @type object | undefined
+         */
+        type?: {
+          /**
+           * @type string | undefined
+           */
+          type?: string;
+          /**
+           * @type array | undefined
+           */
+          enum?: string[];
           /**
            * @type string | undefined
            */
@@ -321,6 +381,32 @@ export type AddUserProfessional = {
      * @type object | undefined
      */
     otherProfessionalSpecialties?: {
+      /**
+       * @type string | undefined
+       */
+      type?: string;
+      /**
+       * @type object | undefined
+       */
+      items?: {
+        /**
+         * @type string | undefined
+         */
+        type?: string;
+      };
+      /**
+       * @type array | undefined
+       */
+      example?: string[];
+      /**
+       * @type string | undefined
+       */
+      description?: string;
+    };
+    /**
+     * @type object | undefined
+     */
+    accessibility?: {
       /**
        * @type string | undefined
        */

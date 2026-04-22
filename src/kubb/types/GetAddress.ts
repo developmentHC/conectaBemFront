@@ -3,6 +3,13 @@
  * Do not edit manually.
  */
 
+export type GetAddressHeaderParams = {
+  /**
+   * @type string | undefined
+   */
+  authorization?: string;
+};
+
 /**
  * @description Endereços encontrados com sucesso
  */
@@ -30,11 +37,27 @@ export type GetAddress200 = {
     /**
      * @type string | undefined
      */
+    numero?: string;
+    /**
+     * @type string | undefined
+     */
+    cidade?: string;
+    /**
+     * @type string | undefined
+     */
     estado?: string;
     /**
      * @type string | undefined
      */
     complemento?: string;
+    /**
+     * @type string | undefined
+     */
+    name?: string;
+    /**
+     * @type string | undefined
+     */
+    type?: string;
     /**
      * @type boolean | undefined
      */
@@ -51,6 +74,11 @@ export type GetAddress401 = {
    */
   error?: string;
 };
+
+/**
+ * @description Acesso Negado
+ */
+export type GetAddress403 = any;
 
 /**
  * @description Usuário não encontrado
@@ -76,5 +104,6 @@ export type GetAddressQueryResponse = GetAddress200;
 
 export type GetAddressQuery = {
   Response: GetAddress200;
-  Errors: GetAddress401 | GetAddress404 | GetAddress500;
+  HeaderParams: GetAddressHeaderParams;
+  Errors: GetAddress401 | GetAddress403 | GetAddress404 | GetAddress500;
 };

@@ -56,5 +56,6 @@
       }
     }
   },
+  "xml": { "name": "Appointment" },
   "x-readme-ref-name": "Appointment"
 }

@@ -1,16 +1,16 @@
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import { useGetAddress } from "@/kubb";
+import type { Address } from "@/types/address";
+import { toAddressProps } from "../adapters/toAddressProps";
 
 export const useAddresses = () => {
-  return useQuery({
-    queryKey: ["userAddresses"],
-    queryFn: async () => {
-      const response = await axios.get("/mocks/adresses.json");
+  const query = useGetAddress();
 
-      return response.data;
-    },
-    refetchOnWindowFocus: false,
-    retry: false,
-    staleTime: 1 * 60 * 60 * 1000,
-  });
+  const data: Address[] | undefined = query.data?.addresses
+    ?.map(toAddressProps)
+    .filter((addr): addr is Address => addr !== null);
+
+  return {
+    ...query,
+    data,
+  };
 };

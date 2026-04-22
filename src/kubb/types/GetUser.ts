@@ -50,19 +50,23 @@ export type GetUser200 = {
     /**
      * @type string | undefined
      */
-    address?: string;
+    endereco?: string;
     /**
      * @type string | undefined
      */
-    neighborhood?: string;
+    bairro?: string;
     /**
      * @type string | undefined
      */
-    city?: string;
+    cidade?: string;
     /**
      * @type string | undefined
      */
-    state?: string;
+    estado?: string;
+    /**
+     * @type string | undefined
+     */
+    type?: string;
   };
 };
 

@@ -1,14 +1,36 @@
 "use client";
 
 import { Button, Typography } from "@mui/material";
+import { useQueryClient } from "@tanstack/react-query";
 import clsx from "clsx";
 import Image from "next/image";
+import toast from "react-hot-toast";
 import { HouseIcon, LocationIcon } from "@/assets/svgs";
 import { useAddresses } from "@/features/addresses/hooks/useAddresses";
-import type { Endereco } from "@/types/address";
+import { getAddressQueryKey, usePutActiveAddress } from "@/kubb";
+import type { Address } from "@/types/address";
 
 export default function Addresses() {
-  const { data: addresses } = useAddresses();
+  const { data: addresses, isLoading, isError } = useAddresses();
+  const queryClient = useQueryClient();
+
+  const { mutate: setActive, isPending } = usePutActiveAddress({
+    mutation: {
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: getAddressQueryKey() });
+        toast.success("Endereço principal atualizado.");
+      },
+      onError: () => {
+        toast.error("Não foi possível atualizar o endereço principal.");
+      },
+    },
+  });
+
+  const handleSetActive = (address: Address) => {
+    setActive({ data: { addressId: address.id } });
+  };
+
+  const hasAddresses = (addresses?.length ?? 0) > 0;
 
   return (
     <main className="mx-auto w-full max-w-[452px] space-y-10 sm:px-0">
@@ -17,11 +39,9 @@ export default function Addresses() {
           <Typography variant="h5" component="h1">
             Endereços
           </Typography>
+
           <Button
-            className={clsx({
-              hidden: !addresses?.enderecos?.lista[0],
-              block: addresses?.enderecos?.lista[0],
-            })}
+            className={clsx({ hidden: !hasAddresses, block: hasAddresses })}
             variant="contained"
             size="large"
           >
@@ -29,9 +49,18 @@ export default function Addresses() {
           </Button>
         </div>
       </div>
-      {addresses?.enderecos?.lista[0] ? (
+
+      {isLoading ? (
+        <Typography variant="body1" className="text-center">
+          Carregando endereços...
+        </Typography>
+      ) : isError ? (
+        <Typography variant="body1" className="text-center text-error-main">
+          Não foi possível carregar seus endereços. Tente novamente em instantes.
+        </Typography>
+      ) : hasAddresses ? (
         <div className="space-y-8">
-          {addresses.enderecos.lista.map((address: Endereco) => (
+          {addresses?.map((address) => (
             <div
               key={address.id}
               className={clsx(
@@ -44,25 +73,29 @@ export default function Addresses() {
                   Endereço principal
                 </div>
               )}
+
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <Typography variant="h5">{address.tipo}</Typography>
-                  {address.tipo === "Casa" && (
+                  <Typography variant="h5">{address.type}</Typography>
+
+                  {address.type === "Casa" ? (
                     <HouseIcon width={31} height={31} className="fill-secondary-500" />
-                  )}
-                  {address.tipo === "Outros" && (
+                  ) : (
                     <LocationIcon width={31} height={31} className="fill-secondary-500" />
                   )}
                 </div>
+
                 <div className="space-y-2">
                   <Typography variant="body1">
                     {address.rua} - {address.bairro}, {address.cidade} - {address.estado}
                   </Typography>
-                  <div className="space-y">
+
+                  <div>
                     <div className="flex space-x-2">
                       <Typography className="!font-bold">cep</Typography>
                       <Typography>{address.cep}</Typography>
                     </div>
+
                     <div className="flex space-x-2">
                       <Typography className="!font-bold">complemento</Typography>
                       <Typography>{address.complemento}</Typography>
@@ -70,6 +103,20 @@ export default function Addresses() {
                   </div>
                 </div>
               </div>
+
+              {!address.principal && (
+                <Button
+                  onClick={() => handleSetActive(address)}
+                  disabled={isPending}
+                  className="w-full"
+                  variant="contained"
+                  color="secondary"
+                  size="small"
+                >
+                  Tornar principal
+                </Button>
+              )}
+
               <div className="flex gap-4">
                 <Button className="w-full" variant="outlined" color="primary" size="large">
                   Editar
@@ -85,18 +132,21 @@ export default function Addresses() {
         <div className="flex flex-col">
           <div className="mb-24 space-y-8 px-6 text-center lg:mb-8">
             <Typography variant="h6">Você não possui endereços cadastrados</Typography>
+
             <Image
               className="mx-auto"
               src="/images/clipboard.png"
-              alt={""}
+              alt=""
               width={194}
               height={190}
             />
+
             <Typography variant="body1" className="text-base">
               Que tal <strong className="font-bold">adicionar</strong> um novo endereço e achar os
               melhores profissionais da sua região?
             </Typography>
           </div>
+
           <div className="absolute bottom-0 left-0 flex w-full justify-center bg-[#E7EBFE] py-3 lg:static lg:bg-transparent">
             <Button
               variant="contained"

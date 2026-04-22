@@ -1,19 +1,13 @@
 export type { AddUserPatient } from "./AddUserPatient.ts";
 export type { AddUserProfessional } from "./AddUserProfessional.ts";
 export type { Appointment } from "./Appointment.ts";
-export type { Body } from "./Body.ts";
-export type {
-  DeleteCleanup200,
-  DeleteCleanup403,
-  DeleteCleanup500,
-  DeleteCleanupMutation,
-  DeleteCleanupMutationResponse,
-} from "./DeleteCleanup.ts";
 export type {
   GetAddress200,
   GetAddress401,
+  GetAddress403,
   GetAddress404,
   GetAddress500,
+  GetAddressHeaderParams,
   GetAddressQuery,
   GetAddressQueryResponse,
 } from "./GetAddress.ts";
@@ -37,7 +31,6 @@ export type {
   GetAppointmentsMeHeaderParams,
   GetAppointmentsMeQuery,
   GetAppointmentsMeQueryParams,
-  GetAppointmentsMeQueryParamsSortEnumKey,
   GetAppointmentsMeQueryResponse,
 } from "./GetAppointmentsMe.ts";
 export type {
@@ -99,6 +92,12 @@ export type {
   GetSearchSearchbarTermsQueryResponse,
 } from "./GetSearchSearchbarTerms.ts";
 export type {
+  GetSpecialties200,
+  GetSpecialties500,
+  GetSpecialtiesQuery,
+  GetSpecialtiesQueryResponse,
+} from "./GetSpecialties.ts";
+export type {
   GetTeste200,
   GetTesteQuery,
   GetTesteQueryResponse,
@@ -157,6 +156,7 @@ export type {
   PostAuthCheckotp200,
   PostAuthCheckotp401,
   PostAuthCheckotp422,
+  PostAuthCheckotp429,
   PostAuthCheckotp500,
   PostAuthCheckotpMutation,
   PostAuthCheckotpMutationRequest,
@@ -192,6 +192,7 @@ export type {
   PostAuthSendotp200,
   PostAuthSendotp201,
   PostAuthSendotp422,
+  PostAuthSendotp429,
   PostAuthSendotp500,
   PostAuthSendotpMutation,
   PostAuthSendotpMutationRequest,
@@ -203,7 +204,6 @@ export type {
   PostAuthUploadphoto422,
   PostAuthUploadphoto500,
   PostAuthUploadphotoMutation,
-  PostAuthUploadphotoMutationRequest,
   PostAuthUploadphotoMutationResponse,
 } from "./PostAuthUploadphoto.ts";
 export type {
@@ -228,9 +228,12 @@ export type {
 export type {
   PutActiveAddress200,
   PutActiveAddress304,
+  PutActiveAddress401,
+  PutActiveAddress403,
   PutActiveAddress404,
   PutActiveAddress422,
   PutActiveAddress500,
+  PutActiveAddressHeaderParams,
   PutActiveAddressMutation,
   PutActiveAddressMutationRequest,
   PutActiveAddressMutationResponse,
@@ -238,11 +241,15 @@ export type {
 export type {
   PutAddress200,
   PutAddress304,
+  PutAddress401,
+  PutAddress403,
   PutAddress422,
   PutAddress500,
+  PutAddressHeaderParams,
   PutAddressMutation,
   PutAddressMutationRequest,
+  PutAddressMutationRequestTypeEnumKey,
   PutAddressMutationResponse,
 } from "./PutAddress.ts";
 export type { WebhookMessageCreated } from "./WebhookMessageCreated.ts";
-export { getAppointmentsMeQueryParamsSortEnum } from "./GetAppointmentsMe.ts";
+export { putAddressMutationRequestTypeEnum } from "./PutAddress.ts";

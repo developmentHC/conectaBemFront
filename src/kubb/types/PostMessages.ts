@@ -69,78 +69,20 @@ export type PostMessages500 = {
  */
 export type PostMessagesMutationRequest = {
   /**
+   * @description Identificador único da conversa. Opcional — se não enviado, será criado automaticamente.
    * @type string | undefined
    */
-  type?: string;
+  conversation?: string;
   /**
+   * @description Conteúdo da mensagem enviada
+   * @type string
+   */
+  content: string;
+  /**
+   * @description Lista de participantes da conversa. Obrigatório se conversation não for informado.
    * @type array | undefined
    */
-  required?: string[];
-  /**
-   * @type object | undefined
-   */
-  properties?: {
-    /**
-     * @type object | undefined
-     */
-    conversation?: {
-      /**
-       * @type string | undefined
-       */
-      type?: string;
-      /**
-       * @type string | undefined
-       */
-      example?: string;
-      /**
-       * @type string | undefined
-       */
-      description?: string;
-    };
-    /**
-     * @type object | undefined
-     */
-    content?: {
-      /**
-       * @type string | undefined
-       */
-      type?: string;
-      /**
-       * @type string | undefined
-       */
-      example?: string;
-      /**
-       * @type string | undefined
-       */
-      description?: string;
-    };
-    /**
-     * @type object | undefined
-     */
-    participants?: {
-      /**
-       * @type string | undefined
-       */
-      type?: string;
-      /**
-       * @type object | undefined
-       */
-      items?: {
-        /**
-         * @type string | undefined
-         */
-        type?: string;
-      };
-      /**
-       * @type array | undefined
-       */
-      example?: string[];
-      /**
-       * @type string | undefined
-       */
-      description?: string;
-    };
-  };
+  participants?: string[];
 };
 
 export type PostMessagesMutationResponse = PostMessages201;

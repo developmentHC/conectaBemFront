@@ -17,7 +17,9 @@ import type {
 } from "@tanstack/react-query";
 import type {
   GetAddressQueryResponse,
+  GetAddressHeaderParams,
   GetAddress401,
+  GetAddress403,
   GetAddress404,
   GetAddress500,
 } from "../types/GetAddress.ts";
@@ -35,31 +37,45 @@ export type GetAddressSuspenseQueryKey = ReturnType<
  * {@link /address}
  */
 export async function getAddressSuspense(
+  headers?: GetAddressHeaderParams,
   config: Partial<RequestConfig> & { client?: Client } = {},
 ) {
   const { client: request = fetch, ...requestConfig } = config;
 
   const res = await request<
     GetAddressQueryResponse,
-    ResponseErrorConfig<GetAddress401 | GetAddress404 | GetAddress500>,
+    ResponseErrorConfig<
+      GetAddress401 | GetAddress403 | GetAddress404 | GetAddress500
+    >,
     unknown
-  >({ method: "GET", url: `/address`, ...requestConfig });
+  >({
+    method: "GET",
+    url: `/address`,
+    ...requestConfig,
+    headers: { ...headers, ...requestConfig.headers },
+  });
   return res.data;
 }
 
 export function getAddressSuspenseQueryOptions(
+  headers?: GetAddressHeaderParams,
   config: Partial<RequestConfig> & { client?: Client } = {},
 ) {
   const queryKey = getAddressSuspenseQueryKey();
   return queryOptions<
     GetAddressQueryResponse,
-    ResponseErrorConfig<GetAddress401 | GetAddress404 | GetAddress500>,
+    ResponseErrorConfig<
+      GetAddress401 | GetAddress403 | GetAddress404 | GetAddress500
+    >,
     GetAddressQueryResponse,
     typeof queryKey
   >({
     queryKey,
     queryFn: async ({ signal }) => {
-      return getAddressSuspense({ ...config, signal: config.signal ?? signal });
+      return getAddressSuspense(headers, {
+        ...config,
+        signal: config.signal ?? signal,
+      });
     },
   });
 }
@@ -73,11 +89,14 @@ export function useGetAddressSuspense<
   TData = GetAddressQueryResponse,
   TQueryKey extends QueryKey = GetAddressSuspenseQueryKey,
 >(
+  headers?: GetAddressHeaderParams,
   options: {
     query?: Partial<
       UseSuspenseQueryOptions<
         GetAddressQueryResponse,
-        ResponseErrorConfig<GetAddress401 | GetAddress404 | GetAddress500>,
+        ResponseErrorConfig<
+          GetAddress401 | GetAddress403 | GetAddress404 | GetAddress500
+        >,
         TData,
         TQueryKey
       >
@@ -91,14 +110,16 @@ export function useGetAddressSuspense<
 
   const query = useSuspenseQuery(
     {
-      ...getAddressSuspenseQueryOptions(config),
+      ...getAddressSuspenseQueryOptions(headers, config),
       ...resolvedOptions,
       queryKey,
     } as unknown as UseSuspenseQueryOptions,
     queryClient,
   ) as UseSuspenseQueryResult<
     TData,
-    ResponseErrorConfig<GetAddress401 | GetAddress404 | GetAddress500>
+    ResponseErrorConfig<
+      GetAddress401 | GetAddress403 | GetAddress404 | GetAddress500
+    >
   > & { queryKey: TQueryKey };
 
   query.queryKey = queryKey as TQueryKey;

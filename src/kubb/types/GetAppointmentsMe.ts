@@ -3,14 +3,6 @@
  * Do not edit manually.
  */
 
-export const getAppointmentsMeQueryParamsSortEnum = {
-  asc: "asc",
-  desc: "desc",
-} as const;
-
-export type GetAppointmentsMeQueryParamsSortEnumKey =
-  (typeof getAppointmentsMeQueryParamsSortEnum)[keyof typeof getAppointmentsMeQueryParamsSortEnum];
-
 export type GetAppointmentsMeQueryParams = {
   /**
    * @description Filtra os agendamentos por status (pending, confirmed, completed, canceled ou all)
@@ -19,12 +11,12 @@ export type GetAppointmentsMeQueryParams = {
   status?: string;
   /**
    * @description Data inicial do filtro (ISO 8601)
-   * @type string | undefined, date-time
+   * @type string | undefined
    */
   from?: string;
   /**
    * @description Data final do filtro (ISO 8601)
-   * @type string | undefined, date-time
+   * @type string | undefined
    */
   to?: string;
   /**
@@ -41,7 +33,7 @@ export type GetAppointmentsMeQueryParams = {
    * @description Ordenação por data do agendamento
    * @type string | undefined
    */
-  sort?: GetAppointmentsMeQueryParamsSortEnumKey;
+  sort?: string;
   /**
    * @type string | undefined
    */

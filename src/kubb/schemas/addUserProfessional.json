@@ -56,7 +56,14 @@
             "type": { "type": "string", "example": "object" },
             "required": {
               "type": "array",
-              "example": ["cep", "address", "neighborhood", "city", "state"],
+              "example": [
+                "cep",
+                "endereco",
+                "bairro",
+                "numero",
+                "cidade",
+                "estado"
+              ],
               "items": { "type": "string" }
             },
             "properties": {
@@ -69,7 +76,7 @@
                     "example": { "type": "string", "example": "12345-678" }
                   }
                 },
-                "address": {
+                "endereco": {
                   "type": "object",
                   "properties": {
                     "type": { "type": "string", "example": "string" },
@@ -79,25 +86,59 @@
                     }
                   }
                 },
-                "neighborhood": {
+                "bairro": {
                   "type": "object",
                   "properties": {
                     "type": { "type": "string", "example": "string" },
                     "example": { "type": "string", "example": "Bela Vista" }
                   }
                 },
-                "city": {
+                "numero": {
+                  "type": "object",
+                  "properties": {
+                    "type": { "type": "string", "example": "string" },
+                    "example": { "type": "string", "example": "1000" },
+                    "description": { "type": "string", "example": "Opcional" }
+                  }
+                },
+                "cidade": {
                   "type": "object",
                   "properties": {
                     "type": { "type": "string", "example": "string" },
                     "example": { "type": "string", "example": "São Paulo" }
                   }
                 },
-                "state": {
+                "estado": {
                   "type": "object",
                   "properties": {
                     "type": { "type": "string", "example": "string" },
                     "example": { "type": "string", "example": "SP" }
+                  }
+                },
+                "complemento": {
+                  "type": "object",
+                  "properties": {
+                    "type": { "type": "string", "example": "string" },
+                    "example": { "type": "string", "example": "Sala 42" }
+                  }
+                },
+                "name": {
+                  "type": "object",
+                  "properties": {
+                    "type": { "type": "string", "example": "string" },
+                    "example": { "type": "string", "example": "Minha casa" }
+                  }
+                },
+                "type": {
+                  "type": "object",
+                  "properties": {
+                    "type": { "type": "string", "example": "string" },
+                    "enum": {
+                      "type": "array",
+                      "example": ["Casa", "Trabalho", "Outros"],
+                      "items": { "type": "string" }
+                    },
+                    "example": { "type": "string", "example": "Casa" }
                   }
                 }
               }
@@ -242,6 +283,27 @@
             "description": { "type": "string", "example": "Opcional" }
           }
         },
+        "accessibility": {
+          "type": "object",
+          "properties": {
+            "type": { "type": "string", "example": "array" },
+            "items": {
+              "type": "object",
+              "properties": {
+                "type": { "type": "string", "example": "string" }
+              }
+            },
+            "example": {
+              "type": "array",
+              "example": ["Rampa de acesso", "Banheiro adaptado"],
+              "items": { "type": "string" }
+            },
+            "description": {
+              "type": "string",
+              "example": "Preferências de acessibilidade do profissional (opcional)"
+            }
+          }
+        },
         "profilePhoto": {
           "type": "object",
           "properties": {
@@ -259,5 +321,6 @@
       }
     }
   },
+  "xml": { "name": "AddUserProfessional" },
   "x-readme-ref-name": "AddUserProfessional"
 }

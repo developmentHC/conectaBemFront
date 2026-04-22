@@ -15,6 +15,11 @@ export type GetSearchProfessionalsQueryParams = {
    */
   service?: string;
   /**
+   * @description Filtro de acessibilidade oferecida pelo profissional
+   * @type string | undefined
+   */
+  accessibility?: string;
+  /**
    * @description Número da página
    * @type integer | undefined
    */
