@@ -10,8 +10,8 @@ import { FilteredProfessionalCard } from "@/features/search/components/FilteredP
 import { FilterPanelMobile } from "@/features/search/components/FilterPanelMobile";
 import type { FiltersState } from "@/features/search/components/types";
 import { useFilterProfessional } from "@/features/search/hooks/useFilterProfessional";
-import type { IProfessional } from "@/types/professional";
 import { useIsMobile } from "@/hooks/useIsMobile";
+import type { IProfessional } from "@/types/professional";
 
 function SearchPage() {
   const isMobile = useIsMobile();
