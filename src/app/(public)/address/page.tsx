@@ -1,36 +1,36 @@
 "use client";
 
 import { Button, Typography } from "@mui/material";
+import { useQueryClient } from "@tanstack/react-query";
 import clsx from "clsx";
 import Image from "next/image";
+import toast from "react-hot-toast";
 import { HouseIcon, LocationIcon } from "@/assets/svgs";
 import { useAddresses } from "@/features/addresses/hooks/useAddresses";
-import { useQueryClient } from "@tanstack/react-query";
-import { PutActiveAddressMutationRequest, usePutActiveAddress, usePutAddress } from "@/kubb";
-import { Address } from "@/types/address";
-import { getAddressQueryKey } from "@/kubb";
+import { getAddressQueryKey, usePutActiveAddress } from "@/kubb";
+import type { Address } from "@/types/address";
 
 export default function Addresses() {
-  const { data: addresses } = useAddresses();
+  const { data: addresses, isLoading, isError } = useAddresses();
   const queryClient = useQueryClient();
 
-  const { mutate } = usePutActiveAddress({
-  mutation: {
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: getAddressQueryKey(),
-      });
+  const { mutate: setActive, isPending } = usePutActiveAddress({
+    mutation: {
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: getAddressQueryKey() });
+        toast.success("Endereço principal atualizado.");
+      },
+      onError: () => {
+        toast.error("Não foi possível atualizar o endereço principal.");
+      },
     },
-  },
-});
+  });
 
   const handleSetActive = (address: Address) => {
-    mutate({
-      data: {
-        addressId: address.id,
-      } satisfies PutActiveAddressMutationRequest,
-    });
+    setActive({ data: { addressId: address.id } });
   };
+
+  const hasAddresses = (addresses?.length ?? 0) > 0;
 
   return (
     <main className="mx-auto w-full max-w-[452px] space-y-10 sm:px-0">
@@ -41,10 +41,7 @@ export default function Addresses() {
           </Typography>
 
           <Button
-            className={clsx({
-              hidden: !addresses?.length,
-              block: addresses?.length,
-            })}
+            className={clsx({ hidden: !hasAddresses, block: hasAddresses })}
             variant="contained"
             size="large"
           >
@@ -53,9 +50,17 @@ export default function Addresses() {
         </div>
       </div>
 
-      {addresses?.length ? (
+      {isLoading ? (
+        <Typography variant="body1" className="text-center">
+          Carregando endereços...
+        </Typography>
+      ) : isError ? (
+        <Typography variant="body1" className="text-center text-error-main">
+          Não foi possível carregar seus endereços. Tente novamente em instantes.
+        </Typography>
+      ) : hasAddresses ? (
         <div className="space-y-8">
-          {addresses.map((address) => (
+          {addresses?.map((address) => (
             <div
               key={address.id}
               className={clsx(
@@ -73,11 +78,9 @@ export default function Addresses() {
                 <div className="flex items-center justify-between">
                   <Typography variant="h5">{address.type}</Typography>
 
-                  {address.type === "Casa" && (
+                  {address.type === "Casa" ? (
                     <HouseIcon width={31} height={31} className="fill-secondary-500" />
-                  )}
-
-                  {address.type !== "Casa" && (
+                  ) : (
                     <LocationIcon width={31} height={31} className="fill-secondary-500" />
                   )}
                 </div>
@@ -104,6 +107,7 @@ export default function Addresses() {
               {!address.principal && (
                 <Button
                   onClick={() => handleSetActive(address)}
+                  disabled={isPending}
                   className="w-full"
                   variant="contained"
                   color="secondary"
@@ -127,9 +131,7 @@ export default function Addresses() {
       ) : (
         <div className="flex flex-col">
           <div className="mb-24 space-y-8 px-6 text-center lg:mb-8">
-            <Typography variant="h6">
-              Você não possui endereços cadastrados
-            </Typography>
+            <Typography variant="h6">Você não possui endereços cadastrados</Typography>
 
             <Image
               className="mx-auto"
