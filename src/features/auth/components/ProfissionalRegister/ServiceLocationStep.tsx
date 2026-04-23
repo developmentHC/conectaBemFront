@@ -153,7 +153,7 @@ export const ServiceLocationStep = () => {
     setNeighborhoodInput(data.bairro || "");
 
     setValue("cidadeClinica", data.localidade);
-    setValue("estadoClinica", data.estado);
+    setValue("estadoClinica", data.uf);
   }, [data, setValue]);
 
   return (
