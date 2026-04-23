@@ -16,7 +16,8 @@
     "test": "jest",
     "coverage": "jest --coverage",
     "vercel-link": "vercel link",
-    "vercel-vault": "vercel env pull .env.local"
+    "vercel-vault": "vercel env pull .env.local",
+    "generate": "kubb generate"
   },
   "dependencies": {
     "@babel/core": "^7.26.9",
@@ -62,6 +63,11 @@
     "@babel/preset-react": "^7.26.3",
     "@biomejs/biome": "^2.4.9",
     "@chromatic-com/storybook": "^3.2.3",
+    "@kubb/cli": "^4.37.1",
+    "@kubb/core": "^4.37.2",
+    "@kubb/plugin-oas": "^4.37.2",
+    "@kubb/plugin-react-query": "^4.37.2",
+    "@kubb/plugin-ts": "^4.37.2",
     "@slicemachine/adapter-next": "^0.3.69",
     "@storybook/addon-essentials": "^8.4.7",
     "@storybook/addon-interactions": "^8.4.7",

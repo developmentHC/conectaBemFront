@@ -10,9 +10,11 @@ import { FilteredProfessionalCard } from "@/features/search/components/FilteredP
 import { FilterPanelMobile } from "@/features/search/components/FilterPanelMobile";
 import type { FiltersState } from "@/features/search/components/types";
 import { useFilterProfessional } from "@/features/search/hooks/useFilterProfessional";
+import { useIsMobile } from "@/hooks/useIsMobile";
 import type { IProfessional } from "@/types/professional";
 
 function SearchPage() {
+  const isMobile = useIsMobile();
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const defaultFilters: FiltersState = {
     specialties: [],
@@ -37,7 +39,7 @@ function SearchPage() {
     setFilters(defaultFilters);
   };
 
-  if (isFilterOpen && typeof window !== "undefined" && window.innerWidth < 768) {
+  if (isFilterOpen && isMobile) {
     return <FilterPanelMobile onFilterChange={onFilterChange} />;
   }
 
@@ -79,4 +81,5 @@ function SearchPage() {
     </div>
   );
 }
+
 export default SearchPage;

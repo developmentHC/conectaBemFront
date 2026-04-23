@@ -66,24 +66,24 @@ export const FilterDialogDesktop = ({
 
   const baseChipClass =
     "inline-flex min-w-[86px] justify-center px-3 py-2 text-sm rounded-lg whitespace-nowrap";
-  const activeChipClass = "bg-[#253E99] border-[#253E99] text-white";
-  const inactiveChipClass = "bg-white border-[#253E99] text-gray-800";
+  const activeChipClass = "bg-secondary-500 border-secondary-500 text-white";
+  const inactiveChipClass = "bg-white border-secondary-500 text-gray-800";
 
   return (
     <Dialog open={open ?? true} onClose={onFilterChange} maxWidth="md" fullWidth>
-      <DialogContent className="bg-[#F3F5FA] p-0">
+      <DialogContent className="bg-background p-0">
         <div className="flex flex-col gap-6 px-6 py-6 md:px-10 md:py-8">
           <button
             type="button"
             onClick={onFilterChange}
-            className="flex items-center gap-2 text-[#000000] text-sm hover:text-gray-800"
+            className="flex items-center gap-2 text-black text-sm hover:text-gray-800"
           >
             <span className="text-lg">←</span>
             <span>voltar</span>
           </button>
 
           <div className="flex flex-col gap-6">
-            <h1 className="font-semibold text-2xl text-[#000000]-700">Filtros de Busca</h1>
+            <h1 className="font-semibold text-2xl text-black">Filtros de Busca</h1>
 
             <section className="flex flex-col gap-3">
               <h2 className="font-semibold text-base text-black">Especialidades</h2>
@@ -181,7 +181,7 @@ export const FilterDialogDesktop = ({
             </section>
 
             <section className="flex flex-col gap-3">
-              <h2 className="font-semibold text-[#000000]-700 text-base">Distância</h2>
+              <h2 className="font-semibold text-base text-black">Distância</h2>
               <div className="flex flex-col gap-2">
                 <input
                   type="range"
@@ -189,7 +189,7 @@ export const FilterDialogDesktop = ({
                   max={30}
                   value={filters.distance}
                   onChange={handleDistanceChange}
-                  className="w-full accent-[#3857F4]"
+                  className="w-full accent-primary-500"
                 />
                 <div className="flex justify-between text-gray-500 text-xs">
                   <span>0</span>
@@ -203,14 +203,14 @@ export const FilterDialogDesktop = ({
             <button
               type="button"
               onClick={handleOnFilter}
-              className="w-full rounded-md bg-[#3857F4] px-6 py-3 text-center font-semibold text-[#D7FF7B] text-sm shadow hover:bg-[#1b2f80] md:w-1/2"
+              className="w-full rounded-md bg-primary-500 px-6 py-3 text-center font-semibold text-lime-500 text-sm shadow hover:bg-primary-800 md:w-1/2"
             >
               Pesquisar
             </button>
             <button
               type="button"
               onClick={handleClear}
-              className="w-full rounded-md border border-[#3857F4] bg-white px-6 py-3 text-center font-semibold text-[#3857F4] text-sm hover:bg-[#eef2ff] md:w-1/2"
+              className="w-full rounded-md border border-primary-500 bg-white px-6 py-3 text-center font-semibold text-primary-500 text-sm hover:bg-secondary-50 md:w-1/2"
             >
               Limpar Filtros
             </button>
