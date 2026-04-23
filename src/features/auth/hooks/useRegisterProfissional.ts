@@ -61,11 +61,9 @@ export const useRegisterProfissional = () => {
       }
     },
     onError: (error) => {
-      const message =
-        isAxiosError(error) && error.response?.data?.message
-          ? error.response.data.message
-          : "Não foi possível completar seu cadastro. Tente novamente.";
-      toast.error(message);
+      if (error.message === "pendingToken ausente") return;
+      const apiError = isAxiosError(error) ? error.response?.data?.error : undefined;
+      toast.error(apiError ?? "Não foi possível completar seu cadastro. Tente novamente.");
     },
   });
 };
