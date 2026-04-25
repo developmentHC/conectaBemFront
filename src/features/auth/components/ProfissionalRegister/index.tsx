@@ -22,24 +22,22 @@ export const ProfissionalRegister = () => {
   };
 
   return (
-    <div className="flex w-full flex-col bg-[#F3F5FA] pb-16">
-      <div className="flex w-full max-w-[450px] flex-col gap-16">
-        <FormMultiStep.Header className="gap-4">
-          <FormTitle />
-          <FormMultiStep.Progress progress={progresses[step]} />
-          <Description />
-        </FormMultiStep.Header>
+    <>
+      <FormMultiStep.Header className="gap-4">
+        <FormTitle />
+        <FormMultiStep.Progress progress={progresses[step]} />
+        <Description />
+      </FormMultiStep.Header>
 
-        {step === "personal_data" && <PersonalDataStep />}
-        {step === "service_location" && <ServiceLocationStep />}
-        {step === "specialties" && <SpecialtyStep />}
-        {step === "accessibility" && <AccessibilityStep />}
-        {step === "complete_profile" && <CompleteProfileStep />}
+      {step === "personal_data" && <PersonalDataStep />}
+      {step === "service_location" && <ServiceLocationStep />}
+      {step === "specialties" && <SpecialtyStep />}
+      {step === "accessibility" && <AccessibilityStep />}
+      {step === "complete_profile" && <CompleteProfileStep />}
 
-        {step !== "complete_profile" && (
-          <FormMultiStep.NeedHelpButton className="w-fit justify-start gap-2 text-gray-500" />
-        )}
-      </div>
-    </div>
+      {step !== "complete_profile" && (
+        <FormMultiStep.NeedHelpButton className="w-fit justify-start gap-2 text-gray-500" />
+      )}
+    </>
   );
 };
