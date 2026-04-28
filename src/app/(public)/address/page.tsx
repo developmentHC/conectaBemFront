@@ -7,7 +7,9 @@ import Image from "next/image";
 import toast from "react-hot-toast";
 import { HouseIcon, LocationIcon } from "@/assets/svgs";
 import { useAddresses } from "@/features/addresses/hooks/useAddresses";
+
 <<<<<<< HEAD
+
 import { getAddressQueryKey, usePutActiveAddress } from "@/kubb";
 import type { Address } from "@/types/address";
 
@@ -49,16 +51,13 @@ export default function Addresses() {
 
   const handleSetActive = (address: Address) => {
 <<<<<<< HEAD
-    setActive({ data: { addressId: address.id } });
+    setActive(addressId: address.id );
   };
 
   const hasAddresses = (addresses?.length ?? 0) > 0;
 =======
-    mutate({
-      data: {
-        addressId: address.id,
-      } satisfies PutActiveAddressMutationRequest,
-    });
+    mutate(
+        addressId: address.id,satisfies PutActiveAddressMutationRequest,);
   };
 >>>>>>> feat/212-addresses-api-integration
 
