@@ -7,6 +7,7 @@ import Image from "next/image";
 import toast from "react-hot-toast";
 import { HouseIcon, LocationIcon } from "@/assets/svgs";
 import { useAddresses } from "@/features/addresses/hooks/useAddresses";
+<<<<<<< HEAD
 import { getAddressQueryKey, usePutActiveAddress } from "@/kubb";
 import type { Address } from "@/types/address";
 
@@ -22,15 +23,44 @@ export default function Addresses() {
       },
       onError: () => {
         toast.error("Não foi possível atualizar o endereço principal.");
+=======
+import {
+  getAddressQueryKey,
+  type PutActiveAddressMutationRequest,
+  usePutActiveAddress,
+  usePutAddress,
+} from "@/kubb";
+import type { Address } from "@/types/address";
+
+export default function Addresses() {
+  const { data: addresses } = useAddresses();
+  const queryClient = useQueryClient();
+
+  const { mutate } = usePutActiveAddress({
+    mutation: {
+      onSuccess: () => {
+        queryClient.invalidateQueries({
+          queryKey: getAddressQueryKey(),
+        });
+>>>>>>> feat/212-addresses-api-integration
       },
     },
   });
 
   const handleSetActive = (address: Address) => {
+<<<<<<< HEAD
     setActive({ data: { addressId: address.id } });
   };
 
   const hasAddresses = (addresses?.length ?? 0) > 0;
+=======
+    mutate({
+      data: {
+        addressId: address.id,
+      } satisfies PutActiveAddressMutationRequest,
+    });
+  };
+>>>>>>> feat/212-addresses-api-integration
 
   return (
     <main className="mx-auto w-full max-w-[452px] space-y-10 sm:px-0">
@@ -41,7 +71,14 @@ export default function Addresses() {
           </Typography>
 
           <Button
+<<<<<<< HEAD
             className={clsx({ hidden: !hasAddresses, block: hasAddresses })}
+=======
+            className={clsx({
+              hidden: !addresses?.length,
+              block: addresses?.length,
+            })}
+>>>>>>> feat/212-addresses-api-integration
             variant="contained"
             size="large"
           >
@@ -50,6 +87,7 @@ export default function Addresses() {
         </div>
       </div>
 
+<<<<<<< HEAD
       {isLoading ? (
         <Typography variant="body1" className="text-center">
           Carregando endereços...
@@ -61,6 +99,11 @@ export default function Addresses() {
       ) : hasAddresses ? (
         <div className="space-y-8">
           {addresses?.map((address) => (
+=======
+      {addresses?.length ? (
+        <div className="space-y-8">
+          {addresses.map((address) => (
+>>>>>>> feat/212-addresses-api-integration
             <div
               key={address.id}
               className={clsx(
@@ -78,9 +121,17 @@ export default function Addresses() {
                 <div className="flex items-center justify-between">
                   <Typography variant="h5">{address.type}</Typography>
 
+<<<<<<< HEAD
                   {address.type === "Casa" ? (
                     <HouseIcon width={31} height={31} className="fill-secondary-500" />
                   ) : (
+=======
+                  {address.type === "Casa" && (
+                    <HouseIcon width={31} height={31} className="fill-secondary-500" />
+                  )}
+
+                  {address.type !== "Casa" && (
+>>>>>>> feat/212-addresses-api-integration
                     <LocationIcon width={31} height={31} className="fill-secondary-500" />
                   )}
                 </div>
@@ -107,7 +158,10 @@ export default function Addresses() {
               {!address.principal && (
                 <Button
                   onClick={() => handleSetActive(address)}
+<<<<<<< HEAD
                   disabled={isPending}
+=======
+>>>>>>> feat/212-addresses-api-integration
                   className="w-full"
                   variant="contained"
                   color="secondary"
