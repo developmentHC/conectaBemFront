@@ -1,28 +1,32 @@
 "use client";
 
 import { Button, Typography } from "@mui/material";
+import { useQueryClient } from "@tanstack/react-query";
 import clsx from "clsx";
 import Image from "next/image";
 import { HouseIcon, LocationIcon } from "@/assets/svgs";
 import { useAddresses } from "@/features/addresses/hooks/useAddresses";
-import { useQueryClient } from "@tanstack/react-query";
-import { PutActiveAddressMutationRequest, usePutActiveAddress, usePutAddress } from "@/kubb";
-import { Address } from "@/types/address";
-import { getAddressQueryKey } from "@/kubb";
+import {
+  getAddressQueryKey,
+  type PutActiveAddressMutationRequest,
+  usePutActiveAddress,
+  usePutAddress,
+} from "@/kubb";
+import type { Address } from "@/types/address";
 
 export default function Addresses() {
   const { data: addresses } = useAddresses();
   const queryClient = useQueryClient();
 
   const { mutate } = usePutActiveAddress({
-  mutation: {
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: getAddressQueryKey(),
-      });
+    mutation: {
+      onSuccess: () => {
+        queryClient.invalidateQueries({
+          queryKey: getAddressQueryKey(),
+        });
+      },
     },
-  },
-});
+  });
 
   const handleSetActive = (address: Address) => {
     mutate({
@@ -127,9 +131,7 @@ export default function Addresses() {
       ) : (
         <div className="flex flex-col">
           <div className="mb-24 space-y-8 px-6 text-center lg:mb-8">
-            <Typography variant="h6">
-              Você não possui endereços cadastrados
-            </Typography>
+            <Typography variant="h6">Você não possui endereços cadastrados</Typography>
 
             <Image
               className="mx-auto"

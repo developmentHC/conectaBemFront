@@ -1,4 +1,4 @@
-import { Address } from "@/types/address";
+import type { Address } from "@/types/address";
 
 type ApiAddress = {
   _id?: string;
