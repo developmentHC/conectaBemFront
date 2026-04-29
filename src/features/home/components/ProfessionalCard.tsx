@@ -3,7 +3,6 @@
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useMemo } from "react";
 import { FaUser } from "react-icons/fa";
 import { MdStarRate } from "react-icons/md";
 import {
@@ -11,34 +10,24 @@ import {
   PrevButton,
   usePrevNextButtons,
 } from "@/components/Carousel/CarouselArrowButtons";
-import { filterAndSortProfessionals } from "@/utils/filterProfessionals";
-import { useProfessional } from "../hooks/useProfessional";
+import type { IProfessional } from "@/types/professional";
 
-type ProfessionalSectionProps = {
-  specialization?: string;
+type ProfessionalCardProps = {
+  professionals: IProfessional[];
+  isLoading: boolean;
+  isError: boolean;
 };
 
-export const ProfessionalCard = ({ specialization }: ProfessionalSectionProps) => {
-  const { data: professional, isLoading, isError } = useProfessional();
-
-  const sortedProfessional = useMemo(() => {
-    return filterAndSortProfessionals(professional, specialization);
-  }, [professional, specialization]);
-
-  const professionals = sortedProfessional.slice(0, 8);
-
+export const ProfessionalCard = ({ professionals, isLoading, isError }: ProfessionalCardProps) => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ align: "start" });
   const { onPrevButtonClick, onNextButtonClick } = usePrevNextButtons(emblaApi);
 
   if (isLoading) return <div>Carregando...</div>;
 
-  if (isError) return <div>Erro</div>;
+  if (isError) return <div>Erro ao carregar profissionais.</div>;
 
-  const renderCard = (professionalItem: (typeof professionals)[number], index: number) => (
-    <div
-      key={professionalItem.id ?? index}
-      className="professional-card flex h-full max-h-[530px] cursor-pointer flex-col gap-4"
-    >
+  const renderCard = (professionalItem: (typeof professionals)[number]) => (
+    <div className="professional-card flex h-full max-h-[530px] cursor-pointer flex-col gap-4">
       <div className="relative flex h-[160px] w-full items-center justify-center overflow-hidden rounded-lg bg-gray-100">
         {professionalItem.image ? (
           <Image
@@ -56,23 +45,32 @@ export const ProfessionalCard = ({ specialization }: ProfessionalSectionProps) =
         <div className="flex flex-wrap items-center justify-between">
           <p className="w-full truncate font-semibold text-2xl">{professionalItem.name}</p>
           <div className="flex items-center gap-1">
-            <span className="font-semibold">
-              {Number.isInteger(professionalItem.rating)
-                ? `${professionalItem.rating}.0`
-                : professionalItem.rating}
-            </span>
-            <MdStarRate className="text-yellow-400" />
-
-            <span className="text-gray-600 text-sm">({professionalItem.reviews} avaliações)</span>
+            {professionalItem.rating != null && (
+              <>
+                <span className="font-semibold">
+                  {Number.isInteger(professionalItem.rating)
+                    ? `${professionalItem.rating}.0`
+                    : professionalItem.rating}
+                </span>
+                <MdStarRate className="text-yellow-400" />
+              </>
+            )}
+            {professionalItem.reviews != null && (
+              <span className="text-gray-600 text-sm">({professionalItem.reviews} avaliações)</span>
+            )}
           </div>
         </div>
-        <span className="text-gray-600 text-sm">
-          {professionalItem.price} | {professionalItem.distance} Km
-        </span>
+        {(professionalItem.price != null || professionalItem.distance != null) && (
+          <span className="text-gray-600 text-sm">
+            {professionalItem.price != null && `R$ ${professionalItem.price}`}
+            {professionalItem.price != null && professionalItem.distance != null && " | "}
+            {professionalItem.distance != null && `${professionalItem.distance} Km`}
+          </span>
+        )}
       </div>
       <div className="max-h-[50px] min-h-[50px]">
         <div className="flex flex-wrap gap-2">
-          <div className="rounded-full border border-blue-600 px-2 py-1 text-xs">
+          <div className="rounded-full border border-secondary-500 px-2 py-1 text-xs">
             {professionalItem.specialization}
           </div>
         </div>
@@ -80,7 +78,7 @@ export const ProfessionalCard = ({ specialization }: ProfessionalSectionProps) =
       <div className="flex w-full items-center justify-between">
         <Link
           href={`/profissional/${professionalItem.id}`}
-          className="flex h-12 w-full items-center justify-center rounded-lg bg-[#3857F4] px-4 font-[lato] font-bold text-[#D7FF7B] text-base hover:bg-blue-700"
+          className="flex h-12 w-full items-center justify-center rounded-lg bg-primary-500 px-4 font-[lato] font-bold text-base text-lime-500 hover:bg-primary-800"
         >
           Ver perfil
         </Link>
@@ -94,12 +92,12 @@ export const ProfessionalCard = ({ specialization }: ProfessionalSectionProps) =
       <div className="relative w-full md:hidden">
         <section className="w-full overflow-hidden" ref={emblaRef}>
           <div className="flex">
-            {professionals?.map((professionalItem, index) => (
+            {professionals?.map((professionalItem) => (
               <div
                 className="flex flex-shrink-0 flex-grow-0 basis-full justify-center"
-                key={professionalItem.id ?? index}
+                key={professionalItem.id}
               >
-                {renderCard(professionalItem, index)}
+                {renderCard(professionalItem)}
               </div>
             ))}
           </div>
@@ -117,7 +115,7 @@ export const ProfessionalCard = ({ specialization }: ProfessionalSectionProps) =
 
       {/* Tablet/Desktop: layout original em múltiplas colunas */}
       <div className="hidden flex-wrap justify-start gap-6 md:flex">
-        {professionals?.map((professionalItem, index) => renderCard(professionalItem, index))}
+        {professionals?.map((professionalItem) => renderCard(professionalItem))}
       </div>
     </>
   );

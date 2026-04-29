@@ -10,33 +10,15 @@ import { ProfessionalSection } from "@/features/home/components/ProfessionalSect
 import { FilterButton } from "@/features/search/components/FilterButton";
 import { FilterDialogDesktop } from "@/features/search/components/FilterDialogDesktop";
 import { FilterPanelMobile } from "@/features/search/components/FilterPanelMobile";
-import type { FiltersState } from "@/features/search/components/types";
+import { useFilters } from "@/hooks/useFilters";
 import { useIsMobile } from "@/hooks/useIsMobile";
 
 export default function HomePage() {
+  const { filters, handleApplyFilters, handleClearFilters } = useFilters();
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const defaultFilters: FiltersState = {
-    specialties: [],
-    availability: [],
-    value: [],
-    accessibility: [],
-    services: [],
-    distance: 12,
-  };
-  const [filters, setFilters] = useState<FiltersState>(defaultFilters);
   const isMobile = useIsMobile();
 
-  const onFilterChange = () => {
-    setIsFilterOpen((prev) => !prev);
-  };
-
-  const handleApplyFilters = (next: FiltersState) => {
-    setFilters(next);
-  };
-
-  const handleClearFilters = () => {
-    setFilters(defaultFilters);
-  };
+  const onFilterChange = () => setIsFilterOpen((prev) => !prev);
 
   if (isFilterOpen && isMobile) {
     return <FilterPanelMobile onFilterChange={onFilterChange} />;
@@ -81,6 +63,7 @@ export default function HomePage() {
 
       {isFilterOpen && (
         <FilterDialogDesktop
+          key={String(isFilterOpen)}
           open={isFilterOpen}
           onFilterChange={onFilterChange}
           onApply={handleApplyFilters}
