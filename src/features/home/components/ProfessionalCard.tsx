@@ -27,9 +27,7 @@ export const ProfessionalCard = ({ professionals, isLoading, isError }: Professi
   if (isError) return <div>Erro ao carregar profissionais.</div>;
 
   const renderCard = (professionalItem: (typeof professionals)[number]) => (
-    <div
-      className="professional-card flex h-full max-h-[530px] cursor-pointer flex-col gap-4"
-    >
+    <div className="professional-card flex h-full max-h-[530px] cursor-pointer flex-col gap-4">
       <div className="relative flex h-[160px] w-full items-center justify-center overflow-hidden rounded-lg bg-gray-100">
         {professionalItem.image ? (
           <Image
