@@ -102,5 +102,6 @@
       }
     }
   },
+  "xml": { "name": "WebhookMessageCreated" },
   "x-readme-ref-name": "WebhookMessageCreated"
 }

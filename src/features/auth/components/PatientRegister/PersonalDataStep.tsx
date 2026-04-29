@@ -178,7 +178,7 @@ export const PersonalDataStep = () => {
     setValue("cidadeResidencial", data.localidade || "", {
       shouldValidate: true,
     });
-    setValue("estadoResidencial", data.estado || data.uf || "", {
+    setValue("estadoResidencial", data.uf || "", {
       shouldValidate: true,
     });
   }, [data, setValue]);

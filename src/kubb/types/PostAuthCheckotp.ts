@@ -46,6 +46,16 @@ export type PostAuthCheckotp422 = {
 };
 
 /**
+ * @description Muitas tentativas. Tente novamente em 15 minutos.
+ */
+export type PostAuthCheckotp429 = {
+  /**
+   * @type string | undefined
+   */
+  message?: string;
+};
+
+/**
  * @description Erro interno no servidor
  */
 export type PostAuthCheckotp500 = {
@@ -60,13 +70,13 @@ export type PostAuthCheckotp500 = {
  */
 export type PostAuthCheckotpMutationRequest = {
   /**
-   * @type string | undefined
+   * @type string
    */
-  email?: string;
+  email: string;
   /**
-   * @type string | undefined
+   * @type string
    */
-  OTP?: string;
+  OTP: string;
 };
 
 export type PostAuthCheckotpMutationResponse = PostAuthCheckotp200;
@@ -74,5 +84,9 @@ export type PostAuthCheckotpMutationResponse = PostAuthCheckotp200;
 export type PostAuthCheckotpMutation = {
   Response: PostAuthCheckotp200;
   Request: PostAuthCheckotpMutationRequest;
-  Errors: PostAuthCheckotp401 | PostAuthCheckotp422 | PostAuthCheckotp500;
+  Errors:
+    | PostAuthCheckotp401
+    | PostAuthCheckotp422
+    | PostAuthCheckotp429
+    | PostAuthCheckotp500;
 };

@@ -19,6 +19,7 @@ import type {
   PostAuthCheckotpMutationResponse,
   PostAuthCheckotp401,
   PostAuthCheckotp422,
+  PostAuthCheckotp429,
   PostAuthCheckotp500,
 } from "../types/PostAuthCheckotp.ts";
 import { mutationOptions, useMutation } from "@tanstack/react-query";
@@ -48,7 +49,10 @@ export async function postAuthCheckotp(
   const res = await request<
     PostAuthCheckotpMutationResponse,
     ResponseErrorConfig<
-      PostAuthCheckotp401 | PostAuthCheckotp422 | PostAuthCheckotp500
+      | PostAuthCheckotp401
+      | PostAuthCheckotp422
+      | PostAuthCheckotp429
+      | PostAuthCheckotp500
     >,
     PostAuthCheckotpMutationRequest
   >({
@@ -69,7 +73,10 @@ export function postAuthCheckotpMutationOptions<TContext = unknown>(
   return mutationOptions<
     PostAuthCheckotpMutationResponse,
     ResponseErrorConfig<
-      PostAuthCheckotp401 | PostAuthCheckotp422 | PostAuthCheckotp500
+      | PostAuthCheckotp401
+      | PostAuthCheckotp422
+      | PostAuthCheckotp429
+      | PostAuthCheckotp500
     >,
     { data: PostAuthCheckotpMutationRequest },
     TContext
@@ -91,7 +98,10 @@ export function usePostAuthCheckotp<TContext>(
     mutation?: UseMutationOptions<
       PostAuthCheckotpMutationResponse,
       ResponseErrorConfig<
-        PostAuthCheckotp401 | PostAuthCheckotp422 | PostAuthCheckotp500
+        | PostAuthCheckotp401
+        | PostAuthCheckotp422
+        | PostAuthCheckotp429
+        | PostAuthCheckotp500
       >,
       { data: PostAuthCheckotpMutationRequest },
       TContext
@@ -111,7 +121,10 @@ export function usePostAuthCheckotp<TContext>(
   ) as UseMutationOptions<
     PostAuthCheckotpMutationResponse,
     ResponseErrorConfig<
-      PostAuthCheckotp401 | PostAuthCheckotp422 | PostAuthCheckotp500
+      | PostAuthCheckotp401
+      | PostAuthCheckotp422
+      | PostAuthCheckotp429
+      | PostAuthCheckotp500
     >,
     { data: PostAuthCheckotpMutationRequest },
     TContext
@@ -120,7 +133,10 @@ export function usePostAuthCheckotp<TContext>(
   return useMutation<
     PostAuthCheckotpMutationResponse,
     ResponseErrorConfig<
-      PostAuthCheckotp401 | PostAuthCheckotp422 | PostAuthCheckotp500
+      | PostAuthCheckotp401
+      | PostAuthCheckotp422
+      | PostAuthCheckotp429
+      | PostAuthCheckotp500
     >,
     { data: PostAuthCheckotpMutationRequest },
     TContext
@@ -134,7 +150,10 @@ export function usePostAuthCheckotp<TContext>(
   ) as UseMutationResult<
     PostAuthCheckotpMutationResponse,
     ResponseErrorConfig<
-      PostAuthCheckotp401 | PostAuthCheckotp422 | PostAuthCheckotp500
+      | PostAuthCheckotp401
+      | PostAuthCheckotp422
+      | PostAuthCheckotp429
+      | PostAuthCheckotp500
     >,
     { data: PostAuthCheckotpMutationRequest },
     TContext

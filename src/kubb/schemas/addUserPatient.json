@@ -47,7 +47,14 @@
             "type": { "type": "string", "example": "object" },
             "required": {
               "type": "array",
-              "example": ["cep", "address", "neighborhood", "city", "state"],
+              "example": [
+                "cep",
+                "endereco",
+                "bairro",
+                "numero",
+                "cidade",
+                "estado"
+              ],
               "items": { "type": "string" }
             },
             "properties": {
@@ -60,7 +67,7 @@
                     "example": { "type": "string", "example": "13295-000" }
                   }
                 },
-                "address": {
+                "endereco": {
                   "type": "object",
                   "properties": {
                     "type": { "type": "string", "example": "string" },
@@ -70,25 +77,58 @@
                     }
                   }
                 },
-                "neighborhood": {
+                "bairro": {
                   "type": "object",
                   "properties": {
                     "type": { "type": "string", "example": "string" },
                     "example": { "type": "string", "example": "Centro" }
                   }
                 },
-                "city": {
+                "numero": {
+                  "type": "object",
+                  "properties": {
+                    "type": { "type": "string", "example": "string" },
+                    "example": { "type": "string", "example": "123" }
+                  }
+                },
+                "cidade": {
                   "type": "object",
                   "properties": {
                     "type": { "type": "string", "example": "string" },
                     "example": { "type": "string", "example": "Itupeva" }
                   }
                 },
-                "state": {
+                "estado": {
                   "type": "object",
                   "properties": {
                     "type": { "type": "string", "example": "string" },
                     "example": { "type": "string", "example": "SP" }
+                  }
+                },
+                "complemento": {
+                  "type": "object",
+                  "properties": {
+                    "type": { "type": "string", "example": "string" },
+                    "example": { "type": "string", "example": "Apto 101" }
+                  }
+                },
+                "name": {
+                  "type": "object",
+                  "properties": {
+                    "type": { "type": "string", "example": "string" },
+                    "example": { "type": "string", "example": "Minha casa" }
+                  }
+                },
+                "type": {
+                  "type": "object",
+                  "properties": {
+                    "type": { "type": "string", "example": "string" },
+                    "enum": {
+                      "type": "array",
+                      "example": ["Casa", "Trabalho", "Outros"],
+                      "items": { "type": "string" }
+                    },
+                    "example": { "type": "string", "example": "Casa" }
                   }
                 }
               }
@@ -129,7 +169,7 @@
             }
           }
         },
-        "userAccessibilityPreferences": {
+        "accessibility": {
           "type": "object",
           "properties": {
             "type": { "type": "string", "example": "array" },
@@ -144,7 +184,10 @@
               "example": ["Cadeira de rodas", "Deficiência visual"],
               "items": { "type": "string" }
             },
-            "description": { "type": "string", "example": "Opcional" }
+            "description": {
+              "type": "string",
+              "example": "Preferências de acessibilidade do paciente (opcional)"
+            }
           }
         },
         "profilePhoto": {
@@ -164,5 +207,6 @@
       }
     }
   },
+  "xml": { "name": "AddUserPatient" },
   "x-readme-ref-name": "AddUserPatient"
 }

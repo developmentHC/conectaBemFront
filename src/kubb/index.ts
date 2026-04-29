@@ -1,4 +1,3 @@
-export type { DeleteCleanupMutationKey } from "./hooks/useDeleteCleanup.ts";
 export type { GetAddressQueryKey } from "./hooks/useGetAddress.ts";
 export type { GetAddressSuspenseQueryKey } from "./hooks/useGetAddressSuspense.ts";
 export type { GetAppointmentsIdQueryKey } from "./hooks/useGetAppointmentsId.ts";
@@ -19,6 +18,8 @@ export type { GetSearchProfessionalsQueryKey } from "./hooks/useGetSearchProfess
 export type { GetSearchProfessionalsSuspenseQueryKey } from "./hooks/useGetSearchProfessionalsSuspense.ts";
 export type { GetSearchSearchbarTermsQueryKey } from "./hooks/useGetSearchSearchbarTerms.ts";
 export type { GetSearchSearchbarTermsSuspenseQueryKey } from "./hooks/useGetSearchSearchbarTermsSuspense.ts";
+export type { GetSpecialtiesQueryKey } from "./hooks/useGetSpecialties.ts";
+export type { GetSpecialtiesSuspenseQueryKey } from "./hooks/useGetSpecialtiesSuspense.ts";
 export type { GetTesteQueryKey } from "./hooks/useGetTeste.ts";
 export type { GetTesteSuspenseQueryKey } from "./hooks/useGetTesteSuspense.ts";
 export type { GetUserQueryKey } from "./hooks/useGetUser.ts";
@@ -38,19 +39,13 @@ export type { PutAddressMutationKey } from "./hooks/usePutAddress.ts";
 export type { AddUserPatient } from "./types/AddUserPatient.ts";
 export type { AddUserProfessional } from "./types/AddUserProfessional.ts";
 export type { Appointment } from "./types/Appointment.ts";
-export type { Body } from "./types/Body.ts";
-export type {
-  DeleteCleanup200,
-  DeleteCleanup403,
-  DeleteCleanup500,
-  DeleteCleanupMutation,
-  DeleteCleanupMutationResponse,
-} from "./types/DeleteCleanup.ts";
 export type {
   GetAddress200,
   GetAddress401,
+  GetAddress403,
   GetAddress404,
   GetAddress500,
+  GetAddressHeaderParams,
   GetAddressQuery,
   GetAddressQueryResponse,
 } from "./types/GetAddress.ts";
@@ -74,7 +69,6 @@ export type {
   GetAppointmentsMeHeaderParams,
   GetAppointmentsMeQuery,
   GetAppointmentsMeQueryParams,
-  GetAppointmentsMeQueryParamsSortEnumKey,
   GetAppointmentsMeQueryResponse,
 } from "./types/GetAppointmentsMe.ts";
 export type {
@@ -136,6 +130,12 @@ export type {
   GetSearchSearchbarTermsQueryResponse,
 } from "./types/GetSearchSearchbarTerms.ts";
 export type {
+  GetSpecialties200,
+  GetSpecialties500,
+  GetSpecialtiesQuery,
+  GetSpecialtiesQueryResponse,
+} from "./types/GetSpecialties.ts";
+export type {
   GetTeste200,
   GetTesteQuery,
   GetTesteQueryResponse,
@@ -194,6 +194,7 @@ export type {
   PostAuthCheckotp200,
   PostAuthCheckotp401,
   PostAuthCheckotp422,
+  PostAuthCheckotp429,
   PostAuthCheckotp500,
   PostAuthCheckotpMutation,
   PostAuthCheckotpMutationRequest,
@@ -229,6 +230,7 @@ export type {
   PostAuthSendotp200,
   PostAuthSendotp201,
   PostAuthSendotp422,
+  PostAuthSendotp429,
   PostAuthSendotp500,
   PostAuthSendotpMutation,
   PostAuthSendotpMutationRequest,
@@ -240,7 +242,6 @@ export type {
   PostAuthUploadphoto422,
   PostAuthUploadphoto500,
   PostAuthUploadphotoMutation,
-  PostAuthUploadphotoMutationRequest,
   PostAuthUploadphotoMutationResponse,
 } from "./types/PostAuthUploadphoto.ts";
 export type {
@@ -265,9 +266,12 @@ export type {
 export type {
   PutActiveAddress200,
   PutActiveAddress304,
+  PutActiveAddress401,
+  PutActiveAddress403,
   PutActiveAddress404,
   PutActiveAddress422,
   PutActiveAddress500,
+  PutActiveAddressHeaderParams,
   PutActiveAddressMutation,
   PutActiveAddressMutationRequest,
   PutActiveAddressMutationResponse,
@@ -275,17 +279,17 @@ export type {
 export type {
   PutAddress200,
   PutAddress304,
+  PutAddress401,
+  PutAddress403,
   PutAddress422,
   PutAddress500,
+  PutAddressHeaderParams,
   PutAddressMutation,
   PutAddressMutationRequest,
+  PutAddressMutationRequestTypeEnumKey,
   PutAddressMutationResponse,
 } from "./types/PutAddress.ts";
 export type { WebhookMessageCreated } from "./types/WebhookMessageCreated.ts";
-export { deleteCleanup } from "./hooks/useDeleteCleanup.ts";
-export { deleteCleanupMutationKey } from "./hooks/useDeleteCleanup.ts";
-export { deleteCleanupMutationOptions } from "./hooks/useDeleteCleanup.ts";
-export { useDeleteCleanup } from "./hooks/useDeleteCleanup.ts";
 export { getAddress } from "./hooks/useGetAddress.ts";
 export { getAddressQueryKey } from "./hooks/useGetAddress.ts";
 export { getAddressQueryOptions } from "./hooks/useGetAddress.ts";
@@ -366,6 +370,14 @@ export { getSearchSearchbarTermsSuspense } from "./hooks/useGetSearchSearchbarTe
 export { getSearchSearchbarTermsSuspenseQueryKey } from "./hooks/useGetSearchSearchbarTermsSuspense.ts";
 export { getSearchSearchbarTermsSuspenseQueryOptions } from "./hooks/useGetSearchSearchbarTermsSuspense.ts";
 export { useGetSearchSearchbarTermsSuspense } from "./hooks/useGetSearchSearchbarTermsSuspense.ts";
+export { getSpecialties } from "./hooks/useGetSpecialties.ts";
+export { getSpecialtiesQueryKey } from "./hooks/useGetSpecialties.ts";
+export { getSpecialtiesQueryOptions } from "./hooks/useGetSpecialties.ts";
+export { useGetSpecialties } from "./hooks/useGetSpecialties.ts";
+export { getSpecialtiesSuspense } from "./hooks/useGetSpecialtiesSuspense.ts";
+export { getSpecialtiesSuspenseQueryKey } from "./hooks/useGetSpecialtiesSuspense.ts";
+export { getSpecialtiesSuspenseQueryOptions } from "./hooks/useGetSpecialtiesSuspense.ts";
+export { useGetSpecialtiesSuspense } from "./hooks/useGetSpecialtiesSuspense.ts";
 export { getTeste } from "./hooks/useGetTeste.ts";
 export { getTesteQueryKey } from "./hooks/useGetTeste.ts";
 export { getTesteQueryOptions } from "./hooks/useGetTeste.ts";
@@ -430,4 +442,4 @@ export { putAddress } from "./hooks/usePutAddress.ts";
 export { putAddressMutationKey } from "./hooks/usePutAddress.ts";
 export { putAddressMutationOptions } from "./hooks/usePutAddress.ts";
 export { usePutAddress } from "./hooks/usePutAddress.ts";
-export { getAppointmentsMeQueryParamsSortEnum } from "./types/GetAppointmentsMe.ts";
+export { putAddressMutationRequestTypeEnum } from "./types/PutAddress.ts";

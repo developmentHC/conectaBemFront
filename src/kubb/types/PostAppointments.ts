@@ -106,107 +106,29 @@ export type PostAppointments500 = {
  */
 export type PostAppointmentsMutationRequest = {
   /**
+   * @description ID do profissional com quem o paciente deseja agendar
+   * @type string
+   */
+  professionalId: string;
+  /**
+   * @description Observações adicionais para o profissional
    * @type string | undefined
    */
-  type?: string;
+  notes?: string;
   /**
-   * @type array | undefined
+   * @description Data/hora do agendamento no formato ISO 8601
+   * @type string, date-time
    */
-  required?: string[];
+  dateTime: string;
   /**
-   * @type object | undefined
+   * @type object
    */
-  properties?: {
+  address: {
     /**
-     * @type object | undefined
+     * @description ID da clínica/endereço onde ocorrerá o atendimento
+     * @type string
      */
-    professionalId?: {
-      /**
-       * @type string | undefined
-       */
-      type?: string;
-      /**
-       * @type string | undefined
-       */
-      example?: string;
-      /**
-       * @type string | undefined
-       */
-      description?: string;
-    };
-    /**
-     * @type object | undefined
-     */
-    notes?: {
-      /**
-       * @type string | undefined
-       */
-      type?: string;
-      /**
-       * @type string | undefined
-       */
-      example?: string;
-      /**
-       * @type string | undefined
-       */
-      description?: string;
-    };
-    /**
-     * @type object | undefined
-     */
-    dateTime?: {
-      /**
-       * @type string | undefined
-       */
-      type?: string;
-      /**
-       * @type string | undefined
-       */
-      format?: string;
-      /**
-       * @type string | undefined
-       */
-      example?: string;
-      /**
-       * @type string | undefined
-       */
-      description?: string;
-    };
-    /**
-     * @type object | undefined
-     */
-    address?: {
-      /**
-       * @type string | undefined
-       */
-      type?: string;
-      /**
-       * @type array | undefined
-       */
-      required?: string[];
-      /**
-       * @type object | undefined
-       */
-      properties?: {
-        /**
-         * @type object | undefined
-         */
-        clinicId?: {
-          /**
-           * @type string | undefined
-           */
-          type?: string;
-          /**
-           * @type string | undefined
-           */
-          example?: string;
-          /**
-           * @type string | undefined
-           */
-          description?: string;
-        };
-      };
-    };
+    clinicId: string;
   };
 };
 
