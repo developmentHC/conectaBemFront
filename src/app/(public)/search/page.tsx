@@ -61,6 +61,7 @@ function SearchPage() {
 
       {isFilterOpen && (
         <FilterDialogDesktop
+          key={String(isFilterOpen)}
           open={isFilterOpen}
           onFilterChange={onFilterChange}
           onApply={handleApplyAndClose}

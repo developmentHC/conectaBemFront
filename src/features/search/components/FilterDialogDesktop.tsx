@@ -1,5 +1,5 @@
 import { Dialog, DialogContent } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { specializationOptions } from "@/components/MedicalSpecialization/options";
 import { defaultFilters } from "@/hooks/useFilters";
 import type { FilterDialogProps, FiltersState } from "./types";
@@ -22,12 +22,6 @@ export const FilterDialogDesktop = ({
   const serviceOptions = ["LGBTQIAP+ Friendly", "Pet Friendly", "Aceita Wellhub"];
 
   const [filters, setFilters] = useState<FiltersState>(initialFilters ?? defaultFilters);
-
-  useEffect(() => {
-    if (initialFilters) {
-      setFilters(initialFilters);
-    }
-  }, [initialFilters]);
 
   const toggleChip = (key: keyof FiltersState, value: string) => {
     setFilters((prev) => {

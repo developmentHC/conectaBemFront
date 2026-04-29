@@ -10,33 +10,24 @@ import {
   PrevButton,
   usePrevNextButtons,
 } from "@/components/Carousel/CarouselArrowButtons";
-import { useHighlightWeek } from "../hooks/useHighlightWeek";
-import { useProfessionalBySpeciality } from "../hooks/useProfessionalBySpeciality";
+import type { IProfessional } from "@/types/professional";
 
-type ProfessionalSectionProps = {
-  specialization?: string;
+type ProfessionalCardProps = {
+  professionals: IProfessional[];
+  isLoading: boolean;
+  isError: boolean;
 };
 
-export const ProfessionalCard = ({ specialization }: ProfessionalSectionProps) => {
-  const highlightQuery = useHighlightWeek(1);
-  const specialityQuery = useProfessionalBySpeciality(specialization ?? "", 1);
-
-  const {
-    data: professionals,
-    isLoading,
-    isError,
-  } = specialization ? specialityQuery : highlightQuery;
-
+export const ProfessionalCard = ({ professionals, isLoading, isError }: ProfessionalCardProps) => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ align: "start" });
   const { onPrevButtonClick, onNextButtonClick } = usePrevNextButtons(emblaApi);
 
   if (isLoading) return <div>Carregando...</div>;
 
-  if (isError) return <div>Erro</div>;
+  if (isError) return <div>Erro ao carregar profissionais.</div>;
 
-  const renderCard = (professionalItem: (typeof professionals)[number], index: number) => (
+  const renderCard = (professionalItem: (typeof professionals)[number]) => (
     <div
-      key={professionalItem.id ?? index}
       className="professional-card flex h-full max-h-[530px] cursor-pointer flex-col gap-4"
     >
       <div className="relative flex h-[160px] w-full items-center justify-center overflow-hidden rounded-lg bg-gray-100">
@@ -103,12 +94,12 @@ export const ProfessionalCard = ({ specialization }: ProfessionalSectionProps) =
       <div className="relative w-full md:hidden">
         <section className="w-full overflow-hidden" ref={emblaRef}>
           <div className="flex">
-            {professionals?.map((professionalItem, index) => (
+            {professionals?.map((professionalItem) => (
               <div
                 className="flex flex-shrink-0 flex-grow-0 basis-full justify-center"
-                key={professionalItem.id ?? index}
+                key={professionalItem.id}
               >
-                {renderCard(professionalItem, index)}
+                {renderCard(professionalItem)}
               </div>
             ))}
           </div>
@@ -126,7 +117,7 @@ export const ProfessionalCard = ({ specialization }: ProfessionalSectionProps) =
 
       {/* Tablet/Desktop: layout original em múltiplas colunas */}
       <div className="hidden flex-wrap justify-start gap-6 md:flex">
-        {professionals?.map((professionalItem, index) => renderCard(professionalItem, index))}
+        {professionals?.map((professionalItem) => renderCard(professionalItem))}
       </div>
     </>
   );
