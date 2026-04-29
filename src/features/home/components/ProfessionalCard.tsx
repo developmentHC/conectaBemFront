@@ -3,7 +3,6 @@
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useMemo } from "react";
 import { FaUser } from "react-icons/fa";
 import { MdStarRate } from "react-icons/md";
 import {
@@ -11,21 +10,22 @@ import {
   PrevButton,
   usePrevNextButtons,
 } from "@/components/Carousel/CarouselArrowButtons";
-import { filterAndSortProfessionals } from "@/utils/filterProfessionals";
-import { useProfessional } from "../hooks/useProfessional";
+import { useHighlightWeek } from "../hooks/useHighlightWeek";
+import { useProfessionalBySpeciality } from "../hooks/useProfessionalBySpeciality";
 
 type ProfessionalSectionProps = {
   specialization?: string;
 };
 
 export const ProfessionalCard = ({ specialization }: ProfessionalSectionProps) => {
-  const { data: professional, isLoading, isError } = useProfessional();
+  const highlightQuery = useHighlightWeek(1);
+  const specialityQuery = useProfessionalBySpeciality(specialization ?? "", 1);
 
-  const sortedProfessional = useMemo(() => {
-    return filterAndSortProfessionals(professional, specialization);
-  }, [professional, specialization]);
-
-  const professionals = sortedProfessional.slice(0, 8);
+  const {
+    data: professionals,
+    isLoading,
+    isError,
+  } = specialization ? specialityQuery : highlightQuery;
 
   const [emblaRef, emblaApi] = useEmblaCarousel({ align: "start" });
   const { onPrevButtonClick, onNextButtonClick } = usePrevNextButtons(emblaApi);
@@ -56,23 +56,32 @@ export const ProfessionalCard = ({ specialization }: ProfessionalSectionProps) =
         <div className="flex flex-wrap items-center justify-between">
           <p className="w-full truncate font-semibold text-2xl">{professionalItem.name}</p>
           <div className="flex items-center gap-1">
-            <span className="font-semibold">
-              {Number.isInteger(professionalItem.rating)
-                ? `${professionalItem.rating}.0`
-                : professionalItem.rating}
-            </span>
-            <MdStarRate className="text-yellow-400" />
-
-            <span className="text-gray-600 text-sm">({professionalItem.reviews} avaliações)</span>
+            {professionalItem.rating != null && (
+              <>
+                <span className="font-semibold">
+                  {Number.isInteger(professionalItem.rating)
+                    ? `${professionalItem.rating}.0`
+                    : professionalItem.rating}
+                </span>
+                <MdStarRate className="text-yellow-400" />
+              </>
+            )}
+            {professionalItem.reviews != null && (
+              <span className="text-gray-600 text-sm">({professionalItem.reviews} avaliações)</span>
+            )}
           </div>
         </div>
-        <span className="text-gray-600 text-sm">
-          {professionalItem.price} | {professionalItem.distance} Km
-        </span>
+        {(professionalItem.price != null || professionalItem.distance != null) && (
+          <span className="text-gray-600 text-sm">
+            {professionalItem.price != null && `R$ ${professionalItem.price}`}
+            {professionalItem.price != null && professionalItem.distance != null && " | "}
+            {professionalItem.distance != null && `${professionalItem.distance} Km`}
+          </span>
+        )}
       </div>
       <div className="max-h-[50px] min-h-[50px]">
         <div className="flex flex-wrap gap-2">
-          <div className="rounded-full border border-blue-600 px-2 py-1 text-xs">
+          <div className="rounded-full border border-secondary-500 px-2 py-1 text-xs">
             {professionalItem.specialization}
           </div>
         </div>
@@ -80,7 +89,7 @@ export const ProfessionalCard = ({ specialization }: ProfessionalSectionProps) =
       <div className="flex w-full items-center justify-between">
         <Link
           href={`/profissional/${professionalItem.id}`}
-          className="flex h-12 w-full items-center justify-center rounded-lg bg-[#3857F4] px-4 font-[lato] font-bold text-[#D7FF7B] text-base hover:bg-blue-700"
+          className="flex h-12 w-full items-center justify-center rounded-lg bg-primary-500 px-4 font-[lato] font-bold text-base text-lime-500 hover:bg-primary-800"
         >
           Ver perfil
         </Link>

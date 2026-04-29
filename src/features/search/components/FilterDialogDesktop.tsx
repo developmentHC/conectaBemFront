@@ -1,6 +1,7 @@
 import { Dialog, DialogContent } from "@mui/material";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { specializationOptions } from "@/components/MedicalSpecialization/options";
+import { defaultFilters } from "@/hooks/useFilters";
 import type { FilterDialogProps, FiltersState } from "./types";
 
 export const FilterDialogDesktop = ({
@@ -19,18 +20,6 @@ export const FilterDialogDesktop = ({
     "Rampas",
   ];
   const serviceOptions = ["LGBTQIAP+ Friendly", "Pet Friendly", "Aceita Wellhub"];
-
-  const defaultFilters: FiltersState = useMemo(
-    () => ({
-      specialties: [],
-      availability: [],
-      value: [],
-      accessibility: [],
-      services: [],
-      distance: 12,
-    }),
-    [],
-  );
 
   const [filters, setFilters] = useState<FiltersState>(initialFilters ?? defaultFilters);
 

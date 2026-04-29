@@ -1,14 +1,14 @@
 export type IProfessional = {
-  id: number;
+  id: number | string;
   name: string;
   specialization: string;
   image: string;
-  price: number;
-  rating: number;
-  reviews: number;
-  isFavorite: boolean;
-  accessibility: string[];
-  preferablyServices: {
+  price?: number;
+  rating?: number;
+  reviews?: number;
+  isFavorite?: boolean;
+  accessibility?: string[];
+  preferablyServices?: {
     id: number;
     name: string;
   }[];
