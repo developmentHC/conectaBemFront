@@ -15,14 +15,12 @@ import type {
   QueryClient,
 } from "@tanstack/react-query";
 import type {
-  PostAuthUploadphotoMutationRequest,
   PostAuthUploadphotoMutationResponse,
   PostAuthUploadphoto400,
   PostAuthUploadphoto422,
   PostAuthUploadphoto500,
 } from "../types/PostAuthUploadphoto.ts";
 import { mutationOptions, useMutation } from "@tanstack/react-query";
-import { buildFormData } from "../.kubb/config.ts";
 
 export const postAuthUploadphotoMutationKey = () =>
   [{ url: "/auth/uploadPhoto" }] as const;
@@ -37,34 +35,22 @@ export type PostAuthUploadphotoMutationKey = ReturnType<
  * {@link /auth/uploadPhoto}
  */
 export async function postAuthUploadphoto(
-  data: PostAuthUploadphotoMutationRequest,
-  config: Partial<RequestConfig<PostAuthUploadphotoMutationRequest>> & {
-    client?: Client;
-  } = {},
+  config: Partial<RequestConfig> & { client?: Client } = {},
 ) {
   const { client: request = fetch, ...requestConfig } = config;
 
-  const requestData = data;
-  const formData = buildFormData(requestData);
   const res = await request<
     PostAuthUploadphotoMutationResponse,
     ResponseErrorConfig<
       PostAuthUploadphoto400 | PostAuthUploadphoto422 | PostAuthUploadphoto500
     >,
-    PostAuthUploadphotoMutationRequest
-  >({
-    method: "POST",
-    url: `/auth/uploadPhoto`,
-    data: formData as FormData,
-    ...requestConfig,
-  });
+    unknown
+  >({ method: "POST", url: `/auth/uploadPhoto`, ...requestConfig });
   return res.data;
 }
 
 export function postAuthUploadphotoMutationOptions<TContext = unknown>(
-  config: Partial<RequestConfig<PostAuthUploadphotoMutationRequest>> & {
-    client?: Client;
-  } = {},
+  config: Partial<RequestConfig> & { client?: Client } = {},
 ) {
   const mutationKey = postAuthUploadphotoMutationKey();
   return mutationOptions<
@@ -72,12 +58,12 @@ export function postAuthUploadphotoMutationOptions<TContext = unknown>(
     ResponseErrorConfig<
       PostAuthUploadphoto400 | PostAuthUploadphoto422 | PostAuthUploadphoto500
     >,
-    { data: PostAuthUploadphotoMutationRequest },
+    void,
     TContext
   >({
     mutationKey,
-    mutationFn: async ({ data }) => {
-      return postAuthUploadphoto(data, config);
+    mutationFn: async () => {
+      return postAuthUploadphoto(config);
     },
   });
 }
@@ -94,12 +80,10 @@ export function usePostAuthUploadphoto<TContext>(
       ResponseErrorConfig<
         PostAuthUploadphoto400 | PostAuthUploadphoto422 | PostAuthUploadphoto500
       >,
-      { data: PostAuthUploadphotoMutationRequest },
+      void,
       TContext
     > & { client?: QueryClient };
-    client?: Partial<RequestConfig<PostAuthUploadphotoMutationRequest>> & {
-      client?: Client;
-    };
+    client?: Partial<RequestConfig> & { client?: Client };
   } = {},
 ) {
   const { mutation = {}, client: config = {} } = options ?? {};
@@ -114,7 +98,7 @@ export function usePostAuthUploadphoto<TContext>(
     ResponseErrorConfig<
       PostAuthUploadphoto400 | PostAuthUploadphoto422 | PostAuthUploadphoto500
     >,
-    { data: PostAuthUploadphotoMutationRequest },
+    void,
     TContext
   >;
 
@@ -123,7 +107,7 @@ export function usePostAuthUploadphoto<TContext>(
     ResponseErrorConfig<
       PostAuthUploadphoto400 | PostAuthUploadphoto422 | PostAuthUploadphoto500
     >,
-    { data: PostAuthUploadphotoMutationRequest },
+    void,
     TContext
   >(
     {
@@ -137,7 +121,7 @@ export function usePostAuthUploadphoto<TContext>(
     ResponseErrorConfig<
       PostAuthUploadphoto400 | PostAuthUploadphoto422 | PostAuthUploadphoto500
     >,
-    { data: PostAuthUploadphotoMutationRequest },
+    void,
     TContext
   >;
 }

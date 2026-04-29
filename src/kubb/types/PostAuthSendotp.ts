@@ -77,6 +77,16 @@ export type PostAuthSendotp422 = {
 };
 
 /**
+ * @description Muitas tentativas. Tente novamente em 15 minutos.
+ */
+export type PostAuthSendotp429 = {
+  /**
+   * @type string | undefined
+   */
+  message?: string;
+};
+
+/**
  * @description Erro interno no servidor
  */
 export type PostAuthSendotp500 = {
@@ -91,9 +101,9 @@ export type PostAuthSendotp500 = {
  */
 export type PostAuthSendotpMutationRequest = {
   /**
-   * @type string | undefined
+   * @type string
    */
-  email?: string;
+  email: string;
 };
 
 export type PostAuthSendotpMutationResponse =
@@ -103,5 +113,5 @@ export type PostAuthSendotpMutationResponse =
 export type PostAuthSendotpMutation = {
   Response: PostAuthSendotp200 | PostAuthSendotp201;
   Request: PostAuthSendotpMutationRequest;
-  Errors: PostAuthSendotp422 | PostAuthSendotp500;
+  Errors: PostAuthSendotp422 | PostAuthSendotp429 | PostAuthSendotp500;
 };

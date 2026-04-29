@@ -3,6 +3,13 @@
  * Do not edit manually.
  */
 
+export type PutAddressHeaderParams = {
+  /**
+   * @type string | undefined
+   */
+  authorization?: string;
+};
+
 /**
  * @description Endereço atualizado com sucesso
  */
@@ -24,7 +31,17 @@ export type PutAddress304 = {
 };
 
 /**
- * @description Parâmetros obrigatórios não enviados no body
+ * @description Não autorizado
+ */
+export type PutAddress401 = any;
+
+/**
+ * @description Acesso Negado
+ */
+export type PutAddress403 = any;
+
+/**
+ * @description Parâmetros obrigatórios ausentes ou inválidos no body
  */
 export type PutAddress422 = {
   /**
@@ -43,159 +60,74 @@ export type PutAddress500 = {
   error?: string;
 };
 
+export const putAddressMutationRequestTypeEnum = {
+  Casa: "Casa",
+  Trabalho: "Trabalho",
+  Outros: "Outros",
+} as const;
+
+export type PutAddressMutationRequestTypeEnumKey =
+  (typeof putAddressMutationRequestTypeEnum)[keyof typeof putAddressMutationRequestTypeEnum];
+
 /**
  * @description Dados do endereço a ser atualizado
  */
 export type PutAddressMutationRequest = {
   /**
+   * @description ID do endereço a ser atualizado
+   * @type string
+   */
+  addressId: string;
+  /**
+   * @description CEP do endereço
+   * @type string
+   */
+  cep: string;
+  /**
+   * @description Apelido opcional do endereço
    * @type string | undefined
    */
-  type?: string;
+  name?: string;
   /**
-   * @type array | undefined
+   * @description Logradouro
+   * @type string
    */
-  required?: string[];
+  endereco: string;
   /**
-   * @type object | undefined
+   * @description Bairro
+   * @type string
    */
-  properties?: {
-    /**
-     * @type object | undefined
-     */
-    addressId?: {
-      /**
-       * @type string | undefined
-       */
-      type?: string;
-      /**
-       * @type string | undefined
-       */
-      example?: string;
-      /**
-       * @type string | undefined
-       */
-      description?: string;
-    };
-    /**
-     * @type object | undefined
-     */
-    cep?: {
-      /**
-       * @type string | undefined
-       */
-      type?: string;
-      /**
-       * @type string | undefined
-       */
-      example?: string;
-      /**
-       * @type string | undefined
-       */
-      description?: string;
-    };
-    /**
-     * @type object | undefined
-     */
-    name?: {
-      /**
-       * @type string | undefined
-       */
-      type?: string;
-      /**
-       * @type string | undefined
-       */
-      example?: string;
-      /**
-       * @type string | undefined
-       */
-      description?: string;
-    };
-    /**
-     * @type object | undefined
-     */
-    endereco?: {
-      /**
-       * @type string | undefined
-       */
-      type?: string;
-      /**
-       * @type string | undefined
-       */
-      example?: string;
-      /**
-       * @type string | undefined
-       */
-      description?: string;
-    };
-    /**
-     * @type object | undefined
-     */
-    bairro?: {
-      /**
-       * @type string | undefined
-       */
-      type?: string;
-      /**
-       * @type string | undefined
-       */
-      example?: string;
-      /**
-       * @type string | undefined
-       */
-      description?: string;
-    };
-    /**
-     * @type object | undefined
-     */
-    estado?: {
-      /**
-       * @type string | undefined
-       */
-      type?: string;
-      /**
-       * @type string | undefined
-       */
-      example?: string;
-      /**
-       * @type string | undefined
-       */
-      description?: string;
-    };
-    /**
-     * @type object | undefined
-     */
-    complemento?: {
-      /**
-       * @type string | undefined
-       */
-      type?: string;
-      /**
-       * @type string | undefined
-       */
-      example?: string;
-      /**
-       * @type string | undefined
-       */
-      description?: string;
-    };
-    /**
-     * @type object | undefined
-     */
-    active?: {
-      /**
-       * @type string | undefined
-       */
-      type?: string;
-      /**
-       * @type boolean | undefined
-       */
-      example?: boolean;
-      /**
-       * @type string | undefined
-       */
-      description?: string;
-    };
-  };
+  bairro: string;
+  /**
+   * @description Número do imóvel (opcional)
+   * @type string | undefined
+   */
+  numero?: string;
+  /**
+   * @description Cidade
+   * @type string
+   */
+  cidade: string;
+  /**
+   * @description Estado
+   * @type string
+   */
+  estado: string;
+  /**
+   * @description Complemento do endereço (opcional)
+   * @type string | undefined
+   */
+  complemento?: string;
+  /**
+   * @description Categoria do endereço
+   * @type string | undefined
+   */
+  type?: PutAddressMutationRequestTypeEnumKey;
+  /**
+   * @description Indica se é o endereço ativo
+   * @type boolean | undefined
+   */
+  active?: boolean;
 };
 
 export type PutAddressMutationResponse = PutAddress200;
@@ -203,5 +135,6 @@ export type PutAddressMutationResponse = PutAddress200;
 export type PutAddressMutation = {
   Response: PutAddress200;
   Request: PutAddressMutationRequest;
-  Errors: PutAddress422 | PutAddress500;
+  HeaderParams: PutAddressHeaderParams;
+  Errors: PutAddress401 | PutAddress403 | PutAddress422 | PutAddress500;
 };

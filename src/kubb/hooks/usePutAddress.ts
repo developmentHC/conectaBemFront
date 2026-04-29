@@ -17,6 +17,9 @@ import type {
 import type {
   PutAddressMutationRequest,
   PutAddressMutationResponse,
+  PutAddressHeaderParams,
+  PutAddress401,
+  PutAddress403,
   PutAddress422,
   PutAddress500,
 } from "../types/PutAddress.ts";
@@ -33,6 +36,7 @@ export type PutAddressMutationKey = ReturnType<typeof putAddressMutationKey>;
  */
 export async function putAddress(
   data: PutAddressMutationRequest,
+  headers?: PutAddressHeaderParams,
   config: Partial<RequestConfig<PutAddressMutationRequest>> & {
     client?: Client;
   } = {},
@@ -43,9 +47,17 @@ export async function putAddress(
 
   const res = await request<
     PutAddressMutationResponse,
-    ResponseErrorConfig<PutAddress422 | PutAddress500>,
+    ResponseErrorConfig<
+      PutAddress401 | PutAddress403 | PutAddress422 | PutAddress500
+    >,
     PutAddressMutationRequest
-  >({ method: "PUT", url: `/address`, data: requestData, ...requestConfig });
+  >({
+    method: "PUT",
+    url: `/address`,
+    data: requestData,
+    ...requestConfig,
+    headers: { ...headers, ...requestConfig.headers },
+  });
   return res.data;
 }
 
@@ -57,13 +69,15 @@ export function putAddressMutationOptions<TContext = unknown>(
   const mutationKey = putAddressMutationKey();
   return mutationOptions<
     PutAddressMutationResponse,
-    ResponseErrorConfig<PutAddress422 | PutAddress500>,
-    { data: PutAddressMutationRequest },
+    ResponseErrorConfig<
+      PutAddress401 | PutAddress403 | PutAddress422 | PutAddress500
+    >,
+    { data: PutAddressMutationRequest; headers?: PutAddressHeaderParams },
     TContext
   >({
     mutationKey,
-    mutationFn: async ({ data }) => {
-      return putAddress(data, config);
+    mutationFn: async ({ data, headers }) => {
+      return putAddress(data, headers, config);
     },
   });
 }
@@ -77,8 +91,10 @@ export function usePutAddress<TContext>(
   options: {
     mutation?: UseMutationOptions<
       PutAddressMutationResponse,
-      ResponseErrorConfig<PutAddress422 | PutAddress500>,
-      { data: PutAddressMutationRequest },
+      ResponseErrorConfig<
+        PutAddress401 | PutAddress403 | PutAddress422 | PutAddress500
+      >,
+      { data: PutAddressMutationRequest; headers?: PutAddressHeaderParams },
       TContext
     > & { client?: QueryClient };
     client?: Partial<RequestConfig<PutAddressMutationRequest>> & {
@@ -92,15 +108,19 @@ export function usePutAddress<TContext>(
 
   const baseOptions = putAddressMutationOptions(config) as UseMutationOptions<
     PutAddressMutationResponse,
-    ResponseErrorConfig<PutAddress422 | PutAddress500>,
-    { data: PutAddressMutationRequest },
+    ResponseErrorConfig<
+      PutAddress401 | PutAddress403 | PutAddress422 | PutAddress500
+    >,
+    { data: PutAddressMutationRequest; headers?: PutAddressHeaderParams },
     TContext
   >;
 
   return useMutation<
     PutAddressMutationResponse,
-    ResponseErrorConfig<PutAddress422 | PutAddress500>,
-    { data: PutAddressMutationRequest },
+    ResponseErrorConfig<
+      PutAddress401 | PutAddress403 | PutAddress422 | PutAddress500
+    >,
+    { data: PutAddressMutationRequest; headers?: PutAddressHeaderParams },
     TContext
   >(
     {
@@ -111,8 +131,10 @@ export function usePutAddress<TContext>(
     queryClient,
   ) as UseMutationResult<
     PutAddressMutationResponse,
-    ResponseErrorConfig<PutAddress422 | PutAddress500>,
-    { data: PutAddressMutationRequest },
+    ResponseErrorConfig<
+      PutAddress401 | PutAddress403 | PutAddress422 | PutAddress500
+    >,
+    { data: PutAddressMutationRequest; headers?: PutAddressHeaderParams },
     TContext
   >;
 }

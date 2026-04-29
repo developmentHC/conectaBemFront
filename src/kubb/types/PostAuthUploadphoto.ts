@@ -47,19 +47,10 @@ export type PostAuthUploadphoto500 = {
   error?: string;
 };
 
-export type PostAuthUploadphotoMutationRequest = {
-  /**
-   * @description Imagem JPG, PNG ou WEBP
-   * @type string, binary
-   */
-  profilePhoto: Blob;
-};
-
 export type PostAuthUploadphotoMutationResponse = PostAuthUploadphoto201;
 
 export type PostAuthUploadphotoMutation = {
   Response: PostAuthUploadphoto201;
-  Request: PostAuthUploadphotoMutationRequest;
   Errors:
     | PostAuthUploadphoto400
     | PostAuthUploadphoto422

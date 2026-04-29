@@ -43,3 +43,6 @@ next-env.d.ts
 
 *storybook.log
 .env*.local
+
+# claude code
+.claude/settings.local.json

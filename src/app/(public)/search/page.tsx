@@ -9,7 +9,6 @@ import { FilterDialogDesktop } from "@/features/search/components/FilterDialogDe
 import { FilteredProfessionalCard } from "@/features/search/components/FilteredProfessionalCard";
 import { FilterPanelMobile } from "@/features/search/components/FilterPanelMobile";
 import { useFilterProfessional } from "@/features/search/hooks/useFilterProfessional";
-import { useFilters } from "@/hooks/useFilters";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import type { IProfessional } from "@/types/professional";
 
