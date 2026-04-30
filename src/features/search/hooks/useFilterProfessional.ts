@@ -1,17 +1,47 @@
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
-import type { IProfessional } from "@/types/professional";
+import type { FiltersState } from "@/features/search/components/types";
+import { useGetSearchProfessionals } from "@/kubb/hooks/useGetSearchProfessionals";
+import { useGetSearchSearchbarTerms } from "@/kubb/hooks/useGetSearchSearchbarTerms";
+import { type RawProfessional, toProfessionalCardProps } from "@/utils/toProfessionalCardProps";
 
-export const useFilterProfessional = () => {
-  return useQuery<IProfessional[]>({
-    queryKey: ["professional"],
-    queryFn: async () => {
-      const response = await axios.get("mocks/professional.json");
+type UseFilterProfessionalParams = {
+  filters: FiltersState;
+  page: number;
+  searchTerm?: string;
+};
 
-      return response.data;
+export const useFilterProfessional = ({
+  filters,
+  page,
+  searchTerm = "",
+}: UseFilterProfessionalParams) => {
+  const hasSearchTerm = searchTerm.trim().length > 0;
+
+  const filterQuery = useGetSearchProfessionals(
+    {
+      specialty: filters.specialties[0],
+      service: filters.services[0],
+      accessibility: filters.accessibility[0],
+      page,
     },
-    refetchOnWindowFocus: false,
-    retry: false,
-    staleTime: 10 * 60 * 1000,
+    { query: { enabled: !hasSearchTerm } },
+  );
+
+  const searchQuery = useGetSearchSearchbarTerms(searchTerm, page, {
+    query: { enabled: hasSearchTerm },
   });
+
+  const activeQuery = hasSearchTerm ? searchQuery : filterQuery;
+
+  const rawList: RawProfessional[] = hasSearchTerm
+    ? (searchQuery.data?.professionals ?? [])
+    : Array.isArray(filterQuery.data)
+      ? (filterQuery.data as RawProfessional[])
+      : [];
+
+  return {
+    data: rawList.map(toProfessionalCardProps),
+    isLoading: activeQuery.isLoading,
+    isError: activeQuery.isError,
+    pageCount: hasSearchTerm ? (searchQuery.data?.pageCount ?? 1) : 1,
+  };
 };

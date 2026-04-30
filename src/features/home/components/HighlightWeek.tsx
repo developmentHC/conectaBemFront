@@ -1,6 +1,11 @@
+"use client";
+
+import { useHighlightWeek } from "../hooks/useHighlightWeek";
 import { ProfessionalCard } from "./ProfessionalCard";
 
 export const HighlightWeek = () => {
+  const { data, isLoading, isError } = useHighlightWeek(1);
+
   return (
     <section className="flex flex-col gap-6">
       <div className="flex items-center justify-between">
@@ -9,7 +14,7 @@ export const HighlightWeek = () => {
           + Ver Mais
         </div>
       </div>
-      <ProfessionalCard />
+      <ProfessionalCard professionals={data} isLoading={isLoading} isError={isError} />
     </section>
   );
 };
