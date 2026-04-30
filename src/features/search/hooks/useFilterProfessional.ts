@@ -1,7 +1,7 @@
 import type { FiltersState } from "@/features/search/components/types";
 import { useGetSearchProfessionals } from "@/kubb/hooks/useGetSearchProfessionals";
 import { useGetSearchSearchbarTerms } from "@/kubb/hooks/useGetSearchSearchbarTerms";
-import { toProfessionalCardProps } from "@/utils/toProfessionalCardProps";
+import { type RawProfessional, toProfessionalCardProps } from "@/utils/toProfessionalCardProps";
 
 type UseFilterProfessionalParams = {
   filters: FiltersState;
@@ -20,6 +20,7 @@ export const useFilterProfessional = ({
     {
       specialty: filters.specialties[0],
       service: filters.services[0],
+      accessibility: filters.accessibility[0],
       page,
     },
     { query: { enabled: !hasSearchTerm } },
@@ -31,18 +32,16 @@ export const useFilterProfessional = ({
 
   const activeQuery = hasSearchTerm ? searchQuery : filterQuery;
 
-  const rawList = hasSearchTerm
-    ? ((searchQuery.data as { professionals?: unknown[] } | null)?.professionals ?? [])
+  const rawList: RawProfessional[] = hasSearchTerm
+    ? (searchQuery.data?.professionals ?? [])
     : Array.isArray(filterQuery.data)
-      ? filterQuery.data
+      ? (filterQuery.data as RawProfessional[])
       : [];
 
   return {
     data: rawList.map(toProfessionalCardProps),
     isLoading: activeQuery.isLoading,
     isError: activeQuery.isError,
-    pageCount: hasSearchTerm
-      ? ((searchQuery.data as { pageCount?: number } | null)?.pageCount ?? 1)
-      : 1,
+    pageCount: hasSearchTerm ? (searchQuery.data?.pageCount ?? 1) : 1,
   };
 };

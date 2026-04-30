@@ -26,8 +26,11 @@ export const ProfessionalCard = ({ professionals, isLoading, isError }: Professi
 
   if (isError) return <div>Erro ao carregar profissionais.</div>;
 
-  const renderCard = (professionalItem: (typeof professionals)[number]) => (
-    <div className="professional-card flex h-full max-h-[530px] cursor-pointer flex-col gap-4">
+  const renderCard = (professionalItem: (typeof professionals)[number], index: number) => (
+    <div
+      key={professionalItem.id || `professional-${index}`}
+      className="professional-card flex h-full max-h-[530px] cursor-pointer flex-col gap-4"
+    >
       <div className="relative flex h-[160px] w-full items-center justify-center overflow-hidden rounded-lg bg-gray-100">
         {professionalItem.image ? (
           <Image
@@ -62,7 +65,10 @@ export const ProfessionalCard = ({ professionals, isLoading, isError }: Professi
         </div>
         {(professionalItem.price != null || professionalItem.distance != null) && (
           <span className="text-gray-600 text-sm">
-            {professionalItem.price != null && `R$ ${professionalItem.price}`}
+            {professionalItem.price?.toLocaleString("pt-BR", {
+              style: "currency",
+              currency: "BRL",
+            })}
             {professionalItem.price != null && professionalItem.distance != null && " | "}
             {professionalItem.distance != null && `${professionalItem.distance} Km`}
           </span>
@@ -92,12 +98,12 @@ export const ProfessionalCard = ({ professionals, isLoading, isError }: Professi
       <div className="relative w-full md:hidden">
         <section className="w-full overflow-hidden" ref={emblaRef}>
           <div className="flex">
-            {professionals?.map((professionalItem) => (
+            {professionals?.map((professionalItem, index) => (
               <div
                 className="flex flex-shrink-0 flex-grow-0 basis-full justify-center"
-                key={professionalItem.id}
+                key={professionalItem.id || `professional-${index}`}
               >
-                {renderCard(professionalItem)}
+                {renderCard(professionalItem, index)}
               </div>
             ))}
           </div>
@@ -115,7 +121,7 @@ export const ProfessionalCard = ({ professionals, isLoading, isError }: Professi
 
       {/* Tablet/Desktop: layout original em múltiplas colunas */}
       <div className="hidden flex-wrap justify-start gap-6 md:flex">
-        {professionals?.map((professionalItem) => renderCard(professionalItem))}
+        {professionals?.map((professionalItem, index) => renderCard(professionalItem, index))}
       </div>
     </>
   );

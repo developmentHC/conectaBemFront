@@ -63,7 +63,6 @@ export default function HomePage() {
 
       {isFilterOpen && (
         <FilterDialogDesktop
-          key={String(isFilterOpen)}
           open={isFilterOpen}
           onFilterChange={onFilterChange}
           onApply={handleApplyFilters}

@@ -8,9 +8,7 @@ export function useProfessionalBySpeciality(speciality: string, page = 1) {
     { query: { enabled: !!speciality } },
   );
 
-  const professionals = ((data as { professionals?: unknown[] } | null)?.professionals ?? []).map(
-    toProfessionalCardProps,
-  );
+  const professionals = (data?.professionals ?? []).map(toProfessionalCardProps);
 
   return { data: professionals, isLoading, isError };
 }

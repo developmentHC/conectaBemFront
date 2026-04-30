@@ -1,7 +1,23 @@
 import type { IProfessional } from "@/types/professional";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function toProfessionalCardProps(raw: any): IProfessional {
+export type RawProfessional = {
+  _id?: string;
+  id?: number | string;
+  name?: string;
+  professionalSpecialties?: string[];
+  specialization?: string;
+  profilePhoto?: string;
+  image?: string;
+  price?: number;
+  rating?: number;
+  reviews?: number;
+  isFavorite?: boolean;
+  accessibility?: string[];
+  preferablyServices?: { id: number; name: string }[];
+  distance?: number;
+};
+
+export function toProfessionalCardProps(raw: RawProfessional): IProfessional {
   return {
     id: raw._id ?? raw.id ?? 0,
     name: raw.name ?? "",
