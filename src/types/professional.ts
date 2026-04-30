@@ -23,7 +23,7 @@ export type ICreateProfissional = {
   professionalSpecialties: string[] | undefined;
   otherProfessionalSpecialties: string[] | undefined;
   professionalServicePreferences: string[] | undefined;
-  acessibility: string[] | undefined;
+  accessibility: string[] | undefined;
   profilePhoto: string | undefined;
   residentialAddress: {
     cep: string | undefined;

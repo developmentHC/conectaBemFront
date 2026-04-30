@@ -14,7 +14,7 @@ export type IPatient = {
     id: number;
     name: string;
   }[];
-  userAcessibilityPreferences: {
+  userAccessibilityPreferences: {
     id: number;
     name: string;
   }[];
@@ -34,6 +34,6 @@ export type ICreatePatient = {
   birthdayDate: number | undefined;
   userSpecialties: string[] | undefined;
   userServicePreferences: string[] | undefined;
-  userAcessibilityPreferences: string[] | undefined;
+  userAccessibilityPreferences: string[] | undefined;
   profilePhoto: string | undefined;
 };

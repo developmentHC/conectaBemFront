@@ -69,7 +69,7 @@ describe("CompleteProfileStep - accessibility payload", () => {
     fireEvent.click(screen.getByRole("button", { name: /começar/i }));
 
     expect(mockCreateProfissional).toHaveBeenCalledWith(
-      expect.objectContaining({ acessibility: ["Piso tátil", "Rampas"] }),
+      expect.objectContaining({ accessibility: ["Piso tátil", "Rampas"] }),
     );
   });
 
@@ -85,7 +85,7 @@ describe("CompleteProfileStep - accessibility payload", () => {
     fireEvent.click(screen.getByRole("button", { name: /começar/i }));
 
     expect(mockCreateProfissional).toHaveBeenCalledWith(
-      expect.objectContaining({ acessibility: [] }),
+      expect.objectContaining({ accessibility: [] }),
     );
   });
 });
