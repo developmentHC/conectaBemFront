@@ -2,6 +2,9 @@ const { defineConfig } = require("cypress");
 
 module.exports = defineConfig({
   e2e: {
+    env: {
+      OTP_BYPASS_ENABLED: process.env.CYPRESS_OTP_BYPASS_ENABLED === "true",
+    },
     setupNodeEvents(on, _config) {
       on("task", {
         log(message) {

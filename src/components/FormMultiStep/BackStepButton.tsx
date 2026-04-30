@@ -3,7 +3,7 @@ import { IoMdArrowBack } from "react-icons/io";
 
 export const BackStepButton = ({ ...props }: IconButtonProps) => {
   return (
-    <IconButton className="h-fit w-fit" {...props}>
+    <IconButton className="h-fit w-fit" aria-label="Voltar para etapa anterior" {...props}>
       <IoMdArrowBack />
     </IconButton>
   );

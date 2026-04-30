@@ -42,7 +42,9 @@ export async function getHomePlaceholderData() {
         especialidades,
       });
     } catch (error) {
-      console.error("Erro ao buscar dados do Prismic:", error);
+      if (process.env.NODE_ENV !== "production") {
+        console.error("Erro ao buscar dados do Prismic:", error);
+      }
     }
   }
 

@@ -37,7 +37,7 @@ export default function ConfirmCode() {
       redirectUrl={redirectUrl}
     />
   ) : (
-    <main className="flex justify-center">
+    <div className="flex justify-center">
       <div className="flex flex-col justify-center gap-8 md:max-w-[450px]">
         <TitleCode />
 
@@ -59,6 +59,6 @@ export default function ConfirmCode() {
           Mudar método
         </Button>
       </div>
-    </main>
+    </div>
   );
 }

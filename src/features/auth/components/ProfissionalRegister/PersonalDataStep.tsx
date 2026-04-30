@@ -5,19 +5,30 @@ import { Button, TextField } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
 import axios from "axios";
 import dayjs from "dayjs";
-import { useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { useEffect, useId, useRef } from "react";
+import { type FieldErrors, useForm } from "react-hook-form";
 import { z } from "zod";
 import { CEPField } from "@/components/Fields/CEPField";
 import { useCEP } from "../../hooks/useCEP";
 import { useProfissionalRegisterStore } from "./useProfissionalRegisterStore";
 
+const FIELD_ORDER = [
+  "name",
+  "birthdate",
+  "cepResidencial",
+  "enderecoResidencial",
+  "numeroResidencial",
+  "bairroResidencial",
+  "cidadeResidencial",
+  "estadoResidencial",
+] as const;
+
 const schema = z.object({
   name: z
     .string()
-    .min(3, "Nome inválido")
+    .min(3, "Nome deve ter pelo menos 3 caracteres")
     .regex(
-      /^[A-Za-zÀ-ú]+(?: [A-Za-zÀ-ú]+)*$/,
+      /^[A-Za-zÀ-ÖØ-öø-ÿ-]+(?: [A-Za-zÀ-ÖØ-öø-ÿ-]+)*$/,
       "O nome deve conter apenas letras e um espaço entre as palavras",
     ),
   birthdate: z
@@ -48,8 +59,9 @@ const schema = z.object({
     ),
   cepResidencial: z
     .string()
-    .length(9, "CEP inválido")
-    .regex(/^\d{5}-\d{3}$/, "Formato de CEP inválido")
+    .min(1, "CEP é obrigatório")
+    .length(9, "CEP deve conter 8 dígitos (formato: XXXXX-XXX)")
+    .regex(/^\d{5}-\d{3}$/, "Formato de CEP inválido (XXXXX-XXX)")
     .refine(
       async (cep) => {
         if (!/^\d{5}-\d{3}$/.test(cep)) {
@@ -65,21 +77,39 @@ const schema = z.object({
         }
       },
       {
-        message: "CEP não encontrado",
+        message: "CEP não encontrado. Verifique e tente novamente",
       },
     ),
-  enderecoResidencial: z.string().min(3, "Endereço inválido"),
-  numeroResidencial: z.string().min(1, "Número obrigatório"),
-  bairroResidencial: z.string().min(3, "Bairro inválido"),
-
-  cidadeResidencial: z.string().min(3, "Cidade inválida"),
-  estadoResidencial: z.string().min(2, "Estado inválido"),
+  enderecoResidencial: z.string().min(3, "Endereço deve ter pelo menos 3 caracteres"),
+  numeroResidencial: z.string().min(1, "Número é obrigatório"),
+  bairroResidencial: z.string().min(3, "Bairro deve ter pelo menos 3 caracteres"),
+  cidadeResidencial: z.string().min(3, "Cidade deve ter pelo menos 3 caracteres"),
+  estadoResidencial: z.string().min(2, "Estado deve ter pelo menos 2 caracteres"),
 });
 
 type Data = z.infer<typeof schema>;
 
 export const PersonalDataStep = () => {
   const { changeStep, updateFields } = useProfissionalRegisterStore();
+  const nameId = useId();
+  const birthdateId = useId();
+  const cepResidencialId = useId();
+  const enderecoResidencialId = useId();
+  const numeroResidencialId = useId();
+  const bairroResidencialId = useId();
+  const cidadeResidencialId = useId();
+  const estadoResidencialId = useId();
+
+  const fieldRefs = {
+    name: useRef<HTMLDivElement>(null),
+    birthdate: useRef<HTMLDivElement>(null),
+    cepResidencial: useRef<HTMLDivElement>(null),
+    enderecoResidencial: useRef<HTMLDivElement>(null),
+    numeroResidencial: useRef<HTMLDivElement>(null),
+    bairroResidencial: useRef<HTMLDivElement>(null),
+    cidadeResidencial: useRef<HTMLDivElement>(null),
+    estadoResidencial: useRef<HTMLDivElement>(null),
+  };
 
   const {
     register,
@@ -115,7 +145,7 @@ export const PersonalDataStep = () => {
     cep: shouldFetchCep ? cepValue : "",
   });
 
-  const onSubmit = handleSubmit(async (data: Data) => {
+  const onValidSubmit = async (data: Data) => {
     const submittedData = {
       ...data,
       birthdate: data.birthdate === null ? undefined : data.birthdate,
@@ -128,13 +158,29 @@ export const PersonalDataStep = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
 
     changeStep("service_location");
-  });
+  };
+
+  const onInvalidSubmit = (formErrors: FieldErrors<Data>) => {
+    for (const field of FIELD_ORDER) {
+      if (formErrors[field]) {
+        const ref = fieldRefs[field].current;
+        if (ref) {
+          ref.scrollIntoView({ behavior: "smooth", block: "center" });
+          const input = ref.querySelector("input") as HTMLInputElement | null;
+          input?.focus();
+        }
+        break;
+      }
+    }
+  };
+
+  const onSubmit = handleSubmit(onValidSubmit, onInvalidSubmit);
 
   const replaceName = (e: React.ChangeEvent<HTMLInputElement>) => {
     const rawValue = e.target.value;
 
     const onlyLettersAndSpace = rawValue
-      .replace(/[^A-Za-zÀ-ú\s]/g, "")
+      .replace(/[^A-Za-zÀ-ÖØ-öø-ÿ\s-]/g, "")
       .replace(/\s+/g, " ")
       .trimStart();
 
@@ -147,30 +193,36 @@ export const PersonalDataStep = () => {
     setValue("enderecoResidencial", data.logradouro);
     setValue("bairroResidencial", data.bairro);
     setValue("cidadeResidencial", data.localidade);
-    setValue("estadoResidencial", data.estado);
+    setValue("estadoResidencial", data.uf);
     setValue("numeroResidencial", "");
   }, [data, setValue]);
 
   return (
     <form onSubmit={onSubmit} className="flex flex-col gap-6">
-      <div className="flex flex-col gap-2">
-        <label className={errors.name ? "text-red-600" : ""}>
+      <div ref={fieldRefs.name} className="flex flex-col gap-2">
+        <label htmlFor={nameId} className={errors.name ? "text-red-600" : ""}>
           Nome Completo <span className="text-red-600">*</span>
         </label>
         <TextField
           {...register("name")}
           onChange={replaceName}
           value={nameValue}
-          id="name"
+          id={nameId}
           variant="outlined"
           placeholder="Nome e Sobrenome"
+          autoComplete="name"
           helperText={errors.name?.message}
           error={!!errors.name}
+          inputProps={{
+            "aria-required": "true",
+            ...(errors.name && { "aria-describedby": "error-prof-name" }),
+          }}
+          FormHelperTextProps={{ id: "error-prof-name" }}
         />
       </div>
 
-      <div className="flex flex-col gap-2">
-        <label className={errors.birthdate ? "text-red-600" : ""}>
+      <div ref={fieldRefs.birthdate} className="flex flex-col gap-2">
+        <label htmlFor={birthdateId} className={errors.birthdate ? "text-red-600" : ""}>
           Data de Nascimento <span className="text-red-600">*</span>
         </label>
         <DatePicker
@@ -180,10 +232,15 @@ export const PersonalDataStep = () => {
           slotProps={{
             textField: {
               inputProps: {
+                id: birthdateId,
                 placeholder: "DD/MM/AAAA",
+                autoComplete: "bday",
+                "aria-required": "true",
+                ...(errors.birthdate && { "aria-describedby": "error-prof-birthdate" }),
               },
               helperText: errors.birthdate?.message,
               error: !!errors.birthdate,
+              FormHelperTextProps: { id: "error-prof-birthdate" },
             },
           }}
           onChange={(date) =>
@@ -194,15 +251,22 @@ export const PersonalDataStep = () => {
         />
       </div>
 
-      <div className="flex flex-col gap-2">
-        <label className={errors.cepResidencial ? "text-red-600" : ""}>
+      <div ref={fieldRefs.cepResidencial} className="flex flex-col gap-2">
+        <label htmlFor={cepResidencialId} className={errors.cepResidencial ? "text-red-600" : ""}>
           CEP Residencial <span className="text-red-600">*</span>
         </label>
         <CEPField
           {...register("cepResidencial")}
+          id={cepResidencialId}
           onChange={(e) => setValue("cepResidencial", e.target.value, { shouldValidate: true })}
           error={!!errors.cepResidencial}
           helperText={errors.cepResidencial?.message}
+          autoComplete="postal-code"
+          inputProps={{
+            "aria-required": "true",
+            ...(errors.cepResidencial && { "aria-describedby": "error-prof-cep" }),
+          }}
+          FormHelperTextProps={{ id: "error-prof-cep" }}
         />
         <div className="flex justify-end">
           <span className="cursor-pointer font-normal text-[#1D1B20] text-base underline">
@@ -211,74 +275,139 @@ export const PersonalDataStep = () => {
         </div>
       </div>
 
-      <div className="flex flex-col gap-2">
-        <label className={errors.enderecoResidencial ? "text-red-600" : ""}>
-          Longradouro <span className="text-red-600">*</span>
+      <div ref={fieldRefs.enderecoResidencial} className="flex flex-col gap-2">
+        <label
+          htmlFor={enderecoResidencialId}
+          className={errors.enderecoResidencial ? "text-red-600" : ""}
+        >
+          Logradouro <span className="text-red-600">*</span>
         </label>
         <TextField
           {...register("enderecoResidencial")}
+          id={enderecoResidencialId}
+          onChange={(e) =>
+            setValue("enderecoResidencial", e.target.value, {
+              shouldValidate: true,
+            })
+          }
           value={logradouroValue}
           variant="outlined"
           placeholder="Nome da rua / avenida, número"
           helperText={errors.enderecoResidencial?.message}
           error={!!errors.enderecoResidencial}
+          inputProps={{
+            "aria-required": "true",
+            ...(errors.enderecoResidencial && { "aria-describedby": "error-prof-endereco" }),
+          }}
+          FormHelperTextProps={{ id: "error-prof-endereco" }}
         />
       </div>
 
-      <div className="flex flex-col gap-2">
-        <label className={errors.numeroResidencial ? "text-red-600" : ""}>
+      <div ref={fieldRefs.numeroResidencial} className="flex flex-col gap-2">
+        <label
+          htmlFor={numeroResidencialId}
+          className={errors.numeroResidencial ? "text-red-600" : ""}
+        >
           Número <span className="text-red-600">*</span>
         </label>
         <TextField
           {...register("numeroResidencial")}
+          id={numeroResidencialId}
           value={numeroResidencialValue}
           type="number"
           variant="outlined"
           placeholder="0000"
           helperText={errors.numeroResidencial?.message}
           error={!!errors.numeroResidencial}
+          inputProps={{
+            "aria-required": "true",
+            ...(errors.numeroResidencial && { "aria-describedby": "error-prof-numero" }),
+          }}
+          FormHelperTextProps={{ id: "error-prof-numero" }}
         />
       </div>
 
-      <div className="flex flex-col gap-2">
-        <label className={errors.bairroResidencial ? "text-red-600" : ""}>
+      <div ref={fieldRefs.bairroResidencial} className="flex flex-col gap-2">
+        <label
+          htmlFor={bairroResidencialId}
+          className={errors.bairroResidencial ? "text-red-600" : ""}
+        >
           Bairro <span className="text-red-600">*</span>
         </label>
         <TextField
           {...register("bairroResidencial")}
+          id={bairroResidencialId}
+          onChange={(e) =>
+            setValue("bairroResidencial", e.target.value, {
+              shouldValidate: true,
+            })
+          }
           value={bairroValue}
           variant="outlined"
           placeholder="Nome do bairro"
           helperText={errors.bairroResidencial?.message}
           error={!!errors.bairroResidencial}
+          inputProps={{
+            "aria-required": "true",
+            ...(errors.bairroResidencial && { "aria-describedby": "error-prof-bairro" }),
+          }}
+          FormHelperTextProps={{ id: "error-prof-bairro" }}
         />
       </div>
 
-      <div className="flex flex-col gap-2">
-        <label className={errors.cidadeResidencial ? "text-red-600" : ""}>
+      <div ref={fieldRefs.cidadeResidencial} className="flex flex-col gap-2">
+        <label
+          htmlFor={cidadeResidencialId}
+          className={errors.cidadeResidencial ? "text-red-600" : ""}
+        >
           Cidade <span className="text-red-600">*</span>
         </label>
         <TextField
           {...register("cidadeResidencial")}
+          id={cidadeResidencialId}
+          onChange={(e) =>
+            setValue("cidadeResidencial", e.target.value, {
+              shouldValidate: true,
+            })
+          }
           value={cidadeValue}
           variant="outlined"
           placeholder="Nome da cidade"
           helperText={errors.cidadeResidencial?.message}
           error={!!errors.cidadeResidencial}
+          inputProps={{
+            "aria-required": "true",
+            ...(errors.cidadeResidencial && { "aria-describedby": "error-prof-cidade" }),
+          }}
+          FormHelperTextProps={{ id: "error-prof-cidade" }}
         />
       </div>
 
-      <div className="flex flex-col gap-2">
-        <label className={errors.estadoResidencial ? "text-red-600" : ""}>
+      <div ref={fieldRefs.estadoResidencial} className="flex flex-col gap-2">
+        <label
+          htmlFor={estadoResidencialId}
+          className={errors.estadoResidencial ? "text-red-600" : ""}
+        >
           Estado <span className="text-red-600">*</span>
         </label>
         <TextField
           {...register("estadoResidencial")}
+          id={estadoResidencialId}
+          onChange={(e) =>
+            setValue("estadoResidencial", e.target.value, {
+              shouldValidate: true,
+            })
+          }
           value={estadoValue}
           variant="outlined"
           placeholder="Nome do estado"
           helperText={errors.estadoResidencial?.message}
           error={!!errors.estadoResidencial}
+          inputProps={{
+            "aria-required": "true",
+            ...(errors.estadoResidencial && { "aria-describedby": "error-prof-estado" }),
+          }}
+          FormHelperTextProps={{ id: "error-prof-estado" }}
         />
       </div>
 

@@ -15,12 +15,17 @@ module.exports = {
         primary: {
           500: "#3857F4",
           300: "#6E85F7",
+          800: "#1b2f80",
         },
         secondary: {
+          50: "#eef2ff",
           500: "#253E99",
           100: "#D6DDF5",
           800: "#142152",
           900: "#1D1B20",
+        },
+        neutral: {
+          50: "#F2F1F3",
         },
         "hover-blue": "#BEC9EF",
         "selected-blue": "#A5B4E9",

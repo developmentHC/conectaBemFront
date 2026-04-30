@@ -15,6 +15,11 @@ export const metadata = {
   description: "ConectaBem",
 };
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
+
 const lato = Lato({
   weight: ["100", "300", "400", "700", "900"],
   style: ["normal", "italic"],

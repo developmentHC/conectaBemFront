@@ -6,6 +6,7 @@ export default function BackButton() {
   return (
     <div className="w-fit">
       <button
+        type="button"
         className="flex items-center gap-1 font-medium text-gray-600 text-sm hover:text-gray-900"
         onClick={() => router.back()}
       >

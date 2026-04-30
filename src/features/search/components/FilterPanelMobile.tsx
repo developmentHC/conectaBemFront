@@ -20,7 +20,11 @@ export const FilterPanelMobile = ({ onFilterChange }: FilterDialogProps) => {
     <div className="mx-auto mb-4 flex flex-col items-center gap-6">
       <div className="flex w-full flex-col gap-3">
         <div className="w-fit">
-          <button className="flex items-center gap-1 text-sm" onClick={onFilterChange}>
+          <button
+            type="button"
+            className="flex items-center gap-1 text-sm"
+            onClick={onFilterChange}
+          >
             <IoMdArrowBack size={20} />
             voltar
           </button>
@@ -83,6 +87,7 @@ export const FilterPanelMobile = ({ onFilterChange }: FilterDialogProps) => {
         </div>
       </div>
       <button
+        type="button"
         className="flex w-full justify-center rounded-lg bg-blue-600 py-2 text-center tracking-widest"
         onClick={handleOnFilter}
       >

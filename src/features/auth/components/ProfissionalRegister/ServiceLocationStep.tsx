@@ -52,7 +52,7 @@ const schema = z.object({
       },
     ),
   enderecoClinica: z.string().min(5, "Endereço inválido"),
-  bairroClinica: z.string().min(3, "Bairro inválido"),
+  bairroClinica: z.string().min(2, "Bairro inválido"),
   numeroClinica: z
     .number({
       invalid_type_error: "Número inválido",
@@ -153,7 +153,7 @@ export const ServiceLocationStep = () => {
     setNeighborhoodInput(data.bairro || "");
 
     setValue("cidadeClinica", data.localidade);
-    setValue("estadoClinica", data.estado);
+    setValue("estadoClinica", data.uf);
   }, [data, setValue]);
 
   return (
@@ -214,7 +214,7 @@ export const ServiceLocationStep = () => {
           }}
         />
       </div>
-      <div className="flex gap-4">
+      <div className="flex flex-col gap-4 sm:flex-row">
         <div className="flex flex-col gap-2">
           <label>
             Bairro da Clínica <span className="text-red-600">*</span>

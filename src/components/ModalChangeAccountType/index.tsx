@@ -18,7 +18,7 @@ export const ModalChangeAccountType: React.FC<ModalChangeAccountTypeProps> = ({
       className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40"
       onClick={handleOverlayClick}
     >
-      <div className="w-full max-w-3xl rounded-lg bg-white p-6">
+      <div className="mx-4 w-full max-w-3xl rounded-lg bg-white p-6">
         <h2 className="mb-3 font-semibold text-black text-xl leading-[130%]">Troca de Perfil</h2>
         <p className="mb-4 text-[#1D1B20]">
           Tem certeza que deseja mudar para o perfil de paciente?

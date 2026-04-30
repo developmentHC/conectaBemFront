@@ -2,7 +2,7 @@ import { Divider } from "@mui/material";
 import clsx from "clsx";
 import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
-import { useState } from "react";
+import { useId, useState } from "react";
 import { ChevronRightIcon, HelpIcon, SearchIcon } from "@/assets/icons";
 import type { MenuItem } from "../types";
 
@@ -14,6 +14,7 @@ interface MobileMenuProps {
 export const MobileMenu = ({ menuData, onClose }: MobileMenuProps) => {
   const { data: session, status } = useSession();
   const [openItems, setOpenItems] = useState<Set<string>>(new Set());
+  const searchInputId = useId();
 
   const handleSubmitSearchBar = (e: React.FormEvent) => {
     e.preventDefault();
@@ -48,7 +49,7 @@ export const MobileMenu = ({ menuData, onClose }: MobileMenuProps) => {
             placeholder="Buscar profissionais e áreas"
             type="text"
             name="search"
-            id="search"
+            id={searchInputId}
           />
           <button type="submit" className="rounded-full bg-[rgb(56,88,244)]">
             <SearchIcon className="h-10 w-10 fill-[#D7FF7B] p-2" />
@@ -64,6 +65,7 @@ export const MobileMenu = ({ menuData, onClose }: MobileMenuProps) => {
                     onClick={
                       !item.menuitemlink.url ? () => toggleItem(item.menuitemtext) : undefined
                     }
+                    type="button"
                   >
                     {!item.menuitemlink.url ? (
                       <h3 className="font-normal text-base text-black">{item.menuitemtext}</h3>
@@ -129,6 +131,7 @@ export const MobileMenu = ({ menuData, onClose }: MobileMenuProps) => {
               <Divider sx={{ margin: "1rem 0" }} />
               <div>
                 <button
+                  type="button"
                   className="flex w-full items-center justify-between py-4"
                   onClick={() => signOut({ redirect: false })}
                 >
@@ -153,6 +156,7 @@ export const MobileMenu = ({ menuData, onClose }: MobileMenuProps) => {
             </span>
 
             <button
+              type="button"
               role="switch"
               aria-checked={session?.user?.type === "professional"}
               className="relative inline-flex h-3.5 w-9 items-center rounded-full bg-[#B3BFFB] transition-colors"

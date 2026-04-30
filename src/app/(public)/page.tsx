@@ -1,13 +1,29 @@
 "use client";
 
 import Image from "next/image";
+import { useState } from "react";
 import { MedicalSpecialization } from "@/components/MedicalSpecialization/MedicalSpecialization";
 import { SearchInput } from "@/components/SearchInput/SearchInput";
 import { HighlightWeek } from "@/features/home/components/HighlightWeek";
 import { PersonalAddress } from "@/features/home/components/PersonalAddress";
 import { ProfessionalSection } from "@/features/home/components/ProfessionalSection";
+import { FilterButton } from "@/features/search/components/FilterButton";
+import { FilterDialogDesktop } from "@/features/search/components/FilterDialogDesktop";
+import { FilterPanelMobile } from "@/features/search/components/FilterPanelMobile";
+import { useFilters } from "@/hooks/useFilters";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 export default function HomePage() {
+  const { filters, handleApplyFilters, handleClearFilters } = useFilters();
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const isMobile = useIsMobile();
+
+  const onFilterChange = () => setIsFilterOpen((prev) => !prev);
+
+  if (isFilterOpen && isMobile) {
+    return <FilterPanelMobile onFilterChange={onFilterChange} />;
+  }
+
   return (
     <main className="flex flex-col gap-10">
       <section className="flex flex-col gap-6">
@@ -18,7 +34,7 @@ export default function HomePage() {
               <h1 className="font-semibold text-2xl md:text-4xl lg:text-5xl">
                 Conecta Bem: <br /> O cuidado que acolhe.
               </h1>
-              <span className="text-base md:text-2xl lg:text-3xl">
+              <span className="lg:text-3xl">
                 Encontre os melhores profissionais de terapias alternativas para você!
               </span>
             </div>
@@ -34,13 +50,26 @@ export default function HomePage() {
           </div>
           <div className="flex w-full max-w-[1336px] flex-col items-center gap-10 self-stretch">
             <SearchInput />
-            <MedicalSpecialization />
+            <div className="flex flex-wrap items-center justify-center md:mx-auto md:w-4/5">
+              <FilterButton onClick={onFilterChange} />
+              <MedicalSpecialization />
+            </div>
           </div>
         </div>
       </section>
       <HighlightWeek />
 
       <ProfessionalSection />
+
+      {isFilterOpen && (
+        <FilterDialogDesktop
+          open={isFilterOpen}
+          onFilterChange={onFilterChange}
+          onApply={handleApplyFilters}
+          onClear={handleClearFilters}
+          initialFilters={filters}
+        />
+      )}
     </main>
   );
 }

@@ -1,35 +1,51 @@
 import { useMutation } from "@tanstack/react-query";
+import { isAxiosError } from "axios";
 import { useRouter } from "next/navigation";
-import { signIn } from "next-auth/react";
+import { getSession, signIn } from "next-auth/react";
 import toast from "react-hot-toast";
-import { api } from "@/libs/api";
+import { postAuthCreatepatient } from "@/kubb/hooks/usePostAuthCreatepatient";
+import type { PostAuthCreatepatientMutationResponse } from "@/kubb/types/PostAuthCreatepatient";
+import { useUserStore } from "@/stores/userSessionStore";
 import type { ICreatePatient } from "@/types/patient";
 
 export const useRegisterPatient = () => {
   const router = useRouter();
+  const { pendingToken, clearPendingToken, setUser } = useUserStore();
 
   return useMutation({
     mutationFn: async (data: ICreatePatient) => {
-      const response = await api.post("/auth/createPatient", data);
+      if (!pendingToken) {
+        toast.error("Sessão expirada. Por favor, faça o login novamente.");
+        router.push("/auth");
+        throw new Error("pendingToken ausente");
+      }
 
-      return response.data;
+      // TODO: remover `as any` quando o swagger gerar schemas corretos (hoje AddUserPatient vem como JSON Schema metadata em vez do payload real)
+      return postAuthCreatepatient(data as any, { authorization: `Bearer ${pendingToken}` });
     },
-    onSuccess: async (data) => {
+    onSuccess: async (data: PostAuthCreatepatientMutationResponse) => {
+      clearPendingToken();
       try {
-        console.log("data:", data);
-        const token = data.token;
-
+        const token = "token" in data ? data.token : undefined;
         if (!token) {
           toast.error("Resposta inválida do servidor após o registro.");
           return;
         }
-
         const result = await signIn("credentials", {
           token,
           redirect: false,
         });
-
         if (result?.ok) {
+          const session = await getSession();
+          if (session?.user) {
+            setUser({
+              id: (session.user as any).id ?? (session.user as any)._id,
+              email: session.user.email ?? "",
+              name: session.user.name ?? undefined,
+              photo: (session.user as any).profilePhoto ?? session.user.image ?? undefined,
+              type: (session as any).userType ?? undefined,
+            });
+          }
           toast.success("Cadastro realizado e sessão iniciada!");
           router.push("/");
         } else {
@@ -41,7 +57,9 @@ export const useRegisterPatient = () => {
       }
     },
     onError: (error) => {
-      toast.error(error.message);
+      if (error.message === "pendingToken ausente") return;
+      const apiError = isAxiosError(error) ? error.response?.data?.error : undefined;
+      toast.error(apiError ?? "Não foi possível completar seu cadastro. Tente novamente.");
     },
   });
 };

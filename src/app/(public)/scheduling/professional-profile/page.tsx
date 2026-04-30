@@ -7,6 +7,27 @@ import { RxAccessibility } from "react-icons/rx";
 import { InformationIcon, StarIcon } from "@/../public/images";
 import { mock } from "./mock";
 
+const LogoGrid = ({ items }: { items: { img: string; title: string }[] }) => (
+  <div className="mx-auto mt-4 grid w-fit grid-cols-4 sm:mx-0">
+    {items.map((i) => (
+      <div key={i.title} className="flex flex-col items-center">
+        <div className="flex h-14 w-14 items-center justify-center rounded-lg border border-slate-200 bg-white p-1">
+          <Image
+            src={i.img}
+            alt={i.title}
+            width={24}
+            height={24}
+            className="h-5 w-5 object-contain sm:h-6 sm:w-6"
+          />
+        </div>
+        <span className="mt-1 w-16 break-words text-center font-medium text-slate-600 text-xs leading-tight">
+          {i.title}
+        </span>
+      </div>
+    ))}
+  </div>
+);
+
 export default function PerfilProfissional() {
   const [showFullAbout, setShowFullAbout] = useState(false);
   const [selectedServices, setSelectedServices] = useState<Set<string>>(new Set());
@@ -64,26 +85,6 @@ export default function PerfilProfissional() {
     : 0;
 
   // helper simples p/ renderizar logos em grid
-  const LogoGrid = ({ items }: { items: { img: string; title: string }[] }) => (
-    <div className="mx-auto mt-4 grid w-fit grid-cols-4 sm:mx-0">
-      {items.map((i) => (
-        <div key={i.title} className="flex flex-col items-center">
-          <div className="flex h-14 w-14 items-center justify-center rounded-lg border border-slate-200 bg-white p-1">
-            <Image
-              src={i.img}
-              alt={i.title}
-              width={24}
-              height={24}
-              className="h-5 w-5 object-contain sm:h-6 sm:w-6"
-            />
-          </div>
-          <span className="mt-1 w-16 break-words text-center font-medium text-slate-600 text-xs leading-tight">
-            {i.title}
-          </span>
-        </div>
-      ))}
-    </div>
-  );
 
   const PAYMENTS = [
     { img: "/images/pix.svg", title: "Pix" },
@@ -347,7 +348,6 @@ export default function PerfilProfissional() {
                       }`}
                     >
                       {active && (
-                        // biome-ignore lint/a11y/noSvgWithoutTitle: <explanation>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           className="h-5 w-5 text-white"

@@ -51,7 +51,8 @@ export const Header = () => {
         <div className="flex w-full items-center justify-between gap-4 lg:pt-2">
           {pathname !== "/" && (
             <button
-              className="h-8 w-12 lg:hidden"
+              type="button"
+              className="h-11 w-11 lg:hidden"
               onClick={() => router.back()}
               aria-label="Voltar"
             >
@@ -60,9 +61,10 @@ export const Header = () => {
           )}
 
           <button
+            type="button"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label={isMobileMenuOpen ? "Fechar menu" : "Abrir menu"}
-            className="relative h-8 w-12 focus:outline-none lg:hidden"
+            className="relative h-11 w-11 focus:outline-none lg:hidden"
           >
             {isMobileMenuOpen ? (
               <CloseIcon className="absolute top-1/2 left-1/2 h-6 w-6 -translate-x-1/2 -translate-y-1/2 fill-[#1D1B20] transition-transform duration-300" />
@@ -121,16 +123,25 @@ export const Header = () => {
                   onMouseEnter={!item.menuitemlink.url ? () => setHoveredItem(index) : undefined}
                   onMouseLeave={!item.menuitemlink.url ? () => setHoveredItem(null) : undefined}
                 >
-                  <button className="flex items-center gap-2 font-semibold text-secondary-900">
-                    {item.menuitemlink.url ? (
-                      <Link href={item.menuitemlink.url || "#"}>{item.menuitemtext}</Link>
-                    ) : (
-                      <>
-                        {item.menuitemtext}
-                        <ChevronDownIcon className="h-4 w-4 text-[#9790A2] transition-transform" />
-                      </>
-                    )}
-                  </button>
+                  {item.menuitemlink.url ? (
+                    <Link
+                      href={item.menuitemlink.url}
+                      className="flex items-center gap-2 font-semibold text-secondary-900"
+                    >
+                      {item.menuitemtext}
+                    </Link>
+                  ) : (
+                    <button
+                      type="button"
+                      className="flex items-center gap-2 font-semibold text-secondary-900"
+                    >
+                      {item.menuitemtext}
+                      <ChevronDownIcon
+                        aria-hidden="true"
+                        className="h-4 w-4 text-[#9790A2] transition-transform"
+                      />
+                    </button>
+                  )}
 
                   {hoveredItem === index && (
                     <div className="absolute top-full left-0 z-50 w-48 animate-fade-in whitespace-normal rounded-lg bg-white py-2 shadow-lg ring-1 ring-black ring-opacity-5">

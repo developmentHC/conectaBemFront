@@ -5,7 +5,7 @@ import { SocialNetwork } from "@/features/auth/components/SocialNetwork/SocialNe
 
 export default function register() {
   return (
-    <main className="flex md:justify-center">
+    <div className="flex md:justify-center">
       <div className="flex w-full flex-col gap-8 md:max-w-[450px]">
         <FormMultiStep.Header>
           <FormMultiStep.Title>Prazer ter você no ConectaBem!</FormMultiStep.Title>
@@ -17,6 +17,6 @@ export default function register() {
           <SocialNetwork />
         </div>
       </div>
-    </main>
+    </div>
   );
 }

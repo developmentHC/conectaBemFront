@@ -7,8 +7,9 @@ import { ErrorTemplate } from "@/components/ErrorTemplate";
 
 export default function GlobalError({ error, reset }: { error: Error; reset: () => void }) {
   useEffect(() => {
-    // útil p/ logs durante QA; em prod vai para o server log
-    console.error(error);
+    if (process.env.NODE_ENV !== "production") {
+      console.error(error);
+    }
   }, [error]);
 
   return (

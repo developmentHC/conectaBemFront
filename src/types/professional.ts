@@ -1,14 +1,14 @@
 export type IProfessional = {
-  id: number;
+  id: number | string;
   name: string;
   specialization: string;
   image: string;
-  price: number;
-  rating: number;
-  reviews: number;
-  isFavorite: boolean;
-  accessibility: string[];
-  preferablyServices: {
+  price?: number;
+  rating?: number;
+  reviews?: number;
+  isFavorite?: boolean;
+  accessibility?: string[];
+  preferablyServices?: {
     id: number;
     name: string;
   }[];
@@ -16,7 +16,6 @@ export type IProfessional = {
 };
 
 export type ICreateProfissional = {
-  userId: string | undefined;
   name: string | undefined;
   birthdayDate: number | undefined;
   CNPJCPFProfissional: string | undefined;

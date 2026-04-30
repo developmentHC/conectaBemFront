@@ -6,7 +6,7 @@ export const filterAndSortProfessionals = (
 ) => {
   if (!professionals) return [];
 
-  const sorted = [...professionals].sort((a, b) => b.rating - a.rating);
+  const sorted = [...professionals].sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0));
 
   return specialization
     ? sorted.filter((professional) => professional.specialization === specialization)
