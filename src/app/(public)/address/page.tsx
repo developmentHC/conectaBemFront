@@ -35,7 +35,7 @@ export default function Addresses() {
     });
   };
 
-  const hasAddresses = (addresses?.length ?? 0) > 0; 
+  const hasAddresses = (addresses?.length ?? 0) > 0;
 
   return (
     <main className="mx-auto w-full max-w-[452px] space-y-10 sm:px-0">
@@ -64,9 +64,8 @@ export default function Addresses() {
           Não foi possível carregar seus endereços. Tente novamente em instantes.
         </Typography>
       ) : hasAddresses ? (
-         <div className="space-y-8">
+        <div className="space-y-8">
           {addresses?.map((address) => {
-            
             const hasType = Boolean(address.type);
             const hasCidade = Boolean(address.cidade);
 
@@ -86,9 +85,7 @@ export default function Addresses() {
 
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
-                    {hasType && (
-                      <Typography variant="h5">{address.type}</Typography>
-                    )}
+                    {hasType && <Typography variant="h5">{address.type}</Typography>}
 
                     {address.type === "Casa" ? (
                       <HouseIcon width={31} height={31} className="fill-secondary-500" />
