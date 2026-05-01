@@ -1,5 +1,5 @@
-import type { Address } from "@/types/address";
 import type { GetAddressQueryResponse } from "@/kubb/types/GetAddress";
+import type { Address } from "@/types/address";
 
 type ApiAddress = NonNullable<GetAddressQueryResponse["addresses"]>[number];
 
