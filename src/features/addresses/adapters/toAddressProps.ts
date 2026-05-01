@@ -1,16 +1,7 @@
 import type { Address } from "@/types/address";
+import type { GetAddressQueryResponse } from "@/kubb/types/GetAddress";
 
-type ApiAddress = {
-  _id?: string;
-  bairro?: string;
-  endereco?: string;
-  estado?: string;
-  cep?: string;
-  complemento?: string;
-  active?: boolean;
-  type?: string;
-  cidade?: string;
-};
+type ApiAddress = GetAddressQueryResponse["addresses"][number];
 
 export const toAddressProps = (addr: ApiAddress): Address | null => {
   if (!addr._id) return null;
