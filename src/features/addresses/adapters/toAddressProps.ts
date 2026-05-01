@@ -1,7 +1,7 @@
 import type { Address } from "@/types/address";
 import type { GetAddressQueryResponse } from "@/kubb/types/GetAddress";
 
-type ApiAddress = GetAddressQueryResponse["addresses"][number];
+type ApiAddress = NonNullable<GetAddressQueryResponse["addresses"]>[number];
 
 export const toAddressProps = (addr: ApiAddress): Address | null => {
   if (!addr._id) return null;
