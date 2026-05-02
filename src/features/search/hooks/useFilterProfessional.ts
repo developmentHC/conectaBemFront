@@ -1,6 +1,9 @@
 import type { FiltersState } from "@/features/search/components/types";
 import { useGetSearchProfessionals } from "@/kubb/hooks/useGetSearchProfessionals";
-import { useGetSearchSearchbarTerms } from "@/kubb/hooks/useGetSearchSearchbarTerms";
+import {
+  getSearchSearchbarTermsQueryKey,
+  useGetSearchSearchbarTerms,
+} from "@/kubb/hooks/useGetSearchSearchbarTerms";
 import { type RawProfessional, toProfessionalCardProps } from "@/utils/toProfessionalCardProps";
 
 type UseFilterProfessionalParams = {
@@ -26,8 +29,17 @@ export const useFilterProfessional = ({
     { query: { enabled: !hasSearchTerm } },
   );
 
+  // Workaround: the generated `useGetSearchSearchbarTerms` hook declares `page`
+  // as a path param in the OpenAPI spec, but the actual URL is
+  // `/search/searchBar/:terms` — so `page` is never sent and the queryKey
+  // doesn't change between pages. We inject `page` both into the queryKey
+  // (so React Query refetches) and as a real query string param.
   const searchQuery = useGetSearchSearchbarTerms(searchTerm, page, {
-    query: { enabled: hasSearchTerm },
+    query: {
+      enabled: hasSearchTerm,
+      queryKey: [...getSearchSearchbarTermsQueryKey(searchTerm, page), { page }] as const,
+    },
+    client: { params: { page } },
   });
 
   const activeQuery = hasSearchTerm ? searchQuery : filterQuery;
