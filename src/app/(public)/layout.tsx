@@ -16,8 +16,8 @@ export default function Layout({
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
-      <div className="mx-auto min-h-[40vh] w-full max-w-[86rem] px-10 py-10 lg:flex lg:items-center lg:justify-center">
-        <main className="flex-1">{children}</main>
+      <div className="mx-auto flex w-full max-w-[86rem] flex-1 flex-col px-10 py-10 lg:flex-row lg:items-start lg:justify-center">
+        <main className="w-full flex-1">{children}</main>
       </div>
       {isLoggedIn ? (
         <Footer
