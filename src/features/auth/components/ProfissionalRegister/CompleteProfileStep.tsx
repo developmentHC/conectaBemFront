@@ -49,10 +49,10 @@ export const CompleteProfileStep = () => {
       CNPJCPFProfissional: cpfCNPJ,
       residentialAddress: {
         cep: cepResidencial,
-        address: enderecoResidencial,
-        neighborhood: bairroResidencial,
-        city: cidadeResidencial,
-        state: estadoResidencial,
+        endereco: enderecoResidencial,
+        bairro: bairroResidencial,
+        cidade: cidadeResidencial,
+        estado: estadoResidencial,
       },
       clinic: {
         name: clinicName,
