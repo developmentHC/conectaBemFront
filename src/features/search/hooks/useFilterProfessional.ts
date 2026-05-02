@@ -44,16 +44,23 @@ export const useFilterProfessional = ({
 
   const activeQuery = hasSearchTerm ? searchQuery : filterQuery;
 
+  // Both `/search/searchBar/:terms` and `/search/professionals` return
+  // `{ professionals, page, pageCount, ... }`. The previous code assumed
+  // `/search/professionals` returned a bare array and lost both the
+  // results and the pageCount. The Kubb-generated type for the filter
+  // endpoint is `any`, so we have to narrow defensively.
+  const filterData = filterQuery.data as
+    | { professionals?: RawProfessional[]; pageCount?: number }
+    | undefined;
+
   const rawList: RawProfessional[] = hasSearchTerm
     ? (searchQuery.data?.professionals ?? [])
-    : Array.isArray(filterQuery.data)
-      ? (filterQuery.data as RawProfessional[])
-      : [];
+    : (filterData?.professionals ?? []);
 
   return {
     data: rawList.map(toProfessionalCardProps),
     isLoading: activeQuery.isLoading,
     isError: activeQuery.isError,
-    pageCount: hasSearchTerm ? (searchQuery.data?.pageCount ?? 1) : 1,
+    pageCount: hasSearchTerm ? (searchQuery.data?.pageCount ?? 1) : (filterData?.pageCount ?? 1),
   };
 };
