@@ -1,6 +1,8 @@
 import type { RequestConfig, ResponseErrorConfig } from "@kubb/plugin-client/clients/axios";
 import type { AxiosRequestConfig, AxiosResponse } from "axios";
 import axios from "axios";
+import Cookies from "js-cookie";
+import { getSession } from "next-auth/react";
 
 export const kubbClient = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL || "https://conecta-bem-back.vercel.app/",
@@ -10,13 +12,15 @@ export const kubbClient = axios.create({
   },
 });
 
-kubbClient.interceptors.request.use((config) => {
-  if (typeof window !== "undefined") {
-    const token = localStorage.getItem("token");
+kubbClient.interceptors.request.use(async (config) => {
+  if (typeof window === "undefined") return config;
 
-    if (token && config.headers) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
+  const session = await getSession();
+  const token =
+    (session as { accessToken?: string } | null)?.accessToken ?? Cookies.get("authToken");
+
+  if (token && config.headers) {
+    config.headers.Authorization = `Bearer ${token}`;
   }
 
   return config;

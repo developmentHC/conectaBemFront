@@ -67,7 +67,12 @@ export default function Addresses() {
         <div className="space-y-8">
           {addresses?.map((address) => {
             const hasType = Boolean(address.type);
-            const hasCidade = Boolean(address.cidade);
+            const streetLine = [
+              [address.rua, address.bairro].filter(Boolean).join(" - "),
+              [address.cidade, address.estado].filter(Boolean).join(" - "),
+            ]
+              .filter(Boolean)
+              .join(", ");
 
             return (
               <div
@@ -87,19 +92,16 @@ export default function Addresses() {
                   <div className="flex items-center justify-between">
                     {hasType && <Typography variant="h5">{address.type}</Typography>}
 
-                    {address.type === "Casa" ? (
-                      <HouseIcon width={31} height={31} className="fill-secondary-500" />
-                    ) : (
-                      <LocationIcon width={31} height={31} className="fill-secondary-500" />
-                    )}
+                    {hasType &&
+                      (address.type === "Casa" ? (
+                        <HouseIcon width={31} height={31} className="fill-secondary-500" />
+                      ) : (
+                        <LocationIcon width={31} height={31} className="fill-secondary-500" />
+                      ))}
                   </div>
 
                   <div className="space-y-2">
-                    <Typography variant="body1">
-                      {address.rua} - {address.bairro}
-                      {hasCidade && `, ${address.cidade}`}
-                      {` - ${address.estado}`}
-                    </Typography>
+                    <Typography variant="body1">{streetLine}</Typography>
 
                     <div>
                       <div className="flex space-x-2">
