@@ -1,14 +1,14 @@
 export type IProfessional = {
-  id: number;
+  id: number | string;
   name: string;
   specialization: string;
   image: string;
-  price: number;
-  rating: number;
-  reviews: number;
-  isFavorite: boolean;
-  accessibility: string[];
-  preferablyServices: {
+  price?: number;
+  rating?: number;
+  reviews?: number;
+  isFavorite?: boolean;
+  accessibility?: string[];
+  preferablyServices?: {
     id: number;
     name: string;
   }[];
@@ -26,10 +26,10 @@ export type ICreateProfissional = {
   profilePhoto: string | undefined;
   residentialAddress: {
     cep: string | undefined;
-    address: string | undefined;
-    neighborhood: string | undefined;
-    city: string | undefined;
-    state: string | undefined;
+    endereco: string | undefined;
+    bairro: string | undefined;
+    cidade: string | undefined;
+    estado: string | undefined;
   };
   clinic: {
     name: string | undefined;

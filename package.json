@@ -105,7 +105,7 @@
   },
   "lint-staged": {
     "*.{ts,tsx,js,jsx,json,css}": [
-      "biome check --write"
+      "biome check --write --no-errors-on-unmatched"
     ]
   },
   "msw": {

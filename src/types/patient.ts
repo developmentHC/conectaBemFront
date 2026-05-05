@@ -24,16 +24,16 @@ export type ICreatePatient = {
   name: string | undefined;
   residentialAddress: {
     cep: string | undefined;
-    address: string | undefined;
-    number: string | undefined;
-    neighborhood: string | undefined;
-    city: string | undefined;
-    state: string | undefined;
+    endereco: string | undefined;
+    numero: string | undefined;
+    bairro: string | undefined;
+    cidade: string | undefined;
+    estado: string | undefined;
   };
   birthdayDate: number | undefined;
   userSpecialties: string[] | undefined;
   userServicePreferences: string[] | undefined;
-  userAccessibilityPreferences: string[] | undefined;
+  accessibility: string[] | undefined;
   /** URL da foto de perfil hospedada (retornada por /auth/uploadPhoto) */
   profilePhoto: string | undefined;
 };

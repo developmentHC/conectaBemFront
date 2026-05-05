@@ -41,7 +41,7 @@ export const FilteredProfessionalCard = ({ professional }: ProfessionalCardProps
           </div>
           <div className="mt-2 hidden max-h-[60px] min-h-[30px] lg:flex">
             <div className="flex flex-row flex-wrap gap-2">
-              {professional.preferablyServices.slice(0, 2).map((service) => (
+              {professional.preferablyServices?.slice(0, 2).map((service) => (
                 <div
                   key={service.id}
                   className="rounded-full border border-blue-600 px-2 py-1 text-xs"
@@ -49,7 +49,7 @@ export const FilteredProfessionalCard = ({ professional }: ProfessionalCardProps
                   {service.name}
                 </div>
               ))}
-              {professional.preferablyServices.length > 2 && (
+              {(professional.preferablyServices?.length ?? 0) > 2 && (
                 <button
                   type="button"
                   className="text-blue-600 text-sm transition-all hover:text-blue-800"
@@ -63,12 +63,12 @@ export const FilteredProfessionalCard = ({ professional }: ProfessionalCardProps
       </div>
       <div className="mx-6 my-4 flex max-h-[60px] min-h-[30px] lg:hidden">
         <div className="flex flex-row flex-wrap gap-2">
-          {professional.preferablyServices.slice(0, 2).map((service) => (
+          {professional.preferablyServices?.slice(0, 2).map((service) => (
             <div key={service.id} className="rounded-full border border-blue-600 px-2 py-1 text-xs">
               {service.name}
             </div>
           ))}
-          {professional.preferablyServices.length > 2 && (
+          {(professional.preferablyServices?.length ?? 0) > 2 && (
             <button
               type="button"
               className="text-blue-600 text-sm transition-all hover:text-blue-800"

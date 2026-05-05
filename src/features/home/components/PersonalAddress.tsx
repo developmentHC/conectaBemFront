@@ -34,7 +34,7 @@ export const PersonalAddress = () => {
   }, [isAuthenticated]);
 
   const registeredAddress = useMemo(() => {
-    if (!patient || !patient.enderecoResidencial) return null;
+    if (!patient?.enderecoResidencial) return null;
     const parts = [patient.enderecoResidencial];
 
     if (patient.complementoResidencial) {

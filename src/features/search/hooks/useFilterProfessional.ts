@@ -1,17 +1,66 @@
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
-import type { IProfessional } from "@/types/professional";
+import type { FiltersState } from "@/features/search/components/types";
+import { useGetSearchProfessionals } from "@/kubb/hooks/useGetSearchProfessionals";
+import {
+  getSearchSearchbarTermsQueryKey,
+  useGetSearchSearchbarTerms,
+} from "@/kubb/hooks/useGetSearchSearchbarTerms";
+import { type RawProfessional, toProfessionalCardProps } from "@/utils/toProfessionalCardProps";
 
-export const useFilterProfessional = () => {
-  return useQuery<IProfessional[]>({
-    queryKey: ["professional"],
-    queryFn: async () => {
-      const response = await axios.get("mocks/professional.json");
+type UseFilterProfessionalParams = {
+  filters: FiltersState;
+  page: number;
+  searchTerm?: string;
+};
 
-      return response.data;
+export const useFilterProfessional = ({
+  filters,
+  page,
+  searchTerm = "",
+}: UseFilterProfessionalParams) => {
+  const hasSearchTerm = searchTerm.trim().length > 0;
+
+  const filterQuery = useGetSearchProfessionals(
+    {
+      specialty: filters.specialties[0],
+      service: filters.services[0],
+      accessibility: filters.accessibility[0],
+      page,
     },
-    refetchOnWindowFocus: false,
-    retry: false,
-    staleTime: 10 * 60 * 1000,
+    { query: { enabled: !hasSearchTerm } },
+  );
+
+  // Workaround: the generated `useGetSearchSearchbarTerms` hook declares `page`
+  // as a path param in the OpenAPI spec, but the actual URL is
+  // `/search/searchBar/:terms` — so `page` is never sent and the queryKey
+  // doesn't change between pages. We inject `page` both into the queryKey
+  // (so React Query refetches) and as a real query string param.
+  const searchQuery = useGetSearchSearchbarTerms(searchTerm, page, {
+    query: {
+      enabled: hasSearchTerm,
+      queryKey: [...getSearchSearchbarTermsQueryKey(searchTerm, page), { page }] as const,
+    },
+    client: { params: { page } },
   });
+
+  const activeQuery = hasSearchTerm ? searchQuery : filterQuery;
+
+  // Both `/search/searchBar/:terms` and `/search/professionals` return
+  // `{ professionals, page, pageCount, ... }`. The previous code assumed
+  // `/search/professionals` returned a bare array and lost both the
+  // results and the pageCount. The Kubb-generated type for the filter
+  // endpoint is `any`, so we have to narrow defensively.
+  const filterData = filterQuery.data as
+    | { professionals?: RawProfessional[]; pageCount?: number }
+    | undefined;
+
+  const rawList: RawProfessional[] = hasSearchTerm
+    ? (searchQuery.data?.professionals ?? [])
+    : (filterData?.professionals ?? []);
+
+  return {
+    data: rawList.map(toProfessionalCardProps),
+    isLoading: activeQuery.isLoading,
+    isError: activeQuery.isError,
+    pageCount: hasSearchTerm ? (searchQuery.data?.pageCount ?? 1) : (filterData?.pageCount ?? 1),
+  };
 };
