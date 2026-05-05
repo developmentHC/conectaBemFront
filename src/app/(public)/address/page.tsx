@@ -65,73 +65,84 @@ export default function Addresses() {
         </Typography>
       ) : hasAddresses ? (
         <div className="space-y-8">
-          {addresses?.map((address) => (
-            <div
-              key={address.id}
-              className={clsx(
-                address.principal && "border border-secondary-500",
-                "space-y-4 rounded-e-lg rounded-ss-lg bg-background-paper px-6 py-4 shadow-[0px_4px_16px_0px_rgba(145,158,171,0.16)]",
-              )}
-            >
-              {address.principal && (
-                <div className="w-fit rounded-full bg-secondary-500 px-4 py-1 text-[#EAEEFA] text-sm">
-                  Endereço principal
-                </div>
-              )}
+          {addresses?.map((address) => {
+            const hasType = Boolean(address.type);
+            const streetLine = [
+              [address.rua, address.bairro].filter(Boolean).join(" - "),
+              [address.cidade, address.estado].filter(Boolean).join(" - "),
+            ]
+              .filter(Boolean)
+              .join(", ");
 
-              <div className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <Typography variant="h5">{address.type}</Typography>
-
-                  {address.type === "Casa" ? (
-                    <HouseIcon width={31} height={31} className="fill-secondary-500" />
-                  ) : (
-                    <LocationIcon width={31} height={31} className="fill-secondary-500" />
-                  )}
-                </div>
+            return (
+              <div
+                key={address.id}
+                className={clsx(
+                  address.principal && "border border-secondary-500",
+                  "space-y-4 rounded-e-lg rounded-ss-lg bg-background-paper px-6 py-4 shadow-[0px_4px_16px_0px_rgba(145,158,171,0.16)]",
+                )}
+              >
+                {address.principal && (
+                  <div className="w-fit rounded-full bg-secondary-500 px-4 py-1 text-[#EAEEFA] text-sm">
+                    Endereço principal
+                  </div>
+                )}
 
                 <div className="space-y-2">
-                  <Typography variant="body1">
-                    {address.rua} - {address.bairro}, {address.cidade} - {address.estado}
-                  </Typography>
+                  <div className="flex items-center justify-between">
+                    {hasType && <Typography variant="h5">{address.type}</Typography>}
 
-                  <div>
-                    <div className="flex space-x-2">
-                      <Typography className="!font-bold">cep</Typography>
-                      <Typography>{address.cep}</Typography>
-                    </div>
+                    {hasType &&
+                      (address.type === "Casa" ? (
+                        <HouseIcon width={31} height={31} className="fill-secondary-500" />
+                      ) : (
+                        <LocationIcon width={31} height={31} className="fill-secondary-500" />
+                      ))}
+                  </div>
 
-                    <div className="flex space-x-2">
-                      <Typography className="!font-bold">complemento</Typography>
-                      <Typography>{address.complemento}</Typography>
+                  <div className="space-y-2">
+                    <Typography variant="body1">{streetLine}</Typography>
+
+                    <div>
+                      <div className="flex space-x-2">
+                        <Typography className="!font-bold">cep</Typography>
+                        <Typography>{address.cep}</Typography>
+                      </div>
+
+                      {address.complemento && (
+                        <div className="flex space-x-2">
+                          <Typography className="!font-bold">complemento</Typography>
+                          <Typography>{address.complemento}</Typography>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
-              </div>
 
-              {!address.principal && (
-                <Button
-                  onClick={() => handleSetActive(address)}
-                  disabled={isPending}
-                  className="w-full"
-                  variant="contained"
-                  color="secondary"
-                  size="small"
-                >
-                  Tornar principal
-                </Button>
-              )}
+                {!address.principal && (
+                  <Button
+                    onClick={() => handleSetActive(address)}
+                    disabled={isPending}
+                    className="w-full"
+                    variant="contained"
+                    color="secondary"
+                    size="small"
+                  >
+                    Tornar principal
+                  </Button>
+                )}
 
-              <div className="flex gap-4">
-                <Button className="w-full" variant="outlined" color="primary" size="large">
-                  Editar
-                </Button>
-                <Button className="w-full" variant="outlined" color="primary" size="large">
-                  Excluir
-                </Button>
+                <div className="flex gap-4">
+                  <Button className="w-full" variant="outlined" color="primary" size="large">
+                    Editar
+                  </Button>
+                  <Button className="w-full" variant="outlined" color="primary" size="large">
+                    Excluir
+                  </Button>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       ) : (
         <div className="flex flex-col">
