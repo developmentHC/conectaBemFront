@@ -3,6 +3,7 @@ import { Button, TextField } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { z } from "zod";
 import { CEPField } from "@/components/Fields/CEPField";
 import { CpfCnpjField } from "@/components/Fields/CpfCnpjField";
@@ -61,7 +62,7 @@ const schema = z.object({
     .min(1, "O número deve ser maior que 0"),
   complementoClinica: z.string(),
   cidadeClinica: z.string().min(3, "Cidade inválida"),
-  estadoClinica: z.string().min(3, "Estado inválido"),
+  estadoClinica: z.string().min(2, "Estado inválido"),
 });
 
 type Data = z.infer<typeof schema>;
@@ -132,16 +133,26 @@ export const ServiceLocationStep = () => {
     setValue("complementoClinica", onlyLettersAndSpace);
   };
 
-  const onSubmit = handleSubmit(async (data) => {
-    data.cepProfessional = data.cepProfessional.replace("-", "");
-    data.cpfCNPJ = data.cpfCNPJ.replace(".", "").replace(".", "").replace("-", "").replace("/", "");
+  const onSubmit = handleSubmit(
+    async (data) => {
+      data.cepProfessional = data.cepProfessional.replace("-", "");
+      data.cpfCNPJ = data.cpfCNPJ
+        .replace(".", "")
+        .replace(".", "")
+        .replace("-", "")
+        .replace("/", "");
 
-    updateFields(data);
+      updateFields(data);
 
-    window.scrollTo({ top: 0, behavior: "smooth" });
+      window.scrollTo({ top: 0, behavior: "smooth" });
 
-    changeStep("specialties");
-  });
+      changeStep("specialties");
+    },
+    (formErrors) => {
+      const firstError = Object.values(formErrors)[0];
+      if (firstError?.message) toast.error(firstError.message);
+    },
+  );
 
   useEffect(() => {
     if (!data) return;
