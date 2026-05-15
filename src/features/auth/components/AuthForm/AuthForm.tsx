@@ -28,6 +28,7 @@ export const AuthForm = () => {
     handleSubmit,
     formState: { errors, isValid },
   } = useForm<Data>({
+    mode: "onChange",
     resolver: zodResolver(schema),
   });
 
