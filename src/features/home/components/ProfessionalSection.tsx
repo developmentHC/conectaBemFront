@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import { useGetSpecialties } from "@/kubb/hooks/useGetSpecialties";
 import { useProfessionalBySpeciality } from "../hooks/useProfessionalBySpeciality";
 import { useUserPatient } from "../hooks/useUserPatient";
 import { ProfessionalCard } from "./ProfessionalCard";
-import { useGetSpecialties } from "@/kubb/hooks/useGetSpecialties";
 
 type Speciality = { id: number; name: string };
 

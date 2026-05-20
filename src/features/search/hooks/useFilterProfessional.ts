@@ -26,9 +26,13 @@ export const useFilterProfessional = ({
     { query: { enabled: !hasSearchTerm } },
   );
 
-  const searchQuery = useGetSearchSearchbarTerms(searchTerm, { page }, {
-    query: { enabled: hasSearchTerm },
-  });
+  const searchQuery = useGetSearchSearchbarTerms(
+    searchTerm,
+    { page },
+    {
+      query: { enabled: hasSearchTerm },
+    },
+  );
 
   const activeQuery = hasSearchTerm ? searchQuery : filterQuery;
 

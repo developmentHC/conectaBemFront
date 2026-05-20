@@ -1,7 +1,7 @@
 import { useGetSpecialties } from "@/kubb/hooks/useGetSpecialties";
 
 export const MedicalSpecialization = () => {
-  const { data } = useGetSpecialties();
+  const { data } = useGetSpecialties({ featured: true });
   const specialties = data?.specialties;
 
   return (
