@@ -9,11 +9,14 @@ export type GetSearchSearchbarTermsPathParams = {
    * @type string
    */
   terms: string;
+};
+
+export type GetSearchSearchbarTermsQueryParams = {
   /**
    * @description Número da página para paginação (cada página retorna até 10 profissionais)
-   * @type integer
+   * @type integer | undefined
    */
-  page: number;
+  page?: number;
 };
 
 /**
@@ -92,5 +95,6 @@ export type GetSearchSearchbarTermsQueryResponse = GetSearchSearchbarTerms200;
 export type GetSearchSearchbarTermsQuery = {
   Response: GetSearchSearchbarTerms200;
   PathParams: GetSearchSearchbarTermsPathParams;
+  QueryParams: GetSearchSearchbarTermsQueryParams;
   Errors: GetSearchSearchbarTerms400 | GetSearchSearchbarTerms500;
 };

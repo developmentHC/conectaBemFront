@@ -5,25 +5,53 @@
 
 export type GetSearchProfessionalsQueryParams = {
   /**
-   * @description Especialidade do profissional
-   * @type string | undefined
+   * @description Especialidade do profissional. Pode ser repetido para filtrar por múltiplas especialidades (ex: ?specialty=Reiki&specialty=Acupuntura). Match com OR dentro do filtro.
+   * @type array | undefined
    */
-  specialty?: string;
+  specialty?: any[];
   /**
-   * @description Tipo de serviço oferecido
-   * @type string | undefined
+   * @description Tipo de serviço oferecido. Pode ser repetido para múltiplos serviços (ex: ?service=Pet+Friendly&service=LGBTQIAP%2B+Friendly). Match com OR.
+   * @type array | undefined
    */
-  service?: string;
+  service?: any[];
   /**
-   * @description Filtro de acessibilidade oferecida pelo profissional
-   * @type string | undefined
+   * @description Filtro de acessibilidade oferecida pelo profissional. Pode ser repetido para múltiplos itens (ex: ?accessibility=Libras&accessibility=Rampas). Match com OR.
+   * @type array | undefined
    */
-  accessibility?: string;
+  accessibility?: any[];
   /**
    * @description Número da página
    * @type integer | undefined
    */
   page?: number;
+  /**
+   * @type string | undefined
+   */
+  in?: string;
+  /**
+   * @type string | undefined
+   */
+  description?: string;
+  /**
+   * @type string | undefined
+   */
+  required?: string;
+  /**
+   * @type string | undefined
+   */
+  type?: string;
+  /**
+   * @type string | undefined
+   */
+  collectionFormat?: string;
+  /**
+   * @type string | undefined
+   */
+  items?: string;
+  /**
+   * @type string | undefined
+   */
+  example?: string;
 };
 
 /**

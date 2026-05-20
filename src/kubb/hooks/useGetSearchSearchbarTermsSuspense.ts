@@ -18,6 +18,7 @@ import type {
 import type {
   GetSearchSearchbarTermsQueryResponse,
   GetSearchSearchbarTermsPathParams,
+  GetSearchSearchbarTermsQueryParams,
   GetSearchSearchbarTerms400,
   GetSearchSearchbarTerms500,
 } from "../types/GetSearchSearchbarTerms.ts";
@@ -25,8 +26,12 @@ import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 
 export const getSearchSearchbarTermsSuspenseQueryKey = (
   terms: GetSearchSearchbarTermsPathParams["terms"],
-  page: GetSearchSearchbarTermsPathParams["page"],
-) => [{ url: "/search/searchBar/:terms", params: { terms: terms } }] as const;
+  params?: GetSearchSearchbarTermsQueryParams,
+) =>
+  [
+    { url: "/search/searchBar/:terms", params: { terms: terms } },
+    ...(params ? [params] : []),
+  ] as const;
 
 export type GetSearchSearchbarTermsSuspenseQueryKey = ReturnType<
   typeof getSearchSearchbarTermsSuspenseQueryKey
@@ -39,7 +44,7 @@ export type GetSearchSearchbarTermsSuspenseQueryKey = ReturnType<
  */
 export async function getSearchSearchbarTermsSuspense(
   terms: GetSearchSearchbarTermsPathParams["terms"],
-  page: GetSearchSearchbarTermsPathParams["page"],
+  params?: GetSearchSearchbarTermsQueryParams,
   config: Partial<RequestConfig> & { client?: Client } = {},
 ) {
   const { client: request = fetch, ...requestConfig } = config;
@@ -50,16 +55,21 @@ export async function getSearchSearchbarTermsSuspense(
       GetSearchSearchbarTerms400 | GetSearchSearchbarTerms500
     >,
     unknown
-  >({ method: "GET", url: `/search/searchBar/${terms}`, ...requestConfig });
+  >({
+    method: "GET",
+    url: `/search/searchBar/${terms}`,
+    params,
+    ...requestConfig,
+  });
   return res.data;
 }
 
 export function getSearchSearchbarTermsSuspenseQueryOptions(
   terms: GetSearchSearchbarTermsPathParams["terms"],
-  page: GetSearchSearchbarTermsPathParams["page"],
+  params?: GetSearchSearchbarTermsQueryParams,
   config: Partial<RequestConfig> & { client?: Client } = {},
 ) {
-  const queryKey = getSearchSearchbarTermsSuspenseQueryKey(terms, page);
+  const queryKey = getSearchSearchbarTermsSuspenseQueryKey(terms, params);
   return queryOptions<
     GetSearchSearchbarTermsQueryResponse,
     ResponseErrorConfig<
@@ -68,10 +78,10 @@ export function getSearchSearchbarTermsSuspenseQueryOptions(
     GetSearchSearchbarTermsQueryResponse,
     typeof queryKey
   >({
-    enabled: !!(terms && page),
+    enabled: !!terms,
     queryKey,
     queryFn: async ({ signal }) => {
-      return getSearchSearchbarTermsSuspense(terms, page, {
+      return getSearchSearchbarTermsSuspense(terms, params, {
         ...config,
         signal: config.signal ?? signal,
       });
@@ -89,7 +99,7 @@ export function useGetSearchSearchbarTermsSuspense<
   TQueryKey extends QueryKey = GetSearchSearchbarTermsSuspenseQueryKey,
 >(
   terms: GetSearchSearchbarTermsPathParams["terms"],
-  page: GetSearchSearchbarTermsPathParams["page"],
+  params?: GetSearchSearchbarTermsQueryParams,
   options: {
     query?: Partial<
       UseSuspenseQueryOptions<
@@ -108,11 +118,11 @@ export function useGetSearchSearchbarTermsSuspense<
   const { client: queryClient, ...resolvedOptions } = queryConfig;
   const queryKey =
     resolvedOptions?.queryKey ??
-    getSearchSearchbarTermsSuspenseQueryKey(terms, page);
+    getSearchSearchbarTermsSuspenseQueryKey(terms, params);
 
   const query = useSuspenseQuery(
     {
-      ...getSearchSearchbarTermsSuspenseQueryOptions(terms, page, config),
+      ...getSearchSearchbarTermsSuspenseQueryOptions(terms, params, config),
       ...resolvedOptions,
       queryKey,
     } as unknown as UseSuspenseQueryOptions,

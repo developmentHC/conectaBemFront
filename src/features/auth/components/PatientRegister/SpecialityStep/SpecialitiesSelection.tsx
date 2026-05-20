@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { SelectableTag } from "@/components/SelectableTag";
-import { useGetSpecialty } from "@/features/auth/hooks/useGetSpecialty";
+import { useGetSpecialties } from "@/kubb/hooks/useGetSpecialties";
 
 export const SpecialitiesSelection = ({
   selecteds,
@@ -10,7 +10,8 @@ export const SpecialitiesSelection = ({
   onChange: (specialties: string[]) => void;
 }) => {
   const [collapseSpecialty, setCollapseSpecialty] = useState<boolean>(false);
-  const { data: specialties } = useGetSpecialty();
+  const { data } = useGetSpecialties();
+  const specialties = data?.specialties;
 
   const visibleCollapse = collapseSpecialty ? specialties : specialties?.slice(0, 8);
 
@@ -31,15 +32,17 @@ export const SpecialitiesSelection = ({
       <p className="opacity-80">Escolha as especialidades que mais pesquisa ou utiliza</p>
 
       <ul className={`flex flex-wrap gap-2`}>
-        {visibleCollapse?.map((specialty) => (
-          <SelectableTag
-            key={specialty.id}
-            active={selecteds.includes(specialty.name)}
-            onClick={() => handleClick(specialty.name)}
-          >
-            {specialty.name}
-          </SelectableTag>
-        ))}
+        {visibleCollapse
+          ?.filter((s): s is { id?: string; name: string } => s.name !== undefined)
+          .map((specialty) => (
+            <SelectableTag
+              key={specialty.id}
+              active={selecteds.includes(specialty.name)}
+              onClick={() => handleClick(specialty.name)}
+            >
+              {specialty.name}
+            </SelectableTag>
+          ))}
 
         <div className="flex w-full justify-end">
           <span

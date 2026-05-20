@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useProfessionalBySpeciality } from "../hooks/useProfessionalBySpeciality";
 import { useUserPatient } from "../hooks/useUserPatient";
 import { ProfessionalCard } from "./ProfessionalCard";
+import { useGetSpecialties } from "@/kubb/hooks/useGetSpecialties";
 
 type Speciality = { id: number; name: string };
 
@@ -49,10 +50,12 @@ const SpecialitySectionItem = ({ speciality }: { speciality: Speciality }) => {
 export const ProfessionalSection = () => {
   const { data: patient } = useUserPatient();
 
-  const fallbackSpecialities = [
-    { id: 1, name: "Acupuntura" },
-    { id: 2, name: "Reiki" },
-  ];
+  const { data: featuredData } = useGetSpecialties({ featured: true });
+
+  const fallbackSpecialities = (featuredData?.specialties ?? []).map((s, i) => ({
+    id: i,
+    name: s.name ?? "",
+  }));
 
   const specialitiesToMap =
     patient?.userSpecialities && patient.userSpecialities.length > 0

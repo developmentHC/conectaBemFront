@@ -7,79 +7,21 @@ export type Appointment = {
   /**
    * @type string | undefined
    */
-  type?: string;
+  _id?: string;
   /**
-   * @type object | undefined
+   * @type string | undefined
    */
-  properties?: {
-    /**
-     * @type object | undefined
-     */
-    _id?: {
-      /**
-       * @type string | undefined
-       */
-      type?: string;
-      /**
-       * @type string | undefined
-       */
-      example?: string;
-    };
-    /**
-     * @type object | undefined
-     */
-    patient?: {
-      /**
-       * @type string | undefined
-       */
-      type?: string;
-      /**
-       * @type string | undefined
-       */
-      example?: string;
-    };
-    /**
-     * @type object | undefined
-     */
-    professional?: {
-      /**
-       * @type string | undefined
-       */
-      type?: string;
-      /**
-       * @type string | undefined
-       */
-      example?: string;
-    };
-    /**
-     * @type object | undefined
-     */
-    dateTime?: {
-      /**
-       * @type string | undefined
-       */
-      type?: string;
-      /**
-       * @type string | undefined
-       */
-      format?: string;
-      /**
-       * @type string | undefined
-       */
-      example?: string;
-    };
-    /**
-     * @type object | undefined
-     */
-    status?: {
-      /**
-       * @type string | undefined
-       */
-      type?: string;
-      /**
-       * @type string | undefined
-       */
-      example?: string;
-    };
-  };
+  patient?: string;
+  /**
+   * @type string | undefined
+   */
+  professional?: string;
+  /**
+   * @type string | undefined, date-time
+   */
+  dateTime?: string;
+  /**
+   * @type string | undefined
+   */
+  status?: string;
 };

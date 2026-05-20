@@ -3,28 +3,9 @@ import { Button } from "@mui/material";
 import { type MouseEvent, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { useGetSpecialties } from "@/kubb/hooks/useGetSpecialties";
 import { SuggestionForm } from "./SuggestionForm";
 import { useProfissionalRegisterStore } from "./useProfissionalRegisterStore";
-
-const specialtiesMock = [
-  "Acupuntura",
-  "Aromaterapia",
-  "Arteterapia",
-  "Biodança",
-  "Cromoterapia",
-  "Fitoterapia",
-  "Hipnoterapia",
-  "Homeoterapia",
-  "Meditação",
-  "Musicoterapia",
-  "Osteopatia",
-  "Pilates",
-  "Quiropraxia",
-  "Reflexoterapia",
-  "Reiki",
-  "Yoga",
-  "Outros",
-];
 
 const services = ["LGBTQIAP+ Friendly", "Pet Friendly", "Aceita Wellhub"];
 
@@ -52,20 +33,18 @@ export const SpecialtyStep = () => {
   const [collapseSpecialty, setCollapseSpecialty] = useState<boolean>(false);
   const [collapseService, setCollapseService] = useState<boolean>(false);
   const [showSuggestions, setShowSuggestions] = useState<boolean>(false);
-
-  const visibleSpecialties = collapseSpecialty ? specialtiesMock : specialtiesMock?.slice(0, 8);
+  const { data } = useGetSpecialties();
+  const specialties = data?.specialties;
+  const visibleSpecialties = collapseSpecialty ? specialties : specialties?.slice(0, 8);
 
   const visibleServices = collapseService ? services : services?.slice(0, 8);
 
-  const handleClickSpecialty = (e: MouseEvent) => {
-    const specialty = (e.target as HTMLLIElement).textContent;
-
-    if (!specialty) return;
-
-    if (specialty === "Outros") setShowSuggestions((prev) => !prev);
-
+  const handleClickSpecialty = (specialtyName: string) => {
+    if (specialtyName === "Outros") setShowSuggestions((prev) => !prev);
     setSelectedSpecialties((prev) =>
-      prev.includes(specialty) ? prev.filter((item) => item !== specialty) : [...prev, specialty],
+      prev.includes(specialtyName)
+        ? prev.filter((item) => item !== specialtyName)
+        : [...prev, specialtyName],
     );
   };
 
@@ -109,26 +88,27 @@ export const SpecialtyStep = () => {
         aria-label="Especialidades"
         className="flex flex-wrap gap-2"
       >
-        {visibleSpecialties.map((specialty) => (
-          <li
-            key={specialty}
-            role="option"
-            aria-selected={selectedSpecialties.includes(specialty)}
-            tabIndex={0}
-            onClick={handleClickSpecialty}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === " ") {
-                e.preventDefault();
-                handleClickSpecialty(e as any);
-              }
-            }}
-            className={`cursor-pointer rounded rounded-t-lg rounded-br-lg border border-blue-800 p-2 transition-all hover:bg-blue-600/50 ${
-              selectedSpecialties.includes(specialty) ? "bg-blue-600/50" : ""
-            }`}
-          >
-            {specialty}
-          </li>
-        ))}
+        {visibleSpecialties
+          ?.filter((s): s is { id?: string; name: string } => s.name !== undefined)
+          .map((specialty) => (
+            <li
+              key={specialty.id}
+              role="option"
+              aria-selected={selectedSpecialties.includes(specialty.name)}
+              tabIndex={0}
+              onClick={() => handleClickSpecialty(specialty.name)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  handleClickSpecialty(specialty.name);
+                }
+              }}
+              className={`cursor-pointer rounded rounded-t-lg rounded-br-lg border border-blue-800 p-2 transition-all hover:bg-blue-600/50 ${selectedSpecialties.includes(specialty.name) ? "bg-blue-600/50" : ""
+                }`}
+            >
+              {specialty.name}
+            </li>
+          ))}
 
         <div className="flex w-full justify-end">
           <span

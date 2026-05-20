@@ -16,7 +16,11 @@ import type {
 } from "@tanstack/react-query";
 import type {
   PostAuthUploadphotoMutationResponse,
+  PostAuthUploadphotoHeaderParams,
   PostAuthUploadphoto400,
+  PostAuthUploadphoto401,
+  PostAuthUploadphoto403,
+  PostAuthUploadphoto404,
   PostAuthUploadphoto422,
   PostAuthUploadphoto500,
 } from "../types/PostAuthUploadphoto.ts";
@@ -35,6 +39,7 @@ export type PostAuthUploadphotoMutationKey = ReturnType<
  * {@link /auth/uploadPhoto}
  */
 export async function postAuthUploadphoto(
+  headers: PostAuthUploadphotoHeaderParams,
   config: Partial<RequestConfig> & { client?: Client } = {},
 ) {
   const { client: request = fetch, ...requestConfig } = config;
@@ -42,10 +47,20 @@ export async function postAuthUploadphoto(
   const res = await request<
     PostAuthUploadphotoMutationResponse,
     ResponseErrorConfig<
-      PostAuthUploadphoto400 | PostAuthUploadphoto422 | PostAuthUploadphoto500
+      | PostAuthUploadphoto400
+      | PostAuthUploadphoto401
+      | PostAuthUploadphoto403
+      | PostAuthUploadphoto404
+      | PostAuthUploadphoto422
+      | PostAuthUploadphoto500
     >,
     unknown
-  >({ method: "POST", url: `/auth/uploadPhoto`, ...requestConfig });
+  >({
+    method: "POST",
+    url: `/auth/uploadPhoto`,
+    ...requestConfig,
+    headers: { ...headers, ...requestConfig.headers },
+  });
   return res.data;
 }
 
@@ -56,14 +71,19 @@ export function postAuthUploadphotoMutationOptions<TContext = unknown>(
   return mutationOptions<
     PostAuthUploadphotoMutationResponse,
     ResponseErrorConfig<
-      PostAuthUploadphoto400 | PostAuthUploadphoto422 | PostAuthUploadphoto500
+      | PostAuthUploadphoto400
+      | PostAuthUploadphoto401
+      | PostAuthUploadphoto403
+      | PostAuthUploadphoto404
+      | PostAuthUploadphoto422
+      | PostAuthUploadphoto500
     >,
-    void,
+    { headers: PostAuthUploadphotoHeaderParams },
     TContext
   >({
     mutationKey,
-    mutationFn: async () => {
-      return postAuthUploadphoto(config);
+    mutationFn: async ({ headers }) => {
+      return postAuthUploadphoto(headers, config);
     },
   });
 }
@@ -78,9 +98,14 @@ export function usePostAuthUploadphoto<TContext>(
     mutation?: UseMutationOptions<
       PostAuthUploadphotoMutationResponse,
       ResponseErrorConfig<
-        PostAuthUploadphoto400 | PostAuthUploadphoto422 | PostAuthUploadphoto500
+        | PostAuthUploadphoto400
+        | PostAuthUploadphoto401
+        | PostAuthUploadphoto403
+        | PostAuthUploadphoto404
+        | PostAuthUploadphoto422
+        | PostAuthUploadphoto500
       >,
-      void,
+      { headers: PostAuthUploadphotoHeaderParams },
       TContext
     > & { client?: QueryClient };
     client?: Partial<RequestConfig> & { client?: Client };
@@ -96,18 +121,28 @@ export function usePostAuthUploadphoto<TContext>(
   ) as UseMutationOptions<
     PostAuthUploadphotoMutationResponse,
     ResponseErrorConfig<
-      PostAuthUploadphoto400 | PostAuthUploadphoto422 | PostAuthUploadphoto500
+      | PostAuthUploadphoto400
+      | PostAuthUploadphoto401
+      | PostAuthUploadphoto403
+      | PostAuthUploadphoto404
+      | PostAuthUploadphoto422
+      | PostAuthUploadphoto500
     >,
-    void,
+    { headers: PostAuthUploadphotoHeaderParams },
     TContext
   >;
 
   return useMutation<
     PostAuthUploadphotoMutationResponse,
     ResponseErrorConfig<
-      PostAuthUploadphoto400 | PostAuthUploadphoto422 | PostAuthUploadphoto500
+      | PostAuthUploadphoto400
+      | PostAuthUploadphoto401
+      | PostAuthUploadphoto403
+      | PostAuthUploadphoto404
+      | PostAuthUploadphoto422
+      | PostAuthUploadphoto500
     >,
-    void,
+    { headers: PostAuthUploadphotoHeaderParams },
     TContext
   >(
     {
@@ -119,9 +154,14 @@ export function usePostAuthUploadphoto<TContext>(
   ) as UseMutationResult<
     PostAuthUploadphotoMutationResponse,
     ResponseErrorConfig<
-      PostAuthUploadphoto400 | PostAuthUploadphoto422 | PostAuthUploadphoto500
+      | PostAuthUploadphoto400
+      | PostAuthUploadphoto401
+      | PostAuthUploadphoto403
+      | PostAuthUploadphoto404
+      | PostAuthUploadphoto422
+      | PostAuthUploadphoto500
     >,
-    void,
+    { headers: PostAuthUploadphotoHeaderParams },
     TContext
   >;
 }

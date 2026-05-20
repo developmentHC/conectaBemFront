@@ -17,52 +17,60 @@ import type {
 } from "@tanstack/react-query";
 import type {
   GetSpecialtiesQueryResponse,
+  GetSpecialtiesQueryParams,
+  GetSpecialties400,
   GetSpecialties500,
 } from "../types/GetSpecialties.ts";
 import { queryOptions, useQuery } from "@tanstack/react-query";
 
-export const getSpecialtiesQueryKey = () => [{ url: "/specialties" }] as const;
+export const getSpecialtiesQueryKey = (params?: GetSpecialtiesQueryParams) =>
+  [{ url: "/specialties" }, ...(params ? [params] : [])] as const;
 
 export type GetSpecialtiesQueryKey = ReturnType<typeof getSpecialtiesQueryKey>;
 
 /**
- * @description Retorna a lista canônica de especialidades disponíveis no sistema. Essa lista é utilizada como fonte única (single source of truth) para cadastro e filtros.
- * @summary Lista todas as especialidades
+ * @description Retorna a lista canônica de especialidades disponíveis no sistema. Essa lista é utilizada como fonte única (single source of truth) para cadastro e filtros. A paginação é controlada pelo query param `page` (cada página retorna até 10 itens). Use `featured=true` para restringir aos destaques exibidos na Home.
+ * @summary Lista especialidades (paginada, com filtro de destaque)
  * {@link /specialties}
  */
 export async function getSpecialties(
+  params?: GetSpecialtiesQueryParams,
   config: Partial<RequestConfig> & { client?: Client } = {},
 ) {
   const { client: request = fetch, ...requestConfig } = config;
 
   const res = await request<
     GetSpecialtiesQueryResponse,
-    ResponseErrorConfig<GetSpecialties500>,
+    ResponseErrorConfig<GetSpecialties400 | GetSpecialties500>,
     unknown
-  >({ method: "GET", url: `/specialties`, ...requestConfig });
+  >({ method: "GET", url: `/specialties`, params, ...requestConfig });
   return res.data;
 }
 
 export function getSpecialtiesQueryOptions(
+  params?: GetSpecialtiesQueryParams,
   config: Partial<RequestConfig> & { client?: Client } = {},
 ) {
-  const queryKey = getSpecialtiesQueryKey();
+  const queryKey = getSpecialtiesQueryKey(params);
   return queryOptions<
     GetSpecialtiesQueryResponse,
-    ResponseErrorConfig<GetSpecialties500>,
+    ResponseErrorConfig<GetSpecialties400 | GetSpecialties500>,
     GetSpecialtiesQueryResponse,
     typeof queryKey
   >({
     queryKey,
     queryFn: async ({ signal }) => {
-      return getSpecialties({ ...config, signal: config.signal ?? signal });
+      return getSpecialties(params, {
+        ...config,
+        signal: config.signal ?? signal,
+      });
     },
   });
 }
 
 /**
- * @description Retorna a lista canônica de especialidades disponíveis no sistema. Essa lista é utilizada como fonte única (single source of truth) para cadastro e filtros.
- * @summary Lista todas as especialidades
+ * @description Retorna a lista canônica de especialidades disponíveis no sistema. Essa lista é utilizada como fonte única (single source of truth) para cadastro e filtros. A paginação é controlada pelo query param `page` (cada página retorna até 10 itens). Use `featured=true` para restringir aos destaques exibidos na Home.
+ * @summary Lista especialidades (paginada, com filtro de destaque)
  * {@link /specialties}
  */
 export function useGetSpecialties<
@@ -70,11 +78,12 @@ export function useGetSpecialties<
   TQueryData = GetSpecialtiesQueryResponse,
   TQueryKey extends QueryKey = GetSpecialtiesQueryKey,
 >(
+  params?: GetSpecialtiesQueryParams,
   options: {
     query?: Partial<
       QueryObserverOptions<
         GetSpecialtiesQueryResponse,
-        ResponseErrorConfig<GetSpecialties500>,
+        ResponseErrorConfig<GetSpecialties400 | GetSpecialties500>,
         TData,
         TQueryData,
         TQueryKey
@@ -85,18 +94,19 @@ export function useGetSpecialties<
 ) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {};
   const { client: queryClient, ...resolvedOptions } = queryConfig;
-  const queryKey = resolvedOptions?.queryKey ?? getSpecialtiesQueryKey();
+  const queryKey = resolvedOptions?.queryKey ?? getSpecialtiesQueryKey(params);
 
   const query = useQuery(
     {
-      ...getSpecialtiesQueryOptions(config),
+      ...getSpecialtiesQueryOptions(params, config),
       ...resolvedOptions,
       queryKey,
     } as unknown as QueryObserverOptions,
     queryClient,
-  ) as UseQueryResult<TData, ResponseErrorConfig<GetSpecialties500>> & {
-    queryKey: TQueryKey;
-  };
+  ) as UseQueryResult<
+    TData,
+    ResponseErrorConfig<GetSpecialties400 | GetSpecialties500>
+  > & { queryKey: TQueryKey };
 
   query.queryKey = queryKey as TQueryKey;
 
