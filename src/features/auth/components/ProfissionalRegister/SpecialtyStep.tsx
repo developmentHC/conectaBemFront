@@ -103,8 +103,9 @@ export const SpecialtyStep = () => {
                   handleClickSpecialty(specialty.name);
                 }
               }}
-              className={`cursor-pointer rounded rounded-t-lg rounded-br-lg border border-blue-800 p-2 transition-all hover:bg-blue-600/50 ${selectedSpecialties.includes(specialty.name) ? "bg-blue-600/50" : ""
-                }`}
+              className={`cursor-pointer rounded rounded-t-lg rounded-br-lg border border-blue-800 p-2 transition-all hover:bg-blue-600/50 ${
+                selectedSpecialties.includes(specialty.name) ? "bg-blue-600/50" : ""
+              }`}
             >
               {specialty.name}
             </li>
