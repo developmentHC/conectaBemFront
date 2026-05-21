@@ -34,8 +34,13 @@ export const SpecialtyStep = () => {
   const [collapseService, setCollapseService] = useState<boolean>(false);
   const [showSuggestions, setShowSuggestions] = useState<boolean>(false);
   const { data } = useGetSpecialties();
-  const specialties = data?.specialties;
-  const visibleSpecialties = collapseSpecialty ? specialties : specialties?.slice(0, 8);
+  const apiSpecialties = (data?.specialties ?? []).filter(
+    (s): s is { id?: string; name: string } => s.name !== undefined,
+  );
+  const specialtiesWithOthers = [...apiSpecialties, { id: "outros", name: "Outros" }];
+  const visibleSpecialties = collapseSpecialty
+    ? specialtiesWithOthers
+    : specialtiesWithOthers.slice(0, 8);
 
   const visibleServices = collapseService ? services : services?.slice(0, 8);
 
@@ -88,28 +93,26 @@ export const SpecialtyStep = () => {
         aria-label="Especialidades"
         className="flex flex-wrap gap-2"
       >
-        {visibleSpecialties
-          ?.filter((s): s is { id?: string; name: string } => s.name !== undefined)
-          .map((specialty) => (
-            <li
-              key={specialty.id}
-              role="option"
-              aria-selected={selectedSpecialties.includes(specialty.name)}
-              tabIndex={0}
-              onClick={() => handleClickSpecialty(specialty.name)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault();
-                  handleClickSpecialty(specialty.name);
-                }
-              }}
-              className={`cursor-pointer rounded rounded-t-lg rounded-br-lg border border-blue-800 p-2 transition-all hover:bg-blue-600/50 ${
-                selectedSpecialties.includes(specialty.name) ? "bg-blue-600/50" : ""
-              }`}
-            >
-              {specialty.name}
-            </li>
-          ))}
+        {visibleSpecialties.map((specialty) => (
+          <li
+            key={specialty.id}
+            role="option"
+            aria-selected={selectedSpecialties.includes(specialty.name)}
+            tabIndex={0}
+            onClick={() => handleClickSpecialty(specialty.name)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                handleClickSpecialty(specialty.name);
+              }
+            }}
+            className={`cursor-pointer rounded rounded-t-lg rounded-br-lg border border-blue-800 p-2 transition-all hover:bg-blue-600/50 ${
+              selectedSpecialties.includes(specialty.name) ? "bg-blue-600/50" : ""
+            }`}
+          >
+            {specialty.name}
+          </li>
+        ))}
 
         <div className="flex w-full justify-end">
           <span

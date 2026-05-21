@@ -8,6 +8,7 @@ export const kubbClient = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
+  paramsSerializer: { indexes: null },
 });
 
 kubbClient.interceptors.request.use((config) => {

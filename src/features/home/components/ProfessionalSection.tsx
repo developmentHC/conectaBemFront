@@ -6,7 +6,7 @@ import { useProfessionalBySpeciality } from "../hooks/useProfessionalBySpecialit
 import { useUserPatient } from "../hooks/useUserPatient";
 import { ProfessionalCard } from "./ProfessionalCard";
 
-type Speciality = { id: number; name: string };
+type Speciality = { id: string | number; name: string };
 
 const SpecialitySectionItem = ({ speciality }: { speciality: Speciality }) => {
   const [page, setPage] = useState(1);
@@ -52,10 +52,9 @@ export const ProfessionalSection = () => {
 
   const { data: featuredData } = useGetSpecialties({ featured: true });
 
-  const fallbackSpecialities = (featuredData?.specialties ?? []).map((s, i) => ({
-    id: i,
-    name: s.name ?? "",
-  }));
+  const fallbackSpecialities: Speciality[] = (featuredData?.specialties ?? [])
+    .filter((s): s is { id?: string; name: string } => !!s.name)
+    .map((s, i) => ({ id: s.id ?? i, name: s.name }));
 
   const specialitiesToMap =
     patient?.userSpecialities && patient.userSpecialities.length > 0
