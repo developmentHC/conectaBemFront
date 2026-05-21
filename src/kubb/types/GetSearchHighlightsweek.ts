@@ -3,12 +3,12 @@
  * Do not edit manually.
  */
 
-export type GetSearchHighlightsweekPathParams = {
+export type GetSearchHighlightsweekQueryParams = {
   /**
    * @description Número da página para paginação (cada página retorna até 10 profissionais)
-   * @type integer
+   * @type integer | undefined
    */
-  page: number;
+  page?: number;
 };
 
 /**
@@ -82,6 +82,6 @@ export type GetSearchHighlightsweekQueryResponse = GetSearchHighlightsweek200;
 
 export type GetSearchHighlightsweekQuery = {
   Response: GetSearchHighlightsweek200;
-  PathParams: GetSearchHighlightsweekPathParams;
+  QueryParams: GetSearchHighlightsweekQueryParams;
   Errors: GetSearchHighlightsweek400 | GetSearchHighlightsweek500;
 };

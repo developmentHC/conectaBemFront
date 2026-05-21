@@ -17,48 +17,53 @@ import type {
 } from "@tanstack/react-query";
 import type {
   GetSpecialtiesQueryResponse,
+  GetSpecialtiesQueryParams,
+  GetSpecialties400,
   GetSpecialties500,
 } from "../types/GetSpecialties.ts";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 
-export const getSpecialtiesSuspenseQueryKey = () =>
-  [{ url: "/specialties" }] as const;
+export const getSpecialtiesSuspenseQueryKey = (
+  params?: GetSpecialtiesQueryParams,
+) => [{ url: "/specialties" }, ...(params ? [params] : [])] as const;
 
 export type GetSpecialtiesSuspenseQueryKey = ReturnType<
   typeof getSpecialtiesSuspenseQueryKey
 >;
 
 /**
- * @description Retorna a lista canônica de especialidades disponíveis no sistema. Essa lista é utilizada como fonte única (single source of truth) para cadastro e filtros.
- * @summary Lista todas as especialidades
+ * @description Retorna a lista canônica de especialidades disponíveis no sistema. Essa lista é utilizada como fonte única (single source of truth) para cadastro e filtros. A paginação é controlada pelo query param `page` (cada página retorna até 10 itens). Use `featured=true` para restringir aos destaques exibidos na Home.
+ * @summary Lista especialidades (paginada, com filtro de destaque)
  * {@link /specialties}
  */
 export async function getSpecialtiesSuspense(
+  params?: GetSpecialtiesQueryParams,
   config: Partial<RequestConfig> & { client?: Client } = {},
 ) {
   const { client: request = fetch, ...requestConfig } = config;
 
   const res = await request<
     GetSpecialtiesQueryResponse,
-    ResponseErrorConfig<GetSpecialties500>,
+    ResponseErrorConfig<GetSpecialties400 | GetSpecialties500>,
     unknown
-  >({ method: "GET", url: `/specialties`, ...requestConfig });
+  >({ method: "GET", url: `/specialties`, params, ...requestConfig });
   return res.data;
 }
 
 export function getSpecialtiesSuspenseQueryOptions(
+  params?: GetSpecialtiesQueryParams,
   config: Partial<RequestConfig> & { client?: Client } = {},
 ) {
-  const queryKey = getSpecialtiesSuspenseQueryKey();
+  const queryKey = getSpecialtiesSuspenseQueryKey(params);
   return queryOptions<
     GetSpecialtiesQueryResponse,
-    ResponseErrorConfig<GetSpecialties500>,
+    ResponseErrorConfig<GetSpecialties400 | GetSpecialties500>,
     GetSpecialtiesQueryResponse,
     typeof queryKey
   >({
     queryKey,
     queryFn: async ({ signal }) => {
-      return getSpecialtiesSuspense({
+      return getSpecialtiesSuspense(params, {
         ...config,
         signal: config.signal ?? signal,
       });
@@ -67,19 +72,20 @@ export function getSpecialtiesSuspenseQueryOptions(
 }
 
 /**
- * @description Retorna a lista canônica de especialidades disponíveis no sistema. Essa lista é utilizada como fonte única (single source of truth) para cadastro e filtros.
- * @summary Lista todas as especialidades
+ * @description Retorna a lista canônica de especialidades disponíveis no sistema. Essa lista é utilizada como fonte única (single source of truth) para cadastro e filtros. A paginação é controlada pelo query param `page` (cada página retorna até 10 itens). Use `featured=true` para restringir aos destaques exibidos na Home.
+ * @summary Lista especialidades (paginada, com filtro de destaque)
  * {@link /specialties}
  */
 export function useGetSpecialtiesSuspense<
   TData = GetSpecialtiesQueryResponse,
   TQueryKey extends QueryKey = GetSpecialtiesSuspenseQueryKey,
 >(
+  params?: GetSpecialtiesQueryParams,
   options: {
     query?: Partial<
       UseSuspenseQueryOptions<
         GetSpecialtiesQueryResponse,
-        ResponseErrorConfig<GetSpecialties500>,
+        ResponseErrorConfig<GetSpecialties400 | GetSpecialties500>,
         TData,
         TQueryKey
       >
@@ -90,18 +96,19 @@ export function useGetSpecialtiesSuspense<
   const { query: queryConfig = {}, client: config = {} } = options ?? {};
   const { client: queryClient, ...resolvedOptions } = queryConfig;
   const queryKey =
-    resolvedOptions?.queryKey ?? getSpecialtiesSuspenseQueryKey();
+    resolvedOptions?.queryKey ?? getSpecialtiesSuspenseQueryKey(params);
 
   const query = useSuspenseQuery(
     {
-      ...getSpecialtiesSuspenseQueryOptions(config),
+      ...getSpecialtiesSuspenseQueryOptions(params, config),
       ...resolvedOptions,
       queryKey,
     } as unknown as UseSuspenseQueryOptions,
     queryClient,
-  ) as UseSuspenseQueryResult<TData, ResponseErrorConfig<GetSpecialties500>> & {
-    queryKey: TQueryKey;
-  };
+  ) as UseSuspenseQueryResult<
+    TData,
+    ResponseErrorConfig<GetSpecialties400 | GetSpecialties500>
+  > & { queryKey: TQueryKey };
 
   query.queryKey = queryKey as TQueryKey;
 

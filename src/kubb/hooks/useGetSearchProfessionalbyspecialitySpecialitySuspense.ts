@@ -18,6 +18,7 @@ import type {
 import type {
   GetSearchProfessionalbyspecialitySpecialityQueryResponse,
   GetSearchProfessionalbyspecialitySpecialityPathParams,
+  GetSearchProfessionalbyspecialitySpecialityQueryParams,
   GetSearchProfessionalbyspecialitySpeciality400,
   GetSearchProfessionalbyspecialitySpeciality500,
 } from "../types/GetSearchProfessionalbyspecialitySpeciality.ts";
@@ -25,13 +26,14 @@ import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 
 export const getSearchProfessionalbyspecialitySpecialitySuspenseQueryKey = (
   speciality: GetSearchProfessionalbyspecialitySpecialityPathParams["speciality"],
-  page: GetSearchProfessionalbyspecialitySpecialityPathParams["page"],
+  params?: GetSearchProfessionalbyspecialitySpecialityQueryParams,
 ) =>
   [
     {
       url: "/search/professionalBySpeciality/:speciality",
       params: { speciality: speciality },
     },
+    ...(params ? [params] : []),
   ] as const;
 
 export type GetSearchProfessionalbyspecialitySpecialitySuspenseQueryKey =
@@ -46,7 +48,7 @@ export type GetSearchProfessionalbyspecialitySpecialitySuspenseQueryKey =
  */
 export async function getSearchProfessionalbyspecialitySpecialitySuspense(
   speciality: GetSearchProfessionalbyspecialitySpecialityPathParams["speciality"],
-  page: GetSearchProfessionalbyspecialitySpecialityPathParams["page"],
+  params?: GetSearchProfessionalbyspecialitySpecialityQueryParams,
   config: Partial<RequestConfig> & { client?: Client } = {},
 ) {
   const { client: request = fetch, ...requestConfig } = config;
@@ -61,6 +63,7 @@ export async function getSearchProfessionalbyspecialitySpecialitySuspense(
   >({
     method: "GET",
     url: `/search/professionalBySpeciality/${speciality}`,
+    params,
     ...requestConfig,
   });
   return res.data;
@@ -68,12 +71,12 @@ export async function getSearchProfessionalbyspecialitySpecialitySuspense(
 
 export function getSearchProfessionalbyspecialitySpecialitySuspenseQueryOptions(
   speciality: GetSearchProfessionalbyspecialitySpecialityPathParams["speciality"],
-  page: GetSearchProfessionalbyspecialitySpecialityPathParams["page"],
+  params?: GetSearchProfessionalbyspecialitySpecialityQueryParams,
   config: Partial<RequestConfig> & { client?: Client } = {},
 ) {
   const queryKey = getSearchProfessionalbyspecialitySpecialitySuspenseQueryKey(
     speciality,
-    page,
+    params,
   );
   return queryOptions<
     GetSearchProfessionalbyspecialitySpecialityQueryResponse,
@@ -84,12 +87,12 @@ export function getSearchProfessionalbyspecialitySpecialitySuspenseQueryOptions(
     GetSearchProfessionalbyspecialitySpecialityQueryResponse,
     typeof queryKey
   >({
-    enabled: !!(speciality && page),
+    enabled: !!speciality,
     queryKey,
     queryFn: async ({ signal }) => {
       return getSearchProfessionalbyspecialitySpecialitySuspense(
         speciality,
-        page,
+        params,
         { ...config, signal: config.signal ?? signal },
       );
     },
@@ -107,7 +110,7 @@ export function useGetSearchProfessionalbyspecialitySpecialitySuspense<
     GetSearchProfessionalbyspecialitySpecialitySuspenseQueryKey,
 >(
   speciality: GetSearchProfessionalbyspecialitySpecialityPathParams["speciality"],
-  page: GetSearchProfessionalbyspecialitySpecialityPathParams["page"],
+  params?: GetSearchProfessionalbyspecialitySpecialityQueryParams,
   options: {
     query?: Partial<
       UseSuspenseQueryOptions<
@@ -129,14 +132,14 @@ export function useGetSearchProfessionalbyspecialitySpecialitySuspense<
     resolvedOptions?.queryKey ??
     getSearchProfessionalbyspecialitySpecialitySuspenseQueryKey(
       speciality,
-      page,
+      params,
     );
 
   const query = useSuspenseQuery(
     {
       ...getSearchProfessionalbyspecialitySpecialitySuspenseQueryOptions(
         speciality,
-        page,
+        params,
         config,
       ),
       ...resolvedOptions,

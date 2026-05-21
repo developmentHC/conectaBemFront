@@ -3,448 +3,132 @@
  * Do not edit manually.
  */
 
+export const residentialAddressTypeEnum2 = {
+  Casa: "Casa",
+  Trabalho: "Trabalho",
+  Outros: "Outros",
+} as const;
+
+export type ResidentialAddressTypeEnum2Key =
+  (typeof residentialAddressTypeEnum2)[keyof typeof residentialAddressTypeEnum2];
+
 export type AddUserProfessional = {
   /**
-   * @type string | undefined
+   * @type string
    */
-  type?: string;
+  userId: string;
   /**
+   * @type string
+   */
+  name: string;
+  /**
+   * @type number
+   */
+  birthdayDate: number;
+  /**
+   * @type string
+   */
+  CNPJCPFProfissional: string;
+  /**
+   * @type object
+   */
+  residentialAddress: {
+    /**
+     * @type string
+     */
+    cep: string;
+    /**
+     * @type string
+     */
+    endereco: string;
+    /**
+     * @type string
+     */
+    bairro: string;
+    /**
+     * @description Opcional
+     * @type string
+     */
+    numero: string;
+    /**
+     * @type string
+     */
+    cidade: string;
+    /**
+     * @type string
+     */
+    estado: string;
+    /**
+     * @type string | undefined
+     */
+    complemento?: string;
+    /**
+     * @type string | undefined
+     */
+    name?: string;
+    /**
+     * @type string | undefined
+     */
+    type?: ResidentialAddressTypeEnum2Key;
+  };
+  /**
+   * @type object
+   */
+  clinic: {
+    /**
+     * @type string
+     */
+    name: string;
+    /**
+     * @type string
+     */
+    cep: string;
+    /**
+     * @type string
+     */
+    address: string;
+    /**
+     * @type string
+     */
+    neighborhood: string;
+    /**
+     * @type string
+     */
+    number: string;
+    /**
+     * @type string
+     */
+    city: string;
+    /**
+     * @type string
+     */
+    state: string;
+    /**
+     * @type string | undefined
+     */
+    addition?: string;
+  };
+  /**
+   * @type array
+   */
+  professionalSpecialties: string[];
+  /**
+   * @type array
+   */
+  professionalServicePreferences: string[];
+  /**
+   * @description Opcional
    * @type array | undefined
    */
-  required?: string[];
+  otherProfessionalSpecialties?: string[];
   /**
-   * @type object | undefined
+   * @description Preferências de acessibilidade do profissional (opcional)
+   * @type array | undefined
    */
-  properties?: {
-    /**
-     * @type object | undefined
-     */
-    userId?: {
-      /**
-       * @type string | undefined
-       */
-      type?: string;
-      /**
-       * @type string | undefined
-       */
-      example?: string;
-    };
-    /**
-     * @type object | undefined
-     */
-    name?: {
-      /**
-       * @type string | undefined
-       */
-      type?: string;
-      /**
-       * @type string | undefined
-       */
-      example?: string;
-    };
-    /**
-     * @type object | undefined
-     */
-    birthdayDate?: {
-      /**
-       * @type string | undefined
-       */
-      type?: string;
-      /**
-       * @type number | undefined
-       */
-      example?: number;
-    };
-    /**
-     * @type object | undefined
-     */
-    CNPJCPFProfissional?: {
-      /**
-       * @type string | undefined
-       */
-      type?: string;
-      /**
-       * @type string | undefined
-       */
-      example?: string;
-    };
-    /**
-     * @type object | undefined
-     */
-    residentialAddress?: {
-      /**
-       * @type string | undefined
-       */
-      type?: string;
-      /**
-       * @type array | undefined
-       */
-      required?: string[];
-      /**
-       * @type object | undefined
-       */
-      properties?: {
-        /**
-         * @type object | undefined
-         */
-        cep?: {
-          /**
-           * @type string | undefined
-           */
-          type?: string;
-          /**
-           * @type string | undefined
-           */
-          example?: string;
-        };
-        /**
-         * @type object | undefined
-         */
-        endereco?: {
-          /**
-           * @type string | undefined
-           */
-          type?: string;
-          /**
-           * @type string | undefined
-           */
-          example?: string;
-        };
-        /**
-         * @type object | undefined
-         */
-        bairro?: {
-          /**
-           * @type string | undefined
-           */
-          type?: string;
-          /**
-           * @type string | undefined
-           */
-          example?: string;
-        };
-        /**
-         * @type object | undefined
-         */
-        numero?: {
-          /**
-           * @type string | undefined
-           */
-          type?: string;
-          /**
-           * @type string | undefined
-           */
-          example?: string;
-          /**
-           * @type string | undefined
-           */
-          description?: string;
-        };
-        /**
-         * @type object | undefined
-         */
-        cidade?: {
-          /**
-           * @type string | undefined
-           */
-          type?: string;
-          /**
-           * @type string | undefined
-           */
-          example?: string;
-        };
-        /**
-         * @type object | undefined
-         */
-        estado?: {
-          /**
-           * @type string | undefined
-           */
-          type?: string;
-          /**
-           * @type string | undefined
-           */
-          example?: string;
-        };
-        /**
-         * @type object | undefined
-         */
-        complemento?: {
-          /**
-           * @type string | undefined
-           */
-          type?: string;
-          /**
-           * @type string | undefined
-           */
-          example?: string;
-        };
-        /**
-         * @type object | undefined
-         */
-        name?: {
-          /**
-           * @type string | undefined
-           */
-          type?: string;
-          /**
-           * @type string | undefined
-           */
-          example?: string;
-        };
-        /**
-         * @type object | undefined
-         */
-        type?: {
-          /**
-           * @type string | undefined
-           */
-          type?: string;
-          /**
-           * @type array | undefined
-           */
-          enum?: string[];
-          /**
-           * @type string | undefined
-           */
-          example?: string;
-        };
-      };
-    };
-    /**
-     * @type object | undefined
-     */
-    clinic?: {
-      /**
-       * @type string | undefined
-       */
-      type?: string;
-      /**
-       * @type array | undefined
-       */
-      required?: string[];
-      /**
-       * @type object | undefined
-       */
-      properties?: {
-        /**
-         * @type object | undefined
-         */
-        name?: {
-          /**
-           * @type string | undefined
-           */
-          type?: string;
-          /**
-           * @type string | undefined
-           */
-          example?: string;
-        };
-        /**
-         * @type object | undefined
-         */
-        cep?: {
-          /**
-           * @type string | undefined
-           */
-          type?: string;
-          /**
-           * @type string | undefined
-           */
-          example?: string;
-        };
-        /**
-         * @type object | undefined
-         */
-        address?: {
-          /**
-           * @type string | undefined
-           */
-          type?: string;
-          /**
-           * @type string | undefined
-           */
-          example?: string;
-        };
-        /**
-         * @type object | undefined
-         */
-        neighborhood?: {
-          /**
-           * @type string | undefined
-           */
-          type?: string;
-          /**
-           * @type string | undefined
-           */
-          example?: string;
-        };
-        /**
-         * @type object | undefined
-         */
-        number?: {
-          /**
-           * @type string | undefined
-           */
-          type?: string;
-          /**
-           * @type string | undefined
-           */
-          example?: string;
-        };
-        /**
-         * @type object | undefined
-         */
-        city?: {
-          /**
-           * @type string | undefined
-           */
-          type?: string;
-          /**
-           * @type string | undefined
-           */
-          example?: string;
-        };
-        /**
-         * @type object | undefined
-         */
-        state?: {
-          /**
-           * @type string | undefined
-           */
-          type?: string;
-          /**
-           * @type string | undefined
-           */
-          example?: string;
-        };
-        /**
-         * @type object | undefined
-         */
-        addition?: {
-          /**
-           * @type string | undefined
-           */
-          type?: string;
-          /**
-           * @type string | undefined
-           */
-          example?: string;
-        };
-      };
-    };
-    /**
-     * @type object | undefined
-     */
-    professionalSpecialties?: {
-      /**
-       * @type string | undefined
-       */
-      type?: string;
-      /**
-       * @type object | undefined
-       */
-      items?: {
-        /**
-         * @type string | undefined
-         */
-        type?: string;
-      };
-      /**
-       * @type array | undefined
-       */
-      example?: string[];
-    };
-    /**
-     * @type object | undefined
-     */
-    professionalServicePreferences?: {
-      /**
-       * @type string | undefined
-       */
-      type?: string;
-      /**
-       * @type object | undefined
-       */
-      items?: {
-        /**
-         * @type string | undefined
-         */
-        type?: string;
-      };
-      /**
-       * @type array | undefined
-       */
-      example?: string[];
-    };
-    /**
-     * @type object | undefined
-     */
-    otherProfessionalSpecialties?: {
-      /**
-       * @type string | undefined
-       */
-      type?: string;
-      /**
-       * @type object | undefined
-       */
-      items?: {
-        /**
-         * @type string | undefined
-         */
-        type?: string;
-      };
-      /**
-       * @type array | undefined
-       */
-      example?: string[];
-      /**
-       * @type string | undefined
-       */
-      description?: string;
-    };
-    /**
-     * @type object | undefined
-     */
-    accessibility?: {
-      /**
-       * @type string | undefined
-       */
-      type?: string;
-      /**
-       * @type object | undefined
-       */
-      items?: {
-        /**
-         * @type string | undefined
-         */
-        type?: string;
-      };
-      /**
-       * @type array | undefined
-       */
-      example?: string[];
-      /**
-       * @type string | undefined
-       */
-      description?: string;
-    };
-    /**
-     * @type object | undefined
-     */
-    profilePhoto?: {
-      /**
-       * @type string | undefined
-       */
-      type?: string;
-      /**
-       * @type string | undefined
-       */
-      example?: string;
-      /**
-       * @type string | undefined
-       */
-      description?: string;
-    };
-  };
+  accessibility?: string[];
+  /**
+   * @description URL da foto enviada anteriormente no upload
+   * @type string | undefined
+   */
+  profilePhoto?: string;
 };

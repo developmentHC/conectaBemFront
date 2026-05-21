@@ -18,6 +18,7 @@ import type {
 import type {
   GetSearchSearchbarTermsQueryResponse,
   GetSearchSearchbarTermsPathParams,
+  GetSearchSearchbarTermsQueryParams,
   GetSearchSearchbarTerms400,
   GetSearchSearchbarTerms500,
 } from "../types/GetSearchSearchbarTerms.ts";
@@ -25,8 +26,12 @@ import { queryOptions, useQuery } from "@tanstack/react-query";
 
 export const getSearchSearchbarTermsQueryKey = (
   terms: GetSearchSearchbarTermsPathParams["terms"],
-  page: GetSearchSearchbarTermsPathParams["page"],
-) => [{ url: "/search/searchBar/:terms", params: { terms: terms } }] as const;
+  params?: GetSearchSearchbarTermsQueryParams,
+) =>
+  [
+    { url: "/search/searchBar/:terms", params: { terms: terms } },
+    ...(params ? [params] : []),
+  ] as const;
 
 export type GetSearchSearchbarTermsQueryKey = ReturnType<
   typeof getSearchSearchbarTermsQueryKey
@@ -39,7 +44,7 @@ export type GetSearchSearchbarTermsQueryKey = ReturnType<
  */
 export async function getSearchSearchbarTerms(
   terms: GetSearchSearchbarTermsPathParams["terms"],
-  page: GetSearchSearchbarTermsPathParams["page"],
+  params?: GetSearchSearchbarTermsQueryParams,
   config: Partial<RequestConfig> & { client?: Client } = {},
 ) {
   const { client: request = fetch, ...requestConfig } = config;
@@ -50,16 +55,21 @@ export async function getSearchSearchbarTerms(
       GetSearchSearchbarTerms400 | GetSearchSearchbarTerms500
     >,
     unknown
-  >({ method: "GET", url: `/search/searchBar/${terms}`, ...requestConfig });
+  >({
+    method: "GET",
+    url: `/search/searchBar/${terms}`,
+    params,
+    ...requestConfig,
+  });
   return res.data;
 }
 
 export function getSearchSearchbarTermsQueryOptions(
   terms: GetSearchSearchbarTermsPathParams["terms"],
-  page: GetSearchSearchbarTermsPathParams["page"],
+  params?: GetSearchSearchbarTermsQueryParams,
   config: Partial<RequestConfig> & { client?: Client } = {},
 ) {
-  const queryKey = getSearchSearchbarTermsQueryKey(terms, page);
+  const queryKey = getSearchSearchbarTermsQueryKey(terms, params);
   return queryOptions<
     GetSearchSearchbarTermsQueryResponse,
     ResponseErrorConfig<
@@ -68,10 +78,10 @@ export function getSearchSearchbarTermsQueryOptions(
     GetSearchSearchbarTermsQueryResponse,
     typeof queryKey
   >({
-    enabled: !!(terms && page),
+    enabled: !!terms,
     queryKey,
     queryFn: async ({ signal }) => {
-      return getSearchSearchbarTerms(terms, page, {
+      return getSearchSearchbarTerms(terms, params, {
         ...config,
         signal: config.signal ?? signal,
       });
@@ -90,7 +100,7 @@ export function useGetSearchSearchbarTerms<
   TQueryKey extends QueryKey = GetSearchSearchbarTermsQueryKey,
 >(
   terms: GetSearchSearchbarTermsPathParams["terms"],
-  page: GetSearchSearchbarTermsPathParams["page"],
+  params?: GetSearchSearchbarTermsQueryParams,
   options: {
     query?: Partial<
       QueryObserverOptions<
@@ -109,11 +119,11 @@ export function useGetSearchSearchbarTerms<
   const { query: queryConfig = {}, client: config = {} } = options ?? {};
   const { client: queryClient, ...resolvedOptions } = queryConfig;
   const queryKey =
-    resolvedOptions?.queryKey ?? getSearchSearchbarTermsQueryKey(terms, page);
+    resolvedOptions?.queryKey ?? getSearchSearchbarTermsQueryKey(terms, params);
 
   const query = useQuery(
     {
-      ...getSearchSearchbarTermsQueryOptions(terms, page, config),
+      ...getSearchSearchbarTermsQueryOptions(terms, params, config),
       ...resolvedOptions,
       queryKey,
     } as unknown as QueryObserverOptions,

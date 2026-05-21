@@ -7,149 +7,42 @@ export type WebhookMessageCreated = {
   /**
    * @type string | undefined
    */
+  eventId?: string;
+  /**
+   * @type string | undefined
+   */
   type?: string;
+  /**
+   * @type string | undefined, date-time
+   */
+  occurredAt?: string;
   /**
    * @type object | undefined
    */
-  properties?: {
+  data?: {
     /**
-     * @type object | undefined
+     * @type string | undefined
      */
-    eventId?: {
-      /**
-       * @type string | undefined
-       */
-      type?: string;
-      /**
-       * @type string | undefined
-       */
-      example?: string;
-    };
+    messageId?: string;
     /**
-     * @type object | undefined
+     * @type string | undefined
      */
-    type?: {
-      /**
-       * @type string | undefined
-       */
-      type?: string;
-      /**
-       * @type string | undefined
-       */
-      example?: string;
-    };
+    conversation?: string;
     /**
-     * @type object | undefined
+     * @type string | undefined
      */
-    occurredAt?: {
-      /**
-       * @type string | undefined
-       */
-      type?: string;
-      /**
-       * @type string | undefined
-       */
-      format?: string;
-      /**
-       * @type string | undefined
-       */
-      example?: string;
-    };
+    sender?: string;
     /**
-     * @type object | undefined
+     * @type string | undefined
      */
-    data?: {
-      /**
-       * @type string | undefined
-       */
-      type?: string;
-      /**
-       * @type object | undefined
-       */
-      properties?: {
-        /**
-         * @type object | undefined
-         */
-        messageId?: {
-          /**
-           * @type string | undefined
-           */
-          type?: string;
-          /**
-           * @type string | undefined
-           */
-          example?: string;
-        };
-        /**
-         * @type object | undefined
-         */
-        conversation?: {
-          /**
-           * @type string | undefined
-           */
-          type?: string;
-          /**
-           * @type string | undefined
-           */
-          example?: string;
-        };
-        /**
-         * @type object | undefined
-         */
-        sender?: {
-          /**
-           * @type string | undefined
-           */
-          type?: string;
-          /**
-           * @type string | undefined
-           */
-          example?: string;
-        };
-        /**
-         * @type object | undefined
-         */
-        senderName?: {
-          /**
-           * @type string | undefined
-           */
-          type?: string;
-          /**
-           * @type string | undefined
-           */
-          example?: string;
-        };
-        /**
-         * @type object | undefined
-         */
-        content?: {
-          /**
-           * @type string | undefined
-           */
-          type?: string;
-          /**
-           * @type string | undefined
-           */
-          example?: string;
-        };
-        /**
-         * @type object | undefined
-         */
-        createdAt?: {
-          /**
-           * @type string | undefined
-           */
-          type?: string;
-          /**
-           * @type string | undefined
-           */
-          format?: string;
-          /**
-           * @type string | undefined
-           */
-          example?: string;
-        };
-      };
-    };
+    senderName?: string;
+    /**
+     * @type string | undefined
+     */
+    content?: string;
+    /**
+     * @type string | undefined, date-time
+     */
+    createdAt?: string;
   };
 };

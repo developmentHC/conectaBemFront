@@ -3,6 +3,14 @@
  * Do not edit manually.
  */
 
+export type PostAuthUploadphotoHeaderParams = {
+  /**
+   * @description Token JWT do usuário — formato: Bearer <token>
+   * @type string
+   */
+  authorization: string;
+};
+
 /**
  * @description Foto enviada com sucesso
  */
@@ -21,6 +29,26 @@ export type PostAuthUploadphoto201 = {
  * @description Requisição inválida
  */
 export type PostAuthUploadphoto400 = {
+  /**
+   * @type string | undefined
+   */
+  error?: string;
+};
+
+/**
+ * @description Não autorizado
+ */
+export type PostAuthUploadphoto401 = any;
+
+/**
+ * @description Acesso Negado
+ */
+export type PostAuthUploadphoto403 = any;
+
+/**
+ * @description Usuário não encontrado
+ */
+export type PostAuthUploadphoto404 = {
   /**
    * @type string | undefined
    */
@@ -51,8 +79,12 @@ export type PostAuthUploadphotoMutationResponse = PostAuthUploadphoto201;
 
 export type PostAuthUploadphotoMutation = {
   Response: PostAuthUploadphoto201;
+  HeaderParams: PostAuthUploadphotoHeaderParams;
   Errors:
     | PostAuthUploadphoto400
+    | PostAuthUploadphoto401
+    | PostAuthUploadphoto403
+    | PostAuthUploadphoto404
     | PostAuthUploadphoto422
     | PostAuthUploadphoto500;
 };

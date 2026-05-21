@@ -1,7 +1,7 @@
 import { Dialog, DialogContent } from "@mui/material";
 import { useState } from "react";
-import { specializationOptions } from "@/components/MedicalSpecialization/options";
 import { defaultFilters } from "@/hooks/useFilters";
+import { useGetSpecialties } from "@/kubb/hooks/useGetSpecialties";
 import type { FilterDialogProps, FiltersState } from "./types";
 
 export const FilterDialogDesktop = ({
@@ -22,6 +22,8 @@ export const FilterDialogDesktop = ({
   const serviceOptions = ["LGBTQIAP+ Friendly", "Pet Friendly", "Aceita Wellhub"];
 
   const [filters, setFilters] = useState<FiltersState>(initialFilters ?? defaultFilters);
+  const { data } = useGetSpecialties();
+  const specialties = data?.specialties;
 
   const toggleChip = (key: keyof FiltersState, value: string) => {
     setFilters((prev) => {
@@ -71,19 +73,21 @@ export const FilterDialogDesktop = ({
             <section className="flex flex-col gap-3">
               <h2 className="font-semibold text-base text-black">Especialidades</h2>
               <div className="flex flex-wrap gap-2">
-                {specializationOptions.map((spec) => {
-                  const active = filters.specialties.includes(spec.name);
-                  return (
-                    <button
-                      key={spec.id}
-                      className={`${baseChipClass} ${active ? activeChipClass : inactiveChipClass}`}
-                      type="button"
-                      onClick={() => toggleChip("specialties", spec.name)}
-                    >
-                      {spec.name}
-                    </button>
-                  );
-                })}
+                {specialties
+                  ?.filter((s): s is { id?: string; name: string } => s.name !== undefined)
+                  .map((spec) => {
+                    const active = filters.specialties.includes(spec.name);
+                    return (
+                      <button
+                        key={spec.id}
+                        className={`${baseChipClass} ${active ? activeChipClass : inactiveChipClass}`}
+                        type="button"
+                        onClick={() => toggleChip("specialties", spec.name)}
+                      >
+                        {spec.name}
+                      </button>
+                    );
+                  })}
               </div>
             </section>
 

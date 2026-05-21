@@ -9,11 +9,14 @@ export type GetSearchProfessionalbyspecialitySpecialityPathParams = {
    * @type string
    */
   speciality: string;
+};
+
+export type GetSearchProfessionalbyspecialitySpecialityQueryParams = {
   /**
    * @description Número da página para paginação (cada página retorna até 10 profissionais)
-   * @type integer
+   * @type integer | undefined
    */
-  page: number;
+  page?: number;
 };
 
 /**
@@ -93,6 +96,7 @@ export type GetSearchProfessionalbyspecialitySpecialityQueryResponse =
 export type GetSearchProfessionalbyspecialitySpecialityQuery = {
   Response: GetSearchProfessionalbyspecialitySpeciality200;
   PathParams: GetSearchProfessionalbyspecialitySpecialityPathParams;
+  QueryParams: GetSearchProfessionalbyspecialitySpecialityQueryParams;
   Errors:
     | GetSearchProfessionalbyspecialitySpeciality400
     | GetSearchProfessionalbyspecialitySpeciality500;

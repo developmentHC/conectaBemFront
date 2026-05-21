@@ -36,8 +36,14 @@ export type { PostMessagesMutationKey } from "./hooks/usePostMessages.ts";
 export type { PostWebhooksMessageCreatedMutationKey } from "./hooks/usePostWebhooksMessageCreated.ts";
 export type { PutActiveAddressMutationKey } from "./hooks/usePutActiveAddress.ts";
 export type { PutAddressMutationKey } from "./hooks/usePutAddress.ts";
-export type { AddUserPatient } from "./types/AddUserPatient.ts";
-export type { AddUserProfessional } from "./types/AddUserProfessional.ts";
+export type {
+  AddUserPatient,
+  ResidentialAddressTypeEnumKey,
+} from "./types/AddUserPatient.ts";
+export type {
+  AddUserProfessional,
+  ResidentialAddressTypeEnum2Key,
+} from "./types/AddUserProfessional.ts";
 export type { Appointment } from "./types/Appointment.ts";
 export type {
   GetAddress200,
@@ -93,8 +99,8 @@ export type {
   GetSearchHighlightsweek200,
   GetSearchHighlightsweek400,
   GetSearchHighlightsweek500,
-  GetSearchHighlightsweekPathParams,
   GetSearchHighlightsweekQuery,
+  GetSearchHighlightsweekQueryParams,
   GetSearchHighlightsweekQueryResponse,
 } from "./types/GetSearchHighlightsweek.ts";
 export type {
@@ -112,6 +118,7 @@ export type {
   GetSearchProfessionalbyspecialitySpeciality500,
   GetSearchProfessionalbyspecialitySpecialityPathParams,
   GetSearchProfessionalbyspecialitySpecialityQuery,
+  GetSearchProfessionalbyspecialitySpecialityQueryParams,
   GetSearchProfessionalbyspecialitySpecialityQueryResponse,
 } from "./types/GetSearchProfessionalbyspecialitySpeciality.ts";
 export type {
@@ -127,12 +134,15 @@ export type {
   GetSearchSearchbarTerms500,
   GetSearchSearchbarTermsPathParams,
   GetSearchSearchbarTermsQuery,
+  GetSearchSearchbarTermsQueryParams,
   GetSearchSearchbarTermsQueryResponse,
 } from "./types/GetSearchSearchbarTerms.ts";
 export type {
   GetSpecialties200,
+  GetSpecialties400,
   GetSpecialties500,
   GetSpecialtiesQuery,
+  GetSpecialtiesQueryParams,
   GetSpecialtiesQueryResponse,
 } from "./types/GetSpecialties.ts";
 export type {
@@ -239,8 +249,12 @@ export type {
 export type {
   PostAuthUploadphoto201,
   PostAuthUploadphoto400,
+  PostAuthUploadphoto401,
+  PostAuthUploadphoto403,
+  PostAuthUploadphoto404,
   PostAuthUploadphoto422,
   PostAuthUploadphoto500,
+  PostAuthUploadphotoHeaderParams,
   PostAuthUploadphotoMutation,
   PostAuthUploadphotoMutationResponse,
 } from "./types/PostAuthUploadphoto.ts";
@@ -442,4 +456,6 @@ export { putAddress } from "./hooks/usePutAddress.ts";
 export { putAddressMutationKey } from "./hooks/usePutAddress.ts";
 export { putAddressMutationOptions } from "./hooks/usePutAddress.ts";
 export { usePutAddress } from "./hooks/usePutAddress.ts";
+export { residentialAddressTypeEnum } from "./types/AddUserPatient.ts";
+export { residentialAddressTypeEnum2 } from "./types/AddUserProfessional.ts";
 export { putAddressMutationRequestTypeEnum } from "./types/PutAddress.ts";

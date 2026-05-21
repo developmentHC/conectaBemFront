@@ -17,27 +17,27 @@ import type {
 } from "@tanstack/react-query";
 import type {
   GetSearchHighlightsweekQueryResponse,
-  GetSearchHighlightsweekPathParams,
+  GetSearchHighlightsweekQueryParams,
   GetSearchHighlightsweek400,
   GetSearchHighlightsweek500,
 } from "../types/GetSearchHighlightsweek.ts";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 
 export const getSearchHighlightsweekSuspenseQueryKey = (
-  page: GetSearchHighlightsweekPathParams["page"],
-) => [{ url: "/search/highlightsWeek" }] as const;
+  params?: GetSearchHighlightsweekQueryParams,
+) => [{ url: "/search/highlightsWeek" }, ...(params ? [params] : [])] as const;
 
 export type GetSearchHighlightsweekSuspenseQueryKey = ReturnType<
   typeof getSearchHighlightsweekSuspenseQueryKey
 >;
 
 /**
- * @description Retorna uma lista paginada de até 10 profissionais que são destaques da semana. A paginação é controlada pelo parâmetro `page` na rota.
+ * @description Retorna uma lista paginada de até 10 profissionais que são destaques da semana. A paginação é controlada pelo query param `page`.
  * @summary Pesquisa os profissionais destaques da semana
  * {@link /search/highlightsWeek}
  */
 export async function getSearchHighlightsweekSuspense(
-  page: GetSearchHighlightsweekPathParams["page"],
+  params?: GetSearchHighlightsweekQueryParams,
   config: Partial<RequestConfig> & { client?: Client } = {},
 ) {
   const { client: request = fetch, ...requestConfig } = config;
@@ -48,15 +48,15 @@ export async function getSearchHighlightsweekSuspense(
       GetSearchHighlightsweek400 | GetSearchHighlightsweek500
     >,
     unknown
-  >({ method: "GET", url: `/search/highlightsWeek`, ...requestConfig });
+  >({ method: "GET", url: `/search/highlightsWeek`, params, ...requestConfig });
   return res.data;
 }
 
 export function getSearchHighlightsweekSuspenseQueryOptions(
-  page: GetSearchHighlightsweekPathParams["page"],
+  params?: GetSearchHighlightsweekQueryParams,
   config: Partial<RequestConfig> & { client?: Client } = {},
 ) {
-  const queryKey = getSearchHighlightsweekSuspenseQueryKey(page);
+  const queryKey = getSearchHighlightsweekSuspenseQueryKey(params);
   return queryOptions<
     GetSearchHighlightsweekQueryResponse,
     ResponseErrorConfig<
@@ -65,10 +65,9 @@ export function getSearchHighlightsweekSuspenseQueryOptions(
     GetSearchHighlightsweekQueryResponse,
     typeof queryKey
   >({
-    enabled: !!page,
     queryKey,
     queryFn: async ({ signal }) => {
-      return getSearchHighlightsweekSuspense(page, {
+      return getSearchHighlightsweekSuspense(params, {
         ...config,
         signal: config.signal ?? signal,
       });
@@ -77,7 +76,7 @@ export function getSearchHighlightsweekSuspenseQueryOptions(
 }
 
 /**
- * @description Retorna uma lista paginada de até 10 profissionais que são destaques da semana. A paginação é controlada pelo parâmetro `page` na rota.
+ * @description Retorna uma lista paginada de até 10 profissionais que são destaques da semana. A paginação é controlada pelo query param `page`.
  * @summary Pesquisa os profissionais destaques da semana
  * {@link /search/highlightsWeek}
  */
@@ -85,7 +84,7 @@ export function useGetSearchHighlightsweekSuspense<
   TData = GetSearchHighlightsweekQueryResponse,
   TQueryKey extends QueryKey = GetSearchHighlightsweekSuspenseQueryKey,
 >(
-  page: GetSearchHighlightsweekPathParams["page"],
+  params?: GetSearchHighlightsweekQueryParams,
   options: {
     query?: Partial<
       UseSuspenseQueryOptions<
@@ -103,11 +102,12 @@ export function useGetSearchHighlightsweekSuspense<
   const { query: queryConfig = {}, client: config = {} } = options ?? {};
   const { client: queryClient, ...resolvedOptions } = queryConfig;
   const queryKey =
-    resolvedOptions?.queryKey ?? getSearchHighlightsweekSuspenseQueryKey(page);
+    resolvedOptions?.queryKey ??
+    getSearchHighlightsweekSuspenseQueryKey(params);
 
   const query = useSuspenseQuery(
     {
-      ...getSearchHighlightsweekSuspenseQueryOptions(page, config),
+      ...getSearchHighlightsweekSuspenseQueryOptions(params, config),
       ...resolvedOptions,
       queryKey,
     } as unknown as UseSuspenseQueryOptions,

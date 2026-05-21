@@ -3,19 +3,59 @@
  * Do not edit manually.
  */
 
+export type GetSpecialtiesQueryParams = {
+  /**
+   * @description Número da página para paginação (cada página retorna até 10 especialidades)
+   * @type integer | undefined
+   */
+  page?: number;
+  /**
+   * @description Quando true, retorna apenas as especialidades marcadas como destaque
+   * @type boolean | undefined
+   */
+  featured?: boolean;
+};
+
 /**
  * @description Lista de especialidades retornada com sucesso
  */
 export type GetSpecialties200 = {
   /**
-   * @type string | undefined
+   * @type array | undefined
    */
-  id?: string;
+  specialties?: {
+    /**
+     * @type string | undefined
+     */
+    id?: string;
+    /**
+     * @type string | undefined
+     */
+    name?: string;
+    /**
+     * @type boolean | undefined
+     */
+    featured?: boolean;
+  }[];
+  /**
+   * @type number | undefined
+   */
+  page?: number;
+  /**
+   * @type number | undefined
+   */
+  pageCount?: number;
+};
+
+/**
+ * @description Página inválida
+ */
+export type GetSpecialties400 = {
   /**
    * @type string | undefined
    */
-  name?: string;
-}[];
+  error?: string;
+};
 
 /**
  * @description Erro interno no servidor
@@ -31,5 +71,6 @@ export type GetSpecialtiesQueryResponse = GetSpecialties200;
 
 export type GetSpecialtiesQuery = {
   Response: GetSpecialties200;
-  Errors: GetSpecialties500;
+  QueryParams: GetSpecialtiesQueryParams;
+  Errors: GetSpecialties400 | GetSpecialties500;
 };

@@ -17,27 +17,27 @@ import type {
 } from "@tanstack/react-query";
 import type {
   GetSearchHighlightsweekQueryResponse,
-  GetSearchHighlightsweekPathParams,
+  GetSearchHighlightsweekQueryParams,
   GetSearchHighlightsweek400,
   GetSearchHighlightsweek500,
 } from "../types/GetSearchHighlightsweek.ts";
 import { queryOptions, useQuery } from "@tanstack/react-query";
 
 export const getSearchHighlightsweekQueryKey = (
-  page: GetSearchHighlightsweekPathParams["page"],
-) => [{ url: "/search/highlightsWeek" }] as const;
+  params?: GetSearchHighlightsweekQueryParams,
+) => [{ url: "/search/highlightsWeek" }, ...(params ? [params] : [])] as const;
 
 export type GetSearchHighlightsweekQueryKey = ReturnType<
   typeof getSearchHighlightsweekQueryKey
 >;
 
 /**
- * @description Retorna uma lista paginada de até 10 profissionais que são destaques da semana. A paginação é controlada pelo parâmetro `page` na rota.
+ * @description Retorna uma lista paginada de até 10 profissionais que são destaques da semana. A paginação é controlada pelo query param `page`.
  * @summary Pesquisa os profissionais destaques da semana
  * {@link /search/highlightsWeek}
  */
 export async function getSearchHighlightsweek(
-  page: GetSearchHighlightsweekPathParams["page"],
+  params?: GetSearchHighlightsweekQueryParams,
   config: Partial<RequestConfig> & { client?: Client } = {},
 ) {
   const { client: request = fetch, ...requestConfig } = config;
@@ -48,15 +48,15 @@ export async function getSearchHighlightsweek(
       GetSearchHighlightsweek400 | GetSearchHighlightsweek500
     >,
     unknown
-  >({ method: "GET", url: `/search/highlightsWeek`, ...requestConfig });
+  >({ method: "GET", url: `/search/highlightsWeek`, params, ...requestConfig });
   return res.data;
 }
 
 export function getSearchHighlightsweekQueryOptions(
-  page: GetSearchHighlightsweekPathParams["page"],
+  params?: GetSearchHighlightsweekQueryParams,
   config: Partial<RequestConfig> & { client?: Client } = {},
 ) {
-  const queryKey = getSearchHighlightsweekQueryKey(page);
+  const queryKey = getSearchHighlightsweekQueryKey(params);
   return queryOptions<
     GetSearchHighlightsweekQueryResponse,
     ResponseErrorConfig<
@@ -65,10 +65,9 @@ export function getSearchHighlightsweekQueryOptions(
     GetSearchHighlightsweekQueryResponse,
     typeof queryKey
   >({
-    enabled: !!page,
     queryKey,
     queryFn: async ({ signal }) => {
-      return getSearchHighlightsweek(page, {
+      return getSearchHighlightsweek(params, {
         ...config,
         signal: config.signal ?? signal,
       });
@@ -77,7 +76,7 @@ export function getSearchHighlightsweekQueryOptions(
 }
 
 /**
- * @description Retorna uma lista paginada de até 10 profissionais que são destaques da semana. A paginação é controlada pelo parâmetro `page` na rota.
+ * @description Retorna uma lista paginada de até 10 profissionais que são destaques da semana. A paginação é controlada pelo query param `page`.
  * @summary Pesquisa os profissionais destaques da semana
  * {@link /search/highlightsWeek}
  */
@@ -86,7 +85,7 @@ export function useGetSearchHighlightsweek<
   TQueryData = GetSearchHighlightsweekQueryResponse,
   TQueryKey extends QueryKey = GetSearchHighlightsweekQueryKey,
 >(
-  page: GetSearchHighlightsweekPathParams["page"],
+  params?: GetSearchHighlightsweekQueryParams,
   options: {
     query?: Partial<
       QueryObserverOptions<
@@ -105,11 +104,11 @@ export function useGetSearchHighlightsweek<
   const { query: queryConfig = {}, client: config = {} } = options ?? {};
   const { client: queryClient, ...resolvedOptions } = queryConfig;
   const queryKey =
-    resolvedOptions?.queryKey ?? getSearchHighlightsweekQueryKey(page);
+    resolvedOptions?.queryKey ?? getSearchHighlightsweekQueryKey(params);
 
   const query = useQuery(
     {
-      ...getSearchHighlightsweekQueryOptions(page, config),
+      ...getSearchHighlightsweekQueryOptions(params, config),
       ...resolvedOptions,
       queryKey,
     } as unknown as QueryObserverOptions,
