@@ -2,7 +2,7 @@ import { FormMultiStep } from "@/components/FormMultiStep";
 import { useProfissionalRegisterStore } from "./useProfissionalRegisterStore";
 
 export const Description = () => {
-  const { step } = useProfissionalRegisterStore();
+  const { step, name } = useProfissionalRegisterStore();
 
   return (
     <>
@@ -17,6 +17,12 @@ export const Description = () => {
         <FormMultiStep.Description>
           Aqui você irá inserir suas informações iniciais de atendimento. Para cadastrar todos os
           seus dados acesse: perfil &gt; editar informações.
+        </FormMultiStep.Description>
+      )}
+
+      {step === "complete_profile" && (
+        <FormMultiStep.Description>
+          Estamos felizes em ter você aqui, {name}. Vamos iniciar sua jornada?
         </FormMultiStep.Description>
       )}
     </>
